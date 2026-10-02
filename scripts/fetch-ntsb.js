@@ -94,27 +94,72 @@ async function fetchNTSBData() {
   const zip = new AdmZip(buffer);
   const entries = zip.getEntries();
 
-  console.log(`Received ${entries.length} files in ZIP`);
-
   const dataEntry = entries.find((e) => e.entryName.endsWith('.json'));
   if (!dataEntry) {
     throw new Error(`No JSON file found. Available: ${entries.map((e) => e.entryName).join(', ')}`);
   }
 
   const raw = JSON.parse(dataEntry.getData().toString('utf8'));
-  console.log(`Top-level type: ${Array.isArray(raw) ? 'Array' : typeof raw}`);
-  console.log(`Record count: ${Array.isArray(raw) ? raw.length : 'N/A'}`);
+  console.log(`Received ${raw.length} total records from NTSB`);
 
-  // DIAGNOSTIC: Log the first record so we can see its structure
-  if (Array.isArray(raw) && raw.length > 0) {
-    console.log('=== FIRST RECORD STRUCTURE ===');
-    console.log(JSON.stringify(raw[0], null, 2).slice(0, 3000));
-    console.log('=== END FIRST RECORD ===');
+  const sqlStatements = [];
+  let skippedNoNNumber = 0;
+  let processed = 0;
+
+  for (const record of raw) {
+    // Get all vehicles for this event
+    const vehicles = record.cm_vehicles || [];
+
+    // Find US-registered aircraft (N-numbers) in any vehicle
+    const usVehicles = vehicles.filter((v) => {
+      const reg = (v.registrationNumber || '').toString().toUpperCase().trim();
+      return reg.startsWith('N') && reg.length >= 2 && reg.length <= 6;
+    });
+
+    if (usVehicles.length === 0) {
+      skippedNoNNumber++;
+      continue;
+    }
+
+    // Extract event-level fields
+    const eventDate = (record.cm_eventDate || '').toString().slice(0, 10);
+    const city = record.cm_city || '';
+    const state = record.cm_state || '';
+    const country = record.cm_country || '';
+    const location = [city, state, country].filter(Boolean).join(', ');
+    const severity = record.cm_highestInjury || 'Unknown';
+    const eventType = record.cm_eventType === 'ACC' ? 'Accident' : 'Incident';
+    const ntsbNum = record.cm_ntsbNum || '';
+
+    // Insert one row per US-registered vehicle
+    for (const vehicle of usVehicles) {
+      const nNumber = vehicle.registrationNumber.toUpperCase().trim();
+      const make = vehicle.make || '';
+      const model = vehicle.model || '';
+      const summary = `${eventType} — ${make} ${model} (NTSB ${ntsbNum})`.trim();
+
+      const esc = (s) => (s || '').toString().replace(/'/g, "''");
+
+      sqlStatements.push(
+        `INSERT OR REPLACE INTO accidents (n_number, event_date, location, severity, summary) VALUES ('${esc(nNumber)}', '${esc(eventDate)}', '${esc(location)}', '${esc(severity)}', '${esc(summary)}');`
+      );
+      processed++;
+    }
   }
 
-  // For now, exit without writing SQL until we know the schema
-  fs.writeFileSync('ntsb-import.sql', '-- Diagnostic run: no data imported yet\n');
-  console.log('Diagnostic complete. Review the first record structure above.');
+  console.log(`Total records: ${raw.length}`);
+  console.log(`Skipped (no US N-number): ${skippedNoNNumber}`);
+  console.log(`SQL statements generated: ${processed}`);
+
+  fs.writeFileSync('ntsb-import.sql', sqlStatements.join('\n'));
+  console.log(`Wrote ${sqlStatements.length} SQL statements to ntsb-import.sql`);
+
+  // Show a sample statement for verification
+  if (sqlStatements.length > 0) {
+    console.log('=== SAMPLE SQL ===');
+    console.log(sqlStatements[0]);
+    console.log('=== END SAMPLE ===');
+  }
 }
 
 fetchNTSBData().catch((err) => {
