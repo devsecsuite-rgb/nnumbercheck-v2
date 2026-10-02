@@ -1,46 +1,30 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { Suspense } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import Link from 'next/link';
 
-// Mock data — will be replaced with real FAA/NTSB data
-const MOCK_DATA: Record<string, {
-  nNumber: string;
+type Accident = {
+  id: number;
+  n_number: string;
+  event_date: string;
+  location: string;
+  severity: string;
+  summary: string;
+};
+
+type Aircraft = {
+  n_number: string;
+  serial_number: string | null;
   make: string;
   model: string;
-  year: number;
-  serialNumber: string;
-  ownerCity: string;
-  ownerState: string;
-  registrationStatus: string;
-  airworthinessDate: string;
-  accidents: Array<{
-    date: string;
-    location: string;
-    severity: string;
-    summary: string;
-  }>;
-}> = {
-  N12345: {
-    nNumber: 'N12345',
-    make: 'Cessna',
-    model: '172S Skyhawk',
-    year: 2005,
-    serialNumber: '172S98765',
-    ownerCity: 'Wichita',
-    ownerState: 'KS',
-    registrationStatus: 'Valid',
-    airworthinessDate: '2005-08-15',
-    accidents: [
-      {
-        date: '2018-06-12',
-        location: 'Denver, CO',
-        severity: 'Minor',
-        summary: 'Hard landing resulting in propeller strike. No injuries reported.',
-      },
-    ],
-  },
+  year: number | null;
+  owner_name: string | null;
+  owner_city: string | null;
+  owner_state: string | null;
+  registration_status: string;
+  airworthiness_date: string | null;
+  accidents: Accident[];
 };
 
 function Header() {
@@ -67,6 +51,38 @@ function LookupResult() {
   const nNumber = rawNumber.toUpperCase().startsWith('N')
     ? rawNumber.toUpperCase()
     : 'N' + rawNumber.toUpperCase();
+
+  const [data, setData] = useState<Aircraft | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
+
+  useEffect(() => {
+    if (!rawNumber) {
+      setLoading(false);
+      return;
+    }
+
+    let cancelled = false;
+    async function fetchData() {
+      try {
+        const res = await fetch(`/api/aircraft/${nNumber}`);
+        if (!res.ok) {
+          if (!cancelled) setNotFound(true);
+          return;
+        }
+        const json = await res.json();
+        if (!cancelled) setData(json);
+      } catch {
+        if (!cancelled) setNotFound(true);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+    fetchData();
+    return () => {
+      cancelled = true;
+    };
+  }, [nNumber, rawNumber]);
 
   // No number provided
   if (!rawNumber) {
@@ -102,9 +118,6 @@ function LookupResult() {
           <p className="mt-4 text-slate-600">
             &ldquo;{rawNumber}&rdquo; doesn&apos;t look like a valid US N-number.
           </p>
-          <p className="mt-2 text-sm text-slate-500">
-            N-numbers look like N12345 or N1234A.
-          </p>
           <Link
             href="/"
             className="mt-8 inline-block bg-sky-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-sky-700 transition"
@@ -116,76 +129,104 @@ function LookupResult() {
     );
   }
 
-  const data = MOCK_DATA[nNumber];
+  // Loading
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white">
+        <Header />
+        <div className="max-w-2xl mx-auto px-6 py-20 text-center">
+          <p className="text-slate-500">Looking up {nNumber}...</p>
+        </div>
+      </div>
+    );
+  }
 
-  // Valid format but not in our demo data
-  if (!data) {
+  // Not found
+  if (notFound || !data) {
     return (
       <div className="min-h-screen bg-white">
         <Header />
         <div className="max-w-2xl mx-auto px-6 py-20 text-center">
           <h1 className="text-3xl font-bold font-mono">{nNumber}</h1>
           <p className="mt-4 text-slate-600">
-            We don&apos;t have data for this aircraft in our demo database yet.
+            We don&apos;t have data for this aircraft in our database yet.
           </p>
           <p className="mt-2 text-sm text-slate-500">
-            In the full version, we&apos;ll pull real FAA and NTSB records for
-            any US-registered aircraft.
+            Our database currently includes aircraft with recent NTSB accident
+            records.
           </p>
           <Link
             href="/"
             className="mt-8 inline-block bg-sky-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-sky-700 transition"
           >
-            Try a demo N-number
+            Try another N-number
           </Link>
-          <p className="mt-4 text-sm text-slate-500">
-            Try:{' '}
-            <span className="font-mono font-semibold text-slate-900">
-              N12345
-            </span>
+          <p className="mt-6 text-sm text-slate-500">
+            Demo N-numbers to try:{' '}
+            <Link
+              href="/n?number=N69009"
+              className="font-mono font-semibold text-sky-600 hover:underline"
+            >
+              N69009
+            </Link>
+            {' · '}
+            <Link
+              href="/n?number=N1003"
+              className="font-mono font-semibold text-sky-600 hover:underline"
+            >
+              N1003
+            </Link>
           </p>
         </div>
       </div>
     );
   }
 
-  // Full result
+  // Success — full result
+  const hasAccidents = data.accidents && data.accidents.length > 0;
+
   return (
     <div className="min-h-screen bg-white">
       <Header />
-
-      {/* Demo banner */}
-      <div className="bg-amber-50 border-b border-amber-200">
-        <div className="max-w-6xl mx-auto px-6 py-3 text-sm text-amber-800 text-center">
-          ⚠️ Demo data — real FAA and NTSB records coming soon.
-        </div>
-      </div>
 
       {/* Aircraft header */}
       <section className="bg-gradient-to-b from-sky-50 to-white border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-6 py-12">
           <div className="flex items-baseline gap-4 flex-wrap">
             <h1 className="text-4xl md:text-5xl font-bold font-mono">
-              {data.nNumber}
+              {data.n_number}
             </h1>
-            <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">
-              {data.registrationStatus} Registration
+            <span
+              className={`px-3 py-1 rounded-full text-sm font-medium ${
+                data.registration_status === 'Valid'
+                  ? 'bg-green-100 text-green-700'
+                  : 'bg-amber-100 text-amber-700'
+              }`}
+            >
+              {data.registration_status} Registration
             </span>
           </div>
           <p className="mt-4 text-xl text-slate-700">
-            {data.year} {data.make} {data.model}
+            {data.year ? `${data.year} ` : ''}
+            {data.make} {data.model}
           </p>
-          <p className="mt-1 text-sm text-slate-500">
-            Serial: {data.serialNumber} • Owner: {data.ownerCity},{' '}
-            {data.ownerState}
-          </p>
+          {data.owner_name && (
+            <p className="mt-1 text-sm text-slate-500">
+              {data.serial_number && `Serial: ${data.serial_number} • `}
+              Owner: {data.owner_name}
+              {data.owner_city &&
+                ` — ${data.owner_city}${data.owner_state ? ', ' + data.owner_state : ''}`}
+            </p>
+          )}
         </div>
       </section>
 
       {/* Free summary */}
       <section className="max-w-6xl mx-auto px-6 py-12">
         <h2 className="text-2xl font-bold">Free Summary</h2>
-        <p className="mt-2 text-slate-600">What we found instantly.</p>
+        <p className="mt-2 text-slate-600">
+          Live FAA registry data with NTSB accident records.
+        </p>
 
         <div className="mt-8 grid md:grid-cols-2 gap-6">
           {/* Registration */}
@@ -194,43 +235,56 @@ function LookupResult() {
             <dl className="mt-4 space-y-3 text-sm">
               <div className="flex justify-between">
                 <dt className="text-slate-500">Status</dt>
-                <dd className="font-medium">{data.registrationStatus}</dd>
+                <dd className="font-medium">{data.registration_status}</dd>
               </div>
-              <div className="flex justify-between">
-                <dt className="text-slate-500">Airworthiness Date</dt>
-                <dd className="font-medium">{data.airworthinessDate}</dd>
-              </div>
+              {data.airworthiness_date && (
+                <div className="flex justify-between">
+                  <dt className="text-slate-500">Airworthiness Date</dt>
+                  <dd className="font-medium">{data.airworthiness_date}</dd>
+                </div>
+              )}
               <div className="flex justify-between">
                 <dt className="text-slate-500">Manufacturer</dt>
-                <dd className="font-medium">{data.make}</dd>
+                <dd className="font-medium">{data.make || '—'}</dd>
               </div>
               <div className="flex justify-between">
                 <dt className="text-slate-500">Model</dt>
-                <dd className="font-medium">{data.model}</dd>
+                <dd className="font-medium">{data.model || '—'}</dd>
               </div>
               <div className="flex justify-between">
                 <dt className="text-slate-500">Year</dt>
-                <dd className="font-medium">{data.year}</dd>
+                <dd className="font-medium">{data.year || '—'}</dd>
               </div>
+              {data.serial_number && (
+                <div className="flex justify-between">
+                  <dt className="text-slate-500">Serial Number</dt>
+                  <dd className="font-medium font-mono text-xs">
+                    {data.serial_number}
+                  </dd>
+                </div>
+              )}
             </dl>
           </div>
 
           {/* Accidents */}
           <div className="border border-slate-200 rounded-2xl p-6">
             <h3 className="font-semibold text-lg">Accident History</h3>
-            {data.accidents.length === 0 ? (
+            {!hasAccidents ? (
               <p className="mt-4 text-slate-600 text-sm">
-                No accidents found in NTSB records.
+                No accidents found in NTSB records for this aircraft.
               </p>
             ) : (
               <div className="mt-4 space-y-4">
-                {data.accidents.map((acc, i) => (
-                  <div key={i} className="text-sm border-l-2 border-red-400 pl-4">
+                {data.accidents.map((acc) => (
+                  <div
+                    key={acc.id}
+                    className="text-sm border-l-2 border-red-400 pl-4"
+                  >
                     <div className="flex items-center gap-2">
                       <span className="bg-red-100 text-red-700 px-2 py-0.5 rounded text-xs font-medium">
                         {acc.severity}
                       </span>
-                      <span className="text-slate-500">{acc.date}</span>
+                      <span className="text-slate-500">{acc.event_date}</span>
                     </div>
                     <p className="mt-1 font-medium text-slate-700">
                       {acc.location}
