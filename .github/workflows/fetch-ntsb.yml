@@ -19,9 +19,27 @@ jobs:
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
+      - name: Install Wrangler
+        run: npm install -g wrangler
+
       - name: Fetch NTSB data
         run: node scripts/fetch-ntsb.js
+
+      - name: Show generated SQL stats
+        run: |
+          echo "SQL file line count:"
+          wc -l ntsb-import.sql
+
+      - name: Import into D1
+        run: |
+          wrangler d1 execute nnumbercheck-db --file=ntsb-import.sql --remote
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          D1_DATABASE_ID: ${{ secrets.D1_DATABASE_ID }}
+
+      - name: Verify import
+        run: |
+          wrangler d1 execute nnumbercheck-db --command="SELECT COUNT(*) AS total FROM accidents;" --remote
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
