@@ -1,3 +1,4 @@
+// @ts-nocheck
 // functions/api/aircraft/[number].ts
 export const onRequestGet = async (context) => {
   const nNumber = context.params.number;
@@ -10,7 +11,6 @@ export const onRequestGet = async (context) => {
   }
 
   try {
-    // Query the aircraft table
     const aircraft = await context.env.DB.prepare(
       'SELECT * FROM aircraft WHERE n_number = ?'
     ).bind(nNumber.toUpperCase()).first();
@@ -22,25 +22,18 @@ export const onRequestGet = async (context) => {
       });
     }
 
-    // Query the accidents table for this aircraft
     const { results: accidents } = await context.env.DB.prepare(
       'SELECT * FROM accidents WHERE n_number = ? ORDER BY event_date DESC'
     ).bind(nNumber.toUpperCase()).all();
 
-    // Combine the results
-    const responseData = {
-      ...aircraft,
-      accidents: accidents || [],
-    };
-
-    return new Response(JSON.stringify(responseData), {
-      headers: { 'Content-Type': 'application/json' },
-    });
-
+    return new Response(
+      JSON.stringify({ ...aircraft, accidents: accidents || [] }),
+      { headers: { 'Content-Type': 'application/json' } }
+    );
   } catch (error) {
-    return new Response(JSON.stringify({ error: 'Database query failed' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return new Response(
+      JSON.stringify({ error: 'Database query failed', detail: String(error) }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
   }
 };
