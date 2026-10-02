@@ -1,13 +1,26 @@
-name: Fetch NTSB Accident Data
+name: FAA Data Pipeline
 
 on:
   schedule:
-    # Runs at 3 AM UTC on the 1st of every month
+    # Runs at 3 AM UTC on the 1st of every month — NTSB + subset only (small, ~2,300 rows)
     - cron: '0 3 1 * *'
-  workflow_dispatch: # Allows manual trigger from GitHub UI
+  workflow_dispatch:
+    inputs:
+      run_ntsb:
+        description: 'Fetch + import NTSB data (~1,200 rows)'
+        type: boolean
+        default: false
+      run_subset:
+        description: 'Fetch + import FAA subset (~1,120 rows)'
+        type: boolean
+        default: false
+      import_chunks:
+        description: 'Full-FAA chunks to import (e.g. "1,2"). Max 2 per day on free tier.'
+        type: string
+        default: ''
 
 jobs:
-  fetch-ntsb:
+  pipeline:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -22,86 +35,101 @@ jobs:
       - name: Install Wrangler
         run: npm install -g wrangler
 
+      # ============ NTSB (accident data) ============
+
       - name: Fetch NTSB data
+        if: ${{ github.event_name == 'schedule' || inputs.run_ntsb }}
         run: node scripts/fetch-ntsb.js
 
-      - name: Show generated SQL stats
-        run: |
-          echo "SQL file line count:"
-          wc -l ntsb-import.sql
-
       - name: Import NTSB into D1
-        run: |
-          wrangler d1 execute DB --file=ntsb-import.sql --remote
+        if: ${{ github.event_name == 'schedule' || inputs.run_ntsb }}
+        run: wrangler d1 execute DB --file=ntsb-import.sql --remote
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Verify NTSB import
-        run: |
-          wrangler d1 execute DB --command="SELECT COUNT(*) AS total FROM accidents;" --remote
+        if: ${{ github.event_name == 'schedule' || inputs.run_ntsb }}
+        run: wrangler d1 execute DB --command="SELECT COUNT(*) AS total FROM accidents;" --remote
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
+      # ============ FAA subset (aircraft with accidents) ============
+
       - name: Fetch FAA subset
+        if: ${{ github.event_name == 'schedule' || inputs.run_subset }}
         run: node scripts/fetch-faa-subset.js
 
       - name: Import FAA subset into D1
-        run: |
-          wrangler d1 execute DB --file=faa-import.sql --remote
+        if: ${{ github.event_name == 'schedule' || inputs.run_subset }}
+        run: wrangler d1 execute DB --file=faa-import.sql --remote
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-      - name: Fetch full FAA registry
+      # ============ Full FAA registry (chunked) ============
+
+      - name: Fetch full FAA registry and generate chunks
+        if: ${{ inputs.import_chunks != '' }}
         run: node scripts/fetch-faa-full.js
 
-      - name: Import FAA chunk 1 into D1
+      - name: List generated chunks
+        if: ${{ inputs.import_chunks != '' }}
+        run: ls -lh faa-full-import-part*.sql
+
+      - name: Import FAA chunk 1
+        if: ${{ contains(inputs.import_chunks, '1') }}
         run: wrangler d1 execute DB --file=faa-full-import-part1.sql --remote
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-      - name: Import FAA chunk 2 into D1
+      - name: Import FAA chunk 2
+        if: ${{ contains(inputs.import_chunks, '2') }}
         run: wrangler d1 execute DB --file=faa-full-import-part2.sql --remote
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-      - name: Import FAA chunk 3 into D1
+      - name: Import FAA chunk 3
+        if: ${{ contains(inputs.import_chunks, '3') }}
         run: wrangler d1 execute DB --file=faa-full-import-part3.sql --remote
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-      - name: Import FAA chunk 4 into D1
+      - name: Import FAA chunk 4
+        if: ${{ contains(inputs.import_chunks, '4') }}
         run: wrangler d1 execute DB --file=faa-full-import-part4.sql --remote
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-      - name: Import FAA chunk 5 into D1
+      - name: Import FAA chunk 5
+        if: ${{ contains(inputs.import_chunks, '5') }}
         run: wrangler d1 execute DB --file=faa-full-import-part5.sql --remote
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-      - name: Import FAA chunk 6 into D1
+      - name: Import FAA chunk 6
+        if: ${{ contains(inputs.import_chunks, '6') }}
         run: wrangler d1 execute DB --file=faa-full-import-part6.sql --remote
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-      - name: Import FAA chunk 7 into D1
+      - name: Import FAA chunk 7
+        if: ${{ contains(inputs.import_chunks, '7') }}
         run: wrangler d1 execute DB --file=faa-full-import-part7.sql --remote
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-      - name: Verify full FAA import
-        run: |
-          wrangler d1 execute DB --command="SELECT COUNT(*) AS total FROM aircraft;" --remote
+      - name: Verify aircraft count
+        if: ${{ inputs.import_chunks != '' }}
+        run: wrangler d1 execute DB --command="SELECT COUNT(*) AS total FROM aircraft;" --remote
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
