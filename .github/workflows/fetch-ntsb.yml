@@ -32,14 +32,14 @@ jobs:
 
       - name: Import into D1
         run: |
-          wrangler d1 execute a20c8f11-a391-4dec-a1c2-7b8db2597d4e --file=ntsb-import.sql --remote
+          wrangler d1 execute DB --file=ntsb-import.sql --remote
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Verify import
         run: |
-          wrangler d1 execute a20c8f11-a391-4dec-a1c2-7b8db2597d4e --command="SELECT COUNT(*) AS total FROM accidents;" --remote
+          wrangler d1 execute DB --command="SELECT COUNT(*) AS total FROM accidents;" --remote
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
