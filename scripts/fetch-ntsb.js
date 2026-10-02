@@ -4,7 +4,6 @@ const AdmZip = require('adm-zip');
 
 const NTSB_ENDPOINT = 'https://data.ntsb.gov/carol-main-public/api/Query/FileExport';
 
-// Build the selectedOption object for a given field
 function buildSelectedOption(fieldName, displayText, columns, inputType) {
   return {
     FieldName: fieldName,
@@ -43,12 +42,7 @@ async function fetchNTSBData() {
             Columns: ['Event.EventDate'],
             Operator: 'is on or after',
             overrideColumn: '',
-            selectedOption: buildSelectedOption(
-              'EventDate',
-              'Event date',
-              ['Event.EventDate'],
-              'Date'
-            ),
+            selectedOption: buildSelectedOption('EventDate', 'Event date', ['Event.EventDate'], 'Date'),
           },
           {
             RuleType: 'Simple',
@@ -56,12 +50,7 @@ async function fetchNTSBData() {
             Columns: ['Event.EventDate'],
             Operator: 'is on or before',
             overrideColumn: '',
-            selectedOption: buildSelectedOption(
-              'EventDate',
-              'Event date',
-              ['Event.EventDate'],
-              'Date'
-            ),
+            selectedOption: buildSelectedOption('EventDate', 'Event date', ['Event.EventDate'], 'Date'),
           },
           {
             RuleType: 'Simple',
@@ -69,12 +58,7 @@ async function fetchNTSBData() {
             Columns: ['Event.Mode'],
             Operator: 'is',
             overrideColumn: '',
-            selectedOption: buildSelectedOption(
-              'Mode',
-              'Investigation mode',
-              ['Event.Mode'],
-              'Dropdown'
-            ),
+            selectedOption: buildSelectedOption('Mode', 'Investigation mode', ['Event.Mode'], 'Dropdown'),
           },
         ],
         AndOr: 'and',
@@ -111,51 +95,26 @@ async function fetchNTSBData() {
   const entries = zip.getEntries();
 
   console.log(`Received ${entries.length} files in ZIP`);
-  console.log('Entry names:', entries.map((e) => e.entryName));
 
-  // Find the JSON data file
   const dataEntry = entries.find((e) => e.entryName.endsWith('.json'));
   if (!dataEntry) {
-    throw new Error(
-      `No JSON data file found in ZIP. Available: ${entries.map((e) => e.entryName).join(', ')}`
-    );
+    throw new Error(`No JSON file found. Available: ${entries.map((e) => e.entryName).join(', ')}`);
   }
 
   const raw = JSON.parse(dataEntry.getData().toString('utf8'));
-  console.log(`Parsed NTSB response. Top-level keys:`, Object.keys(raw));
+  console.log(`Top-level type: ${Array.isArray(raw) ? 'Array' : typeof raw}`);
+  console.log(`Record count: ${Array.isArray(raw) ? raw.length : 'N/A'}`);
 
-  // The response format is: { Results: [{ Fields: [{ FieldName, Values }] }] }
-  const results = raw.Results || [];
-  console.log(`Found ${results.length} accident records`);
-
-  const sqlStatements = [];
-
-  for (const record of results) {
-    const fields = record.Fields || [];
-    const map = {};
-    for (const f of fields) {
-      map[f.FieldName] = f.Values && f.Values.length ? f.Values[f.Values.length - 1] : null;
-    }
-
-    const nNumber = (map['N#'] || map['Registration'] || '').toString().toUpperCase().trim();
-    if (!nNumber || !nNumber.startsWith('N')) continue;
-
-    const eventDate = (map['EventDate'] || '').toString().slice(0, 10);
-    const city = map['City'] || '';
-    const state = map['State'] || '';
-    const location = [city, state].filter(Boolean).join(', ');
-    const severity = map['HighestInjuryLevel'] || 'Unknown';
-    const summary = `${map['EventType'] || 'Accident'} - ${map['ReportNo'] || ''}`.trim();
-
-    const escaped = (s) => (s || '').toString().replace(/'/g, "''");
-
-    sqlStatements.push(
-      `INSERT OR REPLACE INTO accidents (n_number, event_date, location, severity, summary) VALUES ('${escaped(nNumber)}', '${escaped(eventDate)}', '${escaped(location)}', '${escaped(severity)}', '${escaped(summary)}');`
-    );
+  // DIAGNOSTIC: Log the first record so we can see its structure
+  if (Array.isArray(raw) && raw.length > 0) {
+    console.log('=== FIRST RECORD STRUCTURE ===');
+    console.log(JSON.stringify(raw[0], null, 2).slice(0, 3000));
+    console.log('=== END FIRST RECORD ===');
   }
 
-  fs.writeFileSync('ntsb-import.sql', sqlStatements.join('\n'));
-  console.log(`Wrote ${sqlStatements.length} SQL statements to ntsb-import.sql`);
+  // For now, exit without writing SQL until we know the schema
+  fs.writeFileSync('ntsb-import.sql', '-- Diagnostic run: no data imported yet\n');
+  console.log('Diagnostic complete. Review the first record structure above.');
 }
 
 fetchNTSBData().catch((err) => {
