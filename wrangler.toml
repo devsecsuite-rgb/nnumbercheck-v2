@@ -1,0 +1,7 @@
+name = "nnumbercheck"
+compatibility_date = "2026-10-02"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "nnumbercheck-db"
+database_id = "a20c8f11-a391-4dec-a1c2-7b8db2597d4e"
