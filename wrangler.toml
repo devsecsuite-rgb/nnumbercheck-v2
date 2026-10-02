@@ -1,4 +1,5 @@
 name = "nnumbercheck"
+account_id = "b59db9f0558f837470b1b743defb94cb"
 compatibility_date = "2026-10-02"
 
 [[d1_databases]]
