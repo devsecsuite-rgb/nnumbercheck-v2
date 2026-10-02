@@ -1,7 +1,7 @@
 export default function Home() {
   return (
     <div className="min-h-screen bg-white text-slate-900">
-      {/* Header */}
+      {/* Header */} 
       <header className="border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <a href="/" className="flex items-center gap-2">
