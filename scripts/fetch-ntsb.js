@@ -1,12 +1,24 @@
 // scripts/fetch-ntsb.js
 const fs = require('fs');
-const path = require('path');
 const AdmZip = require('adm-zip');
-const { execSync } = require('child_process');
 
 const NTSB_ENDPOINT = 'https://data.ntsb.gov/carol-main-public/api/Query/FileExport';
 
-// Fetch the last 12 months of data
+// Build the selectedOption object for a given field
+function buildSelectedOption(fieldName, displayText, columns, inputType) {
+  return {
+    FieldName: fieldName,
+    DisplayText: displayText,
+    Columns: columns,
+    Selectable: true,
+    InputType: inputType,
+    RuleType: 0,
+    Options: null,
+    TargetCollection: 'cases',
+    UnderDevelopment: true,
+  };
+}
+
 function getDateRange(monthsBack = 12) {
   const end = new Date();
   const start = new Date();
@@ -30,27 +42,50 @@ async function fetchNTSBData() {
             Values: [start],
             Columns: ['Event.EventDate'],
             Operator: 'is on or after',
+            overrideColumn: '',
+            selectedOption: buildSelectedOption(
+              'EventDate',
+              'Event date',
+              ['Event.EventDate'],
+              'Date'
+            ),
           },
           {
             RuleType: 'Simple',
             Values: [end],
             Columns: ['Event.EventDate'],
             Operator: 'is on or before',
+            overrideColumn: '',
+            selectedOption: buildSelectedOption(
+              'EventDate',
+              'Event date',
+              ['Event.EventDate'],
+              'Date'
+            ),
           },
           {
             RuleType: 'Simple',
             Values: ['Aviation'],
             Columns: ['Event.Mode'],
             Operator: 'is',
+            overrideColumn: '',
+            selectedOption: buildSelectedOption(
+              'Mode',
+              'Investigation mode',
+              ['Event.Mode'],
+              'Dropdown'
+            ),
           },
         ],
         AndOr: 'and',
+        inLastSearch: false,
+        editedSinceLastSearch: false,
       },
     ],
     AndOr: 'and',
     TargetCollection: 'cases',
     ExportFormat: 'data',
-    SessionId: 227230,
+    SessionId: Math.floor(Math.random() * 100000) + 100000,
     ResultSetSize: 500,
     SortDescending: true,
   };
@@ -58,14 +93,17 @@ async function fetchNTSBData() {
   const response = await fetch(NTSB_ENDPOINT, {
     method: 'POST',
     headers: {
+      'Accept': '*/*',
       'Content-Type': 'application/json',
-      'User-Agent': 'Mozilla/5.0 (compatible; NNumberCheck/1.0)',
+      'Origin': 'https://data.ntsb.gov',
+      'User-Agent': 'ntsb-api-proxy/1.0.0',
     },
     body: JSON.stringify(payload),
   });
 
   if (!response.ok) {
-    throw new Error(`NTSB API error: ${response.status}`);
+    const errorText = await response.text();
+    throw new Error(`NTSB API error: ${response.status} - ${errorText.slice(0, 500)}`);
   }
 
   const buffer = Buffer.from(await response.arrayBuffer());
@@ -73,37 +111,54 @@ async function fetchNTSBData() {
   const entries = zip.getEntries();
 
   console.log(`Received ${entries.length} files in ZIP`);
+  console.log('Entry names:', entries.map((e) => e.entryName));
 
-  // The main data file is typically a JSON or XML file
-  // Adjust based on the actual NTSB export format
+  // Find the JSON data file
   const dataEntry = entries.find((e) => e.entryName.endsWith('.json'));
   if (!dataEntry) {
-    console.log('Available entries:', entries.map((e) => e.entryName));
-    throw new Error('No JSON data file found in ZIP');
+    throw new Error(
+      `No JSON data file found in ZIP. Available: ${entries.map((e) => e.entryName).join(', ')}`
+    );
   }
 
-  const data = JSON.parse(dataEntry.getData().toString('utf8'));
-  console.log(`Parsed ${data.length} accident records`);
+  const raw = JSON.parse(dataEntry.getData().toString('utf8'));
+  console.log(`Parsed NTSB response. Top-level keys:`, Object.keys(raw));
 
-  // Write to a SQL file for D1 import
-  const sqlStatements = data
-    .filter((r) => r.registration && r.registration.startsWith('N'))
-    .map((r) => {
-      const nNumber = r.registration.toUpperCase().trim();
-      const eventDate = r.eventDate || '';
-      const location = r.location || '';
-      const severity = r.injurySeverity || 'Unknown';
-      const summary = (r.narrative || '').replace(/'/g, "''").slice(0, 500);
+  // The response format is: { Results: [{ Fields: [{ FieldName, Values }] }] }
+  const results = raw.Results || [];
+  console.log(`Found ${results.length} accident records`);
 
-      return `INSERT OR REPLACE INTO accidents (n_number, event_date, location, severity, summary) VALUES ('${nNumber}', '${eventDate}', '${location}', '${severity}', '${summary}');`;
-    });
+  const sqlStatements = [];
 
-  const sqlContent = sqlStatements.join('\n');
-  fs.writeFileSync('ntsb-import.sql', sqlContent);
+  for (const record of results) {
+    const fields = record.Fields || [];
+    const map = {};
+    for (const f of fields) {
+      map[f.FieldName] = f.Values && f.Values.length ? f.Values[f.Values.length - 1] : null;
+    }
+
+    const nNumber = (map['N#'] || map['Registration'] || '').toString().toUpperCase().trim();
+    if (!nNumber || !nNumber.startsWith('N')) continue;
+
+    const eventDate = (map['EventDate'] || '').toString().slice(0, 10);
+    const city = map['City'] || '';
+    const state = map['State'] || '';
+    const location = [city, state].filter(Boolean).join(', ');
+    const severity = map['HighestInjuryLevel'] || 'Unknown';
+    const summary = `${map['EventType'] || 'Accident'} - ${map['ReportNo'] || ''}`.trim();
+
+    const escaped = (s) => (s || '').toString().replace(/'/g, "''");
+
+    sqlStatements.push(
+      `INSERT OR REPLACE INTO accidents (n_number, event_date, location, severity, summary) VALUES ('${escaped(nNumber)}', '${escaped(eventDate)}', '${escaped(location)}', '${escaped(severity)}', '${escaped(summary)}');`
+    );
+  }
+
+  fs.writeFileSync('ntsb-import.sql', sqlStatements.join('\n'));
   console.log(`Wrote ${sqlStatements.length} SQL statements to ntsb-import.sql`);
 }
 
 fetchNTSBData().catch((err) => {
-  console.error(err);
+  console.error('Fatal error:', err.message);
   process.exit(1);
 });
