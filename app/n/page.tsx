@@ -209,6 +209,10 @@ function LookupResult() {
 
   return (
     <div className="min-h-screen bg-white">
+      <link
+        rel="canonical"
+        href={`https://nnumbercheck.com/n?number=${data.n_number}`}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
