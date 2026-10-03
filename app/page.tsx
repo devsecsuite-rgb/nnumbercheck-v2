@@ -12,13 +12,21 @@ export const metadata: Metadata = {
     'aircraft registration',
     'aircraft title search',
   ],
-  openGraph: {
+    openGraph: {
     title: 'NNumberCheck — Free Aircraft N-Number Lookup',
     description:
       'Look up any US aircraft by N-number. Free registration details and 44 years of NTSB accident history.',
     url: 'https://nnumbercheck.com',
     siteName: 'NNumberCheck',
     type: 'website',
+    images: [
+      {
+        url: 'https://nnumbercheck.com/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'NNumberCheck — Free Aircraft History Lookup',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
