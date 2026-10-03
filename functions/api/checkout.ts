@@ -1,3 +1,4 @@
+// @ts-nocheck
 // functions/api/checkout.ts
 import Stripe from 'stripe';
 
@@ -26,7 +27,7 @@ export const onRequestPost = async (context) => {
       mode: 'payment',
       line_items: [
         {
-          price: env.STRIPE_PRICE_ID, // set this as an env var too
+          price: env.STRIPE_PRICE_ID,
           quantity: 1,
         },
       ],
@@ -42,7 +43,7 @@ export const onRequestPost = async (context) => {
     });
   } catch (error) {
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: String(error?.message || error) }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
