@@ -86,9 +86,21 @@ function LookupResult() {
 
   // No number provided
   if (!rawNumber) {
-    return (
-      <div className="min-h-screen bg-white">
-        <Header />
+      return (
+    <div className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(aircraftJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
+      <Header />
         <div className="max-w-2xl mx-auto px-6 py-20 text-center">
           <h1 className="text-3xl font-bold">No N-Number provided</h1>
           <p className="mt-4 text-slate-600">
@@ -183,7 +195,45 @@ function LookupResult() {
   }
 
   // Success — full result
+    // Success — full result
   const hasAccidents = data.accidents && data.accidents.length > 0;
+
+  // GEO/AEO structured data
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://nnumbercheck.com',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: `Aircraft ${data.n_number}`,
+        item: `https://nnumbercheck.com/n?number=${data.n_number}`,
+      },
+    ],
+  };
+
+  const aircraftJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name:
+      `${data.year ? data.year + ' ' : ''}${data.make || ''} ${data.model || ''}`.trim() ||
+      data.n_number,
+    description: `Registration and NTSB accident history for aircraft ${data.n_number}. ${data.accidents.length} accident${data.accidents.length === 1 ? '' : 's'} on record from 1982–present.`,
+    sku: data.n_number,
+    brand: { '@type': 'Brand', name: data.make || 'Unknown' },
+    offers: {
+      '@type': 'Offer',
+      price: '149.00',
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+    },
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -210,7 +260,7 @@ function LookupResult() {
             {data.year ? `${data.year} ` : ''}
             {data.make} {data.model}
           </p>
-          {data.owner_name && (
+                    {data.owner_name && (
             <p className="mt-1 text-sm text-slate-500">
               {data.serial_number && `Serial: ${data.serial_number} • `}
               Owner: {data.owner_name}
@@ -218,6 +268,26 @@ function LookupResult() {
                 ` — ${data.owner_city}${data.owner_state ? ', ' + data.owner_state : ''}`}
             </p>
           )}
+
+          {/* GEO/AEO: Answer-first extractable summary */}
+          <p className="mt-6 text-slate-700 text-base max-w-3xl">
+            <strong>
+              {data.n_number} is a{' '}
+              {data.year ? `${data.year} ` : ''}
+              {data.make} {data.model}
+            </strong>
+            {data.owner_name &&
+              ` registered to ${data.owner_name}${
+                data.owner_city
+                  ? ` in ${data.owner_city}${data.owner_state ? ', ' + data.owner_state : ''}`
+                  : ''
+              }`}
+            . Its FAA registration status is{' '}
+            <strong>{data.registration_status}</strong>.
+            {data.accidents.length > 0
+              ? ` It has ${data.accidents.length} NTSB accident record${data.accidents.length === 1 ? '' : 's'} on file.`
+              : ' It has no NTSB accident records on file.'}
+          </p>
         </div>
       </section>
 
