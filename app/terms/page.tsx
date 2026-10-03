@@ -4,6 +4,9 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Terms of Service — NNumberCheck',
   description: 'Terms and conditions for using NNumberCheck.com.',
+alternates: {
+    canonical: 'https://nnumbercheck.com/terms',
+  },
 };
 
 export default function TermsPage() {
