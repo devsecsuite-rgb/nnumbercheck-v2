@@ -408,8 +408,33 @@ export default function Page() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-white flex items-center justify-center">
-          <p className="text-slate-500">Loading...</p>
+        <div className="min-h-screen bg-white">
+          <header className="border-b border-slate-200 bg-white">
+            <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+              <Link href="/" className="text-2xl font-bold text-sky-600">
+                NNumberCheck
+              </Link>
+              <Link
+                href="/"
+                className="text-sm font-medium text-sky-600 hover:underline"
+              >
+                ← New search
+              </Link>
+            </div>
+          </header>
+          <main className="max-w-4xl mx-auto px-6 py-20">
+            <h1 className="text-3xl md:text-4xl font-bold text-slate-900">
+              Aircraft N-Number Lookup
+            </h1>
+            <p className="mt-4 text-slate-600 max-w-2xl">
+              NNumberCheck provides free FAA registration data and 44 years of
+              NTSB accident history for any US-registered aircraft. Search by
+              N-number to see registration status, manufacturer, model,
+              registered owner, and complete accident records from 1982 to
+              present.
+            </p>
+            <p className="mt-6 text-slate-500">Loading aircraft data...</p>
+          </main>
         </div>
       }
     >
