@@ -119,7 +119,7 @@ def audit_page(url):
     elif h1_count > 1:
         issues.append(f"Multiple H1 tags ({h1_count})")
 
-    if not canonical:
+    if not canonical and '/n?number=' not in url:
         issues.append("Missing canonical URL")
 
     if not og_title:
