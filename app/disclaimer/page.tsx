@@ -4,6 +4,9 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Disclaimer — NNumberCheck',
   description: 'Important disclaimers about the data provided by NNumberCheck.com.',
+alternates: {
+    canonical: 'https://nnumbercheck.com/disclaimer',
+  },
 };
 
 export default function DisclaimerPage() {
