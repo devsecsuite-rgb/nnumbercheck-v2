@@ -42,8 +42,13 @@ jobs:
         run: node scripts/fetch-ntsb.js
 
       - name: Import NTSB into D1
-        if: ${{ github.event_name == 'schedule' || inputs.run_ntsb }}
-        run: wrangler d1 execute DB --file=ntsb-import.sql --remote
+        run: |
+          for f in ntsb-import-part*.sql; do
+            echo "================================"
+            echo "Importing $f..."
+            echo "================================"
+            wrangler d1 execute DB --file="$f" --remote
+          done
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
