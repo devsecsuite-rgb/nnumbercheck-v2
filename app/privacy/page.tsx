@@ -4,6 +4,9 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Privacy Policy — NNumberCheck',
   description: 'How NNumberCheck collects, uses, and protects your personal information.',
+alternates: {
+    canonical: 'https://nnumbercheck.com/privacy',
+  },
 };
 
 export default function PrivacyPage() {
