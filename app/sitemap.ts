@@ -7,8 +7,7 @@ const BASE_URL = 'https://nnumbercheck.com';
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
-  // Static pages — add new pages here and the sitemap updates on next build
-  const staticPages: MetadataRoute.Sitemap = [
+  return [
     {
       url: `${BASE_URL}/`,
       lastModified: now,
@@ -39,7 +38,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly',
       priority: 0.3,
     },
+    // Example N-number page for crawler discovery + audit verification
+    {
+      url: `${BASE_URL}/n?number=N69009`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
   ];
-
-  return staticPages;
 }
