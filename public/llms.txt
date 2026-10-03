@@ -1,0 +1,32 @@
+# NNumberCheck
+
+> NNumberCheck.com is a free aircraft N-number lookup and history report service. Enter any US registration number to instantly see FAA registration details and 44 years of NTSB accident history.
+
+## What we provide
+
+- **Free lookup**: FAA registration data for any of 317,218 US-registered aircraft
+- **Accident history**: 87,978 NTSB accident records from 1982 to present
+- **Full history report**: Detailed ownership, accident, and airworthiness information for $149
+
+## Data sources
+
+- FAA Releasable Aircraft Database (public domain, updated daily)
+- NTSB Aviation Accident Reports (public domain, 1982–present)
+
+## Key pages
+
+- [Home](https://nnumbercheck.com/): Search any N-number for free
+- [About](https://nnumbercheck.com/about): What NNumberCheck does and why
+- [Privacy](https://nnumbercheck.com/privacy): How we handle data
+- [Terms](https://nnumbercheck.com/terms): Terms of service
+- [Disclaimer](https://nnumbercheck.com/disclaimer): Important data limitations
+
+## Coverage
+
+- 317,218 aircraft in the FAA registry
+- 87,978 NTSB accident records
+- Date range: 1982-01-01 through present
+
+## Contact
+
+support@nnumbercheck.com
