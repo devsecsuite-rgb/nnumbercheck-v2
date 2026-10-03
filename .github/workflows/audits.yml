@@ -1,0 +1,44 @@
+name: Weekly GEO & SEO Audits
+
+on:
+  schedule:
+    # Every Monday at 9 AM UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install beautifulsoup4
+
+      - name: Run GEO audit
+        run: python scripts/geo_audit.py
+        env:
+          SITE_URL: https://nnumbercheck.com
+
+      - name: Run SEO audit
+        run: python scripts/seo_audit.py
+        env:
+          SITE_URL: https://nnumbercheck.com
+
+      - name: Upload GEO report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: geo-report
+          path: geo_report.json
+
+      - name: Upload SEO report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: seo-report
+          path: seo_report.json
