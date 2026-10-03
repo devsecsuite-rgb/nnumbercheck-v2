@@ -78,39 +78,17 @@ const faqJsonLd = {
   ],
 };
 
-const productJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Product',
-  name: 'NNumberCheck Full History Report',
-  description:
-    'Complete aircraft history report including detailed accident records, FAA registration data, ownership information, and downloadable PDF. Covers 44 years of NTSB accident data.',
-  brand: {
-    '@type': 'Brand',
-    name: 'NNumberCheck',
-  },
-  offers: {
-    '@type': 'Offer',
-    price: '149.00',
-    priceCurrency: 'USD',
-    availability: 'https://schema.org/InStock',
-    url: 'https://nnumbercheck.com/#pricing',
-  },
-};
-
 export default function Home() {
   return (
     <div className="min-h-screen bg-white text-slate-900">
-      {/* GEO/AEO: Structured Data for AI Engines and Search */}
+      {/* GEO/AEO: FAQPage structured data for AI engines and search.
+          Product schema intentionally omitted — digital reports are not
+          eligible for Google merchant listings, which requires shipping and
+          return policy fields. */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(faqJsonLd).replace(/</g, '\\u003c'),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(productJsonLd).replace(/</g, '\\u003c'),
         }}
       />
 
@@ -214,7 +192,7 @@ export default function Home() {
             {
               step: '3',
               title: 'Unlock the full report',
-              desc: 'Get the complete history — ownership chain, ADs, and market value — for $149.',
+              desc: 'Get detailed accident records, ownership information, and a downloadable PDF for $149.',
             },
           ].map((item) => (
             <div
