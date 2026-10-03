@@ -24,6 +24,21 @@ export const metadata: Metadata = {
     type: 'website',
     siteName: 'NNumberCheck',
     url: 'https://nnumbercheck.com',
+    images: [
+      {
+        url: 'https://nnumbercheck.com/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'NNumberCheck — Free Aircraft History Lookup',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'NNumberCheck — Free Aircraft N-Number Lookup',
+    description:
+      'Free aircraft history lookup with 44 years of NTSB accident data.',
+    images: ['https://nnumbercheck.com/og-image.png'],
   },
   robots: {
     index: true,
@@ -42,7 +57,7 @@ const organizationJsonLd = {
   '@type': 'Organization',
   name: 'NNumberCheck',
   url: 'https://nnumbercheck.com',
-  logo: 'https://nnumbercheck.com/logo.png',
+  logo: 'https://nnumbercheck.com/og-image.png',
   description:
     'Aircraft N-number lookup and history reports. FAA registry data and 44 years of NTSB accident records.',
   email: 'support@nnumbercheck.com',
