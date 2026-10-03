@@ -55,6 +55,29 @@ function LookupResult() {
   const [data, setData] = useState<Aircraft | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+
+  const handleCheckout = async () => {
+    if (!data) return;
+    setCheckoutLoading(true);
+    try {
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nNumber: data.n_number }),
+      });
+      const json = await res.json();
+      if (json.url) {
+        window.location.href = json.url;
+      } else {
+        alert(json.error || 'Something went wrong. Please try again.');
+        setCheckoutLoading(false);
+      }
+    } catch {
+      alert('Something went wrong. Please try again.');
+      setCheckoutLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (!rawNumber) {
@@ -379,15 +402,17 @@ function LookupResult() {
               <h3 className="font-semibold text-lg">Full History Report</h3>
               <p className="mt-4 text-4xl font-bold">$149</p>
               <p className="mt-1 text-sky-100 text-sm">One-time payment</p>
+            
               <div className="mt-auto pt-6">
                 <button
-                  disabled
-                  className="w-full bg-white text-sky-600 py-3 rounded-xl font-semibold opacity-60 cursor-not-allowed"
+                  onClick={handleCheckout}
+                  disabled={checkoutLoading}
+                  className="w-full bg-white text-sky-600 py-3 rounded-xl font-semibold hover:bg-sky-50 transition disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Coming soon
+                  {checkoutLoading ? 'Redirecting to checkout...' : 'Get Full Report — $149'}
                 </button>
                 <p className="mt-3 text-xs text-sky-100 text-center">
-                  Payment integration coming soon.
+                  Secure checkout via Stripe.
                 </p>
               </div>
             </div>
