@@ -31,9 +31,89 @@ export const metadata: Metadata = {
   },
 };
 
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: "How do I check an aircraft's history by N-number?",
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: "Enter any US N-number (like N12345) into the search box on NNumberCheck.com. You'll instantly see the aircraft's FAA registration details and its complete NTSB accident history from 1982 to present — free, with no signup required.",
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What information is in the free N-number lookup?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: "The free lookup includes the aircraft's registration status, manufacturer, model, year, serial number, registered owner city and state, and its full NTSB accident history. No account or payment is required.",
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How far back does the accident history go?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'NNumberCheck includes 87,978 NTSB accident records covering the period from January 1982 through the present — over 44 years of aviation accident history.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is NNumberCheck affiliated with the FAA?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: "No. NNumberCheck is an independent data aggregation service. We pull from the FAA's public Releasable Aircraft Database and the NTSB's public accident records, but we are not affiliated with or endorsed by either agency.",
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What does the $149 full history report include?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The full report includes detailed accident records with narratives, FAA registration and airworthiness data, registered owner information, deregistration status, and a downloadable PDF you can share with your broker or lender.',
+      },
+    },
+  ],
+};
+
+const productJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'NNumberCheck Full History Report',
+  description:
+    'Complete aircraft history report including detailed accident records, FAA registration data, ownership information, and downloadable PDF. Covers 44 years of NTSB accident data.',
+  brand: {
+    '@type': 'Brand',
+    name: 'NNumberCheck',
+  },
+  offers: {
+    '@type': 'Offer',
+    price: '149.00',
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
+    url: 'https://nnumbercheck.com/#pricing',
+  },
+};
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-white text-slate-900">
+      {/* GEO/AEO: Structured Data for AI Engines and Search */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(productJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
+
       {/* Header */}
       <header className="border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -57,16 +137,18 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero */}
+      {/* Hero — Answer-first H1 and subtitle for AI extractability */}
       <section className="bg-gradient-to-b from-sky-50 to-white">
         <div className="max-w-4xl mx-auto px-6 py-20 text-center">
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 leading-tight">
-            Check any aircraft&apos;s history in seconds
+            Free N-Number Lookup &amp; Aircraft History Report
           </h1>
           <p className="mt-6 text-lg md:text-xl text-slate-600 max-w-2xl mx-auto">
-            Instant N-number lookup with FAA registration data and 44 years of
-            NTSB accident history. Know what you&apos;re buying before you
-            commit.
+            <strong>
+              NNumberCheck is a free aircraft history lookup tool.
+            </strong>{' '}
+            Enter any US N-number to instantly see FAA registration details and
+            44 years of NTSB accident records (87,978 reports, 1982–present).
           </p>
 
           {/* Search Box */}
@@ -171,7 +253,7 @@ export default function Home() {
               },
               {
                 title: 'Ownership Information',
-                desc: "Registered owner and their location, sourced from the FAA registry.",
+                desc: 'Registered owner and their location, sourced from the FAA registry.',
               },
               {
                 title: 'Airframe & Engine Data',
@@ -198,79 +280,124 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Pricing */}
-      <section id="pricing" className="max-w-6xl mx-auto px-6 py-20">
+      {/* FAQ — GEO/AEO extractable Q&A */}
+      <section className="max-w-4xl mx-auto px-6 py-20">
         <h2 className="text-3xl md:text-4xl font-bold text-center">
-          Simple, transparent pricing
+          Frequently asked questions
         </h2>
         <p className="mt-4 text-center text-slate-600 max-w-2xl mx-auto">
-          Pay only for what you need. No subscriptions required.
+          Answers to common questions about aircraft history lookup.
         </p>
 
-        <div className="mt-14 grid md:grid-cols-3 gap-6">
-          {/* Free */}
-          <div className="border border-slate-200 rounded-2xl p-8">
-            <h3 className="text-xl font-semibold">Free Lookup</h3>
-            <p className="mt-3 text-4xl font-bold">$0</p>
-            <p className="mt-1 text-sm text-slate-500">Always free</p>
-            <ul className="mt-6 space-y-3 text-slate-600 text-sm">
-              <li>✓ Registration status</li>
-              <li>✓ Make, model, year</li>
-              <li>✓ Owner city &amp; state</li>
-              <li>✓ Full accident history</li>
-            </ul>
-            <a
-              href="#lookup"
-              className="mt-8 block text-center border border-sky-600 text-sky-600 py-3 rounded-xl font-semibold hover:bg-sky-50 transition"
+        <div className="mt-14 space-y-6">
+          {[
+            {
+              q: "How do I check an aircraft's history by N-number?",
+              a: "Enter any US N-number (like N12345) into the search box. You'll instantly see the aircraft's FAA registration details and its complete NTSB accident history from 1982 to present — free, with no signup required.",
+            },
+            {
+              q: 'What information is in the free N-number lookup?',
+              a: "The free lookup includes the aircraft's registration status, manufacturer, model, year, serial number, registered owner city and state, and its full NTSB accident history.",
+            },
+            {
+              q: 'How far back does the accident history go?',
+              a: 'NNumberCheck includes 87,978 NTSB accident records covering the period from January 1982 through the present — over 44 years of aviation accident history.',
+            },
+            {
+              q: 'Is NNumberCheck affiliated with the FAA?',
+              a: "No. NNumberCheck is an independent data aggregation service. We pull from the FAA's public Releasable Aircraft Database and the NTSB's public accident records, but we are not affiliated with or endorsed by either agency.",
+            },
+            {
+              q: 'What does the $149 full history report include?',
+              a: 'The full report includes detailed accident records, FAA registration and airworthiness data, registered owner information, deregistration status, and a downloadable PDF you can share with your broker or lender.',
+            },
+          ].map((item) => (
+            <div
+              key={item.q}
+              className="border border-slate-200 rounded-2xl p-6 bg-white"
             >
-              Start Free Search
-            </a>
-          </div>
+              <h3 className="text-lg font-semibold text-slate-900">{item.q}</h3>
+              <p className="mt-3 text-slate-600">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
-          {/* Full Report */}
-          <div className="border-2 border-sky-600 rounded-2xl p-8 relative bg-sky-50/50">
-            <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-sky-600 text-white text-xs px-3 py-1 rounded-full font-medium">
-              Most Popular
-            </span>
-            <h3 className="text-xl font-semibold">Full History Report</h3>
-            <p className="mt-3 text-4xl font-bold">$149</p>
-            <p className="mt-1 text-sm text-slate-500">One-time payment</p>
-            <ul className="mt-6 space-y-3 text-slate-700 text-sm">
-              <li>✓ Everything in Free</li>
-              <li>✓ Detailed accident records</li>
-              <li>✓ Registration &amp; airworthiness</li>
-              <li>✓ Ownership information</li>
-              <li>✓ Deregistration status</li>
-              <li>✓ Downloadable PDF report</li>
-            </ul>
-            <a
-              href="#lookup"
-              className="mt-8 block text-center bg-sky-600 text-white py-3 rounded-xl font-semibold hover:bg-sky-700 transition"
-            >
-              Get Full Report
-            </a>
-          </div>
+      {/* Pricing */}
+      <section id="pricing" className="bg-slate-50 border-y border-slate-200">
+        <div className="max-w-6xl mx-auto px-6 py-20">
+          <h2 className="text-3xl md:text-4xl font-bold text-center">
+            Simple, transparent pricing
+          </h2>
+          <p className="mt-4 text-center text-slate-600 max-w-2xl mx-auto">
+            Pay only for what you need. No subscriptions required.
+          </p>
 
-          {/* Dealer */}
-          <div id="dealers" className="border border-slate-200 rounded-2xl p-8">
-            <h3 className="text-xl font-semibold">Dealer Plan</h3>
-            <p className="mt-3 text-4xl font-bold">
-              $199<span className="text-lg font-normal text-slate-500">/mo</span>
-            </p>
-            <p className="mt-1 text-sm text-slate-500">For brokers &amp; dealers</p>
-            <ul className="mt-6 space-y-3 text-slate-600 text-sm">
-              <li>✓ Unlimited lookups</li>
-              <li>✓ Bulk N-number search</li>
-              <li>✓ API access</li>
-              <li>✓ Priority support</li>
-              <li>✓ White-label PDF reports</li>
-            </ul>
-            <a
-              href="mailto:support@nnumbercheck.com?subject=Dealer%20Plan%20Inquiry"
-              className="mt-8 block text-center border border-slate-900 text-slate-900 py-3 rounded-xl font-semibold hover:bg-slate-100 transition"
-            >
-              Contact Sales
-            </a>
+          <div className="mt-14 grid md:grid-cols-3 gap-6">
+            {/* Free */}
+            <div className="border border-slate-200 rounded-2xl p-8 bg-white">
+              <h3 className="text-xl font-semibold">Free Lookup</h3>
+              <p className="mt-3 text-4xl font-bold">$0</p>
+              <p className="mt-1 text-sm text-slate-500">Always free</p>
+              <ul className="mt-6 space-y-3 text-slate-600 text-sm">
+                <li>✓ Registration status</li>
+                <li>✓ Make, model, year</li>
+                <li>✓ Owner city &amp; state</li>
+                <li>✓ Full accident history</li>
+              </ul>
+              <a
+                href="#lookup"
+                className="mt-8 block text-center border border-sky-600 text-sky-600 py-3 rounded-xl font-semibold hover:bg-sky-50 transition"
+              >
+                Start Free Search
+              </a>
+            </div>
+
+            {/* Full Report */}
+            <div className="border-2 border-sky-600 rounded-2xl p-8 relative bg-sky-50/50">
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-sky-600 text-white text-xs px-3 py-1 rounded-full font-medium">
+                Most Popular
+              </span>
+              <h3 className="text-xl font-semibold">Full History Report</h3>
+              <p className="mt-3 text-4xl font-bold">$149</p>
+              <p className="mt-1 text-sm text-slate-500">One-time payment</p>
+              <ul className="mt-6 space-y-3 text-slate-700 text-sm">
+                <li>✓ Everything in Free</li>
+                <li>✓ Detailed accident records</li>
+                <li>✓ Registration &amp; airworthiness</li>
+                <li>✓ Ownership information</li>
+                <li>✓ Deregistration status</li>
+                <li>✓ Downloadable PDF report</li>
+              </ul>
+              <a
+                href="#lookup"
+                className="mt-8 block text-center bg-sky-600 text-white py-3 rounded-xl font-semibold hover:bg-sky-700 transition"
+              >
+                Get Full Report
+              </a>
+            </div>
+
+            {/* Dealer */}
+            <div id="dealers" className="border border-slate-200 rounded-2xl p-8 bg-white">
+              <h3 className="text-xl font-semibold">Dealer Plan</h3>
+              <p className="mt-3 text-4xl font-bold">
+                $199<span className="text-lg font-normal text-slate-500">/mo</span>
+              </p>
+              <p className="mt-1 text-sm text-slate-500">For brokers &amp; dealers</p>
+              <ul className="mt-6 space-y-3 text-slate-600 text-sm">
+                <li>✓ Unlimited lookups</li>
+                <li>✓ Bulk N-number search</li>
+                <li>✓ API access</li>
+                <li>✓ Priority support</li>
+                <li>✓ White-label PDF reports</li>
+              </ul>
+              <a
+                href="mailto:support@nnumbercheck.com?subject=Dealer%20Plan%20Inquiry"
+                className="mt-8 block text-center border border-slate-900 text-slate-900 py-3 rounded-xl font-semibold hover:bg-slate-100 transition"
+              >
+                Contact Sales
+              </a>
+            </div>
           </div>
         </div>
       </section>
