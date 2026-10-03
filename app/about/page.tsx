@@ -4,6 +4,9 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'About NNumberCheck — Aircraft History Reports',
   description: 'Learn how NNumberCheck helps buyers, brokers, and owners make smarter aircraft decisions with instant FAA registry and NTSB accident data.',
+alternates: {
+    canonical: 'https://nnumbercheck.com/about',
+  },
 };
 
 export default function AboutPage() {
