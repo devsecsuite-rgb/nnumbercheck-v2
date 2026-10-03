@@ -185,7 +185,9 @@ function LookupResult() {
   // Success — full result
   const hasAccidents = data.accidents && data.accidents.length > 0;
 
-  // GEO/AEO structured data
+  // GEO/AEO structured data — BreadcrumbList only.
+  // Product schema intentionally omitted: digital reports are not eligible
+  // for Google merchant listings, which requires shipping + return policy.
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -205,35 +207,12 @@ function LookupResult() {
     ],
   };
 
-  const aircraftJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Product',
-    name:
-      `${data.year ? data.year + ' ' : ''}${data.make || ''} ${data.model || ''}`.trim() ||
-      data.n_number,
-    description: `Registration and NTSB accident history for aircraft ${data.n_number}. ${data.accidents.length} accident${data.accidents.length === 1 ? '' : 's'} on record from 1982–present.`,
-    sku: data.n_number,
-    brand: { '@type': 'Brand', name: data.make || 'Unknown' },
-    offers: {
-      '@type': 'Offer',
-      price: '149.00',
-      priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock',
-    },
-  };
-
   return (
     <div className="min-h-screen bg-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, '\\u003c'),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(aircraftJsonLd).replace(/</g, '\\u003c'),
         }}
       />
       <Header />
