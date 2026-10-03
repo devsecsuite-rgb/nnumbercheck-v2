@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'NNumberCheck — Free Aircraft N-Number Lookup & History Report',
+  title: 'NNumberCheck — Free Aircraft N-Number Lookup & History',
   description:
-    'Instantly look up any US aircraft by N-number. Free registration details, 44 years of NTSB accident history, and ownership records. Full history reports for $149.',
+  'Instantly look up any US aircraft by N-number. Free registration details, 44 years of NTSB accident history. Full history reports for $149.',
   keywords: [
     'N-number lookup',
     'aircraft history report',
