@@ -86,21 +86,9 @@ function LookupResult() {
 
   // No number provided
   if (!rawNumber) {
-      return (
-    <div className="min-h-screen bg-white">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, '\\u003c'),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(aircraftJsonLd).replace(/</g, '\\u003c'),
-        }}
-      />
-      <Header />
+    return (
+      <div className="min-h-screen bg-white">
+        <Header />
         <div className="max-w-2xl mx-auto px-6 py-20 text-center">
           <h1 className="text-3xl font-bold">No N-Number provided</h1>
           <p className="mt-4 text-slate-600">
@@ -161,11 +149,11 @@ function LookupResult() {
         <div className="max-w-2xl mx-auto px-6 py-20 text-center">
           <h1 className="text-3xl font-bold font-mono">{nNumber}</h1>
           <p className="mt-4 text-slate-600">
-            We don&apos;t have data for this aircraft in our database yet.
+            We don&apos;t have data for this aircraft in our database.
           </p>
           <p className="mt-2 text-sm text-slate-500">
-            Our database currently includes aircraft with recent NTSB accident
-            records.
+            This can happen if the N-number was never registered in the US, or
+            if it has been fully removed from FAA and NTSB records.
           </p>
           <Link
             href="/"
@@ -174,7 +162,7 @@ function LookupResult() {
             Try another N-number
           </Link>
           <p className="mt-6 text-sm text-slate-500">
-            Demo N-numbers to try:{' '}
+            Popular lookups:{' '}
             <Link
               href="/n?number=N69009"
               className="font-mono font-semibold text-sky-600 hover:underline"
@@ -183,10 +171,10 @@ function LookupResult() {
             </Link>
             {' · '}
             <Link
-              href="/n?number=N1003"
+              href="/n?number=N172SP"
               className="font-mono font-semibold text-sky-600 hover:underline"
             >
-              N1003
+              N172SP
             </Link>
           </p>
         </div>
@@ -195,7 +183,6 @@ function LookupResult() {
   }
 
   // Success — full result
-    // Success — full result
   const hasAccidents = data.accidents && data.accidents.length > 0;
 
   // GEO/AEO structured data
@@ -237,6 +224,18 @@ function LookupResult() {
 
   return (
     <div className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(aircraftJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
       <Header />
 
       {/* Aircraft header */}
@@ -260,7 +259,7 @@ function LookupResult() {
             {data.year ? `${data.year} ` : ''}
             {data.make} {data.model}
           </p>
-                    {data.owner_name && (
+          {data.owner_name && (
             <p className="mt-1 text-sm text-slate-500">
               {data.serial_number && `Serial: ${data.serial_number} • `}
               Owner: {data.owner_name}
@@ -384,11 +383,11 @@ function LookupResult() {
             <div className="bg-white border border-slate-200 rounded-2xl p-6">
               <h3 className="font-semibold text-lg">What&apos;s included</h3>
               <ul className="mt-4 space-y-2 text-sm text-slate-600">
-                <li>✓ Full ownership chain</li>
-                <li>✓ Liens &amp; encumbrances</li>
-                <li>✓ Airworthiness directives</li>
-                <li>✓ Detailed accident records</li>
-                <li>✓ Market value estimate</li>
+                <li>✓ Complete accident records</li>
+                <li>✓ FAA registration &amp; airworthiness</li>
+                <li>✓ Ownership information</li>
+                <li>✓ Airframe &amp; engine data</li>
+                <li>✓ Deregistration status</li>
                 <li>✓ Downloadable PDF report</li>
               </ul>
             </div>
@@ -418,7 +417,7 @@ function LookupResult() {
         <div className="max-w-6xl mx-auto px-6 py-8 text-xs text-slate-500 flex flex-col md:flex-row justify-between gap-4">
           <p>© {new Date().getFullYear()} NNumberCheck.com</p>
           <p className="max-w-xl">
-            Not affiliated with the FAA. For historical reference only.
+            Not affiliated with the FAA or NTSB. For historical reference only.
           </p>
         </div>
       </footer>
