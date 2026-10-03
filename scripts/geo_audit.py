@@ -254,9 +254,16 @@ def main():
 
     print(f"\nReport saved to {REPORT_FILE}")
 
-    if robots.get("blocked"):
-        print(f"\nWARNING: {len(robots['blocked'])} AI crawlers blocked")
+        # Only fail if a MAJOR AI crawler is blocked (not intentional blocks like Bytespider)
+    critical_crawlers = ["GPTBot", "ChatGPT-User", "ClaudeBot", "PerplexityBot", "Google-Extended"]
+    critical_blocked = [c for c in robots.get("blocked", []) if c in critical_crawlers]
+
+    if critical_blocked:
+        print(f"\nCRITICAL: {len(critical_blocked)} major AI crawlers blocked: {critical_blocked}")
         return 1
+
+    if robots.get("blocked"):
+        print(f"\nNote: {len(robots['blocked'])} non-critical crawler(s) blocked (likely intentional): {robots['blocked']}")
 
     return 0
 
