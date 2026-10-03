@@ -91,17 +91,17 @@ def audit_page(url):
     internal_links = [l for l in links if l["href"].startswith("/") or SITE_URL in l["href"]]
     external_links = [l for l in links if l["href"].startswith("http") and SITE_URL not in l["href"]]
 
-    # Word count
-    for script in soup(["script", "style", "nav", "footer", "header"]):
-        script.decompose()
-    text = soup.get_text()
-    word_count = len(text.split())
+        # Structured data (check BEFORE stripping scripts)
+    json_ld = soup.find_all("script", attrs={"type": "application/ld+json"})
 
     # Viewport (mobile)
     viewport = soup.find("meta", attrs={"name": "viewport"})
 
-    # Structured data (presence only, GEO handles detail)
-    json_ld = soup.find_all("script", attrs={"type": "application/ld+json"})
+    # Word count (strip scripts/styles/nav/footer AFTER other checks)
+    for script in soup(["script", "style", "nav", "footer", "header"]):
+        script.decompose()
+    text = soup.get_text()
+    word_count = len(text.split())
 
     issues = []
     if not title:
