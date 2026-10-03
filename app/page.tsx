@@ -1,7 +1,40 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'NNumberCheck — Free Aircraft N-Number Lookup & History Report',
+  description:
+    'Instantly look up any US aircraft by N-number. Free registration details, 44 years of NTSB accident history, and ownership records. Full history reports for $149.',
+  keywords: [
+    'N-number lookup',
+    'aircraft history report',
+    'FAA registry lookup',
+    'NTSB accident records',
+    'aircraft registration',
+    'aircraft title search',
+  ],
+  openGraph: {
+    title: 'NNumberCheck — Free Aircraft N-Number Lookup',
+    description:
+      'Look up any US aircraft by N-number. Free registration details and 44 years of NTSB accident history.',
+    url: 'https://nnumbercheck.com',
+    siteName: 'NNumberCheck',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'NNumberCheck — Free Aircraft N-Number Lookup',
+    description:
+      'Free aircraft history lookup with 44 years of NTSB accident data.',
+  },
+  alternates: {
+    canonical: 'https://nnumbercheck.com',
+  },
+};
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-white text-slate-900">
-      {/* Header */} 
+      {/* Header */}
       <header className="border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <a href="/" className="flex items-center gap-2">
@@ -31,9 +64,9 @@ export default function Home() {
             Check any aircraft&apos;s history in seconds
           </h1>
           <p className="mt-6 text-lg md:text-xl text-slate-600 max-w-2xl mx-auto">
-            Instant N-number lookup with accident history, ownership records,
-            airworthiness directives, and more. Know what you&apos;re buying
-            before you commit.
+            Instant N-number lookup with FAA registration data and 44 years of
+            NTSB accident history. Know what you&apos;re buying before you
+            commit.
           </p>
 
           {/* Search Box */}
@@ -68,10 +101,10 @@ export default function Home() {
       {/* Trust bar */}
       <section className="border-y border-slate-200 bg-slate-50">
         <div className="max-w-6xl mx-auto px-6 py-6 flex flex-wrap justify-center items-center gap-x-10 gap-y-3 text-sm text-slate-500">
-          <span>✓ FAA Registry data</span>
-          <span>✓ NTSB accident records</span>
-          <span>✓ Airworthiness directives</span>
-          <span>✓ Instant delivery</span>
+          <span>✓ 317,000+ aircraft</span>
+          <span>✓ 88,000+ accident records</span>
+          <span>✓ Data from 1982 to today</span>
+          <span>✓ Instant results</span>
         </div>
       </section>
 
@@ -87,19 +120,19 @@ export default function Home() {
         <div className="mt-14 grid md:grid-cols-3 gap-8">
           {[
             {
-              step: "1",
-              title: "Enter the N-Number",
+              step: '1',
+              title: 'Enter the N-Number',
               desc: "Type any US-registered aircraft's tail number into the search box.",
             },
             {
-              step: "2",
-              title: "Review the free summary",
-              desc: "See registration details, make, model, year, and accident count instantly.",
+              step: '2',
+              title: 'Review the free summary',
+              desc: 'See registration details, make, model, year, and accident history instantly.',
             },
             {
-              step: "3",
-              title: "Unlock the full report",
-              desc: "Get the complete history — ownership chain, liens, ADs, and market value — for $149.",
+              step: '3',
+              title: 'Unlock the full report',
+              desc: 'Get the complete history — ownership chain, ADs, and market value — for $149.',
             },
           ].map((item) => (
             <div
@@ -129,28 +162,28 @@ export default function Home() {
           <div className="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
-                title: "Accident & Incident History",
-                desc: "Complete NTSB records linked to the aircraft's N-number.",
+                title: 'Complete Accident History',
+                desc: 'Full NTSB records for the aircraft, from 1982 to today.',
               },
               {
-                title: "Ownership Chain",
-                desc: "Full list of prior owners with locations and dates.",
+                title: 'Registration Details',
+                desc: 'Current FAA registration, serial, airworthiness, and owner information.',
               },
               {
-                title: "Airworthiness Directives",
-                desc: "Outstanding ADs and compliance history.",
+                title: 'Ownership Information',
+                desc: "Registered owner and their location, sourced from the FAA registry.",
               },
               {
-                title: "Liens & Encumbrances",
-                desc: "Any recorded financial interests against the aircraft.",
+                title: 'Airframe & Engine Data',
+                desc: 'Manufacturer, model, year of manufacture, and serial number.',
               },
               {
-                title: "Registration Status",
-                desc: "Current FAA registration, expiration, and airworthiness.",
+                title: 'Deregistration Check',
+                desc: 'Flags aircraft no longer in the active FAA registry.',
               },
               {
-                title: "Market Value Estimate",
-                desc: "Comparable-sales-based valuation range.",
+                title: 'Downloadable PDF',
+                desc: 'Clean, shareable report you can save or send to your broker.',
               },
             ].map((f) => (
               <div
@@ -183,8 +216,8 @@ export default function Home() {
             <ul className="mt-6 space-y-3 text-slate-600 text-sm">
               <li>✓ Registration status</li>
               <li>✓ Make, model, year</li>
-              <li>✓ Owner city & state</li>
-              <li>✓ Accident count summary</li>
+              <li>✓ Owner city &amp; state</li>
+              <li>✓ Full accident history</li>
             </ul>
             <a
               href="#lookup"
@@ -204,11 +237,11 @@ export default function Home() {
             <p className="mt-1 text-sm text-slate-500">One-time payment</p>
             <ul className="mt-6 space-y-3 text-slate-700 text-sm">
               <li>✓ Everything in Free</li>
-              <li>✓ Accident & incident details</li>
-              <li>✓ Ownership chain</li>
-              <li>✓ Liens & encumbrances</li>
-              <li>✓ Airworthiness directives</li>
-              <li>✓ Market value estimate</li>
+              <li>✓ Detailed accident records</li>
+              <li>✓ Registration &amp; airworthiness</li>
+              <li>✓ Ownership information</li>
+              <li>✓ Deregistration status</li>
+              <li>✓ Downloadable PDF report</li>
             </ul>
             <a
               href="#lookup"
@@ -224,7 +257,7 @@ export default function Home() {
             <p className="mt-3 text-4xl font-bold">
               $199<span className="text-lg font-normal text-slate-500">/mo</span>
             </p>
-            <p className="mt-1 text-sm text-slate-500">For brokers & dealers</p>
+            <p className="mt-1 text-sm text-slate-500">For brokers &amp; dealers</p>
             <ul className="mt-6 space-y-3 text-slate-600 text-sm">
               <li>✓ Unlimited lookups</li>
               <li>✓ Bulk N-number search</li>
@@ -299,9 +332,9 @@ export default function Home() {
           <div className="mt-10 pt-8 border-t border-slate-200 text-xs text-slate-500 flex flex-col md:flex-row justify-between gap-4">
             <p>© {new Date().getFullYear()} NNumberCheck.com. All rights reserved.</p>
             <p className="max-w-xl">
-              Not affiliated with the FAA. For historical reference only. Verify
-              all information with official records before making any purchase
-              or safety decision.
+              Not affiliated with the FAA or NTSB. For historical reference only.
+              Verify all information with official records before making any
+              purchase or safety decision.
             </p>
           </div>
         </div>
