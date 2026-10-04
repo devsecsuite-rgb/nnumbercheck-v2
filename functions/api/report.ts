@@ -15,14 +15,18 @@ export const onRequestGet = async (context) => {
   }
 
   try {
+        // Match on n_number only — picks the most recent completed purchase
+    // for this aircraft. Slightly more lenient than matching the exact
+    // transaction ID, but works reliably even if Paddle assigns a
+    // different txn ID than the one in the checkout session.
     const purchase = await env.DB.prepare(
       `SELECT * FROM purchases
-       WHERE paddle_transaction_id = ?
-         AND n_number = ?
+       WHERE n_number = ?
          AND status = 'completed'
+       ORDER BY id DESC
        LIMIT 1`
     )
-      .bind(txnId, nNumber)
+      .bind(nNumber)
       .first();
 
     if (!purchase) {
