@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import Script from 'next/script';
 import './globals.css';
 
 const geistSans = Geist({
@@ -97,11 +96,6 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(websiteJsonLd).replace(/</g, '\\u003c'),
           }}
-        />
-        <Script
-          src="https://cdn.paddle.com/paddle/v2/paddle.js"
-          strategy="afterInteractive"
-          id="paddle-js"
         />
         {children}
       </body>
