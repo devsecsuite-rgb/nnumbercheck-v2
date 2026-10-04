@@ -2,7 +2,7 @@
 const fs = require('fs');
 
 const FR_API_URL = 'https://www.federalregister.gov/api/v1/documents.json';
-const START_YEAR = 2010; // Adjust if you want older ADs
+const START_YEAR = 1995; // Adjust if you want older ADs
 const CURRENT_YEAR = new Date().getFullYear();
 
 async function fetchYear(year) {
