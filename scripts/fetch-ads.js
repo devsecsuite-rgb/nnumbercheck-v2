@@ -65,7 +65,7 @@ function generateSQL(ads) {
     const adNumber = ad.document_number;
     const title = ad.title;
     const { manufacturer, model } = parseTitle(title);
-    const effectiveDate = ad.effective_on || '';
+    const effectiveDate = ad.effective_on || ad.publication_date || '';
     const abstract = ad.abstract || '';
     const documentUrl = ad.html_url || '';
 
