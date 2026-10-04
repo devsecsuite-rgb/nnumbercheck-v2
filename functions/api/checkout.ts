@@ -1,6 +1,5 @@
 // @ts-nocheck
 // functions/api/checkout.ts
-import { Paddle, Environment } from '@paddle/paddle-node-sdk';
 
 export const onRequestPost = async (context) => {
   const { request, env } = context;
@@ -16,28 +15,51 @@ export const onRequestPost = async (context) => {
       });
     }
 
-    const paddle = new Paddle(env.PADDLE_API_KEY, {
-      environment:
-        env.PADDLE_ENVIRONMENT === 'sandbox'
-          ? Environment.sandbox
-          : Environment.production,
-    });
+    // Determine the correct API base URL based on environment
+    const apiBase = env.PADDLE_ENVIRONMENT === 'sandbox'
+      ? 'https://sandbox-api.paddle.com'
+      : 'https://api.paddle.com';
 
-    const transaction = await paddle.transactions.create({
-      items: [
-        {
-          priceId: env.PADDLE_PRICE_ID,
-          quantity: 1,
-        },
-      ],
-      customData: {
-        n_number: nNumber,
+    // Call Paddle's API directly with fetch (no SDK needed)
+    const response = await fetch(`${apiBase}/transactions`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${env.PADDLE_API_KEY}`,
+        'Content-Type': 'application/json',
       },
+      body: JSON.stringify({
+        items: [
+          {
+            price_id: env.PADDLE_PRICE_ID, // Paddle API uses snake_case
+            quantity: 1,
+          },
+        ],
+        custom_data: {
+          n_number: nNumber, // Paddle API uses snake_case
+        },
+      }),
     });
 
-    return new Response(JSON.stringify({ transactionId: transaction.id }), {
+    const data = await response.json();
+
+    if (!response.ok) {
+      // Return the detailed error from Paddle
+      return new Response(JSON.stringify({ 
+        error: data.error?.detail || 'Paddle API error',
+        code: data.error?.code,
+      }), {
+        status: response.status,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    // Return the transaction ID for the frontend to use
+    return new Response(JSON.stringify({ 
+      transactionId: data.data.id 
+    }), {
       headers: { 'Content-Type': 'application/json' },
     });
+
   } catch (error) {
     return new Response(
       JSON.stringify({ error: String(error?.message || error) }),
