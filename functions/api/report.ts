@@ -15,9 +15,6 @@ export const onRequestGet = async (context) => {
   }
 
   try {
-    // Verify a completed purchase exists matching BOTH the transaction
-    // and the N-number — prevents someone from paying for one aircraft
-    // and viewing a different one.
     const purchase = await env.DB.prepare(
       `SELECT * FROM purchases
        WHERE paddle_transaction_id = ?
@@ -35,7 +32,6 @@ export const onRequestGet = async (context) => {
       );
     }
 
-    // Fetch aircraft + accidents
     const aircraft = await env.DB.prepare(
       'SELECT * FROM aircraft WHERE n_number = ?'
     )
