@@ -23,10 +23,7 @@ function ReportContent() {
 
     async function load() {
       try {
-        // Verify the purchase and fetch the full report
-        const res = await fetch(
-          `/api/report?n=${nNumber}&txn=${txnId}`
-        );
+        const res = await fetch(`/api/report?n=${nNumber}&txn=${txnId}`);
         const json = await res.json();
 
         if (!res.ok) {
@@ -159,6 +156,68 @@ function ReportContent() {
                   <p className="mt-1 text-slate-600">{acc.summary}</p>
                 </div>
               ))}
+            </div>
+          )}
+        </div>
+
+        {/* Airworthiness Directives */}
+        <div className="border border-slate-200 rounded-2xl p-8">
+          <h2 className="text-2xl font-bold text-slate-900">
+            Applicable Airworthiness Directives (ADs)
+          </h2>
+          <p className="mt-2 text-sm text-slate-500">
+            FAA-mandated safety directives potentially applicable to this
+            aircraft based on manufacturer and model. Always verify applicability
+            using the official AD text before making any decision.
+          </p>
+
+          {!aircraft.directives || aircraft.directives.length === 0 ? (
+            <p className="mt-6 text-slate-600">
+              No matching ADs found for this aircraft&apos;s make and model.
+            </p>
+          ) : (
+            <div className="mt-6 space-y-5">
+              {aircraft.directives.map((ad: any) => (
+                <div
+                  key={ad.ad_number}
+                  className="border-l-4 border-amber-400 pl-6 py-2"
+                >
+                  <div className="flex items-center gap-3 flex-wrap">
+                    <span className="bg-amber-100 text-amber-800 px-2 py-0.5 rounded text-xs font-semibold">
+                      AD {ad.ad_number}
+                    </span>
+                    {ad.effective_date && (
+                      <span className="text-slate-500 text-xs">
+                        Effective: {ad.effective_date}
+                      </span>
+                    )}
+                  </div>
+                  <p className="mt-2 font-semibold text-slate-800">
+                    {ad.title}
+                  </p>
+                  {ad.abstract && (
+                    <p className="mt-1 text-slate-600 text-sm">
+                      {ad.abstract}
+                    </p>
+                  )}
+                  {ad.document_url && (
+                    <a
+                      href={ad.document_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-2 inline-block text-xs font-medium text-sky-600 hover:underline"
+                    >
+                      View official document on FederalRegister.gov →
+                    </a>
+                  )}
+                </div>
+              ))}
+              {aircraft.directives.length === 20 && (
+                <p className="text-xs text-slate-500 italic">
+                  Showing the 20 most recent ADs. Additional older directives
+                  may also apply.
+                </p>
+              )}
             </div>
           )}
         </div>
