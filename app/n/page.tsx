@@ -3,6 +3,7 @@
 import { useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
 import Link from 'next/link';
+import Script from 'next/script';
 
 type Accident = {
   id: number;
@@ -264,6 +265,11 @@ function LookupResult() {
       <link
         rel="canonical"
         href={`https://nnumbercheck.com/n?number=${data.n_number}`}
+      />
+      <Script
+        src="https://cdn.paddle.com/paddle/v2/paddle.js"
+        strategy="afterInteractive"
+        id="paddle-js"
       />
       <script
         type="application/ld+json"
