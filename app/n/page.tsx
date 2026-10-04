@@ -74,7 +74,7 @@ function LookupResult() {
       });
   }, []);
 
-  const handleCheckout = async () => {
+    const handleCheckout = async () => {
     if (!data || !paddle) return;
     setCheckoutLoading(true);
 
@@ -94,13 +94,32 @@ function LookupResult() {
             theme: 'light',
             successUrl: `${window.location.origin}/report?n=${data.n_number}`,
           },
+          eventCallback: (event: any) => {
+            console.log('Paddle event:', event.name || event);
+            if (event.name === 'checkout.completed') {
+              // Payment succeeded — redirect to the report page
+              const txnId =
+                event.data?.transaction_id ||
+                event.data?.transaction?.id ||
+                json.transactionId;
+              window.location.href = `/report?n=${data.n_number}&_ptxn=${txnId}`;
+            }
+            if (event.name === 'checkout.closed') {
+              setCheckoutLoading(false);
+            }
+            if (event.name === 'checkout.error') {
+              console.error('Checkout error:', event);
+              setCheckoutLoading(false);
+              alert('Payment failed. Please try again.');
+            }
+          },
         });
       } else {
         alert(json.error || 'Something went wrong. Please try again.');
+        setCheckoutLoading(false);
       }
     } catch {
       alert('Something went wrong. Please try again.');
-    } finally {
       setCheckoutLoading(false);
     }
   };
