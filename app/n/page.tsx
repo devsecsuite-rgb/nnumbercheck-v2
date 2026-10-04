@@ -3,7 +3,7 @@
 import { useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
 import Link from 'next/link';
-import Script from 'next/script';
+import { initializePaddle, type Paddle } from '@paddle/paddle-js';
 
 type Accident = {
   id: number;
@@ -57,24 +57,25 @@ function LookupResult() {
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [paddle, setPaddle] = useState<Paddle | undefined>(undefined);
 
-  // Initialize Paddle.js when the component mounts
+  // Initialize Paddle using the official wrapper
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    const w = window as any;
-    if (!w.Paddle) return;
-    try {
-      w.Paddle.Environment.set('sandbox');
-      w.Paddle.Initialize({
-        token: process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN || '',
+    initializePaddle({
+      environment: 'sandbox',
+      token: process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN || '',
+    })
+      .then((instance) => {
+        if (instance) setPaddle(instance);
+      })
+      .catch((err) => {
+        console.error('Paddle init failed:', err);
       });
-    } catch (err) {
-      console.error('Paddle init failed:', err);
-    }
   }, []);
 
   const handleCheckout = async () => {
-    if (!data) return;
+    if (!data || !paddle) return;
     setCheckoutLoading(true);
 
     try {
@@ -85,12 +86,8 @@ function LookupResult() {
       });
       const json = await res.json();
 
-      if (
-        json.transactionId &&
-        typeof window !== 'undefined' &&
-        (window as any).Paddle
-      ) {
-        (window as any).Paddle.Checkout.open({
+      if (json.transactionId) {
+        paddle.Checkout.open({
           transactionId: json.transactionId,
           settings: {
             displayMode: 'overlay',
@@ -98,13 +95,12 @@ function LookupResult() {
             successUrl: `${window.location.origin}/report?n=${data.n_number}`,
           },
         });
-        setCheckoutLoading(false);
       } else {
         alert(json.error || 'Something went wrong. Please try again.');
-        setCheckoutLoading(false);
       }
     } catch {
       alert('Something went wrong. Please try again.');
+    } finally {
       setCheckoutLoading(false);
     }
   };
@@ -238,9 +234,6 @@ function LookupResult() {
   // Success — full result
   const hasAccidents = data.accidents && data.accidents.length > 0;
 
-  // GEO/AEO structured data — BreadcrumbList only.
-  // Product schema intentionally omitted: digital reports are not eligible
-  // for Google merchant listings, which requires shipping + return policy.
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -265,11 +258,6 @@ function LookupResult() {
       <link
         rel="canonical"
         href={`https://nnumbercheck.com/n?number=${data.n_number}`}
-      />
-      <Script
-        src="https://cdn.paddle.com/paddle/v2/paddle.js"
-        strategy="afterInteractive"
-        id="paddle-js"
       />
       <script
         type="application/ld+json"
@@ -309,7 +297,6 @@ function LookupResult() {
             </p>
           )}
 
-          {/* GEO/AEO: Answer-first extractable summary */}
           <p className="mt-6 text-slate-700 text-base max-w-3xl">
             <strong>
               {data.n_number} is a{' '}
@@ -339,7 +326,6 @@ function LookupResult() {
         </p>
 
         <div className="mt-8 grid md:grid-cols-2 gap-6">
-          {/* Registration */}
           <div className="border border-slate-200 rounded-2xl p-6">
             <h3 className="font-semibold text-lg">Registration</h3>
             <dl className="mt-4 space-y-3 text-sm">
@@ -376,7 +362,6 @@ function LookupResult() {
             </dl>
           </div>
 
-          {/* Accidents */}
           <div className="border border-slate-200 rounded-2xl p-6">
             <h3 className="font-semibold text-lg">Accident History</h3>
             {!hasAccidents ? (
@@ -441,7 +426,7 @@ function LookupResult() {
               <div className="mt-auto pt-6">
                 <button
                   onClick={handleCheckout}
-                  disabled={checkoutLoading}
+                  disabled={checkoutLoading || !paddle}
                   className="w-full bg-white text-sky-600 py-3 rounded-xl font-semibold hover:bg-sky-50 transition disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {checkoutLoading ? 'Opening checkout...' : 'Get Full Report — $149'}
@@ -455,7 +440,6 @@ function LookupResult() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="border-t border-slate-200 bg-white">
         <div className="max-w-6xl mx-auto px-6 py-8 text-xs text-slate-500 flex flex-col md:flex-row justify-between gap-4">
           <p>© {new Date().getFullYear()} NNumberCheck.com</p>
