@@ -2,50 +2,53 @@
 const fs = require('fs');
 
 const FR_API_URL = 'https://www.federalregister.gov/api/v1/documents.json';
+const START_YEAR = 2010; // Adjust if you want older ADs
+const CURRENT_YEAR = new Date().getFullYear();
 
-async function fetchAllADs() {
+async function fetchYear(year) {
   const allADs = [];
   let page = 1;
   let hasMore = true;
-
-  console.log('Starting to fetch FAA Airworthiness Directives...');
 
   while (hasMore) {
     const params = new URLSearchParams({
       'conditions[type][]': 'RULE',
       'conditions[agencies][]': 'federal-aviation-administration',
       'conditions[term]': 'Airworthiness Directives',
+      'conditions[publication_date][gte]': `${year}-01-01`,
+      'conditions[publication_date][lte]': `${year}-12-31`,
       'per_page': '1000',
       'page': page.toString(),
       'order': 'newest',
     });
 
     const url = `${FR_API_URL}?${params.toString()}`;
-    console.log(`Fetching page ${page}...`);
-
     const response = await fetch(url);
+
     if (!response.ok) {
-      throw new Error(`Federal Register API error: ${response.status}`);
+      if (response.status === 400 && page > 1) {
+        // Hit the pagination cap for this year — move on
+        console.log(`  [${year}] Reached pagination cap at page ${page}`);
+        hasMore = false;
+        continue;
+      }
+      throw new Error(`Federal Register API error: ${response.status} (${year}, page ${page})`);
     }
 
     const data = await response.json();
     if (data.results && data.results.length > 0) {
       allADs.push(...data.results);
-      console.log(`  Got ${data.results.length} records (total so far: ${allADs.length})`);
       page++;
     } else {
       hasMore = false;
     }
 
-    await new Promise((r) => setTimeout(r, 500));
+    await new Promise((r) => setTimeout(r, 300));
   }
 
-  console.log(`Total AD documents fetched: ${allADs.length}`);
   return allADs;
 }
 
-// Parse "Airworthiness Directives; Cessna Aircraft Company Model 172N Airplanes"
-// into manufacturer and model fields.
 function parseTitle(title) {
   const cleanTitle = title.replace(/^Airworthiness Directives;\s*/i, '');
   const manufacturerMatch = cleanTitle.match(/^(.+?)(?=\s+(Model|Airplanes|Helicopters|Engines|Propellers|Turbofan|Turboprop|Blades))/i);
@@ -78,10 +81,19 @@ function generateSQL(ads) {
 
 async function main() {
   try {
-    const ads = await fetchAllADs();
-    const sql = generateSQL(ads);
+    const allADs = [];
+    for (let year = CURRENT_YEAR; year >= START_YEAR; year--) {
+      console.log(`[${year}] Fetching...`);
+      const ads = await fetchYear(year);
+      console.log(`[${year}] Got ${ads.length} ADs`);
+      allADs.push(...ads);
+    }
+
+    console.log(`\nTotal AD documents fetched: ${allADs.length}`);
+
+    const sql = generateSQL(allADs);
     fs.writeFileSync('ads-import.sql', sql);
-    console.log(`Wrote ${ads.length} SQL statements to ads-import.sql`);
+    console.log(`Wrote ${allADs.length} SQL statements to ads-import.sql`);
   } catch (err) {
     console.error('Fatal error:', err.message);
     process.exit(1);
