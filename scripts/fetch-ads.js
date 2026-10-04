@@ -72,7 +72,7 @@ function generateSQL(ads) {
     const esc = (s) => (s || '').toString().replace(/'/g, "''");
 
     statements.push(
-      `INSERT OR IGNORE INTO directives (ad_number, title, manufacturer, model, effective_date, abstract, document_url) VALUES ('${esc(adNumber)}', '${esc(title)}', '${esc(manufacturer)}', '${esc(model)}', '${esc(effectiveDate)}', '${esc(abstract)}', '${esc(documentUrl)}');`
+      `INSERT OR REPLACE INTO directives (ad_number, title, manufacturer, model, effective_date, abstract, document_url) VALUES ('${esc(adNumber)}', '${esc(title)}', '${esc(manufacturer)}', '${esc(model)}', '${esc(effectiveDate)}', '${esc(abstract)}', '${esc(documentUrl)}');`
     );
   }
 
