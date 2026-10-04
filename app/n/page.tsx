@@ -59,12 +59,43 @@ function LookupResult() {
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [paddle, setPaddle] = useState<Paddle | undefined>(undefined);
 
-  // Initialize Paddle using the official wrapper
+  // Initialize Paddle using the official wrapper.
+  // eventCallback MUST be passed here (not to Checkout.open) — that's how
+  // Paddle.js delivers checkout lifecycle events.
   useEffect(() => {
     if (typeof window === 'undefined') return;
+
     initializePaddle({
       environment: 'sandbox',
       token: process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN || '',
+      eventCallback: (event: any) => {
+        console.log('Paddle event:', event?.name, event);
+
+        if (event?.name === 'checkout.completed') {
+          const txnId = event?.data?.transaction_id;
+          const purchasedNNumber =
+            event?.data?.custom_data?.n_number ||
+            new URLSearchParams(window.location.search).get('number') ||
+            '';
+
+          if (txnId && purchasedNNumber) {
+            const normalised = purchasedNNumber.toUpperCase().startsWith('N')
+              ? purchasedNNumber.toUpperCase()
+              : 'N' + purchasedNNumber.toUpperCase();
+            window.location.href = `/report?n=${normalised}&_ptxn=${txnId}`;
+          }
+        }
+
+        if (event?.name === 'checkout.closed') {
+          setCheckoutLoading(false);
+        }
+
+        if (event?.name === 'checkout.error') {
+          console.error('Checkout error:', event);
+          setCheckoutLoading(false);
+          alert('Payment failed. Please try again.');
+        }
+      },
     })
       .then((instance) => {
         if (instance) setPaddle(instance);
@@ -74,7 +105,7 @@ function LookupResult() {
       });
   }, []);
 
-    const handleCheckout = async () => {
+  const handleCheckout = async () => {
     if (!data || !paddle) return;
     setCheckoutLoading(true);
 
@@ -92,26 +123,6 @@ function LookupResult() {
           settings: {
             displayMode: 'overlay',
             theme: 'light',
-            successUrl: `${window.location.origin}/report?n=${data.n_number}`,
-          },
-          eventCallback: (event: any) => {
-            console.log('Paddle event:', event.name || event);
-            if (event.name === 'checkout.completed') {
-              // Payment succeeded — redirect to the report page
-              const txnId =
-                event.data?.transaction_id ||
-                event.data?.transaction?.id ||
-                json.transactionId;
-              window.location.href = `/report?n=${data.n_number}&_ptxn=${txnId}`;
-            }
-            if (event.name === 'checkout.closed') {
-              setCheckoutLoading(false);
-            }
-            if (event.name === 'checkout.error') {
-              console.error('Checkout error:', event);
-              setCheckoutLoading(false);
-              alert('Payment failed. Please try again.');
-            }
           },
         });
       } else {
