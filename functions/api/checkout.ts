@@ -1,6 +1,6 @@
 // @ts-nocheck
 // functions/api/checkout.ts
-import Stripe from 'stripe';
+import { Paddle, Environment } from '@paddle/paddle-node-sdk';
 
 export const onRequestPost = async (context) => {
   const { request, env } = context;
@@ -16,29 +16,26 @@ export const onRequestPost = async (context) => {
       });
     }
 
-    // Cloudflare Workers require the Fetch HTTP client for Stripe
-    const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
-      httpClient: Stripe.createFetchHttpClient(),
+    const paddle = new Paddle(env.PADDLE_API_KEY, {
+      environment:
+        env.PADDLE_ENVIRONMENT === 'sandbox'
+          ? Environment.sandbox
+          : Environment.production,
     });
 
-    const origin = new URL(request.url).origin;
-
-    const session = await stripe.checkout.sessions.create({
-      mode: 'payment',
-      line_items: [
+    const transaction = await paddle.transactions.create({
+      items: [
         {
-          price: env.STRIPE_PRICE_ID,
+          priceId: env.PADDLE_PRICE_ID,
           quantity: 1,
         },
       ],
-      success_url: `${origin}/report?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/n?number=${nNumber}`,
-      metadata: {
-        nNumber: nNumber,
+      customData: {
+        n_number: nNumber,
       },
     });
 
-    return new Response(JSON.stringify({ url: session.url }), {
+    return new Response(JSON.stringify({ transactionId: transaction.id }), {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
