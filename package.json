@@ -8,19 +8,12 @@
     "start": "next start"
   },
   "dependencies": {
-    "@paddle/paddle-js": "^1.6.5",
-    "@paddle/paddle-node-sdk": "^3.10.0",
-    "adm-zip": "^0.5.16",
     "next": "16.3.7",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-<<<<<<< HEAD
-    "stripe": "^17.5.0"
-=======
     "adm-zip": "^0.5.16",
     "@paddle/paddle-js": "^1.4.0",
     "@paddle/paddle-node-sdk": "^2.6.0"
->>>>>>> 88a502cefa6064efb2bff94cf8951853df9d1e4b
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
