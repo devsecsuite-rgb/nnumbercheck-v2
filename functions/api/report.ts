@@ -7,18 +7,15 @@ export const onRequestGet = async (context) => {
   const nNumber = (url.searchParams.get('n') || '').toUpperCase();
   const txnId = url.searchParams.get('txn') || '';
 
-  if (!nNumber || !txnId) {
+  if (!nNumber) {
     return new Response(
-      JSON.stringify({ error: 'Missing n or txn parameter' }),
+      JSON.stringify({ error: 'Missing n parameter' }),
       { status: 400, headers: { 'Content-Type': 'application/json' } }
     );
   }
 
   try {
-        // Match on n_number only — picks the most recent completed purchase
-    // for this aircraft. Slightly more lenient than matching the exact
-    // transaction ID, but works reliably even if Paddle assigns a
-    // different txn ID than the one in the checkout session.
+    // Match on n_number only — picks the most recent completed purchase
     const purchase = await env.DB.prepare(
       `SELECT * FROM purchases
        WHERE n_number = ?
@@ -48,6 +45,24 @@ export const onRequestGet = async (context) => {
       .bind(nNumber)
       .all();
 
+    // Fetch matching ADs — if we have the aircraft's make/model
+    let directives = [];
+    if (aircraft?.make || aircraft?.model) {
+      const make = (aircraft.make || '').trim().split(' ')[0]; // "Cessna" from "Cessna Aircraft Company"
+      const model = (aircraft.model || '').trim().split(' ')[0]; // "172" from "172S"
+
+      const { results } = await env.DB.prepare(
+        `SELECT * FROM directives
+         WHERE (manufacturer LIKE ? OR manufacturer LIKE ?)
+           AND (model LIKE ? OR title LIKE ?)
+         ORDER BY effective_date DESC
+         LIMIT 20`
+      )
+        .bind(`%${make}%`, `%${aircraft.make}%`, `%${model}%`, `%${model}%`)
+        .all();
+      directives = results || [];
+    }
+
     return new Response(
       JSON.stringify({
         purchase,
@@ -65,6 +80,7 @@ export const onRequestGet = async (context) => {
             airworthiness_date: null,
           }),
           accidents: accidents || [],
+          directives,
         },
       }),
       { status: 200, headers: { 'Content-Type': 'application/json' } }
