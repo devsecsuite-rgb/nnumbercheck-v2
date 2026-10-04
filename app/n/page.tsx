@@ -57,9 +57,25 @@ function LookupResult() {
   const [notFound, setNotFound] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
 
+  // Initialize Paddle.js when the component mounts
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const w = window as any;
+    if (!w.Paddle) return;
+    try {
+      w.Paddle.Environment.set('sandbox');
+      w.Paddle.Initialize({
+        token: process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN || '',
+      });
+    } catch (err) {
+      console.error('Paddle init failed:', err);
+    }
+  }, []);
+
   const handleCheckout = async () => {
     if (!data) return;
     setCheckoutLoading(true);
+
     try {
       const res = await fetch('/api/checkout', {
         method: 'POST',
@@ -67,8 +83,21 @@ function LookupResult() {
         body: JSON.stringify({ nNumber: data.n_number }),
       });
       const json = await res.json();
-      if (json.url) {
-        window.location.href = json.url;
+
+      if (
+        json.transactionId &&
+        typeof window !== 'undefined' &&
+        (window as any).Paddle
+      ) {
+        (window as any).Paddle.Checkout.open({
+          transactionId: json.transactionId,
+          settings: {
+            displayMode: 'overlay',
+            theme: 'light',
+            successUrl: `${window.location.origin}/report?n=${data.n_number}`,
+          },
+        });
+        setCheckoutLoading(false);
       } else {
         alert(json.error || 'Something went wrong. Please try again.');
         setCheckoutLoading(false);
@@ -402,17 +431,17 @@ function LookupResult() {
               <h3 className="font-semibold text-lg">Full History Report</h3>
               <p className="mt-4 text-4xl font-bold">$149</p>
               <p className="mt-1 text-sky-100 text-sm">One-time payment</p>
-            
+
               <div className="mt-auto pt-6">
                 <button
                   onClick={handleCheckout}
                   disabled={checkoutLoading}
                   className="w-full bg-white text-sky-600 py-3 rounded-xl font-semibold hover:bg-sky-50 transition disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  {checkoutLoading ? 'Redirecting to checkout...' : 'Get Full Report — $149'}
+                  {checkoutLoading ? 'Opening checkout...' : 'Get Full Report — $149'}
                 </button>
                 <p className="mt-3 text-xs text-sky-100 text-center">
-                  Secure checkout via Stripe.
+                  Secure checkout via Paddle.
                 </p>
               </div>
             </div>
