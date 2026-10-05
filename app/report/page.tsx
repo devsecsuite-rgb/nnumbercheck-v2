@@ -222,152 +222,53 @@ function ReportContent() {
           )}
         </div>
 
-        {/* FAA Document Index — Liens, Releases, Bills of Sale */}
-        <div className="border border-slate-200 rounded-2xl p-8">
+        {/* Title & Liens Notice */}
+        <div className="border border-slate-200 rounded-2xl p-8 bg-slate-50">
           <h2 className="text-2xl font-bold text-slate-900">
-            FAA Recorded Documents
+            Title &amp; Lien Verification
           </h2>
-          <p className="mt-2 text-sm text-slate-500">
-            All documents recorded against this aircraft in the FAA Document
-            Index. Includes security agreements (liens), releases, and bills
-            of sale.
+          <p className="mt-3 text-slate-700 text-sm">
+            This report does not include a formal title search. The FAA
+            Document Index — which records liens, security agreements, and
+            bills of sale — is only accessible one aircraft at a time and is
+            not available as bulk data. Historical lien records require a
+            formal search by a licensed title company.
           </p>
-
-          {!aircraft.documents || !aircraft.documents.liens || aircraft.documents.liens.length === 0 ? (
-            <p className="mt-6 text-slate-600">
-              No recorded liens or financial documents found for this aircraft.
-            </p>
-          ) : (
-            <>
-              {/* Active Liens Warning */}
-              {aircraft.documents.hasActiveLiens && (
-                <div className="mt-6 bg-red-50 border-l-4 border-red-400 p-4 rounded">
-                  <p className="text-red-800 font-semibold">
-                    ⚠️ Potential Active Liens Detected
-                  </p>
-                  <p className="mt-1 text-red-700 text-sm">
-                    This aircraft has {aircraft.documents.activeLiens.length}{' '}
-                    lien{aircraft.documents.activeLiens.length === 1 ? '' : 's'}{' '}
-                    with no matching release on file. Verify with a title
-                    company before purchase.
-                  </p>
-                </div>
-              )}
-
-              {/* Liens */}
-              <div className="mt-6">
-                <h3 className="font-semibold text-lg text-slate-800">
-                  Liens Recorded ({aircraft.documents.liens.length})
-                </h3>
-                <div className="mt-4 space-y-3">
-                  {aircraft.documents.liens.map((doc: any) => {
-                    const isActive = aircraft.documents.activeLiens.some(
-                      (a: any) => a.document_id === doc.document_id
-                    );
-                    return (
-                      <div
-                        key={doc.document_id}
-                        className={`border-l-4 pl-4 py-2 ${
-                          isActive ? 'border-red-400' : 'border-slate-300'
-                        }`}
-                      >
-                        <div className="flex items-center gap-3 flex-wrap">
-                          <span className="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-xs font-semibold">
-                            {doc.document_type}
-                          </span>
-                          <span className="text-slate-500 text-xs font-mono">
-                            Doc #{doc.document_id}
-                          </span>
-                          <span className="text-slate-500 text-xs">
-                            {doc.received_date}
-                          </span>
-                          {isActive && (
-                            <span className="bg-red-100 text-red-700 px-2 py-0.5 rounded text-xs font-semibold">
-                              Potentially Active
-                            </span>
-                          )}
-                        </div>
-                        <p className="mt-1 text-slate-700 text-sm">
-                          {doc.parties}
-                        </p>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Releases */}
-              {aircraft.documents.releases && aircraft.documents.releases.length > 0 && (
-                <div className="mt-6">
-                  <h3 className="font-semibold text-lg text-slate-800">
-                    Releases Filed ({aircraft.documents.releases.length})
-                  </h3>
-                  <div className="mt-4 space-y-3">
-                    {aircraft.documents.releases.map((doc: any) => (
-                      <div
-                        key={doc.document_id}
-                        className="border-l-4 border-green-400 pl-4 py-2"
-                      >
-                        <div className="flex items-center gap-3 flex-wrap">
-                          <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs font-semibold">
-                            {doc.document_type}
-                          </span>
-                          <span className="text-slate-500 text-xs font-mono">
-                            Doc #{doc.document_id}
-                          </span>
-                          <span className="text-slate-500 text-xs">
-                            {doc.received_date}
-                          </span>
-                        </div>
-                        <p className="mt-1 text-slate-700 text-sm">
-                          {doc.parties}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Bills of Sale */}
-              {aircraft.documents.transfers && aircraft.documents.transfers.length > 0 && (
-                <div className="mt-6">
-                  <h3 className="font-semibold text-lg text-slate-800">
-                    Bills of Sale ({aircraft.documents.transfers.length})
-                  </h3>
-                  <div className="mt-4 space-y-3">
-                    {aircraft.documents.transfers.map((doc: any) => (
-                      <div
-                        key={doc.document_id}
-                        className="border-l-4 border-blue-400 pl-4 py-2"
-                      >
-                        <div className="flex items-center gap-3 flex-wrap">
-                          <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs font-semibold">
-                            {doc.document_type}
-                          </span>
-                          <span className="text-slate-500 text-xs font-mono">
-                            Doc #{doc.document_id}
-                          </span>
-                          <span className="text-slate-500 text-xs">
-                            {doc.received_date}
-                          </span>
-                        </div>
-                        <p className="mt-1 text-slate-700 text-sm">
-                          {doc.parties}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              <p className="mt-6 text-xs text-slate-500 italic">
-                Data sourced from the FAA Aircraft Registry Document Index.
-                Active status is determined by matching releases to liens. A
-                formal title search from a licensed title company is
-                recommended before purchase.
-              </p>
-            </>
-          )}
+          <p className="mt-4 text-slate-700 text-sm font-medium">
+            Before purchasing any aircraft, we recommend ordering a title
+            search from:
+          </p>
+          <ul className="mt-3 space-y-2 text-sm text-slate-700">
+            <li>
+              •{' '}
+              <a
+                href="https://www.aerospacereports.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sky-600 hover:underline font-medium"
+              >
+                Aero-Space Reports
+              </a>{' '}
+              — traditional title search (~$85–$190)
+            </li>
+            <li>
+              •{' '}
+              <a
+                href="https://www.aictitle.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sky-600 hover:underline font-medium"
+              >
+                AIC Title Service
+              </a>{' '}
+              — full title + escrow service
+            </li>
+          </ul>
+          <p className="mt-4 text-xs text-slate-500 italic">
+            NNumberCheck aggregates publicly available FAA and NTSB data. For
+            aircraft transactions, always obtain a formal title search and
+            title insurance.
+          </p>
         </div>
 
         {/* Purchase receipt */}
