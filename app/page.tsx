@@ -325,7 +325,7 @@ export default function Home() {
               <h3 className="text-xl font-semibold">Free Lookup</h3>
               <p className="mt-3 text-4xl font-bold">$0</p>
               <p className="mt-1 text-sm text-slate-500">Always free</p>
-              "mt-6 space-y-3 text-slate-600 text-sm">
+              <ul className="mt-6 space-y-3 text-slate-600 text-sm">
                 <li>✓ Registration status</li>
                 <li>✓ Make, model, year</li>
                 <li>✓ Owner city &amp; state</li>
