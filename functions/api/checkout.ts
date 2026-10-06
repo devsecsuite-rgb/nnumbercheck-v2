@@ -1,7 +1,7 @@
 // @ts-nocheck
 // functions/api/checkout.ts
 
-function cleanEnv(value: string | undefined | null): string {
+function cleanEnv(value) {
   if (!value) return '';
   return value
     .replace(/^(?:\\n|\\r|\\t|\s)+/g, '')
@@ -23,46 +23,25 @@ export const onRequestPost = async (context) => {
       });
     }
 
-    const rawKey = env.PADDLE_API_KEY || '';
-    const apiKey = cleanEnv(rawKey);
-    const priceId = cleanEnv(env.PADDLE_PRICE_ID);
-    const environment = cleanEnv(env.PADDLE_ENVIRONMENT) || 'production';
+    const stripeKey = cleanEnv(env.STRIPE_SECRET_KEY);
+    const priceId = cleanEnv(env.STRIPE_PRICE_ID);
 
-    // Diagnostic info — returned in every response so we can debug
-    // without needing Cloudflare logs.
-    const diagnostics = {
-      environment,
-      rawKeyLength: rawKey.length,
-      cleanKeyLength: apiKey.length,
-      keyPrefix: apiKey.substring(0, 22),
-      keySuffix: apiKey.substring(apiKey.length - 6),
-      priceId: priceId,
-      rawKeyHasNewline: /\\n|\n/.test(rawKey),
-      rawKeyHasSpace: /\s/.test(rawKey),
-    };
+    const origin = new URL(request.url).origin;
 
-    const apiBase =
-      environment === 'sandbox'
-        ? 'https://sandbox-api.paddle.com'
-        : 'https://api.paddle.com';
-
-    const response = await fetch(`${apiBase}/transactions`, {
+    const response = await fetch('https://api.stripe.com/v1/checkout/sessions', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${stripeKey}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: JSON.stringify({
-        items: [
-          {
-            price_id: priceId,
-            quantity: 1,
-          },
-        ],
-        custom_data: {
-          n_number: nNumber,
-        },
-      }),
+      body: new URLSearchParams({
+        'mode': 'payment',
+        'line_items[0][price]': priceId,
+        'line_items[0][quantity]': '1',
+        'success_url': `${origin}/report?n=${nNumber}&_ptxn={CHECKOUT_SESSION_ID}`,
+        'cancel_url': `${origin}/n?number=${nNumber}`,
+        'metadata[n_number]': nNumber,
+      }).toString(),
     });
 
     const data = await response.json();
@@ -70,32 +49,20 @@ export const onRequestPost = async (context) => {
     if (!response.ok) {
       return new Response(
         JSON.stringify({
-          error: data.error?.detail || 'Paddle API error',
+          error: data.error?.message || 'Stripe API error',
           code: data.error?.code,
-          status: response.status,
-          diagnostics,
         }),
-        {
-          status: response.status,
-          headers: { 'Content-Type': 'application/json' },
-        }
+        { status: response.status, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
     return new Response(
-      JSON.stringify({ transactionId: data.data.id }),
-      {
-        headers: { 'Content-Type': 'application/json' },
-      }
+      JSON.stringify({ url: data.url }),
+      { headers: { 'Content-Type': 'application/json' } }
     );
   } catch (error) {
     return new Response(
-      JSON.stringify({
-        error: String(error?.message || error),
-        diagnostics: {
-          note: 'Exception thrown before or during fetch',
-        },
-      }),
+      JSON.stringify({ error: String(error?.message || error) }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
