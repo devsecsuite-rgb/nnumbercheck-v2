@@ -325,7 +325,7 @@ export default function Home() {
               <h3 className="text-xl font-semibold">Free Lookup</h3>
               <p className="mt-3 text-4xl font-bold">$0</p>
               <p className="mt-1 text-sm text-slate-500">Always free</p>
-              <ul className="mt-6 space-y-3 text-slate-600 text-sm">
+              "mt-6 space-y-3 text-slate-600 text-sm">
                 <li>✓ Registration status</li>
                 <li>✓ Make, model, year</li>
                 <li>✓ Owner city &amp; state</li>
@@ -347,7 +347,7 @@ export default function Home() {
               <h3 className="text-xl font-semibold">Full History Report</h3>
               <p className="mt-3 text-4xl font-bold">$149</p>
               <p className="mt-1 text-sm text-slate-500">One-time payment</p>
-              <ul className="mt-6 space-y-3 text-slate-700 text-sm">
+              "mt-6 space-y-3 text-slate-700 text-sm">
                 <li>✓ Everything in Free</li>
                 <li>✓ Detailed accident records</li>
                 <li>✓ Registration &amp; airworthiness</li>
@@ -437,6 +437,7 @@ export default function Home() {
               <ul className="mt-3 space-y-2 text-sm text-slate-500">
                 <li><a href="/privacy" className="hover:text-sky-600">Privacy Policy</a></li>
                 <li><a href="/terms" className="hover:text-sky-600">Terms of Service</a></li>
+                <li><a href="/refund" className="hover:text-sky-600">Refund Policy</a></li>
                 <li><a href="/disclaimer" className="hover:text-sky-600">Disclaimer</a></li>
               </ul>
             </div>
