@@ -1,8 +1,6 @@
 // @ts-nocheck
 // functions/api/checkout.ts
 
-// Strip invisible characters (whitespace, literal \n, \r, tabs) that often
-// get pasted into environment variables and corrupt API authentication.
 function cleanEnv(value: string | undefined | null): string {
   if (!value) return '';
   return value
@@ -25,29 +23,29 @@ export const onRequestPost = async (context) => {
       });
     }
 
-    // Clean all environment variables — invisible characters in any of these
-    // will cause Paddle to reject the request with a 403.
-    const apiKey = cleanEnv(env.PADDLE_API_KEY);
+    const rawKey = env.PADDLE_API_KEY || '';
+    const apiKey = cleanEnv(rawKey);
     const priceId = cleanEnv(env.PADDLE_PRICE_ID);
     const environment = cleanEnv(env.PADDLE_ENVIRONMENT) || 'production';
 
-    // Diagnostic logs — view these in Cloudflare Functions logs
-    console.log('=== CHECKOUT DEBUG ===');
-    console.log('Environment:', environment);
-    console.log('API key length:', apiKey.length);
-    console.log('API key starts with:', apiKey.substring(0, 25));
-    console.log('API key ends with:', apiKey.substring(apiKey.length - 8));
-    console.log('Price ID:', priceId);
-    console.log('N-Number:', nNumber);
-    console.log('======================');
+    // Diagnostic info — returned in every response so we can debug
+    // without needing Cloudflare logs.
+    const diagnostics = {
+      environment,
+      rawKeyLength: rawKey.length,
+      cleanKeyLength: apiKey.length,
+      keyPrefix: apiKey.substring(0, 22),
+      keySuffix: apiKey.substring(apiKey.length - 6),
+      priceId: priceId,
+      rawKeyHasNewline: /\\n|\n/.test(rawKey),
+      rawKeyHasSpace: /\s/.test(rawKey),
+    };
 
-    // Determine the correct API base URL based on environment
     const apiBase =
       environment === 'sandbox'
         ? 'https://sandbox-api.paddle.com'
         : 'https://api.paddle.com';
 
-    // Call Paddle's API directly with fetch
     const response = await fetch(`${apiBase}/transactions`, {
       method: 'POST',
       headers: {
@@ -70,12 +68,12 @@ export const onRequestPost = async (context) => {
     const data = await response.json();
 
     if (!response.ok) {
-      console.error('Paddle API error:', JSON.stringify(data));
       return new Response(
         JSON.stringify({
           error: data.error?.detail || 'Paddle API error',
           code: data.error?.code,
           status: response.status,
+          diagnostics,
         }),
         {
           status: response.status,
@@ -91,9 +89,13 @@ export const onRequestPost = async (context) => {
       }
     );
   } catch (error) {
-    console.error('Checkout error:', error);
     return new Response(
-      JSON.stringify({ error: String(error?.message || error) }),
+      JSON.stringify({
+        error: String(error?.message || error),
+        diagnostics: {
+          note: 'Exception thrown before or during fetch',
+        },
+      }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
