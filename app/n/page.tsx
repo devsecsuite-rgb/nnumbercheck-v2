@@ -3,7 +3,6 @@
 import { useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { initializePaddle, type Paddle } from '@paddle/paddle-js';
 
 type Accident = {
   id: number;
@@ -57,56 +56,9 @@ function LookupResult() {
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
-  const [paddle, setPaddle] = useState<Paddle | undefined>(undefined);
-
-  // Initialize Paddle using the official wrapper.
-  // eventCallback MUST be passed here (not to Checkout.open) — that's how
-  // Paddle.js delivers checkout lifecycle events.
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    initializePaddle({
-      environment: 'sandbox',
-      token: process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN || '',
-      eventCallback: (event: any) => {
-        console.log('Paddle event:', event?.name, event);
-
-        if (event?.name === 'checkout.completed') {
-          const txnId = event?.data?.transaction_id;
-          const purchasedNNumber =
-            event?.data?.custom_data?.n_number ||
-            new URLSearchParams(window.location.search).get('number') ||
-            '';
-
-          if (txnId && purchasedNNumber) {
-            const normalised = purchasedNNumber.toUpperCase().startsWith('N')
-              ? purchasedNNumber.toUpperCase()
-              : 'N' + purchasedNNumber.toUpperCase();
-            window.location.href = `/report?n=${normalised}&_ptxn=${txnId}`;
-          }
-        }
-
-        if (event?.name === 'checkout.closed') {
-          setCheckoutLoading(false);
-        }
-
-        if (event?.name === 'checkout.error') {
-          console.error('Checkout error:', event);
-          setCheckoutLoading(false);
-          alert('Payment failed. Please try again.');
-        }
-      },
-    })
-      .then((instance) => {
-        if (instance) setPaddle(instance);
-      })
-      .catch((err) => {
-        console.error('Paddle init failed:', err);
-      });
-  }, []);
 
   const handleCheckout = async () => {
-    if (!data || !paddle) return;
+    if (!data) return;
     setCheckoutLoading(true);
 
     try {
@@ -117,14 +69,9 @@ function LookupResult() {
       });
       const json = await res.json();
 
-      if (json.transactionId) {
-        paddle.Checkout.open({
-          transactionId: json.transactionId,
-          settings: {
-            displayMode: 'overlay',
-            theme: 'light',
-          },
-        });
+      if (json.url) {
+        // Redirect to Stripe Checkout
+        window.location.href = json.url;
       } else {
         alert(json.error || 'Something went wrong. Please try again.');
         setCheckoutLoading(false);
@@ -456,13 +403,13 @@ function LookupResult() {
               <div className="mt-auto pt-6">
                 <button
                   onClick={handleCheckout}
-                  disabled={checkoutLoading || !paddle}
+                  disabled={checkoutLoading}
                   className="w-full bg-white text-sky-600 py-3 rounded-xl font-semibold hover:bg-sky-50 transition disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  {checkoutLoading ? 'Opening checkout...' : 'Get Full Report — $149'}
+                  {checkoutLoading ? 'Redirecting to checkout...' : 'Get Full Report — $149'}
                 </button>
                 <p className="mt-3 text-xs text-sky-100 text-center">
-                  Secure checkout via Paddle.
+                  Secure checkout via Stripe.
                 </p>
               </div>
             </div>
