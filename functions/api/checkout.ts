@@ -33,6 +33,7 @@ export const onRequestPost = async (context) => {
       headers: {
         'Authorization': `Bearer ${stripeKey}`,
         'Content-Type': 'application/x-www-form-urlencoded',
+        'Stripe-Version': '2024-11-20.acacia',
       },
       body: new URLSearchParams({
         'mode': 'payment',
@@ -41,6 +42,7 @@ export const onRequestPost = async (context) => {
         'success_url': `${origin}/report?n=${nNumber}&_ptxn={CHECKOUT_SESSION_ID}`,
         'cancel_url': `${origin}/n?number=${nNumber}`,
         'metadata[n_number]': nNumber,
+        'adaptive_pricing[enabled]': 'true',
       }).toString(),
     });
 
