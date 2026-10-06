@@ -347,7 +347,7 @@ export default function Home() {
               <h3 className="text-xl font-semibold">Full History Report</h3>
               <p className="mt-3 text-4xl font-bold">$149</p>
               <p className="mt-1 text-sm text-slate-500">One-time payment</p>
-              "mt-6 space-y-3 text-slate-700 text-sm">
+              <ul className="mt-6 space-y-3 text-slate-700 text-sm">
                 <li>✓ Everything in Free</li>
                 <li>✓ Detailed accident records</li>
                 <li>✓ Registration &amp; airworthiness</li>
