@@ -14,39 +14,78 @@ function ReportContent() {
   const [aircraft, setAircraft] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
+    useEffect(() => {
     if (!nNumber || !txnId) {
       setError('Missing purchase information.');
       setLoading(false);
       return;
     }
 
-    async function load() {
-      try {
-        const res = await fetch(`/api/report?n=${nNumber}&txn=${txnId}`);
-        const json = await res.json();
+    let cancelled = false;
 
-        if (!res.ok) {
-          setError(json.error || 'Unable to load report.');
-        } else {
-          setPurchase(json.purchase);
-          setAircraft(json.aircraft);
+    async function load() {
+      // Retry up to 6 times over ~15 seconds to handle webhook delay
+      const maxAttempts = 6;
+      const delayMs = 2500;
+
+      for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+        if (cancelled) return;
+
+        try {
+          const res = await fetch(`/api/report?n=${nNumber}&txn=${txnId}`);
+          const json = await res.json();
+
+          if (res.ok) {
+            if (!cancelled) {
+              setPurchase(json.purchase);
+              setAircraft(json.aircraft);
+              setLoading(false);
+            }
+            return;
+          }
+
+          // If it's a 404 and we have attempts left, wait and retry
+          if (res.status === 404 && attempt < maxAttempts) {
+            await new Promise((r) => setTimeout(r, delayMs));
+            continue;
+          }
+
+          // Non-404 error or out of retries — show the error
+          if (!cancelled) {
+            setError(json.error || 'Unable to load report.');
+            setLoading(false);
+          }
+          return;
+        } catch {
+          if (attempt < maxAttempts) {
+            await new Promise((r) => setTimeout(r, delayMs));
+            continue;
+          }
+          if (!cancelled) {
+            setError('Network error. Please try again.');
+            setLoading(false);
+          }
+          return;
         }
-      } catch {
-        setError('Network error. Please try again.');
-      } finally {
-        setLoading(false);
       }
     }
+
     load();
+
+    return () => {
+      cancelled = true;
+    };
   }, [nNumber, txnId]);
 
   if (loading) {
     return (
       <div className="min-h-screen bg-white">
         <ReportHeader />
-        <div className="max-w-2xl mx-auto px-6 py-20 text-center">
+                <div className="max-w-2xl mx-auto px-6 py-20 text-center">
           <p className="text-slate-500">Verifying your purchase...</p>
+          <p className="mt-2 text-xs text-slate-400">
+            This can take a few seconds while we confirm your payment.
+          </p>
         </div>
       </div>
     );
