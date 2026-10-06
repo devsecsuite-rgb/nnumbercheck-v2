@@ -5,23 +5,27 @@ export const onRequestGet = async (context: any) => {
   const { request, env } = context;
   const url = new URL(request.url);
   const nNumber = (url.searchParams.get('n') || '').toUpperCase();
+  const txnId = url.searchParams.get('txn') || '';
 
-  if (!nNumber) {
+  if (!nNumber || !txnId) {
     return new Response(
-      JSON.stringify({ error: 'Missing n parameter' }),
+      JSON.stringify({ error: 'Missing n or txn parameter' }),
       { status: 400, headers: { 'Content-Type': 'application/json' } }
     );
   }
 
   try {
+    // Require BOTH the N-number and a valid transaction ID that matches
+    // a completed purchase in the database. This prevents anyone from
+    // viewing a paid report without a legitimate purchase.
     const purchase = await env.DB.prepare(
       `SELECT * FROM purchases
-       WHERE n_number = ?
+       WHERE paddle_transaction_id = ?
+         AND n_number = ?
          AND status = 'completed'
-       ORDER BY id DESC
        LIMIT 1`
     )
-      .bind(nNumber)
+      .bind(txnId, nNumber)
       .first();
 
     if (!purchase) {
