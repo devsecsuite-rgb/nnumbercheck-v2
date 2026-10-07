@@ -1,1 +1,1 @@
-/aircraft/:nnumber /aircraft/[nnumber].html 200
+/aircraft/:nnumber /aircraft/:nnumber.html 200
