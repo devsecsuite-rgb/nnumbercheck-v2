@@ -6,7 +6,7 @@ import path from 'path';
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: 'Aircraft Database — FAA Registration, Accidents & ADs',
+  title: 'Aircraft Database — FAA Registration & History',
   description:
     'Browse aircraft by N-number. Registration details, NTSB accident history, and applicable Airworthiness Directives for thousands of US aircraft.',
   alternates: {
@@ -23,7 +23,13 @@ type Aircraft = {
 };
 
 function slugify(s: string) {
-  return s.toLowerCase().replace(/\s+/g, '-');
+  return s
+    .toLowerCase()
+    .replace(/[/\\]/g, '-')      // replace slashes
+    .replace(/[^a-z0-9\s-]/g, '') // remove other special chars
+    .replace(/\s+/g, '-')         // spaces → hyphens
+    .replace(/-+/g, '-')          // collapse multiple hyphens
+    .replace(/^-|-$/g, '');       // trim leading/trailing hyphens
 }
 
 function loadAircraft(): Aircraft[] {
