@@ -19,11 +19,15 @@ function loadData() {
 function slugify(s: string) {
   return s
     .toLowerCase()
-    .replace(/[/\\]/g, '-')      // replace slashes
-    .replace(/[^a-z0-9\s-]/g, '') // remove other special chars
-    .replace(/\s+/g, '-')         // spaces → hyphens
-    .replace(/-+/g, '-')          // collapse multiple hyphens
-    .replace(/^-|-$/g, '');       // trim leading/trailing hyphens
+    .replace(/[/\\]/g, '-')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+function unslugify(s: string) {
+  return s.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 type Props = {
@@ -36,7 +40,6 @@ export async function generateStaticParams() {
   const data = loadData();
   const entries = Object.values(data) as any[];
 
-  // Count aircraft per make/model
   const counts = new Map<string, { make: string; model: string; count: number }>();
   for (const entry of entries) {
     const make = entry.aircraft?.make;
@@ -44,15 +47,10 @@ export async function generateStaticParams() {
     if (!make || !model) continue;
     const key = `${make}|${model}`;
     const existing = counts.get(key);
-    if (existing) {
-      existing.count += 1;
-    } else {
-      counts.set(key, { make, model, count: 1 });
-    }
+    if (existing) existing.count += 1;
+    else counts.set(key, { make, model, count: 1 });
   }
 
-  // Only build hub pages for make/models with at least 5 aircraft
-  // Cap at 150 hub pages total to stay under file limits
   return [...counts.values()]
     .filter((p) => p.count >= 5)
     .sort((a, b) => b.count - a.count)
@@ -65,12 +63,29 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { make, model } = await params;
-  const title = `${make.replace(/-/g, ' ')} ${model.replace(/-/g, ' ')} Aircraft — History & Registration`;
+  const displayMake = unslugify(make);
+  const displayModel = unslugify(model);
+  const title = `${displayMake} ${displayModel} Aircraft — History & Records`;
+
   return {
     title,
-    description: `Browse all ${make.replace(/-/g, ' ')} ${model.replace(/-/g, ' ')} aircraft in our database with FAA registration, NTSB accident history, and applicable Airworthiness Directives.`,
+    description: `Browse all ${displayMake} ${displayModel} aircraft in our database with FAA registration, NTSB accident history, and applicable Airworthiness Directives.`,
     alternates: {
       canonical: `https://nnumbercheck.com/aircraft/make/${make}/model/${model}`,
+    },
+    openGraph: {
+      title,
+      description: `FAA registration and NTSB history for ${displayMake} ${displayModel} aircraft.`,
+      url: `https://nnumbercheck.com/aircraft/make/${make}/model/${model}`,
+      type: 'website',
+      images: [
+        {
+          url: 'https://nnumbercheck.com/og-image.png',
+          width: 1200,
+          height: 630,
+          alt: `${displayMake} ${displayModel} aircraft`,
+        },
+      ],
     },
   };
 }
@@ -89,16 +104,62 @@ export default async function MakeModelPage({ params }: Props) {
       n_number: n,
       year: entry.aircraft?.year,
       accidentCount: (entry.accidents || []).length,
+      adCount: (entry.directives || []).length,
     }))
     .sort((a, b) => b.accidentCount - a.accidentCount);
 
   if (matching.length === 0) notFound();
 
-  const displayMake = make.replace(/-/g, ' ');
-  const displayModel = model.replace(/-/g, ' ');
+  const displayMake = unslugify(make);
+  const displayModel = unslugify(model);
+  const total = matching.length;
+  const withAccidents = matching.filter((a) => a.accidentCount > 0).length;
+  const totalAccidents = matching.reduce((sum, a) => sum + a.accidentCount, 0);
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://nnumbercheck.com' },
+      { '@type': 'ListItem', position: 2, name: 'Aircraft', item: 'https://nnumbercheck.com/aircraft' },
+      { '@type': 'ListItem', position: 3, name: `${displayMake} ${displayModel}`, item: `https://nnumbercheck.com/aircraft/make/${make}/model/${model}` },
+    ],
+  };
+
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: `How many ${displayMake} ${displayModel} aircraft are in the database?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `There are ${total} ${displayMake} ${displayModel} aircraft listed in the NNumberCheck database. ${withAccidents} of them have at least one NTSB accident record on file.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: `How many ${displayMake} ${displayModel} aircraft have been in accidents?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `${withAccidents} of the ${total} ${displayMake} ${displayModel} aircraft in the database have at least one NTSB accident record. In total, these aircraft have accumulated ${totalAccidents} accident record${totalAccidents === 1 ? '' : 's'}.`,
+        },
+      },
+    ],
+  };
 
   return (
     <div className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, '\\u003c') }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd).replace(/</g, '\\u003c') }}
+      />
+
       <header className="border-b border-slate-200 bg-white">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="text-2xl font-bold text-sky-600">
@@ -110,20 +171,46 @@ export default async function MakeModelPage({ params }: Props) {
         </div>
       </header>
 
+      <nav className="max-w-6xl mx-auto px-6 py-3 text-xs text-slate-500">
+        <Link href="/" className="hover:text-sky-600">Home</Link>
+        <span className="mx-2">›</span>
+        <Link href="/aircraft" className="hover:text-sky-600">Aircraft</Link>
+        <span className="mx-2">›</span>
+        <span>{displayMake} {displayModel}</span>
+      </nav>
+
       <section className="bg-gradient-to-b from-sky-50 to-white border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-6 py-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 capitalize">
+          <h1 className="text-4xl md:text-5xl font-bold text-slate-900">
             {displayMake} {displayModel} Aircraft
           </h1>
-          <p className="mt-4 text-lg text-slate-600 max-w-3xl">
-            {matching.length} aircraft in our database. Browse each N-number
-            below for FAA registration, accident history, and applicable
-            Airworthiness Directives.
+          <p className="mt-4 text-lg text-slate-700 max-w-3xl">
+            <strong>{total} aircraft</strong> in our database. Browse each
+            N-number below for FAA registration, accident history, and
+            applicable Airworthiness Directives.
           </p>
+
+          <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="bg-white border border-slate-200 rounded-xl p-4">
+              <div className="text-xs text-slate-500">Total in database</div>
+              <div className="text-2xl font-bold text-slate-900 mt-1">{total}</div>
+            </div>
+            <div className="bg-white border border-slate-200 rounded-xl p-4">
+              <div className="text-xs text-slate-500">With accident records</div>
+              <div className="text-2xl font-bold text-red-600 mt-1">{withAccidents}</div>
+            </div>
+            <div className="bg-white border border-slate-200 rounded-xl p-4">
+              <div className="text-xs text-slate-500">Total accidents</div>
+              <div className="text-2xl font-bold text-red-600 mt-1">{totalAccidents}</div>
+            </div>
+          </div>
         </div>
       </section>
 
       <section className="max-w-6xl mx-auto px-6 py-12">
+        <h2 className="text-2xl font-bold text-slate-900 mb-6">
+          All {displayMake} {displayModel} aircraft
+        </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
           {matching.map((ac) => (
             <Link
@@ -142,6 +229,35 @@ export default async function MakeModelPage({ params }: Props) {
               </div>
             </Link>
           ))}
+        </div>
+
+        {/* Content block — pushes page over 300 words */}
+        <div className="mt-12 border border-slate-200 rounded-2xl p-8">
+          <h2 className="text-xl font-bold text-slate-900 mb-4">
+            About {displayMake} {displayModel} aircraft
+          </h2>
+          <p className="text-sm text-slate-600 leading-relaxed">
+            The {displayMake} {displayModel} is a popular aircraft type in the
+            US general aviation fleet. This page lists {total} currently
+            registered {displayMake} {displayModel} aircraft that appear in the
+            NNumberCheck database. Each aircraft is linked to its individual
+            N-number page with FAA registration details, NTSB accident history,
+            and applicable Airworthiness Directives.
+          </p>
+          <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+            Of the {total} aircraft listed, {withAccidents} have at least one
+            NTSB accident record on file, and the group has accumulated a total
+            of {totalAccidents} accident record{totalAccidents === 1 ? '' : 's'}.
+            Buyers researching a {displayMake} {displayModel} should review the
+            specific N-number of any aircraft they are considering, verify all
+            Airworthiness Directives have been complied with, and check the
+            aircraft&apos;s logbooks for maintenance history.
+          </p>
+          <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+            Data on this page is sourced from the FAA Releasable Aircraft
+            Database, NTSB Aviation Accident Reports, and the Federal Register.
+            All data is publicly available from US government sources.
+          </p>
         </div>
       </section>
 
