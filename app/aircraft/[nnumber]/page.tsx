@@ -39,7 +39,6 @@ function severityLabel(raw: string | undefined): string {
   return raw;
 }
 
-// Same slugify used in make/model hub pages and sitemap — must match exactly
 function slugify(s: string) {
   return s
     .toLowerCase()
@@ -50,7 +49,6 @@ function slugify(s: string) {
     .replace(/^-|-$/g, '');
 }
 
-// Quality gate — only index pages that meet these criteria
 function shouldIndex(entry: any): boolean {
   const ac = entry.aircraft;
   const fields = [
@@ -88,13 +86,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!entry) return {};
 
   const ac = entry.aircraft;
-  const titleParts = [ac.year, ac.make, ac.model].filter(Boolean).join(' ');
-  const title = titleParts ? `${nnumber} — ${titleParts}` : nnumber;
+  const yearMakeModel = [ac.year, ac.make, ac.model].filter(Boolean).join(' ');
+  const yearModel = [ac.year, ac.model].filter(Boolean).join(' ');
+
+  // Progressive title shortening so it never exceeds 60 chars
+  let metaTitle = `${nnumber} — ${yearMakeModel} — Aircraft History`;
+  if (metaTitle.length > 60) {
+    metaTitle = `${nnumber} — ${yearModel} — Aircraft History`;
+  }
+  if (metaTitle.length > 60) {
+    metaTitle = `${nnumber} — Aircraft History`;
+  }
+  if (metaTitle.length > 60) {
+    metaTitle = nnumber;
+  }
 
   const indexable = shouldIndex(entry);
 
   return {
-    title: `${title} — Aircraft History`,
+    title: metaTitle,
     description: `Complete history for aircraft ${nnumber}: FAA registration, NTSB accident records, and applicable Airworthiness Directives. Free to view.`,
     alternates: {
       canonical: `https://nnumbercheck.com/aircraft/${nnumber}`,
@@ -103,7 +113,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       ? { index: true, follow: true }
       : { index: false, follow: true },
     openGraph: {
-      title: `${title} — NNumberCheck`,
+      title: `${nnumber} — NNumberCheck`,
       description: `FAA registration, NTSB accidents, and Airworthiness Directives for ${nnumber}.`,
       url: `https://nnumbercheck.com/aircraft/${nnumber}`,
       type: 'website',
@@ -118,7 +128,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${title} — NNumberCheck`,
+      title: `${nnumber} — NNumberCheck`,
       description: `FAA registration, NTSB accidents, and ADs for ${nnumber}.`,
       images: ['https://nnumbercheck.com/og-image.png'],
     },
@@ -144,7 +154,6 @@ export default async function AircraftPage({ params }: Props) {
     .filter(Boolean)
     .join(', ');
 
-  // Answer-first paragraph — 40–60 words, self-contained, quotable by AI
   const answerParagraph = `${nnumber} is a ${aircraftTitle || 'US-registered aircraft'}${
     aircraft.owner_name ? ` registered to ${aircraft.owner_name}` : ''
   }${ownerLocation ? ` in ${ownerLocation}` : ''}. Its FAA registration status is ${
@@ -260,7 +269,6 @@ export default async function AircraftPage({ params }: Props) {
     .slice(0, 6)
     .map(([n]) => n);
 
-  // FIXED: use slugify() to match the make/model hub pages
   const makeSlug = slugify(aircraft.make || '');
   const modelSlug = slugify(aircraft.model || '');
 
