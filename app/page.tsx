@@ -126,15 +126,15 @@ export default function Home() {
       {/* Hero — Answer-first H1 and subtitle for AI extractability */}
       <section className="bg-gradient-to-b from-sky-50 to-white">
         <div className="max-w-4xl mx-auto px-6 py-20 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 leading-tight">
-            Free N-Number Lookup &amp; Aircraft History Report
+        <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 leading-tight">
+            Check any aircraft&apos;s history before you buy
           </h1>
           <p className="mt-6 text-lg md:text-xl text-slate-600 max-w-2xl mx-auto">
             <strong>
-              NNumberCheck is a free aircraft history lookup tool.
+              Free N-number lookup with 44 years of NTSB accident data
             </strong>{' '}
-            Enter any US N-number to instantly see FAA registration details and
-            44 years of NTSB accident records (87,978 reports, 1982–present).
+            and the applicable Airworthiness Directives for that aircraft.
+            Instant results, no signup required.
           </p>
 
           {/* Search Box */}
