@@ -4,11 +4,7 @@ import type { Metadata } from 'next';
 import fs from 'fs';
 import path from 'path';
 
-// ─── TEST LIMIT ──────────────────────────────────────────────
-// Set to null to build ALL aircraft pages (5000)
-// Start with 100 to verify the build works within Cloudflare's timeout
 const TEST_LIMIT: number | null = 100;
-// ─────────────────────────────────────────────────────────────
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 const PAGES_FILE = path.join(DATA_DIR, 'aircraft-pages.json');
@@ -30,6 +26,17 @@ function loadAircraftData(): Record<string, any> {
   const raw = fs.readFileSync(DATA_FILE, 'utf-8');
   cachedData = JSON.parse(raw);
   return cachedData!;
+}
+
+function severityLabel(raw: string | undefined): string {
+  if (!raw) return 'Injuries not yet reported';
+  const s = raw.toLowerCase().trim();
+  if (s === 'fatal') return 'Fatal injuries';
+  if (s === 'serious') return 'Serious injuries';
+  if (s === 'minor') return 'Minor injuries';
+  if (s === 'none') return 'No injuries reported';
+  if (s === 'unknown' || s === 'n/a') return 'Injuries not yet reported';
+  return raw;
 }
 
 export const dynamicParams = false;
@@ -115,7 +122,6 @@ export default async function AircraftPage({ params }: Props) {
     },
   };
 
-  // Find related aircraft (same make + model)
   const related = Object.entries(data)
     .filter(
       ([n, e]) =>
@@ -155,7 +161,6 @@ export default async function AircraftPage({ params }: Props) {
         </div>
       </header>
 
-      {/* Aircraft header */}
       <section className="bg-gradient-to-b from-sky-50 to-white border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-6 py-12">
           <div className="flex items-baseline gap-4 flex-wrap">
@@ -240,9 +245,9 @@ export default async function AircraftPage({ params }: Props) {
                     key={acc.id}
                     className="text-sm border-l-2 border-red-400 pl-4"
                   >
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 flex-wrap">
                       <span className="bg-red-100 text-red-700 px-2 py-0.5 rounded text-xs font-medium">
-                        {acc.severity}
+                        {severityLabel(acc.severity)}
                       </span>
                       <span className="text-slate-500">{acc.event_date}</span>
                     </div>
@@ -252,6 +257,10 @@ export default async function AircraftPage({ params }: Props) {
                     <p className="mt-1 text-slate-600">{acc.summary}</p>
                   </div>
                 ))}
+                <p className="mt-3 text-xs text-slate-400 italic">
+                  Severity reflects injuries to people, not damage to the
+                  aircraft.
+                </p>
               </div>
             )}
           </div>
