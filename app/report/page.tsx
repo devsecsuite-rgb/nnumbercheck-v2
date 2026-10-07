@@ -145,6 +145,8 @@ function ReportContent() {
     (ad: any) => !ad.applicability || ad.applicability === 'verify'
   ).length;
 
+  const isFullTier = !purchase?.tier || purchase.tier === 'full';
+
   return (
     <div className="min-h-screen bg-white">
       <ReportHeader />
@@ -407,23 +409,42 @@ function ReportContent() {
                   : '—'
               }
             />
+            <Detail label="Report Tier" value={isFullTier ? 'Full History Report' : 'Basic Report'} />
             <Detail label="Status" value={purchase?.status} />
           </dl>
         </div>
 
-        {/* Download PDF */}
-        <div className="text-center">
-          <button
-            onClick={handleDownloadPdf}
-            disabled={downloadingPdf}
-            className="inline-block bg-sky-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-sky-700 transition disabled:opacity-60 disabled:cursor-not-allowed"
-          >
-            {downloadingPdf ? 'Generating PDF...' : 'Download PDF Report'}
-          </button>
-          <p className="mt-3 text-xs text-slate-500">
-            A branded PDF with all report data, saved to your device.
-          </p>
-        </div>
+        {/* Download PDF — full tier only */}
+        {isFullTier ? (
+          <div className="text-center">
+            <button
+              onClick={handleDownloadPdf}
+              disabled={downloadingPdf}
+              className="inline-block bg-sky-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-sky-700 transition disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {downloadingPdf ? 'Generating PDF...' : 'Download PDF Report'}
+            </button>
+            <p className="mt-3 text-xs text-slate-500">
+              A branded PDF with all report data, saved to your device.
+            </p>
+          </div>
+        ) : (
+          <div className="text-center bg-sky-50 border border-sky-200 rounded-2xl p-6">
+            <p className="text-sm font-medium text-sky-900">
+              Want a downloadable PDF?
+            </p>
+            <p className="mt-1 text-xs text-sky-700">
+              Upgrade to the Full History Report ($149) to unlock the branded
+              PDF download and ownership chain details.
+            </p>
+            <Link
+              href={`/n?number=${aircraft.n_number}`}
+              className="mt-4 inline-block bg-sky-600 text-white px-6 py-2 rounded-lg font-semibold text-sm hover:bg-sky-700 transition"
+            >
+              Upgrade to Full Report →
+            </Link>
+          </div>
+        )}
       </section>
 
       <footer className="border-t border-slate-200 bg-white">
