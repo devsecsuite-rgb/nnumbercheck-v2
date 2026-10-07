@@ -67,6 +67,12 @@ function shouldIndex(entry: any): boolean {
   return hasAccident || hasAD;
 }
 
+// CRITICAL: Forces metadata to render in the HTML <head> at build time.
+// Without this, Next.js 15.1+ streams metadata to the <body>, and
+// crawlers (including Google) may not see the robots meta tag,
+// canonical, OG tags, etc.
+export const dynamic = 'force-static';
+
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
