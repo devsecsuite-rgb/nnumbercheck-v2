@@ -17,7 +17,13 @@ function loadData() {
 }
 
 function slugify(s: string) {
-  return s.toLowerCase().replace(/\s+/g, '-');
+  return s
+    .toLowerCase()
+    .replace(/[/\\]/g, '-')      // replace slashes
+    .replace(/[^a-z0-9\s-]/g, '') // remove other special chars
+    .replace(/\s+/g, '-')         // spaces → hyphens
+    .replace(/-+/g, '-')          // collapse multiple hyphens
+    .replace(/^-|-$/g, '');       // trim leading/trailing hyphens
 }
 
 type Props = {
