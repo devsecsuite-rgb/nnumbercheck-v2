@@ -4,8 +4,6 @@ import type { Metadata } from 'next';
 import fs from 'fs';
 import path from 'path';
 
-const TEST_LIMIT: number | null = 3000;
-
 let cachedData: Record<string, any> | null = null;
 
 function loadData() {
@@ -34,6 +32,7 @@ type Props = {
   params: Promise<{ make: string; model: string }>;
 };
 
+export const dynamic = 'force-static';
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
@@ -65,7 +64,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { make, model } = await params;
   const displayMake = unslugify(make);
   const displayModel = unslugify(model);
-    const baseTitle = `${displayMake} ${displayModel} Aircraft`;
+
+  const baseTitle = `${displayMake} ${displayModel} Aircraft`;
   let metaTitle = `${baseTitle} — History & Records`;
   if (metaTitle.length > 58) metaTitle = `${baseTitle} — History`;
   if (metaTitle.length > 58) metaTitle = baseTitle;
@@ -77,7 +77,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       canonical: `https://nnumbercheck.com/aircraft/make/${make}/model/${model}`,
     },
     openGraph: {
-      title,
+      title: metaTitle,
       description: `FAA registration and NTSB history for ${displayMake} ${displayModel} aircraft.`,
       url: `https://nnumbercheck.com/aircraft/make/${make}/model/${model}`,
       type: 'website',
@@ -118,6 +118,17 @@ export default async function MakeModelPage({ params }: Props) {
   const total = matching.length;
   const withAccidents = matching.filter((a) => a.accidentCount > 0).length;
   const totalAccidents = matching.reduce((sum, a) => sum + a.accidentCount, 0);
+
+  // Collect unique ADs across all aircraft of this make/model
+  const adMap = new Map<string, any>();
+  for (const [_, entry] of Object.entries(data)) {
+    if (slugify((entry as any).aircraft?.make || '') !== make) continue;
+    if (slugify((entry as any).aircraft?.model || '') !== model) continue;
+    for (const ad of (entry as any).directives || []) {
+      if (!adMap.has(ad.ad_number)) adMap.set(ad.ad_number, ad);
+    }
+  }
+  const topADs = [...adMap.values()].slice(0, 5);
 
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
@@ -234,7 +245,7 @@ export default async function MakeModelPage({ params }: Props) {
           ))}
         </div>
 
-        {/* Content block — pushes page over 300 words */}
+        {/* About content block */}
         <div className="mt-12 border border-slate-200 rounded-2xl p-8">
           <h2 className="text-xl font-bold text-slate-900 mb-4">
             About {displayMake} {displayModel} aircraft
@@ -262,44 +273,33 @@ export default async function MakeModelPage({ params }: Props) {
             All data is publicly available from US government sources.
           </p>
         </div>
-                {/* Common ADs — adds ~150 words */}
-        {(() => {
-          const adMap = new Map<string, any>();
-          for (const [_, entry] of Object.entries(data)) {
-            if (slugify((entry as any).aircraft?.make || '') !== make) continue;
-            if (slugify((entry as any).aircraft?.model || '') !== model) continue;
-            for (const ad of (entry as any).directives || []) {
-              if (!adMap.has(ad.ad_number)) adMap.set(ad.ad_number, ad);
-            }
-          }
-          const topADs = [...adMap.values()].slice(0, 5);
-          if (topADs.length === 0) return null;
-          return (
-            <div className="mt-12 border border-slate-200 rounded-2xl p-8">
-              <h2 className="text-xl font-bold text-slate-900 mb-4">
-                Common Airworthiness Directives for {displayMake} {displayModel}
-              </h2>
-              <p className="text-sm text-slate-600 mb-4 leading-relaxed">
-                The following Airworthiness Directives have been issued by the
-                FAA for the {displayMake} {displayModel}. AD applicability
-                depends on the specific serial number and configuration of each
-                aircraft. Buyers should verify applicability in the
-                aircraft&apos;s logbooks and confirm the current AD status with
-                the FAA before purchase.
-              </p>
-              <ul className="space-y-3 text-sm">
-                {topADs.map((ad: any, i: number) => (
-                  <li key={i} className="border-l-2 border-amber-400 pl-4">
-                    <div className="font-mono text-xs text-amber-700">
-                      AD {ad.ad_number}
-                    </div>
-                    <div className="mt-1 text-slate-700">{ad.title}</div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          );
-        })()}
+
+        {/* Common ADs section */}
+        {topADs.length > 0 && (
+          <div className="mt-12 border border-slate-200 rounded-2xl p-8">
+            <h2 className="text-xl font-bold text-slate-900 mb-4">
+              Common Airworthiness Directives for {displayMake} {displayModel}
+            </h2>
+            <p className="text-sm text-slate-600 mb-4 leading-relaxed">
+              The following Airworthiness Directives have been issued by the
+              FAA for the {displayMake} {displayModel}. AD applicability
+              depends on the specific serial number and configuration of each
+              aircraft. Buyers should verify applicability in the
+              aircraft&apos;s logbooks and confirm the current AD status with
+              the FAA before purchase.
+            </p>
+            <ul className="space-y-3 text-sm">
+              {topADs.map((ad: any, i: number) => (
+                <li key={i} className="border-l-2 border-amber-400 pl-4">
+                  <div className="font-mono text-xs text-amber-700">
+                    AD {ad.ad_number}
+                  </div>
+                  <div className="mt-1 text-slate-700">{ad.title}</div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </section>
 
       <footer className="border-t border-slate-200 bg-white">
