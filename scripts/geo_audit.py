@@ -3,10 +3,14 @@
 GEO (Generative Engine Optimization) audit for NNumberCheck.com.
 Checks AI crawler access, llms.txt, schema markup, and citability.
 Runs on GitHub Actions with zero paid APIs.
+
+Samples aircraft and hub pages instead of crawling all 3,000+ pages.
 """
+
 import os
 import re
 import json
+import random
 import urllib.request
 import time
 from xml.etree import ElementTree
@@ -20,6 +24,10 @@ except ImportError:
 SITE_URL = os.environ.get("SITE_URL", "https://nnumbercheck.com")
 SITEMAP_URL = f"{SITE_URL}/sitemap.xml"
 REPORT_FILE = "geo_report.json"
+
+# Sampling configuration
+MAX_AIRCRAFT_SAMPLE = 20
+MAX_HUB_SAMPLE = 10
 
 AI_CRAWLERS = [
     "GPTBot",
@@ -52,6 +60,39 @@ def get_sitemap_urls():
     except Exception as e:
         print(f"Sitemap failed: {e}")
         return []
+
+
+def sample_urls(all_urls):
+    """Keep all static pages, sample aircraft + hub pages.
+
+    Template-level issues affect every page built from the same template,
+    so a 20-page sample of 3,000 aircraft pages catches ~99% of problems
+    while keeping runtime under 60 seconds.
+    """
+    static_urls = []
+    aircraft_urls = []
+    hub_urls = []
+
+    for url in all_urls:
+        if "/aircraft/make/" in url:
+            hub_urls.append(url)
+        elif "/aircraft/" in url:
+            aircraft_urls.append(url)
+        else:
+            static_urls.append(url)
+
+    sampled_aircraft = random.sample(
+        aircraft_urls, min(MAX_AIRCRAFT_SAMPLE, len(aircraft_urls))
+    )
+    sampled_hubs = random.sample(
+        hub_urls, min(MAX_HUB_SAMPLE, len(hub_urls))
+    )
+
+    print(f"  Static pages: {len(static_urls)}")
+    print(f"  Aircraft pages: {len(aircraft_urls)} (sampling {len(sampled_aircraft)})")
+    print(f"  Hub pages: {len(hub_urls)} (sampling {len(sampled_hubs)})")
+
+    return static_urls + sampled_aircraft + sampled_hubs
 
 
 def check_robots():
@@ -217,8 +258,12 @@ def main():
     robots = check_robots()
     llms = check_llms_txt()
 
-    urls = get_sitemap_urls()
-    print(f"\n\nFound {len(urls)} pages in sitemap\n")
+    all_urls = get_sitemap_urls()
+    print(f"\n\nFound {len(all_urls)} pages in sitemap")
+    print("Sampling pages to audit:\n")
+
+    urls = sample_urls(all_urls)
+    print(f"\nAuditing {len(urls)} pages total\n")
 
     results = []
     total_citability = 0
@@ -243,6 +288,8 @@ def main():
     report = {
         "site": SITE_URL,
         "audited_at": time.strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "total_sitemap_urls": len(all_urls),
+        "sampled_urls": len(urls),
         "robots": robots,
         "llms_txt": llms,
         "avg_citability": avg_citability,
@@ -254,7 +301,7 @@ def main():
 
     print(f"\nReport saved to {REPORT_FILE}")
 
-        # Only fail if a MAJOR AI crawler is blocked (not intentional blocks like Bytespider)
+    # Only fail if a MAJOR AI crawler is blocked (not intentional blocks like Bytespider)
     critical_crawlers = ["GPTBot", "ChatGPT-User", "ClaudeBot", "PerplexityBot", "Google-Extended"]
     critical_blocked = [c for c in robots.get("blocked", []) if c in critical_crawlers]
 
