@@ -52,14 +52,37 @@ export const onRequestGet = async (context: any) => {
       const make = (aircraft.make || '').trim().split(' ')[0];
       const model = (aircraft.model || '').trim().split(' ')[0];
 
+            const serialNumber = aircraft.serial_number || '';
+
+      // Match ADs and left-join serial ranges for applicability tagging
       const { results } = await env.DB.prepare(
-        `SELECT * FROM directives
-         WHERE (manufacturer LIKE ? OR manufacturer LIKE ?)
-           AND (model LIKE ? OR title LIKE ?)
-         ORDER BY effective_date DESC
+        `SELECT
+           d.*,
+           r.serial_start,
+           r.serial_end,
+           r.serial_exceptions,
+           CASE
+             WHEN r.id IS NULL THEN 'verify'
+             WHEN ? = '' THEN 'verify'
+             WHEN ? >= r.serial_start AND ? <= r.serial_end THEN 'applies'
+             ELSE 'not_applies'
+           END AS applicability
+         FROM directives d
+         LEFT JOIN ad_serial_ranges r ON r.ad_number = d.ad_number
+         WHERE (d.manufacturer LIKE ? OR d.manufacturer LIKE ?)
+           AND (d.model LIKE ? OR d.title LIKE ?)
+         ORDER BY d.effective_date DESC
          LIMIT 20`
       )
-        .bind(`%${make}%`, `%${aircraft.make}%`, `%${model}%`, `%${model}%`)
+        .bind(
+          serialNumber,
+          serialNumber,
+          serialNumber,
+          `%${make}%`,
+          `%${aircraft.make}%`,
+          `%${model}%`,
+          `%${model}%`
+        )
         .all();
       directives = results || [];
     }
