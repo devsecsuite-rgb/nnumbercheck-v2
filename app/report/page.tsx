@@ -13,8 +13,23 @@ function ReportContent() {
   const [purchase, setPurchase] = useState<any>(null);
   const [aircraft, setAircraft] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
+  const [downloadingPdf, setDownloadingPdf] = useState(false);
 
-    useEffect(() => {
+  const handleDownloadPdf = async () => {
+    if (!aircraft || !purchase) return;
+    setDownloadingPdf(true);
+    try {
+      const { generatePdfReport } = await import('@/lib/generatePdfReport');
+      await generatePdfReport(aircraft, purchase);
+    } catch (err) {
+      console.error('PDF generation failed:', err);
+      alert('Failed to generate PDF. Please try again.');
+    } finally {
+      setDownloadingPdf(false);
+    }
+  };
+
+  useEffect(() => {
     if (!nNumber || !txnId) {
       setError('Missing purchase information.');
       setLoading(false);
@@ -24,7 +39,6 @@ function ReportContent() {
     let cancelled = false;
 
     async function load() {
-      // Retry up to 6 times over ~15 seconds to handle webhook delay
       const maxAttempts = 6;
       const delayMs = 2500;
 
@@ -44,13 +58,11 @@ function ReportContent() {
             return;
           }
 
-          // If it's a 404 and we have attempts left, wait and retry
           if (res.status === 404 && attempt < maxAttempts) {
             await new Promise((r) => setTimeout(r, delayMs));
             continue;
           }
 
-          // Non-404 error or out of retries — show the error
           if (!cancelled) {
             setError(json.error || 'Unable to load report.');
             setLoading(false);
@@ -81,7 +93,7 @@ function ReportContent() {
     return (
       <div className="min-h-screen bg-white">
         <ReportHeader />
-                <div className="max-w-2xl mx-auto px-6 py-20 text-center">
+        <div className="max-w-2xl mx-auto px-6 py-20 text-center">
           <p className="text-slate-500">Verifying your purchase...</p>
           <p className="mt-2 text-xs text-slate-400">
             This can take a few seconds while we confirm your payment.
@@ -119,7 +131,6 @@ function ReportContent() {
     <div className="min-h-screen bg-white">
       <ReportHeader />
 
-      {/* Report header */}
       <section className="bg-gradient-to-b from-emerald-50 to-white border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-6 py-12">
           <div className="inline-block bg-emerald-100 text-emerald-800 text-xs font-medium px-3 py-1 rounded-full mb-4">
@@ -138,7 +149,6 @@ function ReportContent() {
         </div>
       </section>
 
-      {/* Full report sections */}
       <section className="max-w-4xl mx-auto px-6 py-12 space-y-8">
 
         {/* Registration */}
@@ -160,7 +170,7 @@ function ReportContent() {
           </dl>
         </div>
 
-        {/* Accident history — full detail */}
+        {/* Accident history */}
         <div className="border border-slate-200 rounded-2xl p-8">
           <h2 className="text-2xl font-bold text-slate-900">
             Complete Accident History
@@ -328,14 +338,18 @@ function ReportContent() {
           </dl>
         </div>
 
-        {/* Print / Save */}
+        {/* Download PDF */}
         <div className="text-center">
           <button
-            onClick={() => window.print()}
-            className="inline-block bg-sky-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-sky-700 transition"
+            onClick={handleDownloadPdf}
+            disabled={downloadingPdf}
+            className="inline-block bg-sky-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-sky-700 transition disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            Print / Save as PDF
+            {downloadingPdf ? 'Generating PDF...' : 'Download PDF Report'}
           </button>
+          <p className="mt-3 text-xs text-slate-500">
+            A branded PDF with all report data, saved to your device.
+          </p>
         </div>
       </section>
 
