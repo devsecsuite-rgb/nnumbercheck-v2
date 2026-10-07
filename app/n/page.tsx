@@ -13,6 +13,17 @@ type Accident = {
   summary: string;
 };
 
+type Directive = {
+  id: number;
+  ad_number: string;
+  title: string;
+  manufacturer: string | null;
+  model: string | null;
+  effective_date: string | null;
+  abstract: string | null;
+  document_url: string | null;
+};
+
 type Aircraft = {
   n_number: string;
   serial_number: string | null;
@@ -25,6 +36,7 @@ type Aircraft = {
   registration_status: string;
   airworthiness_date: string | null;
   accidents: Accident[];
+  directives: Directive[];
 };
 
 function Header() {
