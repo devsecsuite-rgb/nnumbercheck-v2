@@ -39,6 +39,17 @@ function severityLabel(raw: string | undefined): string {
   return raw;
 }
 
+// Same slugify used in make/model hub pages and sitemap — must match exactly
+function slugify(s: string) {
+  return s
+    .toLowerCase()
+    .replace(/[/\\]/g, '-')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
 // Quality gate — only index pages that meet these criteria
 function shouldIndex(entry: any): boolean {
   const ac = entry.aircraft;
@@ -96,6 +107,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: `FAA registration, NTSB accidents, and Airworthiness Directives for ${nnumber}.`,
       url: `https://nnumbercheck.com/aircraft/${nnumber}`,
       type: 'website',
+      images: [
+        {
+          url: 'https://nnumbercheck.com/og-image.png',
+          width: 1200,
+          height: 630,
+          alt: `${nnumber} — Aircraft History`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} — NNumberCheck`,
+      description: `FAA registration, NTSB accidents, and ADs for ${nnumber}.`,
+      images: ['https://nnumbercheck.com/og-image.png'],
     },
   };
 }
@@ -134,7 +159,6 @@ export default async function AircraftPage({ params }: Props) {
       : ''
   }`.trim();
 
-  // Build JSON-LD schemas
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -179,7 +203,6 @@ export default async function AircraftPage({ params }: Props) {
     },
   };
 
-  // FAQ — extractable Q&A for AI engines
   const faqItems = [
     {
       question: `What is aircraft ${nnumber}?`,
@@ -227,7 +250,6 @@ export default async function AircraftPage({ params }: Props) {
     })),
   };
 
-  // Related aircraft (same make + model) for internal linking
   const related = Object.entries(data)
     .filter(
       ([n, e]) =>
@@ -238,8 +260,9 @@ export default async function AircraftPage({ params }: Props) {
     .slice(0, 6)
     .map(([n]) => n);
 
-  const makeSlug = (aircraft.make || '').toLowerCase().replace(/\s+/g, '-');
-  const modelSlug = (aircraft.model || '').toLowerCase().replace(/\s+/g, '-');
+  // FIXED: use slugify() to match the make/model hub pages
+  const makeSlug = slugify(aircraft.make || '');
+  const modelSlug = slugify(aircraft.model || '');
 
   return (
     <div className="min-h-screen bg-white">
@@ -276,7 +299,6 @@ export default async function AircraftPage({ params }: Props) {
         </div>
       </header>
 
-      {/* Breadcrumbs */}
       <nav className="max-w-6xl mx-auto px-6 py-3 text-xs text-slate-500">
         <Link href="/" className="hover:text-sky-600">Home</Link>
         <span className="mx-2">›</span>
@@ -303,7 +325,6 @@ export default async function AircraftPage({ params }: Props) {
           </div>
           <p className="mt-4 text-xl text-slate-700">{aircraftTitle}</p>
 
-          {/* Answer-first paragraph — key for AI/GEO */}
           <p className="mt-6 text-lg text-slate-700 max-w-3xl leading-relaxed">
             {answerParagraph}
           </p>
@@ -331,7 +352,6 @@ export default async function AircraftPage({ params }: Props) {
             </dl>
           </div>
 
-          {/* What this aircraft is — unique content block (~80 words) */}
           <p className="mt-4 text-sm text-slate-600 leading-relaxed">
             The {aircraft.make} {aircraft.model} is registered with the FAA
             under N-number {nnumber}. {aircraft.year ? `This airframe was manufactured in ${aircraft.year}. ` : ''}
@@ -390,7 +410,6 @@ export default async function AircraftPage({ params }: Props) {
                   involve significant aircraft damage.
                 </p>
 
-                {/* Accident summary content block (~60 words) */}
                 <p className="mt-4 text-sm text-slate-600 leading-relaxed">
                   {nnumber} has been involved in {accidents.length} NTSB
                   accident{accidents.length === 1 ? '' : 's'} since 1982. Each
@@ -437,7 +456,6 @@ export default async function AircraftPage({ params }: Props) {
                 )}
               </div>
 
-              {/* AD explanation content block (~70 words) */}
               <p className="mt-4 text-sm text-slate-600 leading-relaxed">
                 Airworthiness Directives (ADs) are FAA-mandated safety
                 directives that apply to specific aircraft, engines, or
