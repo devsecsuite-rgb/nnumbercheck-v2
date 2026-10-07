@@ -82,7 +82,6 @@ function LookupResult() {
       const json = await res.json();
 
       if (json.url) {
-        // Redirect to Stripe Checkout
         window.location.href = json.url;
       } else {
         alert(json.error || 'Something went wrong. Please try again.');
@@ -222,6 +221,7 @@ function LookupResult() {
 
   // Success — full result
   const hasAccidents = data.accidents && data.accidents.length > 0;
+  const hasDirectives = data.directives && data.directives.length > 0;
 
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
@@ -381,8 +381,9 @@ function LookupResult() {
           </div>
         </div>
       </section>
+
       {/* Airworthiness Directives preview */}
-      {data.directives && data.directives.length > 0 && (
+      {hasDirectives && (
         <section className="max-w-6xl mx-auto px-6 pb-12">
           <div className="border border-slate-200 rounded-2xl p-6">
             <div className="flex items-baseline justify-between flex-wrap gap-2">
@@ -413,7 +414,7 @@ function LookupResult() {
                 {data.directives[0].title}
               </p>
               {data.directives[0].abstract && (
-                <p className="mt-1 text-slate-600 text-sm line-clamp-3">
+                <p className="mt-1 text-slate-600 text-sm">
                   {data.directives[0].abstract}
                 </p>
               )}
@@ -441,8 +442,12 @@ function LookupResult() {
           </div>
         </section>
       )}
+
       {/* Paid report CTA */}
-            <section id="full-report" className="bg-slate-50 border-y border-slate-200">
+      <section
+        id="full-report"
+        className="bg-slate-50 border-y border-slate-200"
+      >
         <div className="max-w-6xl mx-auto px-6 py-16">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold">
@@ -455,18 +460,22 @@ function LookupResult() {
 
           <div className="mt-12 grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <div className="bg-white border border-slate-200 rounded-2xl p-6">
-            <h3 className="font-semibold text-lg">What the full report adds</h3>
-            <ul className="mt-4 space-y-2 text-sm text-slate-600">
-              <li>
+              <h3 className="font-semibold text-lg">
+                What the full report adds
+              </h3>
+              <ul className="mt-4 space-y-2 text-sm text-slate-600">
+                <li>
                   ✓ All {data.directives?.length || 'applicable'} Airworthiness
                   Directives
-              </li>
-              <li>✓ Direct links to official Federal Register documents</li>
-              <li>✓ Complete accident history with narratives</li>
-              <li>✓ Ownership chain and registration details</li>
-              <li>✓ Permanent link delivered to your email</li>
-              <li>✓ Print or save as PDF</li>
-            </ul>
+                </li>
+                <li>
+                  ✓ Direct links to official Federal Register documents
+                </li>
+                <li>✓ Complete accident history with narratives</li>
+                <li>✓ Ownership chain and registration details</li>
+                <li>✓ Permanent link delivered to your email</li>
+                <li>✓ Print or save as PDF</li>
+              </ul>
             </div>
 
             <div className="bg-sky-600 text-white rounded-2xl p-6 flex flex-col">
@@ -480,10 +489,12 @@ function LookupResult() {
                   disabled={checkoutLoading}
                   className="w-full bg-white text-sky-600 py-3 rounded-xl font-semibold hover:bg-sky-50 transition disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  {checkoutLoading ? 'Redirecting to checkout...' : 'Get Full Report — $149'}
+                  {checkoutLoading
+                    ? 'Redirecting to checkout...'
+                    : 'Get Full Report — $149'}
                 </button>
                 <p className="mt-3 text-xs text-sky-100 text-center">
-                  Secure checkout via Stripe.
+                  Secure checkout via Stripe. Instant delivery by email.
                 </p>
               </div>
             </div>
