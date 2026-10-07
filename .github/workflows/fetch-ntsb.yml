@@ -2,7 +2,10 @@ name: FAA Data Pipeline
 
 on:
   schedule:
-    - cron: '0 3 1 * *'
+    # Weekly refresh: NTSB + FAA subset + ADs every Sunday at 03:00 UTC
+    - cron: '0 3 * * 0'
+    # Monthly full FAA registry refresh on the 1st at 04:00 UTC
+    - cron: '0 4 1 * *'
   workflow_dispatch:
     inputs:
       run_ntsb:
@@ -28,6 +31,34 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Determine what to run
+        id: determine
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "run_ntsb=${{ inputs.run_ntsb }}" >> $GITHUB_OUTPUT
+            echo "run_subset=${{ inputs.run_subset }}" >> $GITHUB_OUTPUT
+            echo "run_ads=${{ inputs.run_ads }}" >> $GITHUB_OUTPUT
+            echo "import_chunks=${{ inputs.import_chunks }}" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event.schedule }}" == "0 3 * * 0" ]; then
+            echo "Running weekly refresh (NTSB + subset + ADs)"
+            echo "run_ntsb=true" >> $GITHUB_OUTPUT
+            echo "run_subset=true" >> $GITHUB_OUTPUT
+            echo "run_ads=true" >> $GITHUB_OUTPUT
+            echo "import_chunks=" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event.schedule }}" == "0 4 1 * *" ]; then
+            echo "Running monthly full FAA registry refresh"
+            echo "run_ntsb=false" >> $GITHUB_OUTPUT
+            echo "run_subset=false" >> $GITHUB_OUTPUT
+            echo "run_ads=false" >> $GITHUB_OUTPUT
+            echo "import_chunks=1,2,3,4,5,6,7" >> $GITHUB_OUTPUT
+          else
+            echo "Unknown trigger — running nothing"
+            echo "run_ntsb=false" >> $GITHUB_OUTPUT
+            echo "run_subset=false" >> $GITHUB_OUTPUT
+            echo "run_ads=false" >> $GITHUB_OUTPUT
+            echo "import_chunks=" >> $GITHUB_OUTPUT
+          fi
+
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -40,11 +71,11 @@ jobs:
 
       # ============ NTSB ============
       - name: Fetch NTSB data
-        if: ${{ github.event_name == 'schedule' || inputs.run_ntsb }}
+        if: ${{ steps.determine.outputs.run_ntsb == 'true' }}
         run: node scripts/fetch-ntsb.js
 
       - name: Import NTSB into D1
-        if: ${{ github.event_name == 'schedule' || inputs.run_ntsb }}
+        if: ${{ steps.determine.outputs.run_ntsb == 'true' }}
         run: |
           for f in ntsb-import-part*.sql; do
             echo "Importing $f..."
@@ -55,7 +86,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Verify NTSB import
-        if: ${{ github.event_name == 'schedule' || inputs.run_ntsb }}
+        if: ${{ steps.determine.outputs.run_ntsb == 'true' }}
         run: wrangler d1 execute DB --command="SELECT COUNT(*) AS total FROM accidents;" --remote
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -63,11 +94,11 @@ jobs:
 
       # ============ FAA subset ============
       - name: Fetch FAA subset
-        if: ${{ github.event_name == 'schedule' || inputs.run_subset }}
+        if: ${{ steps.determine.outputs.run_subset == 'true' }}
         run: node scripts/fetch-faa-subset.js
 
       - name: Import FAA subset into D1
-        if: ${{ github.event_name == 'schedule' || inputs.run_subset }}
+        if: ${{ steps.determine.outputs.run_subset == 'true' }}
         run: wrangler d1 execute DB --file=faa-import.sql --remote
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -75,53 +106,53 @@ jobs:
 
       # ============ Full FAA (chunked) ============
       - name: Fetch full FAA registry
-        if: ${{ inputs.import_chunks != '' }}
+        if: ${{ steps.determine.outputs.import_chunks != '' }}
         run: node scripts/fetch-faa-full.js
 
       - name: Import FAA chunk 1
-        if: ${{ contains(inputs.import_chunks, '1') }}
+        if: ${{ contains(steps.determine.outputs.import_chunks, '1') }}
         run: wrangler d1 execute DB --file=faa-full-import-part1.sql --remote
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Import FAA chunk 2
-        if: ${{ contains(inputs.import_chunks, '2') }}
+        if: ${{ contains(steps.determine.outputs.import_chunks, '2') }}
         run: wrangler d1 execute DB --file=faa-full-import-part2.sql --remote
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Import FAA chunk 3
-        if: ${{ contains(inputs.import_chunks, '3') }}
+        if: ${{ contains(steps.determine.outputs.import_chunks, '3') }}
         run: wrangler d1 execute DB --file=faa-full-import-part3.sql --remote
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Import FAA chunk 4
-        if: ${{ contains(inputs.import_chunks, '4') }}
+        if: ${{ contains(steps.determine.outputs.import_chunks, '4') }}
         run: wrangler d1 execute DB --file=faa-full-import-part4.sql --remote
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Import FAA chunk 5
-        if: ${{ contains(inputs.import_chunks, '5') }}
+        if: ${{ contains(steps.determine.outputs.import_chunks, '5') }}
         run: wrangler d1 execute DB --file=faa-full-import-part5.sql --remote
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Import FAA chunk 6
-        if: ${{ contains(inputs.import_chunks, '6') }}
+        if: ${{ contains(steps.determine.outputs.import_chunks, '6') }}
         run: wrangler d1 execute DB --file=faa-full-import-part6.sql --remote
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Import FAA chunk 7
-        if: ${{ contains(inputs.import_chunks, '7') }}
+        if: ${{ contains(steps.determine.outputs.import_chunks, '7') }}
         run: wrangler d1 execute DB --file=faa-full-import-part7.sql --remote
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -129,18 +160,18 @@ jobs:
 
       # ============ Airworthiness Directives ============
       - name: Fetch FAA Airworthiness Directives
-        if: ${{ github.event_name == 'schedule' || inputs.run_ads }}
+        if: ${{ steps.determine.outputs.run_ads == 'true' }}
         run: node scripts/fetch-ads.js
 
       - name: Import ADs into D1
-        if: ${{ github.event_name == 'schedule' || inputs.run_ads }}
+        if: ${{ steps.determine.outputs.run_ads == 'true' }}
         run: wrangler d1 execute DB --file=ads-import.sql --remote
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Verify AD count
-        if: ${{ github.event_name == 'schedule' || inputs.run_ads }}
+        if: ${{ steps.determine.outputs.run_ads == 'true' }}
         run: wrangler d1 execute DB --command="SELECT COUNT(*) AS total FROM directives;" --remote
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
