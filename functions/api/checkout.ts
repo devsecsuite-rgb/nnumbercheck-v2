@@ -15,6 +15,7 @@ export const onRequestPost = async (context) => {
   try {
     const body = await request.json();
     const nNumber = body.nNumber;
+    const tier = body.tier === 'basic' ? 'basic' : 'full';
 
     if (!nNumber) {
       return new Response(JSON.stringify({ error: 'N-Number required' }), {
@@ -24,7 +25,6 @@ export const onRequestPost = async (context) => {
     }
 
     const stripeKey = cleanEnv(env.STRIPE_SECRET_KEY);
-        const tier = body.tier || 'full';
     const priceId =
       tier === 'basic'
         ? cleanEnv(env.STRIPE_PRICE_ID_BASIC)
@@ -37,7 +37,6 @@ export const onRequestPost = async (context) => {
       headers: {
         'Authorization': `Bearer ${stripeKey}`,
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Stripe-Version': '2024-11-20.acacia',
       },
       body: new URLSearchParams({
         'mode': 'payment',
@@ -47,7 +46,6 @@ export const onRequestPost = async (context) => {
         'cancel_url': `${origin}/n?number=${nNumber}`,
         'metadata[n_number]': nNumber,
         'metadata[tier]': tier,
-        'adaptive_pricing[enabled]': 'true',
       }).toString(),
     });
 
