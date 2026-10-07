@@ -1,18 +1,26 @@
 import type { MetadataRoute } from 'next';
+import aircraftList from '@/data/aircraft-pages.json';
 
 export const dynamic = 'force-static';
 
 const BASE_URL = 'https://nnumbercheck.com';
+const LIMIT = 3000;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
-  return [
+  const staticPages: MetadataRoute.Sitemap = [
     {
       url: `${BASE_URL}/`,
       lastModified: now,
       changeFrequency: 'daily',
       priority: 1.0,
+    },
+    {
+      url: `${BASE_URL}/aircraft`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
     },
     {
       url: `${BASE_URL}/about`,
@@ -33,17 +41,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.3,
     },
     {
+      url: `${BASE_URL}/refund`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
       url: `${BASE_URL}/disclaimer`,
       lastModified: now,
       changeFrequency: 'yearly',
       priority: 0.3,
     },
-    // Example N-number page for crawler discovery + audit verification
-    {
-      url: `${BASE_URL}/n?number=N69009`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.7,
-    },
   ];
+
+  const aircraftPages: MetadataRoute.Sitemap = (aircraftList as string[])
+    .slice(0, LIMIT)
+    .map((nNumber) => ({
+      url: `${BASE_URL}/aircraft/${nNumber}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    }));
+
+  return [...staticPages, ...aircraftPages];
 }
