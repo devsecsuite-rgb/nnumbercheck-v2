@@ -138,6 +138,13 @@ function ReportContent() {
         })
       : 'Unknown';
 
+  const appliesCount = (aircraft.directives || []).filter(
+    (ad: any) => ad.applicability === 'applies'
+  ).length;
+  const verifyCount = (aircraft.directives || []).filter(
+    (ad: any) => !ad.applicability || ad.applicability === 'verify'
+  ).length;
+
   return (
     <div className="min-h-screen bg-white">
       <ReportHeader />
@@ -249,10 +256,25 @@ function ReportContent() {
             Applicable Airworthiness Directives (ADs)
           </h2>
           <p className="mt-2 text-sm text-slate-500">
-            FAA-mandated safety directives potentially applicable to this
-            aircraft based on manufacturer and model. Always verify applicability
-            using the official AD text before making any decision.
+            FAA-mandated safety directives matched against this aircraft&apos;s
+            serial number where regulatory data is available. Always verify
+            applicability using the official AD text before making any decision.
           </p>
+
+          {(appliesCount > 0 || verifyCount > 0) && (
+            <div className="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-xs">
+              {appliesCount > 0 && (
+                <span className="text-red-700">
+                  <strong>{appliesCount}</strong> applies to this aircraft
+                </span>
+              )}
+              {verifyCount > 0 && (
+                <span className="text-amber-700">
+                  <strong>{verifyCount}</strong> require manual verification
+                </span>
+              )}
+            </div>
+          )}
 
           {!aircraft.directives || aircraft.directives.length === 0 ? (
             <p className="mt-6 text-slate-600">
@@ -260,41 +282,58 @@ function ReportContent() {
             </p>
           ) : (
             <div className="mt-6 space-y-5">
-              {aircraft.directives.map((ad: any) => (
-                <div
-                  key={ad.ad_number}
-                  className="border-l-4 border-amber-400 pl-6 py-2"
-                >
-                  <div className="flex items-center gap-3 flex-wrap">
-                    <span className="bg-amber-100 text-amber-800 px-2 py-0.5 rounded text-xs font-semibold">
-                      AD {ad.ad_number}
-                    </span>
-                    {ad.effective_date && (
-                      <span className="text-slate-500 text-xs">
-                        Effective: {ad.effective_date}
+              {aircraft.directives.map((ad: any) => {
+                const badge =
+                  ad.applicability === 'applies'
+                    ? { text: 'Applies to this aircraft', cls: 'bg-red-100 text-red-700' }
+                    : ad.applicability === 'not_applies'
+                    ? { text: 'Does not apply', cls: 'bg-slate-100 text-slate-500' }
+                    : { text: 'Verify applicability', cls: 'bg-amber-100 text-amber-800' };
+                const borderCls =
+                  ad.applicability === 'applies'
+                    ? 'border-red-400'
+                    : ad.applicability === 'not_applies'
+                    ? 'border-slate-300'
+                    : 'border-amber-400';
+                return (
+                  <div
+                    key={ad.ad_number}
+                    className={`border-l-4 ${borderCls} pl-6 py-2`}
+                  >
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <span className="bg-amber-100 text-amber-800 px-2 py-0.5 rounded text-xs font-semibold">
+                        AD {ad.ad_number}
                       </span>
+                      <span className={`${badge.cls} px-2 py-0.5 rounded text-xs font-semibold`}>
+                        {badge.text}
+                      </span>
+                      {ad.effective_date && (
+                        <span className="text-slate-500 text-xs">
+                          Effective: {ad.effective_date}
+                        </span>
+                      )}
+                    </div>
+                    <p className="mt-2 font-semibold text-slate-800">
+                      {ad.title}
+                    </p>
+                    {ad.abstract && (
+                      <p className="mt-1 text-slate-600 text-sm">
+                        {ad.abstract}
+                      </p>
+                    )}
+                    {ad.document_url && (
+                      <a
+                        href={ad.document_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-2 inline-block text-xs font-medium text-sky-600 hover:underline"
+                      >
+                        View official document on FederalRegister.gov →
+                      </a>
                     )}
                   </div>
-                  <p className="mt-2 font-semibold text-slate-800">
-                    {ad.title}
-                  </p>
-                  {ad.abstract && (
-                    <p className="mt-1 text-slate-600 text-sm">
-                      {ad.abstract}
-                    </p>
-                  )}
-                  {ad.document_url && (
-                    <a
-                      href={ad.document_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-2 inline-block text-xs font-medium text-sky-600 hover:underline"
-                    >
-                      View official document on FederalRegister.gov →
-                    </a>
-                  )}
-                </div>
-              ))}
+                );
+              })}
               {aircraft.directives.length === 20 && (
                 <p className="text-xs text-slate-500 italic">
                   Showing the 20 most recent ADs. Additional older directives
