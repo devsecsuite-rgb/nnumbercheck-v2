@@ -59,12 +59,14 @@ function shouldIndex(entry: any): boolean {
     ac.owner_name,
   ].filter(Boolean).length;
 
-  if (fields < 3) return false;
+  // Require at least 4 of 5 registration fields
+  if (fields < 4) return false;
 
-  const hasAccident = (entry.accidents || []).length > 0;
-  const hasAD = (entry.directives || []).length > 0;
+  const accidentCount = (entry.accidents || []).length;
+  const adCount = (entry.directives || []).length;
 
-  return hasAccident || hasAD;
+  // Require 2+ accidents OR 3+ ADs to justify indexing
+  return accidentCount >= 2 || adCount >= 3;
 }
 
 // CRITICAL: Forces metadata to render in the HTML <head> at build time.
