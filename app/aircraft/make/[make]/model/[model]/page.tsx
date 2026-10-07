@@ -65,10 +65,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { make, model } = await params;
   const displayMake = unslugify(make);
   const displayModel = unslugify(model);
-  const title = `${displayMake} ${displayModel} Aircraft — History & Records`;
+    const baseTitle = `${displayMake} ${displayModel} Aircraft`;
+  let metaTitle = `${baseTitle} — History & Records`;
+  if (metaTitle.length > 58) metaTitle = `${baseTitle} — History`;
+  if (metaTitle.length > 58) metaTitle = baseTitle;
 
   return {
-    title,
+    title: { absolute: metaTitle },
     description: `Browse all ${displayMake} ${displayModel} aircraft in our database with FAA registration, NTSB accident history, and applicable Airworthiness Directives.`,
     alternates: {
       canonical: `https://nnumbercheck.com/aircraft/make/${make}/model/${model}`,
@@ -259,6 +262,44 @@ export default async function MakeModelPage({ params }: Props) {
             All data is publicly available from US government sources.
           </p>
         </div>
+                {/* Common ADs — adds ~150 words */}
+        {(() => {
+          const adMap = new Map<string, any>();
+          for (const [_, entry] of Object.entries(data)) {
+            if (slugify((entry as any).aircraft?.make || '') !== make) continue;
+            if (slugify((entry as any).aircraft?.model || '') !== model) continue;
+            for (const ad of (entry as any).directives || []) {
+              if (!adMap.has(ad.ad_number)) adMap.set(ad.ad_number, ad);
+            }
+          }
+          const topADs = [...adMap.values()].slice(0, 5);
+          if (topADs.length === 0) return null;
+          return (
+            <div className="mt-12 border border-slate-200 rounded-2xl p-8">
+              <h2 className="text-xl font-bold text-slate-900 mb-4">
+                Common Airworthiness Directives for {displayMake} {displayModel}
+              </h2>
+              <p className="text-sm text-slate-600 mb-4 leading-relaxed">
+                The following Airworthiness Directives have been issued by the
+                FAA for the {displayMake} {displayModel}. AD applicability
+                depends on the specific serial number and configuration of each
+                aircraft. Buyers should verify applicability in the
+                aircraft&apos;s logbooks and confirm the current AD status with
+                the FAA before purchase.
+              </p>
+              <ul className="space-y-3 text-sm">
+                {topADs.map((ad: any, i: number) => (
+                  <li key={i} className="border-l-2 border-amber-400 pl-4">
+                    <div className="font-mono text-xs text-amber-700">
+                      AD {ad.ad_number}
+                    </div>
+                    <div className="mt-1 text-slate-700">{ad.title}</div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })()}
       </section>
 
       <footer className="border-t border-slate-200 bg-white">
