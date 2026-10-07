@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import fs from 'fs';
 import path from 'path';
 
-const TEST_LIMIT: number | null = null;
+const TEST_LIMIT: number | null = 3000;
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 const PAGES_FILE = path.join(DATA_DIR, 'aircraft-pages.json');
