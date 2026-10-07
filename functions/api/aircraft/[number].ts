@@ -1,5 +1,6 @@
 // @ts-nocheck
 // functions/api/aircraft/[number].ts
+
 export const onRequestGet = async (context) => {
   const nNumber = context.params.number;
 
@@ -13,28 +14,47 @@ export const onRequestGet = async (context) => {
   const normalized = nNumber.toUpperCase();
 
   try {
-    // Query aircraft (may be null for deregistered aircraft)
     const aircraft = await context.env.DB.prepare(
       'SELECT * FROM aircraft WHERE n_number = ?'
-    ).bind(normalized).first();
+    )
+      .bind(normalized)
+      .first();
 
-    // Query accidents (may be empty)
     const { results: accidents } = await context.env.DB.prepare(
       'SELECT * FROM accidents WHERE n_number = ? ORDER BY event_date DESC'
-    ).bind(normalized).all();
+    )
+      .bind(normalized)
+      .all();
+
+    // Fetch applicable ADs so the free page can preview the first one
+    let directives = [];
+    if (aircraft?.make || aircraft?.model) {
+      const make = (aircraft.make || '').trim().split(' ')[0];
+      const model = (aircraft.model || '').trim().split(' ')[0];
+
+      const { results } = await context.env.DB.prepare(
+        `SELECT * FROM directives
+         WHERE (manufacturer LIKE ? OR manufacturer LIKE ?)
+           AND (model LIKE ? OR title LIKE ?)
+         ORDER BY effective_date DESC
+         LIMIT 20`
+      )
+        .bind(`%${make}%`, `%${aircraft.make}%`, `%${model}%`, `%${model}%`)
+        .all();
+      directives = results || [];
+    }
 
     const hasAircraft = !!aircraft;
     const hasAccidents = accidents && accidents.length > 0;
+    const hasDirectives = directives && directives.length > 0;
 
-    // If neither exists, return 404
-    if (!hasAircraft && !hasAccidents) {
+    if (!hasAircraft && !hasAccidents && !hasDirectives) {
       return new Response(JSON.stringify({ error: 'Aircraft not found' }), {
         status: 404,
         headers: { 'Content-Type': 'application/json' },
       });
     }
 
-    // Build response — use aircraft data if available, otherwise stub from accidents
     const responseData = {
       n_number: normalized,
       serial_number: aircraft?.serial_number || null,
@@ -48,6 +68,7 @@ export const onRequestGet = async (context) => {
       airworthiness_date: aircraft?.airworthiness_date || null,
       deregistered: !hasAircraft,
       accidents: accidents || [],
+      directives,
     };
 
     return new Response(JSON.stringify(responseData), {
