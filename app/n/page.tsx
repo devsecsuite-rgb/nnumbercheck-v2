@@ -67,17 +67,17 @@ function LookupResult() {
   const [data, setData] = useState<Aircraft | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
-  const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
 
-  const handleCheckout = async () => {
+  const handleCheckout = async (tier: 'basic' | 'full') => {
     if (!data) return;
-    setCheckoutLoading(true);
+    setCheckoutLoading(tier);
 
     try {
       const res = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nNumber: data.n_number }),
+        body: JSON.stringify({ nNumber: data.n_number, tier }),
       });
       const json = await res.json();
 
@@ -85,11 +85,11 @@ function LookupResult() {
         window.location.href = json.url;
       } else {
         alert(json.error || 'Something went wrong. Please try again.');
-        setCheckoutLoading(false);
+        setCheckoutLoading(null);
       }
     } catch {
       alert('Something went wrong. Please try again.');
-      setCheckoutLoading(false);
+      setCheckoutLoading(null);
     }
   };
 
@@ -429,13 +429,13 @@ function LookupResult() {
                 </p>
                 <p className="mt-1 text-xs text-slate-500">
                   Full list, with effective dates and links to the official
-                  Federal Register documents, is included in the full report.
+                  Federal Register documents, is included in the paid reports.
                 </p>
                 <a
                   href="#full-report"
                   className="mt-4 inline-block bg-sky-600 text-white px-6 py-2 rounded-lg font-semibold text-sm hover:bg-sky-700 transition"
                 >
-                  Unlock all {data.directives.length} ADs →
+                  See pricing options →
                 </a>
               </div>
             )}
@@ -443,7 +443,7 @@ function LookupResult() {
         </section>
       )}
 
-      {/* Paid report CTA */}
+      {/* Pricing options */}
       <section
         id="full-report"
         className="bg-slate-50 border-y border-slate-200"
@@ -454,43 +454,67 @@ function LookupResult() {
               Unlock the full history
             </h2>
             <p className="mt-4 text-slate-600">
-              Get the complete picture before you buy.
+              Choose the report that fits your needs.
             </p>
           </div>
 
           <div className="mt-12 grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div className="bg-white border border-slate-200 rounded-2xl p-6">
-              <h3 className="font-semibold text-lg">
-                What the full report adds
-              </h3>
-              <ul className="mt-4 space-y-2 text-sm text-slate-600">
-                <li>
-                  ✓ All {data.directives?.length || 'applicable'} Airworthiness
-                  Directives
-                </li>
-                <li>
-                  ✓ Direct links to official Federal Register documents
-                </li>
+
+            {/* Basic Report — $49 */}
+            <div className="bg-white border-2 border-sky-300 rounded-2xl p-8 relative flex flex-col">
+              <h3 className="text-xl font-semibold">Basic Report</h3>
+              <p className="mt-3 text-4xl font-bold">$49</p>
+              <p className="mt-1 text-sm text-slate-500">One-time payment</p>
+
+              <ul className="mt-6 space-y-3 text-sm text-slate-700">
+                <li>✓ All {data.directives?.length || 'applicable'} Airworthiness Directives</li>
+                <li>✓ Serial-number applicability tags</li>
                 <li>✓ Complete accident history with narratives</li>
-                <li>✓ Ownership chain and registration details</li>
-                <li>✓ Permanent link delivered to your email</li>
-                <li>✓ Print or save as PDF</li>
+                <li>✓ Full registration details</li>
+                <li>✓ Direct links to Federal Register documents</li>
               </ul>
+
+              <div className="mt-auto pt-8">
+                <button
+                  onClick={() => handleCheckout('basic')}
+                  disabled={checkoutLoading !== null}
+                  className="w-full bg-sky-600 text-white py-3 rounded-xl font-semibold hover:bg-sky-700 transition disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  {checkoutLoading === 'basic'
+                    ? 'Redirecting...'
+                    : 'Get Basic Report — $49'}
+                </button>
+                <p className="mt-3 text-xs text-slate-500 text-center">
+                  Instant access by email. No PDF download.
+                </p>
+              </div>
             </div>
 
-            <div className="bg-sky-600 text-white rounded-2xl p-6 flex flex-col">
-              <h3 className="font-semibold text-lg">Full History Report</h3>
-              <p className="mt-4 text-4xl font-bold">$149</p>
-              <p className="mt-1 text-sky-100 text-sm">One-time payment</p>
+            {/* Full Report — $149 */}
+            <div className="bg-sky-600 text-white rounded-2xl p-8 relative flex flex-col">
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-400 text-amber-900 text-xs px-3 py-1 rounded-full font-semibold">
+                Most Popular
+              </span>
+              <h3 className="text-xl font-semibold">Full History Report</h3>
+              <p className="mt-3 text-4xl font-bold">$149</p>
+              <p className="mt-1 text-sm text-sky-100">One-time payment</p>
 
-              <div className="mt-auto pt-6">
+              <ul className="mt-6 space-y-3 text-sm text-sky-50">
+                <li>✓ Everything in Basic</li>
+                <li>✓ Ownership chain and registered owner details</li>
+                <li>✓ Branded PDF download</li>
+                <li>✓ Permanent email link to your report</li>
+                <li>✓ Print or save as PDF</li>
+              </ul>
+
+              <div className="mt-auto pt-8">
                 <button
-                  onClick={handleCheckout}
-                  disabled={checkoutLoading}
+                  onClick={() => handleCheckout('full')}
+                  disabled={checkoutLoading !== null}
                   className="w-full bg-white text-sky-600 py-3 rounded-xl font-semibold hover:bg-sky-50 transition disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  {checkoutLoading
-                    ? 'Redirecting to checkout...'
+                  {checkoutLoading === 'full'
+                    ? 'Redirecting...'
                     : 'Get Full Report — $149'}
                 </button>
                 <p className="mt-3 text-xs text-sky-100 text-center">
@@ -499,6 +523,11 @@ function LookupResult() {
               </div>
             </div>
           </div>
+
+          <p className="mt-8 text-center text-xs text-slate-500">
+            Both reports include the same data. The Full Report adds a
+            downloadable PDF you can print or share.
+          </p>
         </div>
       </section>
 
