@@ -6,10 +6,11 @@ const path = require('path');
 const LIMIT = 5000;
 const BATCH_SIZE = 200;
 const DATA_DIR = path.join(__dirname, '..', 'data');
+const PAGES_FILE = path.join(DATA_DIR, 'aircraft-pages.json');
 
 function queryD1(sql) {
   const escaped = sql.replace(/"/g, '\\"').replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
-    const result = execSync(
+  const result = execSync(
     `npx wrangler d1 execute DB --command="${escaped}" --remote --json`,
     {
       encoding: 'utf-8',
@@ -22,27 +23,50 @@ function queryD1(sql) {
 }
 
 async function main() {
-  console.log('Fetching top aircraft by accident count...');
-  const topAircraft = queryD1(`
-    SELECT a.n_number, a.make, a.model, a.year, a.serial_number, a.owner_name,
-           a.owner_city, a.owner_state, a.registration_status, a.airworthiness_date,
-           COUNT(acc.id) AS accident_count
-    FROM aircraft a
-    INNER JOIN accidents acc ON a.n_number = acc.n_number
-    GROUP BY a.n_number
-    ORDER BY accident_count DESC, a.n_number ASC
-    LIMIT ${LIMIT}
-  `);
-  console.log(`Got ${topAircraft.length} aircraft`);
+  let topAircraft;
+
+  if (fs.existsSync(PAGES_FILE)) {
+    // Reuse the existing N-numbers list if the file is already present
+    const nNumbers = JSON.parse(fs.readFileSync(PAGES_FILE, 'utf-8'));
+    console.log(`Reusing existing list of ${nNumbers.length} N-numbers`);
+
+    // Fetch aircraft data in batches (small reads)
+    console.log('Fetching aircraft details...');
+    const allAircraft = [];
+    for (let i = 0; i < nNumbers.length; i += BATCH_SIZE) {
+      const batch = nNumbers.slice(i, i + BATCH_SIZE);
+      const inClause = batch.map((n) => `'${n}'`).join(',');
+      const rows = queryD1(
+        `SELECT n_number, make, model, year, serial_number, owner_name, owner_city, owner_state, registration_status, airworthiness_date FROM aircraft WHERE n_number IN (${inClause})`
+      );
+      allAircraft.push(...rows);
+      process.stdout.write(`  Batch ${Math.floor(i / BATCH_SIZE) + 1}/${Math.ceil(nNumbers.length / BATCH_SIZE)}\r`);
+    }
+    console.log('\nAircraft details fetched');
+    topAircraft = allAircraft;
+  } else {
+    console.log('Fetching top aircraft by accident count...');
+    topAircraft = queryD1(`
+      SELECT a.n_number, a.make, a.model, a.year, a.serial_number, a.owner_name,
+             a.owner_city, a.owner_state, a.registration_status, a.airworthiness_date,
+             COUNT(acc.id) AS accident_count
+      FROM aircraft a
+      INNER JOIN accidents acc ON a.n_number = acc.n_number
+      GROUP BY a.n_number
+      ORDER BY accident_count DESC, a.n_number ASC
+      LIMIT ${LIMIT}
+    `);
+    console.log(`Got ${topAircraft.length} aircraft`);
+
+    const nNumbers = topAircraft.map((a) => a.n_number);
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+    fs.writeFileSync(PAGES_FILE, JSON.stringify(nNumbers, null, 2));
+    console.log(`Wrote ${nNumbers.length} N-numbers to aircraft-pages.json`);
+  }
 
   const nNumbers = topAircraft.map((a) => a.n_number);
-  fs.mkdirSync(DATA_DIR, { recursive: true });
-  fs.writeFileSync(
-    path.join(DATA_DIR, 'aircraft-pages.json'),
-    JSON.stringify(nNumbers, null, 2)
-  );
-  console.log(`Wrote ${nNumbers.length} N-numbers to aircraft-pages.json`);
 
+  // Fetch accidents in batches
   console.log('Fetching accidents...');
   const allAccidents = {};
   for (let i = 0; i < nNumbers.length; i += BATCH_SIZE) {
@@ -59,31 +83,37 @@ async function main() {
   }
   console.log('\nAccidents fetched');
 
-  console.log('Fetching directives by make/model...');
-  const makeModels = [...new Set(topAircraft.map((a) => `${a.make || ''}|${a.model || ''}`))];
-  const directivesByMakeModel = {};
-  let mmCount = 0;
-  for (const mm of makeModels) {
-    const [make, model] = mm.split('|');
-    if (!make || !model) {
-      directivesByMakeModel[mm] = [];
-      continue;
-    }
-    const makeFirst = make.split(' ')[0].replace(/'/g, "''");
-    const modelFirst = model.split(' ')[0].replace(/'/g, "''");
-    const dirs = queryD1(
-      `SELECT * FROM directives WHERE (manufacturer LIKE '%${makeFirst}%' OR manufacturer LIKE '%${make.replace(/'/g, "''")}%') AND (model LIKE '%${modelFirst}%' OR title LIKE '%${modelFirst}%') ORDER BY effective_date DESC LIMIT 20`
-    );
-    directivesByMakeModel[mm] = dirs;
-    mmCount++;
-    process.stdout.write(`  ${mmCount}/${makeModels.length} make/models\r`);
-  }
-  console.log('\nDirectives fetched');
+  // Fetch ALL directives in one query (this is the key optimization)
+  console.log('Fetching all directives (single query)...');
+  const allDirectives = queryD1(`SELECT * FROM directives ORDER BY effective_date DESC`);
+  console.log(`Got ${allDirectives.length} directives`);
 
-  console.log('Building final data object...');
+  // Match directives to aircraft in JavaScript (no D1 queries needed)
+  console.log('Matching directives to aircraft...');
   const aircraftData = {};
   for (const ac of topAircraft) {
-    const mm = `${ac.make || ''}|${ac.model || ''}`;
+    const makeUpper = (ac.make || '').toUpperCase();
+    const modelFirst = (ac.model || '').split(' ')[0].toUpperCase();
+    const makeFirst = makeUpper.split(' ')[0];
+
+    const matched = allDirectives.filter((d) => {
+      const dirMfr = (d.manufacturer || '').toUpperCase();
+      const dirModel = (d.model || '').toUpperCase();
+      const dirTitle = (d.title || '').toUpperCase();
+
+      const makeMatch =
+        (makeFirst && dirMfr.includes(makeFirst)) ||
+        (makeUpper && dirMfr.includes(makeUpper));
+
+      if (!makeMatch) return false;
+
+      const modelMatch =
+        (modelFirst && dirModel.includes(modelFirst)) ||
+        (modelFirst && dirTitle.includes(modelFirst));
+
+      return modelMatch;
+    });
+
     aircraftData[ac.n_number] = {
       aircraft: {
         n_number: ac.n_number,
@@ -98,7 +128,7 @@ async function main() {
         airworthiness_date: ac.airworthiness_date,
       },
       accidents: allAccidents[ac.n_number] || [],
-      directives: directivesByMakeModel[mm] || [],
+      directives: matched.slice(0, 20),
     };
   }
 
