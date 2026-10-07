@@ -443,15 +443,18 @@ function LookupResult() {
 
           <div className="mt-12 grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <div className="bg-white border border-slate-200 rounded-2xl p-6">
-              <h3 className="font-semibold text-lg">What&apos;s included</h3>
-              <ul className="mt-4 space-y-2 text-sm text-slate-600">
-                <li>✓ Complete accident records</li>
-                <li>✓ FAA registration &amp; airworthiness</li>
-                <li>✓ Ownership information</li>
-                <li>✓ Airframe &amp; engine data</li>
-                <li>✓ Deregistration status</li>
-                <li>✓ Downloadable PDF report</li>
-              </ul>
+            <h3 className="font-semibold text-lg">What the full report adds</h3>
+            <ul className="mt-4 space-y-2 text-sm text-slate-600">
+              <li>
+                  ✓ All {data.directives?.length || 'applicable'} Airworthiness
+                  Directives
+              </li>
+              <li>✓ Direct links to official Federal Register documents</li>
+              <li>✓ Complete accident history with narratives</li>
+              <li>✓ Ownership chain and registration details</li>
+              <li>✓ Permanent link delivered to your email</li>
+              <li>✓ Print or save as PDF</li>
+            </ul>
             </div>
 
             <div className="bg-sky-600 text-white rounded-2xl p-6 flex flex-col">
