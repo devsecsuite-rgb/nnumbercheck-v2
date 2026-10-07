@@ -112,7 +112,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const indexable = shouldIndex(entry);
 
   return {
-    title: metaTitle,
+    title: { absolute: metaTitle },
     description: `Complete history for aircraft ${nnumber}: FAA registration, NTSB accident records, and applicable Airworthiness Directives. Free to view.`,
     alternates: {
       canonical: `https://nnumbercheck.com/aircraft/${nnumber}`,
