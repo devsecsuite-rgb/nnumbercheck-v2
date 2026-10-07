@@ -6,7 +6,7 @@ import path from 'path';
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: 'Aircraft Database — FAA Registration & History',
+  title: { absolute: 'Aircraft Database — FAA Registration & History' },
   description:
     'Browse aircraft by N-number. Registration details, NTSB accident history, and applicable Airworthiness Directives for thousands of US aircraft.',
   alternates: {
