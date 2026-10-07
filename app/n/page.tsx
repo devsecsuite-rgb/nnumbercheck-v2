@@ -39,6 +39,17 @@ type Aircraft = {
   directives: Directive[];
 };
 
+function severityLabel(raw: string | undefined): string {
+  if (!raw) return 'Injuries not yet reported';
+  const s = raw.toLowerCase().trim();
+  if (s === 'fatal') return 'Fatal injuries';
+  if (s === 'serious') return 'Serious injuries';
+  if (s === 'minor') return 'Minor injuries';
+  if (s === 'none') return 'No injuries reported';
+  if (s === 'unknown' || s === 'n/a') return 'Injuries not yet reported';
+  return raw;
+}
+
 function Header() {
   return (
     <header className="border-b border-slate-200 bg-white">
@@ -121,7 +132,6 @@ function LookupResult() {
     };
   }, [nNumber, rawNumber]);
 
-  // No number provided
   if (!rawNumber) {
     return (
       <div className="min-h-screen bg-white">
@@ -142,7 +152,6 @@ function LookupResult() {
     );
   }
 
-  // Invalid format
   const isValid =
     /^N[0-9]{1,5}[A-Z]{0,2}$/.test(nNumber) && nNumber.length <= 6;
 
@@ -166,7 +175,6 @@ function LookupResult() {
     );
   }
 
-  // Loading
   if (loading) {
     return (
       <div className="min-h-screen bg-white">
@@ -178,7 +186,6 @@ function LookupResult() {
     );
   }
 
-  // Not found
   if (notFound || !data) {
     return (
       <div className="min-h-screen bg-white">
@@ -219,7 +226,6 @@ function LookupResult() {
     );
   }
 
-  // Success — full result
   const hasAccidents = data.accidents && data.accidents.length > 0;
   const hasDirectives = data.directives && data.directives.length > 0;
 
@@ -364,9 +370,9 @@ function LookupResult() {
                     key={acc.id}
                     className="text-sm border-l-2 border-red-400 pl-4"
                   >
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 flex-wrap">
                       <span className="bg-red-100 text-red-700 px-2 py-0.5 rounded text-xs font-medium">
-                        {acc.severity}
+                        {severityLabel(acc.severity)}
                       </span>
                       <span className="text-slate-500">{acc.event_date}</span>
                     </div>
@@ -376,6 +382,10 @@ function LookupResult() {
                     <p className="mt-1 text-slate-600">{acc.summary}</p>
                   </div>
                 ))}
+                <p className="mt-3 text-xs text-slate-400 italic">
+                  Severity reflects injuries to people, not damage to the
+                  aircraft.
+                </p>
               </div>
             )}
           </div>
