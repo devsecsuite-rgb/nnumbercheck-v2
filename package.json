@@ -7,11 +7,12 @@
     "build": "next build",
     "start": "next start"
   },
-  "dependencies": {
+   "dependencies": {
     "next": "16.3.7",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "adm-zip": "^0.5.16"
+    "adm-zip": "^0.5.16",
+    "jspdf": "^2.5.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
