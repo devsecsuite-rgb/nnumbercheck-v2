@@ -369,9 +369,68 @@ function LookupResult() {
           </div>
         </div>
       </section>
+      {/* Airworthiness Directives preview */}
+      {data.directives && data.directives.length > 0 && (
+        <section className="max-w-6xl mx-auto px-6 pb-12">
+          <div className="border border-slate-200 rounded-2xl p-6">
+            <div className="flex items-baseline justify-between flex-wrap gap-2">
+              <h3 className="font-semibold text-lg">
+                Applicable Airworthiness Directives
+              </h3>
+              <span className="text-xs text-slate-500">
+                {data.directives.length} found
+              </span>
+            </div>
+            <p className="mt-2 text-sm text-slate-600">
+              FAA-mandated safety directives that may apply to this aircraft.
+              Previewing the most recent one below.
+            </p>
 
+            <div className="mt-5 border-l-4 border-amber-400 pl-5 py-2">
+              <div className="flex items-center gap-3 flex-wrap">
+                <span className="bg-amber-100 text-amber-800 px-2 py-0.5 rounded text-xs font-semibold">
+                  AD {data.directives[0].ad_number}
+                </span>
+                {data.directives[0].effective_date && (
+                  <span className="text-slate-500 text-xs">
+                    Effective: {data.directives[0].effective_date}
+                  </span>
+                )}
+              </div>
+              <p className="mt-2 font-semibold text-slate-800 text-sm">
+                {data.directives[0].title}
+              </p>
+              {data.directives[0].abstract && (
+                <p className="mt-1 text-slate-600 text-sm line-clamp-3">
+                  {data.directives[0].abstract}
+                </p>
+              )}
+            </div>
+
+            {data.directives.length > 1 && (
+              <div className="mt-6 bg-gradient-to-b from-white to-slate-50 border border-dashed border-slate-300 rounded-xl p-5 text-center">
+                <p className="text-sm font-medium text-slate-700">
+                  +{data.directives.length - 1} more Airworthiness Directive
+                  {data.directives.length - 1 === 1 ? '' : 's'} found for this
+                  aircraft
+                </p>
+                <p className="mt-1 text-xs text-slate-500">
+                  Full list, with effective dates and links to the official
+                  Federal Register documents, is included in the full report.
+                </p>
+                <a
+                  href="#full-report"
+                  className="mt-4 inline-block bg-sky-600 text-white px-6 py-2 rounded-lg font-semibold text-sm hover:bg-sky-700 transition"
+                >
+                  Unlock all {data.directives.length} ADs →
+                </a>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
       {/* Paid report CTA */}
-      <section className="bg-slate-50 border-y border-slate-200">
+            <section id="full-report" className="bg-slate-50 border-y border-slate-200">
         <div className="max-w-6xl mx-auto px-6 py-16">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold">
