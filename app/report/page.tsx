@@ -12,6 +12,7 @@ function ReportContent() {
   const [loading, setLoading] = useState(true);
   const [purchase, setPurchase] = useState<any>(null);
   const [aircraft, setAircraft] = useState<any>(null);
+  const [metadata, setMetadata] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const [downloadingPdf, setDownloadingPdf] = useState(false);
 
@@ -53,6 +54,7 @@ function ReportContent() {
             if (!cancelled) {
               setPurchase(json.purchase);
               setAircraft(json.aircraft);
+              setMetadata(json.metadata || null);
               setLoading(false);
             }
             return;
@@ -127,6 +129,15 @@ function ReportContent() {
     return null;
   }
 
+  const fmtDate = (s: string | undefined) =>
+    s
+      ? new Date(s).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+        })
+      : 'Unknown';
+
   return (
     <div className="min-h-screen bg-white">
       <ReportHeader />
@@ -150,6 +161,29 @@ function ReportContent() {
       </section>
 
       <section className="max-w-4xl mx-auto px-6 py-12 space-y-8">
+
+        {/* Data freshness */}
+        <div className="bg-slate-50 border border-slate-200 rounded-xl px-5 py-3 flex flex-wrap items-center gap-x-6 gap-y-1 text-xs text-slate-500">
+          <span className="font-medium text-slate-600">Data freshness:</span>
+          <span>
+            FAA registry:{' '}
+            <strong className="text-slate-700">
+              {fmtDate(metadata?.last_faa_sync)}
+            </strong>
+          </span>
+          <span>
+            NTSB accidents:{' '}
+            <strong className="text-slate-700">
+              {fmtDate(metadata?.last_ntsb_sync)}
+            </strong>
+          </span>
+          <span>
+            Airworthiness Directives:{' '}
+            <strong className="text-slate-700">
+              {fmtDate(metadata?.last_ads_sync)}
+            </strong>
+          </span>
+        </div>
 
         {/* Registration */}
         <div className="border border-slate-200 rounded-2xl p-8">
