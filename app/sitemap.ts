@@ -1,5 +1,4 @@
 import type { MetadataRoute } from 'next';
-import aircraftList from '@/data/aircraft-pages.json';
 
 export const dynamic = 'force-static';
 
@@ -8,8 +7,7 @@ const BASE_URL = 'https://nnumbercheck.com';
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
-  // Static pages
-  const staticPages: MetadataRoute.Sitemap = [
+  return [
     {
       url: `${BASE_URL}/`,
       lastModified: now,
@@ -35,18 +33,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.3,
     },
     {
-      url: `${BASE_URL}/refund`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-    {
       url: `${BASE_URL}/disclaimer`,
       lastModified: now,
       changeFrequency: 'yearly',
       priority: 0.3,
     },
-    // Example N-number lookup page for crawler discovery
+    // Example N-number page for crawler discovery + audit verification
     {
       url: `${BASE_URL}/n?number=N69009`,
       lastModified: now,
@@ -54,16 +46,4 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
   ];
-
-  // Aircraft SEO pages — one entry per N-number in the data file
-  const aircraftPages: MetadataRoute.Sitemap = (aircraftList as string[]).map(
-    (nNumber) => ({
-      url: `${BASE_URL}/aircraft/${nNumber}`,
-      lastModified: now,
-      changeFrequency: 'monthly' as const,
-      priority: 0.6,
-    })
-  );
-
-  return [...staticPages, ...aircraftPages];
 }
