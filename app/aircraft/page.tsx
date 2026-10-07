@@ -22,6 +22,10 @@ type Aircraft = {
   accidentCount: number;
 };
 
+function slugify(s: string) {
+  return s.toLowerCase().replace(/\s+/g, '-');
+}
+
 function loadAircraft(): Aircraft[] {
   const dataFile = path.join(process.cwd(), 'data', 'aircraft-data.json');
   const raw = fs.readFileSync(dataFile, 'utf-8');
@@ -42,13 +46,27 @@ export default function AircraftIndexPage() {
   const aircraft = loadAircraft();
   const total = aircraft.length;
 
-  // Group by make for the hub structure
-  const byMake = new Map<string, number>();
+  // Group by make+model — only keep pairs with 5+ aircraft (matching the hub pages)
+  const pairCounts = new Map<
+    string,
+    { make: string; model: string; count: number }
+  >();
   for (const ac of aircraft) {
-    if (!ac.make) continue;
-    byMake.set(ac.make, (byMake.get(ac.make) || 0) + 1);
+    if (!ac.make || !ac.model) continue;
+    const key = `${ac.make}|${ac.model}`;
+    const existing = pairCounts.get(key);
+    if (existing) {
+      existing.count += 1;
+    } else {
+      pairCounts.set(key, { make: ac.make, model: ac.model, count: 1 });
+    }
   }
-  const makes = [...byMake.entries()].sort((a, b) => b[1] - a[1]).slice(0, 30);
+
+  // Show the top 60 make/model combinations that have hub pages
+  const topPairs = [...pairCounts.values()]
+    .filter((p) => p.count >= 5)
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 60);
 
   // Featured: top 60 most-accident aircraft
   const featured = aircraft.slice(0, 60);
@@ -83,23 +101,26 @@ export default function AircraftIndexPage() {
       </section>
 
       <section className="max-w-6xl mx-auto px-6 py-12 space-y-12">
-        {/* Browse by make */}
+        {/* Browse by make/model — only shows pairs that have hub pages */}
         <div>
           <h2 className="text-2xl font-bold text-slate-900 mb-6">
-            Browse by Manufacturer
+            Browse by Aircraft Type
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {makes.map(([make, count]) => (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+            {topPairs.map((pair) => (
               <Link
-                key={make}
-                href={`/aircraft/make/${make.toLowerCase().replace(/\s+/g, '-')}`}
+                key={`${pair.make}|${pair.model}`}
+                href={`/aircraft/make/${slugify(pair.make)}/model/${slugify(pair.model)}`}
                 className="border border-slate-200 rounded-xl p-4 hover:border-sky-400 hover:bg-sky-50 transition"
               >
-                <div className="font-semibold text-slate-900 truncate">
-                  {make}
+                <div className="font-semibold text-slate-900 text-sm truncate">
+                  {pair.make}
+                </div>
+                <div className="text-xs text-slate-600 mt-0.5 truncate">
+                  {pair.model}
                 </div>
                 <div className="text-xs text-slate-500 mt-1">
-                  {count} aircraft
+                  {pair.count} aircraft
                 </div>
               </Link>
             ))}
