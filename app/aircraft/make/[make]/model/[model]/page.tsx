@@ -30,21 +30,31 @@ export async function generateStaticParams() {
   const data = loadData();
   const entries = Object.values(data) as any[];
 
-  const pairs = new Map<string, { make: string; model: string }>();
+  // Count aircraft per make/model
+  const counts = new Map<string, { make: string; model: string; count: number }>();
   for (const entry of entries) {
     const make = entry.aircraft?.make;
     const model = entry.aircraft?.model;
     if (!make || !model) continue;
     const key = `${make}|${model}`;
-    if (!pairs.has(key)) {
-      pairs.set(key, { make, model });
+    const existing = counts.get(key);
+    if (existing) {
+      existing.count += 1;
+    } else {
+      counts.set(key, { make, model, count: 1 });
     }
   }
 
-  return [...pairs.values()].map(({ make, model }) => ({
-    make: slugify(make),
-    model: slugify(model),
-  }));
+  // Only build hub pages for make/models with at least 5 aircraft
+  // Cap at 150 hub pages total to stay under file limits
+  return [...counts.values()]
+    .filter((p) => p.count >= 5)
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 150)
+    .map(({ make, model }) => ({
+      make: slugify(make),
+      model: slugify(model),
+    }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
