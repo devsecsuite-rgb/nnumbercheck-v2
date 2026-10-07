@@ -222,6 +222,13 @@ function ReportContent() {
             NTSB records from 1982 to present. {aircraft.accidents.length} record
             {aircraft.accidents.length === 1 ? '' : 's'} found.
           </p>
+          {aircraft.accidents.length > 0 && (
+            <p className="mt-1 text-xs text-slate-400 italic">
+              Severity reflects injuries to people involved, not damage to the
+              aircraft. A &ldquo;no injuries&rdquo; accident can still involve
+              significant aircraft damage.
+            </p>
+          )}
 
           {aircraft.accidents.length === 0 ? (
             <p className="mt-6 text-slate-600">
@@ -235,8 +242,8 @@ function ReportContent() {
                   className="border-l-4 border-red-400 pl-6 py-2"
                 >
                   <div className="flex items-center gap-3 flex-wrap">
-                    <span className="bg-red-100 text-red-700 px-2 py-0.5 rounded text-xs font-semibold uppercase">
-                      {acc.severity}
+                    <span className="bg-red-100 text-red-700 px-2 py-0.5 rounded text-xs font-semibold">
+                      {severityLabel(acc.severity)}
                     </span>
                     <span className="text-slate-700 font-medium">
                       {acc.event_date}
@@ -401,14 +408,7 @@ function ReportContent() {
           <dl className="mt-4 grid sm:grid-cols-2 gap-4 text-sm">
             <Detail label="Transaction ID" value={purchase?.paddle_transaction_id} mono />
             <Detail label="Purchased On" value={purchase?.created_at} />
-            <Detail
-              label="Amount Paid"
-              value={
-                purchase?.amount_cents
-                  ? `$${(purchase.amount_cents / 100).toFixed(2)} ${purchase.currency}`
-                  : '—'
-              }
-            />
+            <Detail label="Amount Paid" value={formatAmount(purchase)} />
             <Detail label="Report Tier" value={isFullTier ? 'Full History Report' : 'Basic Report'} />
             <Detail label="Status" value={purchase?.status} />
           </dl>
@@ -494,6 +494,25 @@ function Detail({
       </dd>
     </div>
   );
+}
+
+function severityLabel(raw: string | undefined): string {
+  if (!raw) return 'Injuries not yet reported';
+  const s = raw.toLowerCase().trim();
+  if (s === 'fatal') return 'Fatal injuries';
+  if (s === 'serious') return 'Serious injuries';
+  if (s === 'minor') return 'Minor injuries';
+  if (s === 'none') return 'No injuries reported';
+  if (s === 'unknown' || s === 'n/a') return 'Injuries not yet reported';
+  return raw;
+}
+
+function formatAmount(purchase: any): string {
+  if (!purchase?.amount_cents) return '—';
+  const amount = (purchase.amount_cents / 100).toFixed(2);
+  if (purchase.currency === 'THB') return `฿${amount}`;
+  if (purchase.currency === 'USD') return `$${amount}`;
+  return `${amount} ${purchase.currency || ''}`.trim();
 }
 
 export default function ReportPage() {
