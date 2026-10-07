@@ -24,7 +24,11 @@ export const onRequestPost = async (context) => {
     }
 
     const stripeKey = cleanEnv(env.STRIPE_SECRET_KEY);
-    const priceId = cleanEnv(env.STRIPE_PRICE_ID);
+        const tier = body.tier || 'full';
+    const priceId =
+      tier === 'basic'
+        ? cleanEnv(env.STRIPE_PRICE_ID_BASIC)
+        : cleanEnv(env.STRIPE_PRICE_ID);
 
     const origin = new URL(request.url).origin;
 
@@ -42,6 +46,7 @@ export const onRequestPost = async (context) => {
         'success_url': `${origin}/report?n=${nNumber}&_ptxn={CHECKOUT_SESSION_ID}`,
         'cancel_url': `${origin}/n?number=${nNumber}`,
         'metadata[n_number]': nNumber,
+        'metadata[tier]': tier,
         'adaptive_pricing[enabled]': 'true',
       }).toString(),
     });
