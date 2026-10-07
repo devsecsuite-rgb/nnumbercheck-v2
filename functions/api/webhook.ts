@@ -174,17 +174,17 @@ export const onRequestPost = async (context) => {
     if (event.type === 'checkout.session.completed') {
       const session = event.data.object;
       const nNumber = session.metadata?.n_number || null;
+      const tier = session.metadata?.tier || 'full';
       const transactionId = session.id;
       const customerEmail = session.customer_details?.email || null;
       const amountCents = session.amount_total || null;
       const currency = (session.currency || 'usd').toUpperCase();
 
       if (nNumber) {
-        // 1. Record the purchase in D1
         await env.DB.prepare(
           `INSERT OR IGNORE INTO purchases
-           (paddle_transaction_id, paddle_customer_id, customer_email, n_number, amount_cents, currency, status)
-           VALUES (?, ?, ?, ?, ?, ?, 'completed')`
+           (paddle_transaction_id, paddle_customer_id, customer_email, n_number, amount_cents, currency, status, tier)
+           VALUES (?, ?, ?, ?, ?, ?, 'completed', ?)`
         )
           .bind(
             transactionId,
@@ -192,11 +192,11 @@ export const onRequestPost = async (context) => {
             customerEmail,
             nNumber,
             amountCents,
-            currency
+            currency,
+            tier
           )
           .run();
 
-        // 2. Send the report email
         try {
           const result = await sendReportEmail(env, {
             nNumber,
@@ -206,7 +206,6 @@ export const onRequestPost = async (context) => {
           });
           console.log('Email send result:', JSON.stringify(result));
         } catch (emailErr) {
-          // Don't fail the webhook if email fails — the purchase is already recorded
           console.error('Email send failed:', emailErr);
         }
       }
