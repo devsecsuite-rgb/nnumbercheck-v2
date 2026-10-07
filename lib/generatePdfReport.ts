@@ -1,5 +1,16 @@
 // lib/generatePdfReport.ts
 
+function severityLabel(raw: string | undefined): string {
+  if (!raw) return 'Injuries not yet reported';
+  const s = raw.toLowerCase().trim();
+  if (s === 'fatal') return 'Fatal injuries';
+  if (s === 'serious') return 'Serious injuries';
+  if (s === 'minor') return 'Minor injuries';
+  if (s === 'none') return 'No injuries reported';
+  if (s === 'unknown' || s === 'n/a') return 'Injuries not yet reported';
+  return raw;
+}
+
 export async function generatePdfReport(aircraft: any, purchase: any) {
   const { jsPDF } = await import('jspdf');
   const doc = new jsPDF({ unit: 'pt', format: 'a4' });
@@ -64,21 +75,6 @@ export async function generatePdfReport(aircraft: any, purchase: any) {
 
   y += 130;
 
-    // Data freshness
-  doc.setFillColor(248, 250, 252);
-  doc.rect(margin, y, contentWidth, 30, 'F');
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(8);
-  doc.setTextColor(gray[0], gray[1], gray[2]);
-  doc.text('Data freshness — refreshed weekly from official sources', margin + 10, y + 12);
-  doc.setFontSize(7);
-  doc.text(
-    `Report generated: ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}`,
-    margin + 10,
-    y + 22
-  );
-  y += 45;
-  
   // Registration
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(16);
@@ -144,6 +140,15 @@ export async function generatePdfReport(aircraft: any, purchase: any) {
       margin,
       y
     );
+    y += 16;
+
+    doc.setFont('helvetica', 'italic');
+    doc.setFontSize(8);
+    doc.text(
+      'Severity reflects injuries to people, not damage to the aircraft.',
+      margin,
+      y
+    );
     y += 20;
 
     aircraft.accidents.forEach((acc: any) => {
@@ -159,7 +164,7 @@ export async function generatePdfReport(aircraft: any, purchase: any) {
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(9);
       doc.setTextColor(gray[0], gray[1], gray[2]);
-      doc.text(`Severity: ${acc.severity || 'Unknown'}`, margin + 130, y);
+      doc.text(severityLabel(acc.severity), margin + 130, y);
 
       y += 16;
       doc.setFont('helvetica', 'bold');
@@ -273,15 +278,17 @@ export async function generatePdfReport(aircraft: any, purchase: any) {
   doc.line(margin, y, margin + 60, y);
   y += 25;
 
+  const amountDisplay = purchase?.amount_cents
+    ? purchase.currency === 'THB'
+      ? `THB ${(purchase.amount_cents / 100).toFixed(2)}`
+      : `$${(purchase.amount_cents / 100).toFixed(2)} ${purchase.currency || 'USD'}`
+    : null;
+
   const receiptFields: [string, any][] = [
     ['Transaction ID', purchase?.paddle_transaction_id],
     ['Purchased On', purchase?.created_at],
-    [
-      'Amount Paid',
-      purchase?.amount_cents
-        ? `$${(purchase.amount_cents / 100).toFixed(2)} ${purchase.currency || ''}`
-        : null,
-    ],
+    ['Amount Paid', amountDisplay],
+    ['Report Tier', purchase?.tier === 'basic' ? 'Basic Report' : 'Full History Report'],
     ['Status', purchase?.status],
   ];
 
@@ -315,7 +322,6 @@ export async function generatePdfReport(aircraft: any, purchase: any) {
     });
   }
 
-  // Download
   const filename = `NNumberCheck_${aircraft.n_number}_History_Report.pdf`;
   doc.save(filename);
 }
