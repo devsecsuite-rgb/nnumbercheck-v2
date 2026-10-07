@@ -64,6 +64,21 @@ export async function generatePdfReport(aircraft: any, purchase: any) {
 
   y += 130;
 
+    // Data freshness
+  doc.setFillColor(248, 250, 252);
+  doc.rect(margin, y, contentWidth, 30, 'F');
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(8);
+  doc.setTextColor(gray[0], gray[1], gray[2]);
+  doc.text('Data freshness — refreshed weekly from official sources', margin + 10, y + 12);
+  doc.setFontSize(7);
+  doc.text(
+    `Report generated: ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}`,
+    margin + 10,
+    y + 22
+  );
+  y += 45;
+  
   // Registration
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(16);
