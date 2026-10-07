@@ -64,9 +64,19 @@ export const onRequestGet = async (context: any) => {
       directives = results || [];
     }
 
+        // Fetch data-freshness timestamps
+    const { results: metaRows } = await env.DB.prepare(
+      'SELECT key, value FROM metadata'
+    ).all();
+    const metadata: Record<string, string> = {};
+    (metaRows || []).forEach((row) => {
+      metadata[row.key] = row.value;
+    });
+
     return new Response(
       JSON.stringify({
         purchase,
+        metadata,
         aircraft: {
           ...(aircraft || {
             n_number: nNumber,
