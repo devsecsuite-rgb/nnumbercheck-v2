@@ -9,9 +9,13 @@ const DATA_DIR = path.join(__dirname, '..', 'data');
 
 function queryD1(sql) {
   const escaped = sql.replace(/"/g, '\\"').replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
-  const result = execSync(
+    const result = execSync(
     `npx wrangler d1 execute DB --command="${escaped}" --remote --json`,
-    { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'] }
+    {
+      encoding: 'utf-8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+      maxBuffer: 100 * 1024 * 1024,
+    }
   );
   const parsed = JSON.parse(result);
   return parsed[0]?.results || [];
