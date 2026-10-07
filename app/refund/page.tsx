@@ -4,6 +4,9 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Refund Policy — NNumberCheck',
   description: 'Refund policy for NNumberCheck aircraft history reports.',
+  alternates: {
+    canonical: 'https://nnumbercheck.com/refund',
+  },
 };
 
 export default function RefundPage() {
@@ -25,7 +28,7 @@ export default function RefundPage() {
 
       <article className="max-w-3xl mx-auto px-6 py-16">
         <h1 className="text-4xl font-bold">Refund Policy</h1>
-        <p className="mt-2 text-sm text-slate-500">Last updated: October 6, 2026</p>
+        <p className="mt-2 text-sm text-slate-500">Last updated: October 7, 2026</p>
 
         <div className="mt-8 bg-sky-50 border-l-4 border-sky-400 p-6 rounded">
           <p className="text-sky-900 font-medium">
@@ -96,7 +99,7 @@ export default function RefundPage() {
           with:
         </p>
         <ul className="mt-4 space-y-2 text-slate-700 list-disc pl-6">
-          <li>Your Paddle transaction ID (shown on your receipt)</li>
+          <li>Your Stripe transaction ID (shown on your receipt)</li>
           <li>The N-number of the aircraft</li>
           <li>A brief description of the issue</li>
         </ul>
@@ -106,7 +109,7 @@ export default function RefundPage() {
 
         <h2 className="mt-10 text-2xl font-bold">5. Processing time</h2>
         <p className="mt-4 text-slate-700">
-          Approved refunds are processed through Paddle, our payment provider.
+          Approved refunds are processed through Stripe, our payment provider.
           Once issued, refunds typically appear on your statement within:
         </p>
         <ul className="mt-4 space-y-2 text-slate-700 list-disc pl-6">
@@ -127,8 +130,8 @@ export default function RefundPage() {
         </p>
 
         <p className="mt-12 text-xs text-slate-500 border-t border-slate-200 pt-6">
-          This refund policy is provided in accordance with Paddle&apos;s
-          Seller Terms and applicable consumer protection laws.
+          This refund policy is provided in accordance with Stripe&apos;s
+          Services Agreement and applicable consumer protection laws.
         </p>
       </article>
     </div>
