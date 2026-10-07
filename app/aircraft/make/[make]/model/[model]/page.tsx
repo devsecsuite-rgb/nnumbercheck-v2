@@ -118,6 +118,9 @@ export default async function MakeModelPage({ params }: Props) {
   const total = matching.length;
   const withAccidents = matching.filter((a) => a.accidentCount > 0).length;
   const totalAccidents = matching.reduce((sum, a) => sum + a.accidentCount, 0);
+  const years = matching.map((a) => a.year).filter(Boolean);
+  const oldestYear = years.length ? Math.min(...years) : null;
+  const newestYear = years.length ? Math.max(...years) : null;
 
   // Collect unique ADs across all aircraft of this make/model
   const adMap = new Map<string, any>();
@@ -274,9 +277,43 @@ export default async function MakeModelPage({ params }: Props) {
           </p>
         </div>
 
-        {/* Common ADs section */}
+        {/* Why buyers check — content block that always renders */}
+        <div className="mt-8 border border-slate-200 rounded-2xl p-8">
+          <h2 className="text-xl font-bold text-slate-900 mb-4">
+            Why buyers check {displayMake} {displayModel} history
+          </h2>
+          <p className="text-sm text-slate-600 leading-relaxed">
+            Before purchasing a {displayMake} {displayModel}, buyers should
+            verify the aircraft&apos;s complete history. The FAA registration
+            shows the current owner and registration status. NTSB records show
+            any accidents or incidents since 1982. Airworthiness Directives
+            show the FAA-mandated safety fixes that must be complied with for
+            the aircraft to remain legally airworthy. Together, these three
+            sources give a complete picture of an aircraft&apos;s regulatory
+            and safety history.
+          </p>
+          <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+            {oldestYear && newestYear
+              ? `The ${displayMake} ${displayModel} aircraft in our database range from ${oldestYear} to ${newestYear} model years.`
+              : `This page lists every ${displayMake} ${displayModel} in our database with their individual registration and safety records.`}{' '}
+            Each linked N-number page provides free access to registration
+            details and accident history. Paid reports add ownership chain
+            information, all applicable Airworthiness Directive documents, and
+            a downloadable PDF.
+          </p>
+          <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+            Sellers should also be aware that a clean history report makes an
+            aircraft more attractive to buyers. Aircraft with no accidents and
+            no outstanding ADs typically command higher prices in the used
+            market. Buyers should always obtain a professional pre-buy
+            inspection and title search before completing any aircraft
+            transaction.
+          </p>
+        </div>
+
+        {/* Common ADs section (only if ADs exist) */}
         {topADs.length > 0 && (
-          <div className="mt-12 border border-slate-200 rounded-2xl p-8">
+          <div className="mt-8 border border-slate-200 rounded-2xl p-8">
             <h2 className="text-xl font-bold text-slate-900 mb-4">
               Common Airworthiness Directives for {displayMake} {displayModel}
             </h2>
@@ -300,6 +337,25 @@ export default async function MakeModelPage({ params }: Props) {
             </ul>
           </div>
         )}
+
+        {/* Data sources block — always renders, ~80 words */}
+        <div className="mt-8 border border-slate-200 rounded-2xl p-8 bg-slate-50">
+          <h2 className="text-xl font-bold text-slate-900 mb-4">
+            Data sources and refresh schedule
+          </h2>
+          <p className="text-sm text-slate-600 leading-relaxed">
+            Aircraft registration data on this page is sourced from the FAA
+            Releasable Aircraft Database, which is refreshed weekly. NTSB
+            accident records are sourced from the National Transportation
+            Safety Board&apos;s public accident database covering 1982 to
+            present. Airworthiness Directives are sourced from the Federal
+            Register. All data is public-domain and available from US
+            government sources. NNumberCheck is not affiliated with the FAA,
+            NTSB, or any government agency. Data is provided for historical
+            reference only and should not be used as the sole basis for any
+            aircraft purchase, financing, insurance, or safety decision.
+          </p>
+        </div>
       </section>
 
       <footer className="border-t border-slate-200 bg-white">
