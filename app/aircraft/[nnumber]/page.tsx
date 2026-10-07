@@ -504,7 +504,39 @@ export default async function AircraftPage({ params }: Props) {
             </div>
           </div>
         )}
-
+        {/* Fleet context — auto-generated SEO content (~120 words) */}
+        <div>
+          <h2 className="text-2xl font-bold text-slate-900 mb-6">
+            About {aircraft.make} {aircraft.model} aircraft
+          </h2>
+          <div className="border border-slate-200 rounded-2xl p-6 space-y-3 text-sm text-slate-600 leading-relaxed">
+            <p>
+              The {aircraft.make} {aircraft.model}
+              {aircraft.year ? ` (${aircraft.year})` : ''} is one of the many
+              aircraft types tracked in the NNumberCheck database. This page
+              provides FAA registration data, complete NTSB accident history,
+              and applicable Airworthiness Directives for {nnumber} specifically.
+            </p>
+            <p>
+              {hasAccidents
+                ? `${nnumber} has ${accidents.length} NTSB accident record${accidents.length === 1 ? '' : 's'} on file. Each record shown above includes the date, location, injury severity, and NTSB summary. Buyers researching a ${aircraft.make} ${aircraft.model} should review the full accident narratives and verify that all required repairs were made by a licensed A&P mechanic.`
+                : `${nnumber} has no recorded NTSB accidents since 1982. A clean accident history is a positive indicator during pre-buy inspection, but it does not replace a full mechanical evaluation, logbook review, or title search.`}
+            </p>
+            <p>
+              {hasDirectives
+                ? `This aircraft may be affected by ${directives.length} Airworthiness Directive${directives.length === 1 ? '' : 's'} issued by the FAA. ADs are mandatory safety directives that must be complied with for the aircraft to remain legally airworthy. Buyers should verify AD compliance in the aircraft's logbook and maintenance records.`
+                : `No Airworthiness Directives matched this aircraft's make and model in our database. AD applicability can change as new directives are issued. Buyers should confirm current AD status with the FAA before purchase.`}
+            </p>
+            <p>
+              Data on this page is sourced from the FAA Releasable Aircraft
+              Database, NTSB Aviation Accident Reports, and the Federal Register.
+              All data is public and refreshes automatically on a weekly basis.
+              For a complete report including the full ownership chain, all AD
+              documents, and a downloadable PDF, see the full history report
+              option below.
+            </p>
+          </div>
+        </div>
         {/* Related aircraft — internal linking hub */}
         {related.length > 0 && (
           <div>
