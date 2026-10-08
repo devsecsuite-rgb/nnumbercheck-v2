@@ -59,22 +59,15 @@ function shouldIndex(entry: any): boolean {
     ac.owner_name,
   ].filter(Boolean).length;
 
-  // Require at least 4 of 5 registration fields
   if (fields < 4) return false;
 
   const accidentCount = (entry.accidents || []).length;
   const adCount = (entry.directives || []).length;
 
-  // Require 2+ accidents OR 3+ ADs to justify indexing
   return accidentCount >= 2 || adCount >= 3;
 }
 
-// CRITICAL: Forces metadata to render in the HTML <head> at build time.
-// Without this, Next.js 15.1+ streams metadata to the <body>, and
-// crawlers (including Google) may not see the robots meta tag,
-// canonical, OG tags, etc.
 export const dynamic = 'force-static';
-
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
@@ -97,7 +90,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const yearMakeModel = [ac.year, ac.make, ac.model].filter(Boolean).join(' ');
   const yearModel = [ac.year, ac.model].filter(Boolean).join(' ');
 
-  // Progressive title shortening so it never exceeds 60 chars
   let metaTitle = `${nnumber} — ${yearMakeModel} — Aircraft History`;
   if (metaTitle.length > 60) {
     metaTitle = `${nnumber} — ${yearModel} — Aircraft History`;
@@ -482,6 +474,19 @@ export default async function AircraftPage({ params }: Props) {
                 the aircraft&apos;s logbooks before purchase.
               </p>
 
+              {/* Free AD Check link */}
+              <div className="mt-5 pt-5 border-t border-slate-100">
+                <Link
+                  href={`/ad-check/result?n=${nnumber}`}
+                  className="inline-flex items-center gap-2 text-sm font-medium text-sky-600 hover:underline"
+                >
+                  <span className="bg-sky-100 text-sky-700 px-2 py-0.5 rounded text-xs font-semibold">
+                    FREE
+                  </span>
+                  Check exact serial-number applicability for all {directives.length} ADs →
+                </Link>
+              </div>
+
               {directives.length > 1 && (
                 <div className="mt-6 bg-slate-50 border border-dashed border-slate-300 rounded-xl p-5 text-center">
                   <p className="text-sm font-medium text-slate-700">
@@ -504,7 +509,8 @@ export default async function AircraftPage({ params }: Props) {
             </div>
           </div>
         )}
-        {/* Fleet context — auto-generated SEO content (~120 words) */}
+
+        {/* Fleet context */}
         <div>
           <h2 className="text-2xl font-bold text-slate-900 mb-6">
             About {aircraft.make} {aircraft.model} aircraft
@@ -537,7 +543,8 @@ export default async function AircraftPage({ params }: Props) {
             </p>
           </div>
         </div>
-        {/* Related aircraft — internal linking hub */}
+
+        {/* Related aircraft */}
         {related.length > 0 && (
           <div>
             <h2 className="text-2xl font-bold text-slate-900 mb-6">
@@ -576,12 +583,20 @@ export default async function AircraftPage({ params }: Props) {
             Full accident narratives, all Airworthiness Directives, ownership
             chain, and a downloadable PDF.
           </p>
-          <Link
-            href={`/n?number=${nnumber}`}
-            className="mt-6 inline-block bg-white text-sky-600 px-8 py-3 rounded-xl font-semibold hover:bg-sky-50 transition"
-          >
-            View Full Report →
-          </Link>
+          <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center items-center">
+            <Link
+              href={`/n?number=${nnumber}`}
+              className="inline-block bg-white text-sky-600 px-8 py-3 rounded-xl font-semibold hover:bg-sky-50 transition"
+            >
+              View Full Report →
+            </Link>
+            <Link
+              href="/sample-report"
+              className="text-sm text-sky-100 hover:text-white underline"
+            >
+              See sample report
+            </Link>
+          </div>
         </div>
       </section>
 
