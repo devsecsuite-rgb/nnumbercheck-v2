@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'NNumberCheck — Free Aircraft N-Number Lookup & History',
   description:
-  'Instantly look up any US aircraft by N-number. Free registration details, 44 years of NTSB accident history. Full history reports for $149.',
+    'Instantly look up any US aircraft by N-number. Free registration details, 44 years of NTSB accident history. Full history reports for $149.',
   keywords: [
     'N-number lookup',
     'aircraft history report',
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     'aircraft registration',
     'aircraft title search',
   ],
-    openGraph: {
+  openGraph: {
     title: 'NNumberCheck — Free Aircraft N-Number Lookup',
     description:
       'Look up any US aircraft by N-number. Free registration details and 44 years of NTSB accident history.',
@@ -72,7 +72,7 @@ const faqJsonLd = {
       name: 'Is NNumberCheck affiliated with the FAA?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: "No. NNumberCheck is an independent data aggregation service. We pull from the FAA's public Releasable Aircraft Database and the NTSB's public accident records, but we are not affiliated with or endorsed by either agency.",
+        text: "No. NNumberCheck is an independent data aggregation service. We pull from the FAA's public Releasable Aircraft Database, the NTSB's public accident records, and the Federal Register, but we are not affiliated with or endorsed by any government agency.",
       },
     },
     {
@@ -80,7 +80,7 @@ const faqJsonLd = {
       name: 'What does the $149 full history report include?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'The full report includes detailed accident records with narratives, FAA registration and airworthiness data, registered owner information, deregistration status, and a downloadable PDF you can share with your broker or lender.',
+        text: 'The full report includes detailed accident records with narratives, FAA registration and airworthiness data, all applicable Airworthiness Directives with serial-number matching, registered owner information, deregistration status, and a downloadable PDF you can share with your broker or lender.',
       },
     },
   ],
@@ -134,7 +134,6 @@ export default function Home() {
             Instant results, no signup required.
           </p>
 
-          {/* Search Box */}
           <form
             id="lookup"
             action="/n"
@@ -171,13 +170,43 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Trust bar */}
-      <section className="border-y border-slate-200 bg-slate-50">
-        <div className="max-w-6xl mx-auto px-6 py-6 flex flex-wrap justify-center items-center gap-x-10 gap-y-3 text-sm text-slate-500">
-          <span>✓ 317,000+ aircraft</span>
-          <span>✓ 88,000+ accident records</span>
-          <span>✓ 13,000+ Airworthiness Directives</span>
-          <span>✓ Instant results</span>
+      {/* Stats bar — bigger, more prominent trust signal */}
+      <section className="border-y border-slate-200 bg-white">
+        <div className="max-w-6xl mx-auto px-6 py-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div>
+              <div className="text-3xl md:text-4xl font-bold text-sky-600">
+                317,218
+              </div>
+              <div className="mt-1 text-sm text-slate-500">
+                Aircraft in FAA registry
+              </div>
+            </div>
+            <div>
+              <div className="text-3xl md:text-4xl font-bold text-sky-600">
+                87,978
+              </div>
+              <div className="mt-1 text-sm text-slate-500">
+                NTSB accident records
+              </div>
+            </div>
+            <div>
+              <div className="text-3xl md:text-4xl font-bold text-sky-600">
+                13,069
+              </div>
+              <div className="mt-1 text-sm text-slate-500">
+                Airworthiness Directives
+              </div>
+            </div>
+            <div>
+              <div className="text-3xl md:text-4xl font-bold text-sky-600">
+                44 yrs
+              </div>
+              <div className="mt-1 text-sm text-slate-500">
+                Accident history (1982–today)
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -243,51 +272,171 @@ export default function Home() {
         </div>
       </section>
 
-      {/* What's included */}
+      {/* Data sources — trust signal */}
       <section className="bg-slate-50 border-y border-slate-200">
         <div className="max-w-6xl mx-auto px-6 py-20">
           <h2 className="text-3xl md:text-4xl font-bold text-center">
-            What&apos;s in the full report
+            Where the data comes from
           </h2>
           <p className="mt-4 text-center text-slate-600 max-w-2xl mx-auto">
-            Everything you need to make an informed decision before you buy.
+            Every data point in NNumberCheck comes from official US government
+            sources. Nothing is estimated, inferred, or purchased from a
+            third-party data broker.
           </p>
 
-          <div className="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                title: 'Complete Accident History',
-                desc: 'Full NTSB records for the aircraft, from 1982 to today.',
-              },
-              {
-                title: 'All Airworthiness Directives',
-                desc: 'Complete AD list matched against the aircraft\'s serial number.',
-              },
-              {
-                title: 'Registration Details',
-                desc: 'Current FAA registration, serial, airworthiness, and owner information.',
-              },
-              {
-                title: 'Ownership Information',
-                desc: 'Registered owner and their location, sourced from the FAA registry.',
-              },
-              {
-                title: 'Airframe & Engine Data',
-                desc: 'Manufacturer, model, year of manufacture, and serial number.',
-              },
-              {
-                title: 'Downloadable PDF',
-                desc: 'Clean, shareable report you can save or send to your broker.',
-              },
-            ].map((f) => (
-              <div
-                key={f.title}
-                className="bg-white border border-slate-200 rounded-xl p-6"
-              >
-                <h3 className="font-semibold text-lg">{f.title}</h3>
-                <p className="mt-2 text-slate-600 text-sm">{f.desc}</p>
+          <div className="mt-14 grid md:grid-cols-3 gap-6">
+            <div className="bg-white border border-slate-200 rounded-2xl p-6">
+              <div className="text-xs uppercase tracking-wide text-sky-600 font-semibold mb-2">
+                FAA
               </div>
-            ))}
+              <h3 className="font-semibold text-lg">Aircraft Registry</h3>
+              <p className="mt-2 text-sm text-slate-600 leading-relaxed">
+                Aircraft registration, ownership, serial numbers, and
+                airworthiness data from the FAA Releasable Aircraft Database.
+                Updated daily by the FAA, refreshed weekly on this site.
+              </p>
+            </div>
+            <div className="bg-white border border-slate-200 rounded-2xl p-6">
+              <div className="text-xs uppercase tracking-wide text-sky-600 font-semibold mb-2">
+                NTSB
+              </div>
+              <h3 className="font-semibold text-lg">Accident Records</h3>
+              <p className="mt-2 text-sm text-slate-600 leading-relaxed">
+                Complete US civil aviation accident history from January 1982
+                to present, sourced directly from the National Transportation
+                Safety Board's public accident database.
+              </p>
+            </div>
+            <div className="bg-white border border-slate-200 rounded-2xl p-6">
+              <div className="text-xs uppercase tracking-wide text-sky-600 font-semibold mb-2">
+                Federal Register
+              </div>
+              <h3 className="font-semibold text-lg">
+                Airworthiness Directives
+              </h3>
+              <p className="mt-2 text-sm text-slate-600 leading-relaxed">
+                All FAA-issued Airworthiness Directives published in the
+                Federal Register, matched against aircraft make, model, and
+                serial number ranges.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-10 max-w-3xl mx-auto bg-white border border-slate-200 rounded-2xl p-6">
+            <div className="flex items-start gap-3">
+              <div className="text-2xl">🔒</div>
+              <div>
+                <h4 className="font-semibold text-slate-900">
+                  Data freshness
+                </h4>
+                <p className="mt-1 text-sm text-slate-600 leading-relaxed">
+                  Every aircraft page shows the date each data source was last
+                  refreshed. We do not hide our update cadence. If a data
+                  source is stale, you will see it.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What's included */}
+      <section className="max-w-6xl mx-auto px-6 py-20">
+        <h2 className="text-3xl md:text-4xl font-bold text-center">
+          What&apos;s in the full report
+        </h2>
+        <p className="mt-4 text-center text-slate-600 max-w-2xl mx-auto">
+          Everything you need to make an informed decision before you buy.
+        </p>
+
+        <div className="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[
+            {
+              title: 'Complete Accident History',
+              desc: 'Full NTSB records for the aircraft, from 1982 to today.',
+            },
+            {
+              title: 'All Airworthiness Directives',
+              desc: "Complete AD list matched against the aircraft's serial number.",
+            },
+            {
+              title: 'Registration Details',
+              desc: 'Current FAA registration, serial, airworthiness, and owner information.',
+            },
+            {
+              title: 'Ownership Information',
+              desc: 'Registered owner and their location, sourced from the FAA registry.',
+            },
+            {
+              title: 'Airframe & Engine Data',
+              desc: 'Manufacturer, model, year of manufacture, and serial number.',
+            },
+            {
+              title: 'Downloadable PDF',
+              desc: 'Clean, shareable report you can save or send to your broker.',
+            },
+          ].map((f) => (
+            <div
+              key={f.title}
+              className="bg-white border border-slate-200 rounded-xl p-6"
+            >
+              <h3 className="font-semibold text-lg">{f.title}</h3>
+              <p className="mt-2 text-slate-600 text-sm">{f.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-10 text-center">
+          <a
+            href="/sample-report"
+            className="text-sky-600 hover:underline font-medium"
+          >
+            See a full sample report →
+          </a>
+        </div>
+      </section>
+
+      {/* Why I built this — personal trust signal */}
+      <section className="bg-slate-50 border-y border-slate-200">
+        <div className="max-w-3xl mx-auto px-6 py-16">
+          <h2 className="text-2xl md:text-3xl font-bold text-center">
+            Why I built this
+          </h2>
+          <div className="mt-8 text-slate-700 leading-relaxed space-y-4">
+            <p>
+              I&apos;m a pilot. When I was looking at used aircraft, I got
+              frustrated with how hard it was to answer simple questions: Has
+              this plane been in an accident? Are there any ADs I need to know
+              about? Who actually owns it?
+            </p>
+            <p>
+              The FAA has the data, but it&apos;s spread across three separate
+              government systems that weren&apos;t designed for consumers. The
+              NTSB has the accident records, but you have to know where to look.
+              And the Airworthiness Directive search tool on the FAA&apos;s own
+              website is notoriously painful to use.
+            </p>
+            <p>
+              So I built NNumberCheck to consolidate all of it into one place.
+              The free lookup gives you the basics. The full report gives you
+              everything else — including every AD matched against the
+              aircraft&apos;s specific serial number, which no other consumer
+              tool does today.
+            </p>
+            <p>
+              There&apos;s no venture capital behind this, no data broker
+              partners, no reseller agreements. It&apos;s just public government
+              data, cleaned up and presented in a way that&apos;s actually
+              useful. If you find a bug or have an idea, email me directly:
+            </p>
+            <p>
+              <a
+                href="mailto:support@nnumbercheck.com"
+                className="text-sky-600 hover:underline font-medium"
+              >
+                support@nnumbercheck.com
+              </a>
+            </p>
           </div>
         </div>
       </section>
@@ -452,9 +601,9 @@ export default function Home() {
               <ul className="mt-3 space-y-2 text-sm text-slate-500">
                 <li><a href="#how-it-works" className="hover:text-sky-600">How it works</a></li>
                 <li><a href="/ad-check" className="hover:text-sky-600">Free AD Check</a></li>
+                <li><a href="/sample-report" className="hover:text-sky-600">Sample Report</a></li>
                 <li><a href="/aircraft" className="hover:text-sky-600">Browse Aircraft</a></li>
                 <li><a href="#pricing" className="hover:text-sky-600">Pricing</a></li>
-                <li><a href="#lookup" className="hover:text-sky-600">Free lookup</a></li>
               </ul>
             </div>
             <div>
