@@ -89,10 +89,6 @@ const faqJsonLd = {
 export default function Home() {
   return (
     <div className="min-h-screen bg-white text-slate-900">
-      {/* GEO/AEO: FAQPage structured data for AI engines and search.
-          Product schema intentionally omitted — digital reports are not
-          eligible for Google merchant listings, which requires shipping and
-          return policy fields. */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -111,6 +107,7 @@ export default function Home() {
           </a>
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
             <a href="#how-it-works" className="hover:text-sky-600">How it works</a>
+            <a href="/ad-check" className="hover:text-sky-600">AD Check</a>
             <a href="#pricing" className="hover:text-sky-600">Pricing</a>
             <a href="#dealers" className="hover:text-sky-600">For Dealers</a>
             <a
@@ -123,10 +120,10 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero — Answer-first H1 and subtitle for AI extractability */}
+      {/* Hero */}
       <section className="bg-gradient-to-b from-sky-50 to-white">
         <div className="max-w-4xl mx-auto px-6 py-20 text-center">
-        <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 leading-tight">
             Check any aircraft&apos;s history before you buy
           </h1>
           <p className="mt-6 text-lg md:text-xl text-slate-600 max-w-2xl mx-auto">
@@ -163,6 +160,14 @@ export default function Home() {
           <p className="mt-3 text-sm text-slate-500">
             Free basic lookup. No signup required.
           </p>
+          <p className="mt-4 text-sm">
+            <a
+              href="/ad-check"
+              className="text-sky-600 hover:underline font-medium"
+            >
+              Or check AD applicability by serial number →
+            </a>
+          </p>
         </div>
       </section>
 
@@ -171,7 +176,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6 py-6 flex flex-wrap justify-center items-center gap-x-10 gap-y-3 text-sm text-slate-500">
           <span>✓ 317,000+ aircraft</span>
           <span>✓ 88,000+ accident records</span>
-          <span>✓ Data from 1982 to today</span>
+          <span>✓ 13,000+ Airworthiness Directives</span>
           <span>✓ Instant results</span>
         </div>
       </section>
@@ -195,12 +200,12 @@ export default function Home() {
             {
               step: '2',
               title: 'Review the free summary',
-              desc: 'See registration details, make, model, year, and accident history instantly.',
+              desc: 'See registration details, make, model, year, accident history, and a preview of applicable Airworthiness Directives.',
             },
             {
               step: '3',
               title: 'Unlock the full report',
-              desc: 'Get detailed accident records, ownership information, and a downloadable PDF for $149.',
+              desc: 'Get detailed accident records, all ADs with serial-number applicability, ownership information, and a downloadable PDF for $149.',
             },
           ].map((item) => (
             <div
@@ -214,6 +219,27 @@ export default function Home() {
               <p className="mt-2 text-slate-600">{item.desc}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Free AD Check callout */}
+      <section className="bg-sky-600 text-white">
+        <div className="max-w-6xl mx-auto px-6 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold">
+              Free AD Applicability Check
+            </h2>
+            <p className="mt-2 text-sky-100 max-w-2xl">
+              Enter any N-number to see exactly which Airworthiness Directives
+              apply based on serial number. No signup required.
+            </p>
+          </div>
+          <a
+            href="/ad-check"
+            className="bg-white text-sky-600 px-6 py-3 rounded-xl font-semibold hover:bg-sky-50 transition whitespace-nowrap"
+          >
+            Check ADs →
+          </a>
         </div>
       </section>
 
@@ -234,6 +260,10 @@ export default function Home() {
                 desc: 'Full NTSB records for the aircraft, from 1982 to today.',
               },
               {
+                title: 'All Airworthiness Directives',
+                desc: 'Complete AD list matched against the aircraft\'s serial number.',
+              },
+              {
                 title: 'Registration Details',
                 desc: 'Current FAA registration, serial, airworthiness, and owner information.',
               },
@@ -244,10 +274,6 @@ export default function Home() {
               {
                 title: 'Airframe & Engine Data',
                 desc: 'Manufacturer, model, year of manufacture, and serial number.',
-              },
-              {
-                title: 'Deregistration Check',
-                desc: 'Flags aircraft no longer in the active FAA registry.',
               },
               {
                 title: 'Downloadable PDF',
@@ -266,7 +292,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FAQ — GEO/AEO extractable Q&A */}
+      {/* FAQ */}
       <section className="max-w-4xl mx-auto px-6 py-20">
         <h2 className="text-3xl md:text-4xl font-bold text-center">
           Frequently asked questions
@@ -283,7 +309,11 @@ export default function Home() {
             },
             {
               q: 'What information is in the free N-number lookup?',
-              a: "The free lookup includes the aircraft's registration status, manufacturer, model, year, serial number, registered owner city and state, and its full NTSB accident history.",
+              a: "The free lookup includes the aircraft's registration status, manufacturer, model, year, serial number, registered owner city and state, its full NTSB accident history, and a preview of applicable Airworthiness Directives.",
+            },
+            {
+              q: 'Can I check AD applicability without paying?',
+              a: 'Yes. Use our free AD Applicability Check at nnumbercheck.com/ad-check. Enter any N-number and we match the aircraft\'s serial number against every applicable Airworthiness Directive, showing you which ones apply, which require manual verification, and which do not apply.',
             },
             {
               q: 'How far back does the accident history go?',
@@ -291,11 +321,11 @@ export default function Home() {
             },
             {
               q: 'Is NNumberCheck affiliated with the FAA?',
-              a: "No. NNumberCheck is an independent data aggregation service. We pull from the FAA's public Releasable Aircraft Database and the NTSB's public accident records, but we are not affiliated with or endorsed by either agency.",
+              a: "No. NNumberCheck is an independent data aggregation service. We pull from the FAA's public Releasable Aircraft Database, the NTSB's public accident records, and the Federal Register, but we are not affiliated with or endorsed by any government agency.",
             },
             {
               q: 'What does the $149 full history report include?',
-              a: 'The full report includes detailed accident records, FAA registration and airworthiness data, registered owner information, deregistration status, and a downloadable PDF you can share with your broker or lender.',
+              a: 'The full report includes detailed accident records, all applicable Airworthiness Directives with serial-number matching, FAA registration and airworthiness data, registered owner information, deregistration status, and a downloadable PDF you can share with your broker or lender.',
             },
           ].map((item) => (
             <div
@@ -330,6 +360,7 @@ export default function Home() {
                 <li>✓ Make, model, year</li>
                 <li>✓ Owner city &amp; state</li>
                 <li>✓ Full accident history</li>
+                <li>✓ AD preview + free AD Check</li>
               </ul>
               <a
                 href="#lookup"
@@ -349,10 +380,10 @@ export default function Home() {
               <p className="mt-1 text-sm text-slate-500">One-time payment</p>
               <ul className="mt-6 space-y-3 text-slate-700 text-sm">
                 <li>✓ Everything in Free</li>
+                <li>✓ All Airworthiness Directives</li>
+                <li>✓ Serial-number AD applicability</li>
                 <li>✓ Detailed accident records</li>
-                <li>✓ Registration &amp; airworthiness</li>
                 <li>✓ Ownership information</li>
-                <li>✓ Deregistration status</li>
                 <li>✓ Downloadable PDF report</li>
               </ul>
               <a
@@ -420,6 +451,8 @@ export default function Home() {
               <h4 className="font-semibold text-sm text-slate-900">Product</h4>
               <ul className="mt-3 space-y-2 text-sm text-slate-500">
                 <li><a href="#how-it-works" className="hover:text-sky-600">How it works</a></li>
+                <li><a href="/ad-check" className="hover:text-sky-600">Free AD Check</a></li>
+                <li><a href="/aircraft" className="hover:text-sky-600">Browse Aircraft</a></li>
                 <li><a href="#pricing" className="hover:text-sky-600">Pricing</a></li>
                 <li><a href="#lookup" className="hover:text-sky-600">Free lookup</a></li>
               </ul>
