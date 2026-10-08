@@ -57,12 +57,20 @@ function Header() {
         <Link href="/" className="text-2xl font-bold text-sky-600">
           NNumberCheck
         </Link>
-        <Link
-          href="/"
-          className="text-sm font-medium text-sky-600 hover:underline"
-        >
-          ← New search
-        </Link>
+        <div className="flex items-center gap-6">
+          <Link
+            href="/ad-check"
+            className="text-sm font-medium text-slate-600 hover:text-sky-600 hidden md:inline"
+          >
+            AD Check
+          </Link>
+          <Link
+            href="/"
+            className="text-sm font-medium text-sky-600 hover:underline"
+          >
+            ← New search
+          </Link>
+        </div>
       </div>
     </header>
   );
@@ -428,6 +436,23 @@ function LookupResult() {
                   {data.directives[0].abstract}
                 </p>
               )}
+            </div>
+
+            {/* NEW: Link to full AD applicability check */}
+            <div className="mt-5 pt-5 border-t border-slate-100">
+              <Link
+                href={`/ad-check/result?n=${data.n_number}`}
+                className="inline-flex items-center gap-2 text-sm font-medium text-sky-600 hover:underline"
+              >
+                <span className="bg-sky-100 text-sky-700 px-2 py-0.5 rounded text-xs font-semibold">
+                  FREE
+                </span>
+                Check exact serial-number applicability for all {data.directives.length} ADs →
+              </Link>
+              <p className="mt-2 text-xs text-slate-500">
+                See which ADs apply to this aircraft based on its serial number
+                ({data.serial_number || 'not available'}). No signup required.
+              </p>
             </div>
 
             {data.directives.length > 1 && (
