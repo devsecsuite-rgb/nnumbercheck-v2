@@ -113,8 +113,38 @@ function ResultContent() {
     };
   };
 
-  return (
+    return (
     <div className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: [
+              {
+                '@type': 'Question',
+                name: `What Airworthiness Directives apply to ${aircraft.n_number}?`,
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: `${aircraft.n_number} (${aircraft.year || ''} ${aircraft.make || ''} ${aircraft.model || ''}) has ${summary.applies} Airworthiness Directive${summary.applies === 1 ? '' : 's'} that apply based on serial number, and ${summary.verify} that require manual verification. A total of ${summary.total} potentially applicable ADs were found.`,
+                },
+              },
+              {
+                '@type': 'Question',
+                name: `Does ${aircraft.n_number} have any applicable ADs?`,
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text:
+                    summary.applies > 0
+                      ? `Yes. ${summary.applies} Airworthiness Directive${summary.applies === 1 ? '' : 's'} apply to ${aircraft.n_number} based on its serial number. Buyers should verify compliance in the aircraft's logbook.`
+                      : `No Airworthiness Directives were confirmed to apply to ${aircraft.n_number} based on serial number. ${summary.verify} AD${summary.verify === 1 ? '' : 's'} require manual verification.`,
+                },
+              },
+            ],
+          }).replace(/</g, '\\u003c'),
+        }}
+      />
       <Header />
 
       <section className="bg-gradient-to-b from-sky-50 to-white border-b border-slate-200">
