@@ -400,6 +400,21 @@ function LookupResult() {
         </div>
       </section>
 
+      {/* Email capture form */}
+      {data && (
+        <section className="max-w-6xl mx-auto px-6 pb-12">
+          <div className="border border-sky-200 bg-sky-50 rounded-2xl p-6">
+            <h3 className="font-semibold text-lg text-slate-900">
+              Get notified when new ADs or accidents are issued for {data.n_number}
+            </h3>
+            <p className="mt-2 text-sm text-slate-600">
+              We'll email you if any Airworthiness Directive or NTSB record is
+              added for this aircraft. No spam, unsubscribe anytime.
+            </p>
+            <SubscribeForm nNumber={data.n_number} />
+          </div>
+        </section>
+      )}
       {/* Airworthiness Directives preview */}
       {hasDirectives && (
         <section className="max-w-6xl mx-auto px-6 pb-12">
@@ -591,7 +606,70 @@ function LookupResult() {
     </div>
   );
 }
+function SubscribeForm({ nNumber }: { nNumber: string }) {
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [message, setMessage] = useState('');
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('loading');
+    setMessage('');
+
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, nNumber, source: 'n_page' }),
+      });
+      const json = await res.json();
+
+      if (res.ok && json.success) {
+        setStatus('success');
+        setMessage(json.message || 'Thanks — you are subscribed.');
+        setEmail('');
+      } else {
+        setStatus('error');
+        setMessage(json.error || 'Subscription failed.');
+      }
+    } catch {
+      setStatus('error');
+      setMessage('Network error. Please try again.');
+    }
+  };
+
+  if (status === 'success') {
+    return (
+      <div className="mt-4 bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3 text-sm text-emerald-800">
+        ✓ {message}
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="mt-4 flex flex-col sm:flex-row gap-3">
+      <input
+        type="email"
+        required
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="you@example.com"
+        className="flex-1 px-4 py-3 rounded-xl border-2 border-slate-300 focus:border-sky-500 focus:outline-none text-sm"
+        disabled={status === 'loading'}
+      />
+      <button
+        type="submit"
+        disabled={status === 'loading'}
+        className="bg-sky-600 text-white px-6 py-3 rounded-xl font-semibold text-sm hover:bg-sky-700 transition disabled:opacity-60 disabled:cursor-not-allowed"
+      >
+        {status === 'loading' ? 'Subscribing...' : 'Notify me'}
+      </button>
+      {status === 'error' && (
+        <p className="text-xs text-red-600 sm:self-center">{message}</p>
+      )}
+    </form>
+  );
+}
 export default function Page() {
   return (
     <Suspense
