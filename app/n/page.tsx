@@ -522,6 +522,13 @@ function LookupResult() {
                 <p className="mt-3 text-xs text-slate-500 text-center">
                   Instant access by email. No PDF download.
                 </p>
+                
+                <Link
+                  href="/sample-report"
+                  className="mt-4 block text-center text-xs font-medium text-sky-600 hover:underline"
+                >
+                  See sample report →
+                </Link>
               </div>
             </div>
 
@@ -555,6 +562,13 @@ function LookupResult() {
                 <p className="mt-3 text-xs text-sky-100 text-center">
                   Secure checkout via Stripe. Instant delivery by email.
                 </p>
+                
+                <Link
+                  href="/sample-report"
+                  className="mt-3 block text-center text-xs font-medium text-sky-100 hover:underline"
+                >
+                  See sample report →
+                </Link>
               </div>
             </div>
           </div>
