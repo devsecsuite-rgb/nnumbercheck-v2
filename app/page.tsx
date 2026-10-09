@@ -602,6 +602,7 @@ export default function Home() {
                 <li><a href="#how-it-works" className="hover:text-sky-600">How it works</a></li>
                 <li><a href="/ad-check" className="hover:text-sky-600">Free AD Check</a></li>
                 <li><a href="/sample-report" className="hover:text-sky-600">Sample Report</a></li>
+                <li><a href="/compare/aero-space-reports" className="hover:text-sky-600">Compare</a></li>
                 <li><a href="/aircraft" className="hover:text-sky-600">Browse Aircraft</a></li>
                 <li><a href="#pricing" className="hover:text-sky-600">Pricing</a></li>
               </ul>
