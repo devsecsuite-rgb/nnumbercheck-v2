@@ -118,10 +118,10 @@ export default function AdCheckPage() {
             <li>✓ Links to official Federal Register documents</li>
             <li>✓ Free — no signup required</li>
           </ul>
-          <p className="mt-6 text-sm text-slate-500">
+                   <p className="mt-6 text-sm text-slate-500">
             Want a downloadable PDF and full ownership chain?{' '}
-            <Link href="/n" className="text-sky-600 hover:underline">
-              Get the full report →
+            <Link href="/" className="text-sky-600 hover:underline">
+              Search an N-number →
             </Link>
           </p>
         </div>
