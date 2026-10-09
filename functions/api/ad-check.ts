@@ -29,81 +29,84 @@ export const onRequestGet = async (context) => {
     }
 
     const make = (aircraft.make || '').trim().split(' ')[0];
-    const model = (aircraft.model || '').trim().split(' ')[0];
+    const rawModel = (aircraft.model || '').trim();
+    const model = rawModel.split(' ')[0];
     const serialNumber = (aircraft.serial_number || '').trim();
 
-    // Fetch all matching ADs (by make/model)
-    const { results: directives } = await env.DB.prepare(
-      `SELECT * FROM directives
-       WHERE (manufacturer LIKE ? OR manufacturer LIKE ?)
-         AND (model LIKE ? OR title LIKE ?)
-       ORDER BY effective_date DESC
+    // Numeric part of the model (e.g. "172R" -> "172") for broader AD matching
+    const modelNumber = (rawModel.match(/\d+/)?.[0]) || model;
+
+    // --- Query 1: ADs with serial-range data (produce Applies / Does not apply) ---
+    const { results: rangedDirectives } = await env.DB.prepare(
+      `SELECT d.id, d.ad_number, d.title, d.manufacturer, d.model,
+              d.effective_date, d.abstract, d.document_url,
+              r.serial_start, r.serial_end, r.serial_exceptions
+       FROM ad_serial_ranges r
+       JOIN directives d ON d.ad_number = r.ad_number
+       WHERE r.make LIKE ? AND r.model LIKE ?
+       ORDER BY d.effective_date DESC
        LIMIT 50`
     )
-      .bind(`%${make}%`, `%${aircraft.make}%`, `%${model}%`, `%${model}%`)
+      .bind(`%${make}%`, `%${modelNumber}%`)
       .all();
 
-    // Fetch serial ranges for these ADs
-    const adNumbers = (directives || []).map((d) => d.ad_number);
-    let serialRanges = [];
+    // --- Query 2: ADs WITHOUT range data that mention this model (produce Verify) ---
+    const { results: verifyDirectives } = await env.DB.prepare(
+      `SELECT * FROM directives
+       WHERE (manufacturer LIKE ? OR title LIKE ?)
+         AND abstract LIKE ?
+         AND ad_number NOT IN (
+           SELECT ad_number FROM ad_serial_ranges
+           WHERE make LIKE ? AND model LIKE ?
+         )
+       ORDER BY effective_date DESC
+       LIMIT 30`
+    )
+      .bind(`%${make}%`, `%${make}%`, `%${modelNumber}%`, `%${make}%`, `%${modelNumber}%`)
+      .all();
 
-    if (adNumbers.length > 0) {
-      const placeholders = adNumbers.map(() => '?').join(',');
-      const { results } = await env.DB.prepare(
-        `SELECT * FROM ad_serial_ranges WHERE ad_number IN (${placeholders})`
-      )
-        .bind(...adNumbers)
-        .all();
-      serialRanges = results || [];
-    }
+    const directives = [...(rangedDirectives || []), ...(verifyDirectives || [])];
 
-    // Build a lookup map: ad_number -> serial range row
-    const rangeMap = new Map();
-    for (const r of serialRanges) {
-      rangeMap.set(r.ad_number, r);
-    }
+    // --- Applicability logic ---
+    const enrichedDirectives = directives.map((ad) => {
+      const sn = serialNumber.toUpperCase();
+      const start = (ad.serial_start || '').toUpperCase().trim();
+      const end = (ad.serial_end || '').toUpperCase().trim();
+      const exceptions = (ad.serial_exceptions || '')
+        .toUpperCase()
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
 
-    // Apply applicability logic to each AD
-    const enrichedDirectives = (directives || []).map((ad) => {
-      const range = rangeMap.get(ad.ad_number);
+      let applicability = 'verify';
 
-      let applicability = 'verify'; // default: manual verification needed
+      const hasRange = Boolean(start || end);
 
-      if (range) {
-        if (!serialNumber) {
-          applicability = 'verify';
-        } else {
-          const sn = serialNumber.toUpperCase();
-          const start = (range.serial_start || '').toUpperCase();
-          const end = (range.serial_end || '').toUpperCase();
-          const exceptions = (range.serial_exceptions || '')
-            .toUpperCase()
-            .split(',')
-            .map((s) => s.trim());
-
-          if (exceptions.includes(sn)) {
-            applicability = 'not_applies';
-          } else if (
-            (!start || sn >= start) &&
-            (!end || sn <= end)
-          ) {
-            applicability = 'applies';
-          } else if (start && end && (sn < start || sn > end)) {
-            applicability = 'not_applies';
-          }
-        }
+      if (!hasRange) {
+        applicability = 'verify';
+      } else if (!sn) {
+        applicability = 'verify';
+      } else if (exceptions.includes(sn)) {
+        applicability = 'not_applies';
+      } else if (
+        (!start || sn >= start) &&
+        (!end || sn <= end)
+      ) {
+        applicability = 'applies';
+      } else {
+        applicability = 'not_applies';
       }
 
       return {
         ...ad,
         applicability,
-        serial_start: range?.serial_start || null,
-        serial_end: range?.serial_end || null,
-        serial_exceptions: range?.serial_exceptions || null,
+        serial_start: ad.serial_start || null,
+        serial_end: ad.serial_end || null,
+        serial_exceptions: ad.serial_exceptions || null,
       };
     });
 
-    // Counts for summary
+    // --- Summary counts ---
     const appliesCount = enrichedDirectives.filter(
       (d) => d.applicability === 'applies'
     ).length;
