@@ -318,6 +318,22 @@ function LookupResult() {
               ? ` It has ${data.accidents.length} NTSB accident record${data.accidents.length === 1 ? '' : 's'} on file.`
               : ' It has no NTSB accident records on file.'}
           </p>
+
+          {/* Above-the-fold CTAs */}
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a
+              href="#full-report"
+              className="inline-block bg-sky-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-sky-700 transition"
+            >
+              Unlock Full History Report — $149 →
+            </a>
+            <Link
+              href={`/ad-check/result?n=${data.n_number}`}
+              className="inline-block border-2 border-sky-600 text-sky-600 px-6 py-3 rounded-xl font-semibold hover:bg-sky-50 transition"
+            >
+              Free AD Check →
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -415,6 +431,7 @@ function LookupResult() {
           </div>
         </section>
       )}
+
       {/* Airworthiness Directives preview */}
       {hasDirectives && (
         <section className="max-w-6xl mx-auto px-6 pb-12">
@@ -453,7 +470,6 @@ function LookupResult() {
               )}
             </div>
 
-            {/* NEW: Link to full AD applicability check */}
             <div className="mt-5 pt-5 border-t border-slate-100">
               <Link
                 href={`/ad-check/result?n=${data.n_number}`}
@@ -509,7 +525,6 @@ function LookupResult() {
           </div>
 
           <div className="mt-12 grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-
             {/* Basic Report — $49 */}
             <div className="bg-white border-2 border-sky-300 rounded-2xl p-8 relative flex flex-col">
               <h3 className="text-xl font-semibold">Basic Report</h3>
@@ -537,7 +552,7 @@ function LookupResult() {
                 <p className="mt-3 text-xs text-slate-500 text-center">
                   Instant access by email. No PDF download.
                 </p>
-                
+
                 <Link
                   href="/sample-report"
                   className="mt-4 block text-center text-xs font-medium text-sky-600 hover:underline"
@@ -577,7 +592,7 @@ function LookupResult() {
                 <p className="mt-3 text-xs text-sky-100 text-center">
                   Secure checkout via Stripe. Instant delivery by email.
                 </p>
-                
+
                 <Link
                   href="/sample-report"
                   className="mt-3 block text-center text-xs font-medium text-sky-100 hover:underline"
@@ -594,10 +609,10 @@ function LookupResult() {
           </p>
         </div>
       </section>
-
     </div>
   );
 }
+
 function SubscribeForm({ nNumber }: { nNumber: string }) {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -662,6 +677,7 @@ function SubscribeForm({ nNumber }: { nNumber: string }) {
     </form>
   );
 }
+
 export default function Page() {
   return (
     <Suspense
