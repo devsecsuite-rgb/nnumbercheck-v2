@@ -10,11 +10,11 @@ const LIMIT = 3000;
 function slugify(s: string) {
   return s
     .toLowerCase()
-    .replace(/[/\\]/g, '-')      // replace slashes
-    .replace(/[^a-z0-9\s-]/g, '') // remove other special chars
-    .replace(/\s+/g, '-')         // spaces → hyphens
-    .replace(/-+/g, '-')          // collapse multiple hyphens
-    .replace(/^-|-$/g, '');       // trim leading/trailing hyphens
+    .replace(/[/\\]/g, '-')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -23,6 +23,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [
     { url: `${BASE_URL}/`, lastModified: now, changeFrequency: 'daily', priority: 1.0 },
     { url: `${BASE_URL}/aircraft`, lastModified: now, changeFrequency: 'daily', priority: 0.9 },
+    { url: `${BASE_URL}/ad-check`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE_URL}/sample-report`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE_URL}/compare/aero-space-reports`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE_URL}/about`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${BASE_URL}/privacy`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${BASE_URL}/terms`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
