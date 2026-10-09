@@ -29,9 +29,14 @@ export default function Footer() {
                   Browse Aircraft
                 </Link>
               </li>
-              <li>
+                            <li>
                 <Link href="/guides" className="hover:text-sky-600">
                   Buying Guides
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="hover:text-sky-600">
+                  Blog
                 </Link>
               </li>
               <li>
