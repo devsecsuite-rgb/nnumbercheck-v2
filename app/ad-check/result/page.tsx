@@ -46,7 +46,6 @@ function ResultContent() {
   if (!rawNumber) {
     return (
       <div className="min-h-screen bg-white">
-        <Header />
         <div className="max-w-2xl mx-auto px-6 py-20 text-center">
           <h1 className="text-3xl font-bold">No N-Number provided</h1>
           <Link
@@ -63,7 +62,6 @@ function ResultContent() {
   if (loading) {
     return (
       <div className="min-h-screen bg-white">
-        <Header />
         <div className="max-w-2xl mx-auto px-6 py-20 text-center">
           <p className="text-slate-500">Checking ADs for {nNumber}...</p>
         </div>
@@ -74,7 +72,6 @@ function ResultContent() {
   if (notFound || !data) {
     return (
       <div className="min-h-screen bg-white">
-        <Header />
         <div className="max-w-2xl mx-auto px-6 py-20 text-center">
           <h1 className="text-3xl font-bold font-mono">{nNumber}</h1>
           <p className="mt-4 text-slate-600">
@@ -145,7 +142,6 @@ function ResultContent() {
           }).replace(/</g, '\\u003c'),
         }}
       />
-      <Header />
 
       <section className="bg-gradient-to-b from-sky-50 to-white border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-6 py-12">
@@ -261,23 +257,6 @@ function ResultContent() {
   );
 }
 
-function Header() {
-  return (
-    <header className="border-b border-slate-200 bg-white">
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-bold text-sky-600">
-          NNumberCheck
-        </Link>
-        <Link
-          href="/ad-check"
-          className="text-sm font-medium text-sky-600 hover:underline"
-        >
-          ← New AD check
-        </Link>
-      </div>
-    </header>
-  );
-}
 
 export default function AdCheckResultPage() {
   return (
