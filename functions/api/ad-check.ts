@@ -51,11 +51,10 @@ export const onRequestGet = async (context) => {
       .all();
 
     // --- Query 2: ADs WITHOUT range data that mention this model (produce Verify) ---
-const verifyModel = rawModel.includes('-') ? rawModel : modelNumber;
 const { results: verifyDirectives } = await env.DB.prepare(
   `SELECT * FROM directives
    WHERE (manufacturer LIKE ? OR title LIKE ?)
-     AND (title LIKE ? OR abstract LIKE ?)
+     AND abstract LIKE ?
      AND ad_number NOT IN (
        SELECT ad_number FROM ad_serial_ranges
        WHERE make LIKE ? AND model LIKE ?
@@ -63,7 +62,7 @@ const { results: verifyDirectives } = await env.DB.prepare(
    ORDER BY effective_date DESC
    LIMIT 30`
 )
-  .bind(`%${make}%`, `%${make}%`, `%${verifyModel}%`, `%${verifyModel}%`, `%${make}%`, `%${modelNumber}%`)
+  .bind(`%${make}%`, `%${make}%`, `%${modelNumber}%`, `%${make}%`, `%${modelNumber}%`)
   .all();
 
     const directives = [...(rangedDirectives || []), ...(verifyDirectives || [])];
