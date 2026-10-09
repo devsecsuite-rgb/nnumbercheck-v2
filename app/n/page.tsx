@@ -50,31 +50,6 @@ function severityLabel(raw: string | undefined): string {
   return raw;
 }
 
-function Header() {
-  return (
-    <header className="border-b border-slate-200 bg-white">
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-bold text-sky-600">
-          NNumberCheck
-        </Link>
-        <div className="flex items-center gap-6">
-          <Link
-            href="/ad-check"
-            className="text-sm font-medium text-slate-600 hover:text-sky-600 hidden md:inline"
-          >
-            AD Check
-          </Link>
-          <Link
-            href="/"
-            className="text-sm font-medium text-sky-600 hover:underline"
-          >
-            ← New search
-          </Link>
-        </div>
-      </div>
-    </header>
-  );
-}
 
 function LookupResult() {
   const searchParams = useSearchParams();
@@ -143,7 +118,6 @@ function LookupResult() {
   if (!rawNumber) {
     return (
       <div className="min-h-screen bg-white">
-        <Header />
         <div className="max-w-2xl mx-auto px-6 py-20 text-center">
           <h1 className="text-3xl font-bold">No N-Number provided</h1>
           <p className="mt-4 text-slate-600">
@@ -166,7 +140,6 @@ function LookupResult() {
   if (!isValid) {
     return (
       <div className="min-h-screen bg-white">
-        <Header />
         <div className="max-w-2xl mx-auto px-6 py-20 text-center">
           <h1 className="text-3xl font-bold">Invalid N-Number</h1>
           <p className="mt-4 text-slate-600">
@@ -186,8 +159,7 @@ function LookupResult() {
   if (loading) {
     return (
       <div className="min-h-screen bg-white">
-        <Header />
-        <div className="max-w-2xl mx-auto px-6 py-20 text-center">
+       <div className="max-w-2xl mx-auto px-6 py-20 text-center">
           <p className="text-slate-500">Looking up {nNumber}...</p>
         </div>
       </div>
@@ -197,7 +169,6 @@ function LookupResult() {
   if (notFound || !data) {
     return (
       <div className="min-h-screen bg-white">
-        <Header />
         <div className="max-w-2xl mx-auto px-6 py-20 text-center">
           <h1 className="text-3xl font-bold font-mono">{nNumber}</h1>
           <p className="mt-4 text-slate-600">
@@ -268,7 +239,6 @@ function LookupResult() {
           __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, '\\u003c'),
         }}
       />
-      <Header />
 
       {/* Aircraft header */}
       <section className="bg-gradient-to-b from-sky-50 to-white border-b border-slate-200">
