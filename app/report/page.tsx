@@ -94,7 +94,6 @@ function ReportContent() {
   if (loading) {
     return (
       <div className="min-h-screen bg-white">
-        <ReportHeader />
         <div className="max-w-2xl mx-auto px-6 py-20 text-center">
           <p className="text-slate-500">Verifying your purchase...</p>
           <p className="mt-2 text-xs text-slate-400">
@@ -108,7 +107,6 @@ function ReportContent() {
   if (error) {
     return (
       <div className="min-h-screen bg-white">
-        <ReportHeader />
         <div className="max-w-2xl mx-auto px-6 py-20 text-center">
           <h1 className="text-2xl font-bold text-red-600">
             Unable to load report
@@ -149,7 +147,6 @@ function ReportContent() {
 
   return (
     <div className="min-h-screen bg-white">
-      <ReportHeader />
 
       <section className="bg-gradient-to-b from-emerald-50 to-white border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-6 py-12">
@@ -459,23 +456,6 @@ function ReportContent() {
   );
 }
 
-function ReportHeader() {
-  return (
-    <header className="border-b border-slate-200 bg-white">
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-bold text-sky-600">
-          NNumberCheck
-        </Link>
-        <Link
-          href="/"
-          className="text-sm font-medium text-sky-600 hover:underline"
-        >
-          ← New search
-        </Link>
-      </div>
-    </header>
-  );
-}
 
 function Detail({
   label,
