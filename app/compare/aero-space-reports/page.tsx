@@ -231,14 +231,6 @@ export default function ComparePage() {
         </div>
       </section>
 
-      <footer className="border-t border-slate-200 bg-white">
-        <div className="max-w-6xl mx-auto px-6 py-8 text-xs text-slate-500 flex flex-col md:flex-row justify-between gap-4">
-          <p>© {new Date().getFullYear()} NNumberCheck.com</p>
-          <p className="max-w-xl">
-            Not affiliated with the FAA or NTSB. For historical reference only.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }
