@@ -586,56 +586,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-200 bg-slate-50">
-        <div className="max-w-6xl mx-auto px-6 py-12">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <div className="text-xl font-bold text-sky-600">NNumberCheck</div>
-              <p className="mt-3 text-sm text-slate-500">
-                Aircraft history reports for smarter buying decisions.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold text-sm text-slate-900">Product</h4>
-              <ul className="mt-3 space-y-2 text-sm text-slate-500">
-                <li><a href="#how-it-works" className="hover:text-sky-600">How it works</a></li>
-                <li><a href="/ad-check" className="hover:text-sky-600">Free AD Check</a></li>
-                <li><a href="/sample-report" className="hover:text-sky-600">Sample Report</a></li>
-                <li><a href="/compare/aero-space-reports" className="hover:text-sky-600">Compare</a></li>
-                <li><a href="/aircraft" className="hover:text-sky-600">Browse Aircraft</a></li>
-                <li><a href="#pricing" className="hover:text-sky-600">Pricing</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold text-sm text-slate-900">Company</h4>
-              <ul className="mt-3 space-y-2 text-sm text-slate-500">
-                <li><a href="/about" className="hover:text-sky-600">About</a></li>
-                <li><a href="mailto:support@nnumbercheck.com" className="hover:text-sky-600">Contact</a></li>
-                <li><a href="#dealers" className="hover:text-sky-600">For Dealers</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold text-sm text-slate-900">Legal</h4>
-              <ul className="mt-3 space-y-2 text-sm text-slate-500">
-                <li><a href="/privacy" className="hover:text-sky-600">Privacy Policy</a></li>
-                <li><a href="/terms" className="hover:text-sky-600">Terms of Service</a></li>
-                <li><a href="/refund" className="hover:text-sky-600">Refund Policy</a></li>
-                <li><a href="/disclaimer" className="hover:text-sky-600">Disclaimer</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="mt-10 pt-8 border-t border-slate-200 text-xs text-slate-500 flex flex-col md:flex-row justify-between gap-4">
-            <p>© {new Date().getFullYear()} NNumberCheck.com. All rights reserved.</p>
-            <p className="max-w-xl">
-              Not affiliated with the FAA or NTSB. For historical reference only.
-              Verify all information with official records before making any
-              purchase or safety decision.
-            </p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
