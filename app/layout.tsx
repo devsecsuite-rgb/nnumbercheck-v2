@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import GoogleAnalytics from './GoogleAnalytics';
 import Footer from './Footer';
+import Header from './Header';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -99,6 +100,7 @@ export default function RootLayout({
             __html: JSON.stringify(websiteJsonLd).replace(/</g, '\\u003c'),
           }}
         />
+        <Header />
         {children}
         <Footer />
         <GoogleAnalytics />
