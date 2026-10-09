@@ -15,21 +15,8 @@ export const metadata: Metadata = {
 export default function AdCheckPage() {
   return (
     <div className="min-h-screen bg-white">
-      <header className="border-b border-slate-200 bg-white">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-bold text-sky-600">
-            NNumberCheck
-          </Link>
-          <Link
-            href="/"
-            className="text-sm font-medium text-sky-600 hover:underline"
-          >
-            ← Back to home
-          </Link>
-        </div>
-      </header>
-
-      <section className="bg-gradient-to-b from-sky-50 to-white border-b border-slate-200">
+      
+     <section className="bg-gradient-to-b from-sky-50 to-white border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-6 py-20 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-slate-900">
             Free AD Applicability Check
