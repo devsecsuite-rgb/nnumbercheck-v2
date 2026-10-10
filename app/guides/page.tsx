@@ -19,6 +19,12 @@ const GUIDES = [
     description:
       'The most-produced aircraft in history. Common ADs, accident patterns, cost of ownership, and pre-buy checklist.',
   },
+  {
+    slug: 'piper-pa-28',
+    title: 'Piper PA-28 Pre-Buy Guide',
+    description:
+      'Cherokee, Warrior, Archer, and Arrow family. Common ADs, wing spar issues, serial number ranges, and pre-buy checklist.',
+  },
 ];
 
 export default function GuidesIndexPage() {
@@ -57,9 +63,8 @@ export default function GuidesIndexPage() {
           ))}
         </div>
 
-        <p className="mt-10 text-sm text-slate-500 text-center">
-          More guides coming soon: Piper PA-28, Cessna 182, Beech Bonanza,
-          Cirrus SR22.
+                <p className="mt-10 text-sm text-slate-500 text-center">
+          More guides coming soon: Cessna 182, Beech Bonanza, Cirrus SR22.
         </p>
       </section>
     </div>
