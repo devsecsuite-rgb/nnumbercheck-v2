@@ -12,12 +12,6 @@ alternates: {
 export default function TermsPage() {
   return (
     <div className="min-h-screen bg-white text-slate-900">
-      <header className="border-b border-slate-200 bg-white">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-bold text-sky-600">NNumberCheck</Link>
-          <Link href="/" className="text-sm font-medium text-sky-600 hover:underline">← Back to home</Link>
-        </div>
-      </header>
       <article className="max-w-3xl mx-auto px-6 py-16">
         <h1 className="text-4xl font-bold">Terms of Service</h1>
         <p className="mt-2 text-sm text-slate-500">Last updated: October 3, 2026</p>
