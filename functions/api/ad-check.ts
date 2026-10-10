@@ -78,6 +78,18 @@ const { results: verifyDirectives } = await env.DB.prepare(
         .map((s) => s.trim())
         .filter(Boolean);
 
+            // Compare serials numerically when both sides are pure digits,
+      // otherwise fall back to string comparison. This avoids the
+      // "10000" < "2912" bug where new 5-digit serials sort below
+      // 4-digit serials lexicographically.
+      const cmpSerial = (a: string, b: string) => {
+        const bothNumeric = /^\d+$/.test(a) && /^\d+$/.test(b);
+        if (bothNumeric) {
+          return parseInt(a, 10) - parseInt(b, 10);
+        }
+        return a < b ? -1 : a > b ? 1 : 0;
+      };
+
       let applicability = 'verify';
 
       const hasRange = Boolean(start || end);
@@ -89,8 +101,8 @@ const { results: verifyDirectives } = await env.DB.prepare(
       } else if (exceptions.includes(sn)) {
         applicability = 'not_applies';
       } else if (
-        (!start || sn >= start) &&
-        (!end || sn <= end)
+        (!start || cmpSerial(sn, start) >= 0) &&
+        (!end || cmpSerial(sn, end) <= 0)
       ) {
         applicability = 'applies';
       } else {
