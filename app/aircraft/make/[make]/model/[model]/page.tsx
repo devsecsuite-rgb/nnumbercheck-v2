@@ -177,17 +177,6 @@ export default async function MakeModelPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd).replace(/</g, '\\u003c') }}
       />
 
-      <header className="border-b border-slate-200 bg-white">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-bold text-sky-600">
-            NNumberCheck
-          </Link>
-          <Link href="/aircraft" className="text-sm font-medium text-sky-600 hover:underline">
-            ← All aircraft
-          </Link>
-        </div>
-      </header>
-
       <nav className="max-w-6xl mx-auto px-6 py-3 text-xs text-slate-500">
         <Link href="/" className="hover:text-sky-600">Home</Link>
         <span className="mx-2">›</span>
