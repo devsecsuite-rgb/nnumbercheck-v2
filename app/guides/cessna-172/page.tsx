@@ -60,20 +60,6 @@ export default function Cessna172GuidePage() {
         }}
       />
 
-      <header className="border-b border-slate-200 bg-white">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-bold text-sky-600">
-            NNumberCheck
-          </Link>
-          <Link
-            href="/guides"
-            className="text-sm font-medium text-sky-600 hover:underline"
-          >
-            ← All guides
-          </Link>
-        </div>
-      </header>
-
       {/* Hero */}
       <section className="bg-gradient-to-b from-sky-50 to-white border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-6 py-16">
