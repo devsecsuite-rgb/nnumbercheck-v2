@@ -236,20 +236,42 @@ function ResultContent() {
           })
         )}
 
-        <div className="bg-sky-600 text-white rounded-2xl p-8 text-center">
+        <div className="bg-gradient-to-br from-sky-600 to-sky-700 text-white rounded-2xl p-8 text-center">
+          <div className="inline-block bg-white/20 text-white text-xs font-medium px-3 py-1 rounded-full mb-4">
+            {summary.applies > 0
+              ? `⚠ ${summary.applies} AD${summary.applies === 1 ? '' : 's'} confirmed applicable to this aircraft`
+              : `ℹ ${summary.total} AD${summary.total === 1 ? '' : 's'} need manual review — no serial-level data yet`}
+          </div>
           <h2 className="text-2xl font-bold">
-            Get the complete report for {aircraft.n_number}
+            Get the full report for {aircraft.n_number}
           </h2>
-          <p className="mt-2 text-sky-100">
-            Full AD list, detailed accident history, ownership chain, and a
-            downloadable PDF.
+          <p className="mt-3 text-sky-100 max-w-xl mx-auto">
+            {aircraft.year ? `${aircraft.year} ` : ''}
+            {aircraft.make} {aircraft.model}
+            {aircraft.serial_number && ` · Serial ${aircraft.serial_number}`}
           </p>
-          <Link
-            href={`/n?number=${aircraft.n_number}`}
-            className="mt-6 inline-block bg-white text-sky-600 px-8 py-3 rounded-xl font-semibold hover:bg-sky-50 transition"
-          >
-            View Full Report →
-          </Link>
+
+          <ul className="mt-5 text-sky-50 text-sm space-y-1.5 inline-block text-left">
+            <li>✓ Complete {summary.total} AD list with Federal Register links</li>
+            <li>✓ Full accident history with narratives</li>
+            <li>✓ Registered owner &amp; location</li>
+            <li>✓ Branded PDF you can share with your broker</li>
+          </ul>
+
+          <div className="mt-7 flex flex-col sm:flex-row gap-3 justify-center">
+            <Link
+              href={`/n?number=${aircraft.n_number}#full-report`}
+              className="inline-block bg-white text-sky-600 px-8 py-3 rounded-xl font-semibold hover:bg-sky-50 transition"
+            >
+              Unlock Full Report — $149 →
+            </Link>
+            <Link
+              href={`/n?number=${aircraft.n_number}`}
+              className="inline-block border border-white/40 text-white px-8 py-3 rounded-xl font-semibold hover:bg-white/10 transition"
+            >
+              View free summary
+            </Link>
+          </div>
         </div>
       </section>
 
