@@ -94,21 +94,7 @@ function severityLabel(raw: string): string {
 export default function SampleReportPage() {
   return (
     <div className="min-h-screen bg-white">
-      <header className="border-b border-slate-200 bg-white">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-bold text-sky-600">
-            NNumberCheck
-          </Link>
-          <Link
-            href="/"
-            className="text-sm font-medium text-sky-600 hover:underline"
-          >
-            ← Back to home
-          </Link>
-        </div>
-      </header>
-
-      {/* Sample banner */}
+       {/* Sample banner */}
       <div className="bg-amber-50 border-b border-amber-200">
         <div className="max-w-6xl mx-auto px-6 py-3 text-sm text-amber-800 text-center">
           <strong>Sample Report</strong> — This is a demo showing what a
