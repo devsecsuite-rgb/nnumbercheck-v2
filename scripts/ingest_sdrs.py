@@ -5,9 +5,6 @@ Ingest FAA Service Difficulty Reports (SDRs) into D1.
 Downloads current-year and historical SDR files from the FAA,
 auto-detects delimiter (comma or tab), parses, and outputs batched
 SQL INSERT statements for wrangler d1 execute.
-
-Usage:
-    python scripts/ingest_sdrs.py --years-back 5 --output sdrs.sql
 """
 import argparse
 import csv
@@ -78,6 +75,29 @@ def esc(s):
     return f"'{s}'"
 
 
+def normalize_date(raw):
+    if not raw:
+        return None
+    s = str(raw).strip()
+    # Convert MM/DD/YYYY to YYYY-MM-DD
+    if len(s) == 10 and s[2] == '/' and s[5] == '/':
+        return f"{s[6:10]}-{s[0:2]}-{s[3:5]}"
+    return s
+
+
+def normalize_n_number(raw):
+    if not raw:
+        return None
+    s = str(raw).strip().upper()
+    if not s:
+        return None
+    if s.startswith("N"):
+        return s
+    if s[0].isdigit():
+        return "N" + s
+    return None  # foreign registration, skip
+
+
 def insert_stmt(batch):
     return (
         "INSERT OR REPLACE INTO sdr_reports "
@@ -126,12 +146,6 @@ def main():
         if missing:
             print(f"  WARNING: Missing columns (will be NULL): {missing}")
 
-        for req in ["NatureOfConditionA", "NatureOfConditionB", "NatureOfConditionC", "Discrepancy"]:
-            found = any(h.lower() == req.lower() for h in headers)
-            if not found:
-                print(f"  WARNING: Expected column not found: {req}")
-
-        # Resolve column names once per year
         col_control = lookup.get("control_number")
         col_diff = lookup.get("difficulty_date")
         col_make = lookup.get("aircraft_make")
@@ -161,33 +175,14 @@ def main():
                 skipped += 1
                 continue
 
-            # Normalize N-number: prepend "N" if missing
-            raw_n = row.get(col_n) if col_n else None
-            n_number = None
-            if raw_n:
-                s = str(raw_n).strip().upper()
-                if s:
-                if s.startswith("N"):
-                    n_number = s
-                elif s[0].isdigit():
-                    n_number = "N" + s
-                else:
-                    n_number = None  # skip foreign registrations
+            n_number = normalize_n_number(row.get(col_n) if col_n else None)
 
-            # Combine NatureOfConditionA/B/C into one string
             nature_parts = []
-            if col_nature_a:
-                v = row.get(col_nature_a, "").strip()
-                if v:
-                    nature_parts.append(v)
-            if col_nature_b:
-                v = row.get(col_nature_b, "").strip()
-                if v:
-                    nature_parts.append(v)
-            if col_nature_c:
-                v = row.get(col_nature_c, "").strip()
-                if v:
-                    nature_parts.append(v)
+            for col in (col_nature_a, col_nature_b, col_nature_c):
+                if col:
+                    v = row.get(col, "").strip()
+                    if v:
+                        nature_parts.append(v)
             nature = " / ".join(nature_parts) if nature_parts else None
 
             remarks = None
@@ -198,7 +193,7 @@ def main():
 
             vals = [
                 esc(control),
-                esc(row.get(col_diff) if col_diff else None),
+                esc(normalize_date(row.get(col_diff) if col_diff else None)),
                 esc(row.get(col_make) if col_make else None),
                 esc(row.get(col_model) if col_model else None),
                 esc(row.get(col_serial) if col_serial else None),
