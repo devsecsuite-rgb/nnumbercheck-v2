@@ -2,15 +2,18 @@ name: Enrich Broker Listings
 
 on:
   workflow_dispatch:
-    inputs:
-      input_file:
-        description: 'Path to listings JSON'
-        required: false
-        default: 'scripts/controller_listings.json'
 
 jobs:
   enrich:
     runs-on: ubuntu-latest
+
+    env:
+      NNC_API_BASE: "https://nnumbercheck.com/api"
+      NNC_API_DELAY: "1.0"
+      NNC_SENDER_NAME: "Emiliano"
+      NNC_SENDER_EMAIL: "support@nnumbercheck.com"
+      NNC_SENDER_ADDRESS: "N.121 Thanon Ubon-Trakan UbonRatchathani Thailand"
+
     steps:
       - uses: actions/checkout@v4
 
@@ -18,14 +21,12 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Move listings to scripts/
+      - name: Verify input file
         run: |
-          if [ -f "${{ github.event.inputs.input_file }}" ]; then
-            cp "${{ github.event.inputs.input_file }}" scripts/controller_listings.json
-          fi
           ls -la scripts/controller_listings.json
+          python -c "import json; d=json.load(open('scripts/controller_listings.json')); print(f'Input: {len(d)} listings')"
 
-      - name: Enrich listings
+      - name: Run enrichment
         working-directory: scripts
         run: python enrich_listings.py
 
@@ -36,21 +37,25 @@ jobs:
       - name: Show summary
         working-directory: scripts
         run: |
+          echo "=========================================="
           echo "=== Enrichment summary ==="
+          echo "=========================================="
           python -c "
           import json
           d = json.load(open('controller_listings_enriched.json'))
           print(f'Total listings: {len(d)}')
           in_reg = sum(1 for x in d if x.get('in_registry'))
-          with_ads = sum(1 for x in d if x.get('ads_applies', 0) and x['ads_applies'] > 0)
-          with_acc = sum(1 for x in d if x.get('accidents', 0) and x['accidents'] > 0)
+          with_ads = sum(1 for x in d if x.get('ads_applies') and x['ads_applies'] > 0)
+          with_acc = sum(1 for x in d if x.get('accidents') and x['accidents'] > 0)
           print(f'In registry: {in_reg}')
           print(f'With applicable ADs: {with_ads}')
           print(f'With accidents: {with_acc}')
           "
           echo ""
-          echo "=== First 30 lines of broker emails ==="
-          head -50 broker_emails.md
+          echo "=========================================="
+          echo "=== First 60 lines of broker_emails.md ==="
+          echo "=========================================="
+          head -60 broker_emails.md
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
