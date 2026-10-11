@@ -10,8 +10,9 @@ from collections import defaultdict
 INPUT_FILE = "controller_listings_enriched.json"
 OUTPUT_FILE = "broker_emails.md"
 
-YOUR_NAME = "YOUR NAME HERE"
-YOUR_EMAIL = "support@nnumbercheck.com"
+import os
+YOUR_NAME = os.environ.get("BROKER_NAME", "Emiliano")
+YOUR_EMAIL = os.environ.get("BROKER_EMAIL", "support@nnumbercheck.com")
 
 
 def fmt_reg(reg):
