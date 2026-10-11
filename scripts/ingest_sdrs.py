@@ -2,9 +2,12 @@
 """
 Ingest FAA Service Difficulty Reports (SDRs) into D1.
 
-Downloads the current-year SDR file from the FAA, auto-detects
-delimiter (comma or tab), parses, and outputs batched SQL INSERT
-statements for wrangler d1 execute.
+Downloads current-year and historical SDR files from the FAA,
+auto-detects delimiter (comma or tab), parses, and outputs batched
+SQL INSERT statements for wrangler d1 execute.
+
+Usage:
+    python scripts/ingest_sdrs.py --years-back 5 --output sdrs.sql
 """
 import argparse
 import csv
@@ -31,6 +34,8 @@ COLUMN_MAP = {
     "stage_of_operation":  ["StageOfOperationCode"],
     "submitter_type":      ["SubmitterTypeCode"],
 }
+
+MAX_BATCH_BYTES = 80_000
 
 
 def fetch_file(year: int) -> str:
@@ -73,7 +78,7 @@ def esc(s):
     return f"'{s}'"
 
 
-def _insert_stmt(batch):
+def insert_stmt(batch):
     return (
         "INSERT OR REPLACE INTO sdr_reports "
         "(control_number,difficulty_date,aircraft_make,aircraft_model,"
@@ -85,65 +90,21 @@ def _insert_stmt(batch):
 
 
 def main():
-        parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser()
     parser.add_argument("--year", type=int, default=datetime.now().year)
-    parser.add_argument("--years-back", type=int, default=5,
-                        help="How many years to ingest (current year + N-1)")
+    parser.add_argument("--years-back", type=int, default=5)
     parser.add_argument("--output", default="sdrs.sql")
     args = parser.parse_args()
 
-    current = datetime.now().year
+    current = args.year
     years_to_ingest = list(range(current - args.years_back + 1, current + 1))
     print(f"Ingesting years: {years_to_ingest}")
 
-    headers = None
-    lookup = None
-
-    def get(row, field):
-        col = lookup.get(field)
-        return row.get(col) if col else None
-
-    def get_n_number(row):
-        """FAA SDR stores N-numbers without the 'N' prefix (e.g. '17328').
-        Our aircraft table uses 'N17328'. Normalize to match."""
-        raw = get(row, "n_number")
-        if not raw:
-            return None
-        s = str(raw).strip().upper()
-        if not s:
-            return None
-        # Skip foreign registrations that aren't US N-numbers
-        if s.startswith("N"):
-            return s
-        # If it's pure digits or digits+letters, prepend N
-        if s[0].isdigit():
-            return "N" + s
-        return s
-
-    def get_nature(row):
-        parts = [
-            row.get("NatureOfConditionA", "").strip(),
-            row.get("NatureOfConditionB", "").strip(),
-            row.get("NatureOfConditionC", "").strip(),
-        ]
-        joined = " / ".join(p for p in parts if p)
-        return joined or None
-
-    def get_remarks(row):
-        for key in ["Discrepancy", "Remarks", "ProblemDescription"]:
-            for h in headers:
-                if h.lower() == key.lower():
-                    val = row.get(h, "").strip()
-                    if val:
-                        return val
-        return None
-
-        rows_written = 0
+    rows_written = 0
     skipped = 0
     lines = ["DELETE FROM sdr_reports;"]
     batch = []
     batch_bytes = 0
-    MAX_BATCH_BYTES = 80_000
 
     for year in years_to_ingest:
         print(f"\n--- Processing year {year} ---")
@@ -170,41 +131,103 @@ def main():
             if not found:
                 print(f"  WARNING: Expected column not found: {req}")
 
+        # Resolve column names once per year
+        col_control = lookup.get("control_number")
+        col_diff = lookup.get("difficulty_date")
+        col_make = lookup.get("aircraft_make")
+        col_model = lookup.get("aircraft_model")
+        col_serial = lookup.get("aircraft_serial")
+        col_n = lookup.get("n_number")
+        col_emake = lookup.get("engine_make")
+        col_emodel = lookup.get("engine_model")
+        col_pname = lookup.get("part_name")
+        col_pnum = lookup.get("part_number")
+        col_ata = lookup.get("ata_code")
+        col_stage = lookup.get("stage_of_operation")
+        col_submitter = lookup.get("submitter_type")
+
+        col_nature_a = next((h for h in headers if h.lower() == "natureofconditiona"), None)
+        col_nature_b = next((h for h in headers if h.lower() == "natureofconditionb"), None)
+        col_nature_c = next((h for h in headers if h.lower() == "natureofconditionc"), None)
+        col_discrepancy = next(
+            (h for h in headers if h.lower() in ("discrepancy", "remarks", "problemdescription")),
+            None,
+        )
+
+        year_rows = 0
         for row in reader:
-        control = get(row, "control_number")
-        if not control:
-            skipped += 1
-            continue
+            control = row.get(col_control) if col_control else None
+            if not control or not control.strip():
+                skipped += 1
+                continue
 
-        vals = [
-            esc(control),
-            esc(get(row, "difficulty_date")),
-            esc(get(row, "aircraft_make")),
-            esc(get(row, "aircraft_model")),
-            esc(get(row, "aircraft_serial")),
-            esc(get_n_number(row)),
-            esc(get(row, "engine_make")),
-            esc(get(row, "engine_model")),
-            esc(get(row, "part_name")),
-            esc(get(row, "part_number")),
-            esc(get(row, "ata_code")),
-            esc(get_nature(row)),
-            esc(get_remarks(row)),
-            esc(get(row, "stage_of_operation")),
-            esc(get(row, "submitter_type")),
-        ]
-        row_sql = f"({','.join(vals)})"
+            # Normalize N-number: prepend "N" if missing
+            raw_n = row.get(col_n) if col_n else None
+            n_number = None
+            if raw_n:
+                s = str(raw_n).strip().upper()
+                if s:
+                    if s.startswith("N"):
+                        n_number = s
+                    elif s[0].isdigit():
+                        n_number = "N" + s
+                    else:
+                        n_number = s
+
+            # Combine NatureOfConditionA/B/C into one string
+            nature_parts = []
+            if col_nature_a:
+                v = row.get(col_nature_a, "").strip()
+                if v:
+                    nature_parts.append(v)
+            if col_nature_b:
+                v = row.get(col_nature_b, "").strip()
+                if v:
+                    nature_parts.append(v)
+            if col_nature_c:
+                v = row.get(col_nature_c, "").strip()
+                if v:
+                    nature_parts.append(v)
+            nature = " / ".join(nature_parts) if nature_parts else None
+
+            remarks = None
+            if col_discrepancy:
+                val = row.get(col_discrepancy, "").strip()
+                if val:
+                    remarks = val
+
+            vals = [
+                esc(control),
+                esc(row.get(col_diff) if col_diff else None),
+                esc(row.get(col_make) if col_make else None),
+                esc(row.get(col_model) if col_model else None),
+                esc(row.get(col_serial) if col_serial else None),
+                esc(n_number),
+                esc(row.get(col_emake) if col_emake else None),
+                esc(row.get(col_emodel) if col_emodel else None),
+                esc(row.get(col_pname) if col_pname else None),
+                esc(row.get(col_pnum) if col_pnum else None),
+                esc(row.get(col_ata) if col_ata else None),
+                esc(nature),
+                esc(remarks),
+                esc(row.get(col_stage) if col_stage else None),
+                esc(row.get(col_submitter) if col_submitter else None),
+            ]
+            row_sql = f"({','.join(vals)})"
             batch.append(row_sql)
-                batch_bytes += len(row_sql) + 1
-                rows_written += 1
+            batch_bytes += len(row_sql) + 1
+            rows_written += 1
+            year_rows += 1
 
-                if batch_bytes >= MAX_BATCH_BYTES:
-                    lines.append(_insert_stmt(batch))
-                    batch = []
-                    batch_bytes = 0
+            if batch_bytes >= MAX_BATCH_BYTES:
+                lines.append(insert_stmt(batch))
+                batch = []
+                batch_bytes = 0
+
+        print(f"  Processed {year_rows:,} rows from {year}")
 
     if batch:
-        lines.append(_insert_stmt(batch))
+        lines.append(insert_stmt(batch))
 
     with open(args.output, "w") as f:
         f.write("\n".join(lines))
