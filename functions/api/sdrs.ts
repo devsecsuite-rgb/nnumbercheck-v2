@@ -109,28 +109,29 @@ export const onRequestGet = async (context) => {
       );
     }
 
-        // Normalize model for SDR matching: SDR strips all non-alphanumerics
-    // (PA-28-181 -> PA28181, SR22T -> SR22T, 172S -> 172S)
+    // --- Model-level aggregate query ---
+    // SDR strips non-alphanumeric chars from model:
+    //   PA-28-181 -> PA28181, 172S -> 172S
     const modelNorm = model.replace(/[^A-Z0-9]/g, '');
-
-    // Try both the exact model and the hyphen-stripped version
-    const modelClause = `(aircraft_model = ? OR aircraft_model = ?)`;
 
     const { results: summary } = await env.DB.prepare(
       `SELECT COUNT(*) AS total,
               MIN(difficulty_date) AS first_date,
               MAX(difficulty_date) AS last_date
        FROM sdr_reports
-       WHERE aircraft_make = ? AND ${modelClause}`
+       WHERE aircraft_make = ?
+         AND (aircraft_model = ? OR aircraft_model = ?)`
     )
       .bind(make, model, modelNorm)
       .all();
 
     const { results: byAta } = await env.DB.prepare(
-      `SELECT ata_code, COUNT(*) AS n
+      `SELECT substr(ata_code, 1, 2) AS ata_chapter, COUNT(*) AS n
        FROM sdr_reports
-       WHERE aircraft_make = ? AND ${modelClause}
-       GROUP BY ata_code
+       WHERE aircraft_make = ?
+         AND (aircraft_model = ? OR aircraft_model = ?)
+         AND ata_code IS NOT NULL
+       GROUP BY ata_chapter
        ORDER BY n DESC
        LIMIT 8`
     )
@@ -141,7 +142,8 @@ export const onRequestGet = async (context) => {
       `SELECT control_number, difficulty_date, part_name, ata_code,
               nature_of_condition, substr(remarks, 1, 300) AS remarks
        FROM sdr_reports
-       WHERE aircraft_make = ? AND ${modelClause}
+       WHERE aircraft_make = ?
+         AND (aircraft_model = ? OR aircraft_model = ?)
        ORDER BY difficulty_date DESC
        LIMIT 5`
     )
@@ -156,8 +158,9 @@ export const onRequestGet = async (context) => {
         first_date: summary?.[0]?.first_date || null,
         last_date: summary?.[0]?.last_date || null,
         by_ata: (byAta || []).map((r) => ({
-          ...r,
-          ata_name: ataName(r.ata_code),
+          ata_chapter: r.ata_chapter,
+          ata_name: ataName(r.ata_chapter),
+          n: r.n,
         })),
         recent: (recent || []).map((r) => ({
           ...r,
