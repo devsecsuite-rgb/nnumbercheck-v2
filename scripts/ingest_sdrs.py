@@ -167,12 +167,12 @@ def main():
             if raw_n:
                 s = str(raw_n).strip().upper()
                 if s:
-                    if s.startswith("N"):
-                        n_number = s
-                    elif s[0].isdigit():
-                        n_number = "N" + s
-                    else:
-                        n_number = s
+                if s.startswith("N"):
+                    n_number = s
+                elif s[0].isdigit():
+                    n_number = "N" + s
+                else:
+                    n_number = None  # skip foreign registrations
 
             # Combine NatureOfConditionA/B/C into one string
             nature_parts = []
