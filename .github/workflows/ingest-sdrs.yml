@@ -1,0 +1,31 @@
+name: Ingest SDRs
+
+on:
+  schedule:
+    - cron: '0 6 1 * *'
+  workflow_dispatch:
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generate SDR SQL
+        run: python scripts/ingest_sdrs.py --year $(date +%Y) --output sdrs.sql
+
+      - name: Show stats
+        run: |
+          wc -l sdrs.sql
+          grep -c "INSERT" sdrs.sql || true
+
+      - name: Push to D1
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: d1 execute nnumbercheck-db --remote --file=sdrs.sql
