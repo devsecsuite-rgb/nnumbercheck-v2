@@ -19,7 +19,7 @@ from bs4 import BeautifulSoup
 from urllib.parse import urljoin, quote
 
 BASE_URL = "https://www.controller.com"
-CATEGORY_PATH = "/listings/for-sale/piston-single-aircraft/6"
+SEARCH_PATH = "/listings/search"
 OUTPUT_FILE = "controller_listings.json"
 DEBUG_FILE = "debug_search.html"
 IMPERSONATE = "chrome124"
@@ -189,14 +189,19 @@ def parse_listing_card(card):
 
 
 def build_search_url(make=None, model=None, page=1):
-    """Build a Controller.com search URL with optional make/model filter and pagination."""
-    url = f"{BASE_URL}{CATEGORY_PATH}"
+    """Build a Controller.com search URL using the keywords param."""
+    url = f"{BASE_URL}{SEARCH_PATH}"
+
+    # Build the keyword string
+    keywords = []
+    if make:
+        keywords.append(make)
+    if model:
+        keywords.append(model)
 
     params = []
-    if make:
-        params.append(f"Manufacturer={quote(make.title())}")
-    if model:
-        params.append(f"Model={quote(model.upper())}")
+    if keywords:
+        params.append(f"keywords={quote(' '.join(keywords))}")
     if page > 1:
         params.append(f"page={page}")
 
