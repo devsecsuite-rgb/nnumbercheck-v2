@@ -109,37 +109,43 @@ export const onRequestGet = async (context) => {
       );
     }
 
-    // --- Model-level aggregate query ---
+        // Normalize model for SDR matching: SDR strips all non-alphanumerics
+    // (PA-28-181 -> PA28181, SR22T -> SR22T, 172S -> 172S)
+    const modelNorm = model.replace(/[^A-Z0-9]/g, '');
+
+    // Try both the exact model and the hyphen-stripped version
+    const modelClause = `(aircraft_model = ? OR aircraft_model = ?)`;
+
     const { results: summary } = await env.DB.prepare(
       `SELECT COUNT(*) AS total,
               MIN(difficulty_date) AS first_date,
               MAX(difficulty_date) AS last_date
        FROM sdr_reports
-       WHERE aircraft_make = ? AND aircraft_model = ?`
+       WHERE aircraft_make = ? AND ${modelClause}`
     )
-      .bind(make, model)
+      .bind(make, model, modelNorm)
       .all();
 
     const { results: byAta } = await env.DB.prepare(
       `SELECT ata_code, COUNT(*) AS n
        FROM sdr_reports
-       WHERE aircraft_make = ? AND aircraft_model = ?
+       WHERE aircraft_make = ? AND ${modelClause}
        GROUP BY ata_code
        ORDER BY n DESC
        LIMIT 8`
     )
-      .bind(make, model)
+      .bind(make, model, modelNorm)
       .all();
 
     const { results: recent } = await env.DB.prepare(
       `SELECT control_number, difficulty_date, part_name, ata_code,
               nature_of_condition, substr(remarks, 1, 300) AS remarks
        FROM sdr_reports
-       WHERE aircraft_make = ? AND aircraft_model = ?
+       WHERE aircraft_make = ? AND ${modelClause}
        ORDER BY difficulty_date DESC
        LIMIT 5`
     )
-      .bind(make, model)
+      .bind(make, model, modelNorm)
       .all();
 
     return new Response(
