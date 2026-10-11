@@ -112,6 +112,23 @@ def main():
         col = lookup.get(field)
         return row.get(col) if col else None
 
+    def get_n_number(row):
+        """FAA SDR stores N-numbers without the 'N' prefix (e.g. '17328').
+        Our aircraft table uses 'N17328'. Normalize to match."""
+        raw = get(row, "n_number")
+        if not raw:
+            return None
+        s = str(raw).strip().upper()
+        if not s:
+            return None
+        # Skip foreign registrations that aren't US N-numbers
+        if s.startswith("N"):
+            return s
+        # If it's pure digits or digits+letters, prepend N
+        if s[0].isdigit():
+            return "N" + s
+        return s
+
     def get_nature(row):
         parts = [
             row.get("NatureOfConditionA", "").strip(),
@@ -149,7 +166,7 @@ def main():
             esc(get(row, "aircraft_make")),
             esc(get(row, "aircraft_model")),
             esc(get(row, "aircraft_serial")),
-            esc(get(row, "n_number")),
+            esc(get_n_number(row)),
             esc(get(row, "engine_make")),
             esc(get(row, "engine_model")),
             esc(get(row, "part_name")),
