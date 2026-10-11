@@ -3,6 +3,7 @@
 import { useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
 import Link from 'next/link';
+import SdrSection from '@/components/SdrSection';
 
 function ReportContent() {
   const searchParams = useSearchParams();
@@ -253,8 +254,13 @@ function ReportContent() {
                 </div>
               ))}
             </div>
-          )}
+                   )}
         </div>
+
+        {/* Service Difficulty Reports */}
+        {aircraft.make && aircraft.model && (
+          <SdrSection make={aircraft.make} model={aircraft.model} />
+        )}
 
         {/* Airworthiness Directives */}
         <div className="border border-slate-200 rounded-2xl p-8">
