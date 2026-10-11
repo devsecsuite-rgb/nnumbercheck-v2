@@ -68,8 +68,8 @@ def esc(s):
     if not s:
         return "NULL"
     s = s.replace("'", "''")
-    if len(s) > 4000:
-        s = s[:4000]
+    if len(s) > 2000:
+        s = s[:2000]
     return f"'{s}'"
 
 
@@ -134,6 +134,8 @@ def main():
     skipped = 0
     lines = ["DELETE FROM sdr_reports;"]
     batch = []
+    batch_bytes = 0
+    MAX_BATCH_BYTES = 80_000  # stay well under D1's 100KB statement cap
 
     for row in reader:
         control = get(row, "control_number")
@@ -158,12 +160,15 @@ def main():
             esc(get(row, "stage_of_operation")),
             esc(get(row, "submitter_type")),
         ]
-        batch.append(f"({','.join(vals)})")
+        row_sql = f"({','.join(vals)})"
+        batch.append(row_sql)
+        batch_bytes += len(row_sql) + 1
         rows_written += 1
 
-        if len(batch) >= 500:
+        if batch_bytes >= MAX_BATCH_BYTES:
             lines.append(_insert_stmt(batch))
             batch = []
+            batch_bytes = 0
 
     if batch:
         lines.append(_insert_stmt(batch))
