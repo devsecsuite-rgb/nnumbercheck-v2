@@ -3,6 +3,7 @@
 import { useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
 import Link from 'next/link';
+import SdrSummary from '@/components/SdrSummary';
 
 type Accident = {
   id: number;
@@ -383,7 +384,11 @@ function LookupResult() {
               </div>
             )}
           </div>
-        </div>
+            </div>
+
+        {data.make && data.model && (
+          <SdrSummary make={data.make} model={data.model} />
+        )}
       </section>
 
       {/* Email capture form */}
