@@ -119,17 +119,38 @@ def parse_listing_card(card):
         description = extract_spec(card, "Description")
         updated = extract_spec(card, "Updated")
 
+               # Seller — try multiple selectors (Controller.com changes these often)
         seller = None
-        seller_el = card.find("div", class_="seller")
-        if seller_el:
-            a = seller_el.find("a")
-            if a:
-                seller = a.get_text(strip=True)
+        for sel in [
+            ("div", "dealer-contact__branch-name"),
+            ("div", "seller"),
+            ("div", "dealer-contact"),
+        ]:
+            el = card.find(sel[0], class_=sel[1])
+            if el:
+                strong = el.find("strong")
+                seller = strong.get_text(strip=True) if strong else el.get_text(strip=True)
+                if seller:
+                    break
 
+        # Phone — try multiple selectors
         phone = None
-        phone_el = card.find("a", class_="phone-link")
-        if phone_el:
-            phone = phone_el.get_text(strip=True)
+        for sel in [
+            ("a", "phone-link"),
+            ("a", "dealer-phone"),
+            ("a", "dealer-contact__phone"),
+        ]:
+            el = card.find(sel[0], class_=sel[1])
+            if el:
+                phone = el.get_text(strip=True)
+                if phone:
+                    break
+
+        # Fallback: regex phone from card text
+        if not phone:
+            m = re.search(r"\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}", card.get_text())
+            if m:
+                phone = m.group(0)
 
         year, make, model = None, None, None
         if title:
