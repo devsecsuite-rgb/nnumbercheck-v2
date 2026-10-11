@@ -85,28 +85,19 @@ def _insert_stmt(batch):
 
 
 def main():
-    parser = argparse.ArgumentParser()
+        parser = argparse.ArgumentParser()
     parser.add_argument("--year", type=int, default=datetime.now().year)
+    parser.add_argument("--years-back", type=int, default=5,
+                        help="How many years to ingest (current year + N-1)")
     parser.add_argument("--output", default="sdrs.sql")
     args = parser.parse_args()
 
-    text = fetch_file(args.year)
-    delim = detect_delimiter(text[:5000])
-    print(f"  Detected delimiter: {'TAB' if delim == chr(9) else 'COMMA'}")
+    current = datetime.now().year
+    years_to_ingest = list(range(current - args.years_back + 1, current + 1))
+    print(f"Ingesting years: {years_to_ingest}")
 
-    reader = csv.DictReader(io.StringIO(text), delimiter=delim)
-    headers = reader.fieldnames or []
-    print(f"  CSV columns: {len(headers)}")
-
-    lookup = build_header_lookup(headers)
-    missing = [k for k in COLUMN_MAP if k not in lookup]
-    if missing:
-        print(f"  WARNING: Missing columns (will be NULL): {missing}")
-
-    for req in ["NatureOfConditionA", "NatureOfConditionB", "NatureOfConditionC", "Discrepancy"]:
-        found = any(h.lower() == req.lower() for h in headers)
-        if not found:
-            print(f"  WARNING: Expected column not found: {req}")
+    headers = None
+    lookup = None
 
     def get(row, field):
         col = lookup.get(field)
@@ -147,14 +138,39 @@ def main():
                         return val
         return None
 
-    rows_written = 0
+        rows_written = 0
     skipped = 0
     lines = ["DELETE FROM sdr_reports;"]
     batch = []
     batch_bytes = 0
-    MAX_BATCH_BYTES = 80_000  # stay well under D1's 100KB statement cap
+    MAX_BATCH_BYTES = 80_000
 
-    for row in reader:
+    for year in years_to_ingest:
+        print(f"\n--- Processing year {year} ---")
+        try:
+            text = fetch_file(year)
+        except Exception as e:
+            print(f"  Skipping year {year}: {e}")
+            continue
+
+        delim = detect_delimiter(text[:5000])
+        print(f"  Detected delimiter: {'TAB' if delim == chr(9) else 'COMMA'}")
+
+        reader = csv.DictReader(io.StringIO(text), delimiter=delim)
+        headers = reader.fieldnames or []
+        print(f"  CSV columns: {len(headers)}")
+
+        lookup = build_header_lookup(headers)
+        missing = [k for k in COLUMN_MAP if k not in lookup]
+        if missing:
+            print(f"  WARNING: Missing columns (will be NULL): {missing}")
+
+        for req in ["NatureOfConditionA", "NatureOfConditionB", "NatureOfConditionC", "Discrepancy"]:
+            found = any(h.lower() == req.lower() for h in headers)
+            if not found:
+                print(f"  WARNING: Expected column not found: {req}")
+
+        for row in reader:
         control = get(row, "control_number")
         if not control:
             skipped += 1
@@ -178,14 +194,14 @@ def main():
             esc(get(row, "submitter_type")),
         ]
         row_sql = f"({','.join(vals)})"
-        batch.append(row_sql)
-        batch_bytes += len(row_sql) + 1
-        rows_written += 1
+            batch.append(row_sql)
+                batch_bytes += len(row_sql) + 1
+                rows_written += 1
 
-        if batch_bytes >= MAX_BATCH_BYTES:
-            lines.append(_insert_stmt(batch))
-            batch = []
-            batch_bytes = 0
+                if batch_bytes >= MAX_BATCH_BYTES:
+                    lines.append(_insert_stmt(batch))
+                    batch = []
+                    batch_bytes = 0
 
     if batch:
         lines.append(_insert_stmt(batch))
