@@ -1,12 +1,7 @@
 #!/usr/bin/env python3
 """
-Scrape Controller.com piston single aircraft listings using curl_cffi.
-
-Usage:
-    python controller_cffi_scraper.py --make cessna --model 172 --pages 5
-    python controller_cffi_scraper.py --make piper --model pa-28 --pages 5
-    python controller_cffi_scraper.py --make cirrus --model sr22 --pages 5
-    python controller_cffi_scraper.py --category all --pages 3
+Scrape Controller.com listings using curl_cffi to bypass Cloudflare.
+Uses the keywords search endpoint.
 """
 import argparse
 import time
@@ -20,8 +15,6 @@ from urllib.parse import urljoin, quote
 
 BASE_URL = "https://www.controller.com"
 SEARCH_PATH = "/listings/search"
-OUTPUT_FILE = "controller_listings.json"
-DEBUG_FILE = "debug_search.html"
 IMPERSONATE = "chrome124"
 
 
@@ -60,6 +53,7 @@ def fetch_page(session, url, retries=3):
 
 
 def extract_spec(card, label_text):
+    """Find a spec value by its label text."""
     for spec in card.find_all("div", class_="spec"):
         label = spec.find("span", class_="spec-label")
         value = spec.find("span", class_="spec-value")
@@ -71,7 +65,6 @@ def extract_spec(card, label_text):
 
 
 def clean_n_number(reg):
-    """Extract clean N-number from registration field."""
     if not reg:
         return None
     s = re.sub(r"[^A-Z0-9]", "", reg.upper())
@@ -88,6 +81,7 @@ def parse_listing_card(card):
         if not listing_id:
             return None
 
+        # Title & URL
         title_el = card.find("a", class_="list-listing-title-link")
         if not title_el:
             return None
@@ -95,63 +89,78 @@ def parse_listing_card(card):
         href = title_el.get("href", "")
         url = urljoin(BASE_URL, href)
 
+        # Category
         cat_el = card.find("p", class_="listing-category")
         category = cat_el.get_text(strip=True) if cat_el else None
 
+        # Price
         price = None
         retail = card.find("div", class_="retail-price-container")
         if retail:
             price_el = retail.find("span", class_="price")
             if price_el:
                 price = price_el.get_text(strip=True)
+        if not price:
+            lease = card.find("span", class_="rent-lease-price")
+            if lease:
+                price = lease.get_text(strip=True)
 
+        # Location
         location = None
         loc_el = card.find("div", class_="machine-location")
         if loc_el:
             raw = loc_el.get_text(strip=True)
             location = re.sub(r"^Location\s*:\s*", "", raw).strip()
+        if not location:
+            # Fallback: look for location class variants
+            for cls in ["dealer-contact__location", "listing-location", "location"]:
+                el = card.find(class_=re.compile(cls, re.I))
+                if el:
+                    location = el.get_text(strip=True)
+                    break
 
+        # Specs
         serial_number = extract_spec(card, "Serial Number")
         registration = extract_spec(card, "Registration #")
         total_time = extract_spec(card, "Total Time")
         engine_time = extract_spec(card, "Engine 1 Time")
         seats = extract_spec(card, "Number of Seats")
         description = extract_spec(card, "Description")
-        updated = extract_spec(card, "Updated")
 
-               # Seller — try multiple selectors (Controller.com changes these often)
+        # Seller — try many selectors
         seller = None
-        for sel in [
+        seller_selectors = [
             ("div", "dealer-contact__branch-name"),
             ("div", "seller"),
             ("div", "dealer-contact"),
-        ]:
-            el = card.find(sel[0], class_=sel[1])
+            ("span", "seller-name"),
+        ]
+        for tag, cls in seller_selectors:
+            el = card.find(tag, class_=cls)
             if el:
                 strong = el.find("strong")
                 seller = strong.get_text(strip=True) if strong else el.get_text(strip=True)
                 if seller:
                     break
 
-        # Phone — try multiple selectors
+        # Phone — try many selectors, then regex fallback
         phone = None
-        for sel in [
+        for tag, cls in [
             ("a", "phone-link"),
             ("a", "dealer-phone"),
             ("a", "dealer-contact__phone"),
         ]:
-            el = card.find(sel[0], class_=sel[1])
+            el = card.find(tag, class_=cls)
             if el:
                 phone = el.get_text(strip=True)
                 if phone:
                     break
-
-        # Fallback: regex phone from card text
         if not phone:
             m = re.search(r"\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}", card.get_text())
             if m:
                 phone = m.group(0)
 
+        # Parse year/make/model from title
         year, make, model = None, None, None
         if title:
             m = re.match(r"^(\d{4})\s+(.+)$", title)
@@ -180,7 +189,6 @@ def parse_listing_card(card):
             "description": description,
             "seller": seller,
             "phone": phone,
-            "updated": updated,
             "url": url,
         }
     except Exception as e:
@@ -189,10 +197,8 @@ def parse_listing_card(card):
 
 
 def build_search_url(make=None, model=None, page=1):
-    """Build a Controller.com search URL using the keywords param."""
+    """Build a Controller.com search URL using keywords."""
     url = f"{BASE_URL}{SEARCH_PATH}"
-
-    # Build the keyword string
     keywords = []
     if make:
         keywords.append(make)
@@ -211,16 +217,15 @@ def build_search_url(make=None, model=None, page=1):
 
 
 def scrape_page(session, url, first_page=False):
-    """Scrape one page of listings. Returns (listings, has_next_page)."""
     print(f"  Fetching {url}")
     html = fetch_page(session, url)
     if not html:
         return [], False
 
     if first_page:
-        with open(DEBUG_FILE, "w", encoding="utf-8") as f:
+        with open("debug_search.html", "w", encoding="utf-8") as f:
             f.write(html)
-        print(f"    Saved {DEBUG_FILE}")
+        print(f"    Saved debug_search.html")
 
     soup = BeautifulSoup(html, "lxml")
     cards = soup.find_all("div", class_="listing-data-selector")
@@ -232,17 +237,16 @@ def scrape_page(session, url, first_page=False):
         if item:
             listings.append(item)
 
-    # Detect next page
-    has_next = bool(soup.find("a", class_="next-page")) or len(cards) >= 25
+    has_next = len(cards) >= 20
     return listings, has_next
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--make", help="e.g. cessna, piper, cirrus")
-    parser.add_argument("--model", help="e.g. 172, pa-28, sr22")
-    parser.add_argument("--pages", type=int, default=3, help="Number of pages to scrape")
-    parser.add_argument("--output", default=OUTPUT_FILE)
+    parser.add_argument("--make", help="e.g. cessna")
+    parser.add_argument("--model", help="e.g. 172")
+    parser.add_argument("--pages", type=int, default=3)
+    parser.add_argument("--output", default="controller_listings.json")
     args = parser.parse_args()
 
     session = create_session()
@@ -269,12 +273,12 @@ def main():
                 seen_ids.add(item["listing_id"])
 
         if not has_next and page < args.pages:
-            print(f"    No next page — stopping at page {page}")
+            print(f"    No more pages — stopping")
             break
 
         if page < args.pages:
             delay = random.uniform(5, 10)
-            print(f"    Sleeping {delay:.1f}s before next page")
+            print(f"    Sleeping {delay:.1f}s")
             time.sleep(delay)
 
     with open(args.output, "w", encoding="utf-8") as f:
@@ -283,7 +287,7 @@ def main():
     print(f"\n=== Done ===")
     print(f"Saved {len(all_listings)} unique listings to {args.output}")
 
-    # Print broker summary
+    # Broker summary
     sellers = {}
     for item in all_listings:
         if item.get("seller"):
@@ -291,11 +295,18 @@ def main():
             if key not in sellers:
                 sellers[key] = {"count": 0, "phone": item.get("phone"), "listings": []}
             sellers[key]["count"] += 1
-            sellers[key]["listings"].append(f"{item.get('year')} {item.get('make')} {item.get('model')} ({item.get('registration')})")
+            sellers[key]["listings"].append(
+                f"{item.get('year')} {item.get('make')} {item.get('model')} ({item.get('registration') or 'no reg'})"
+            )
 
     print(f"\n=== Brokers found: {len(sellers)} ===")
     for name, data in sorted(sellers.items(), key=lambda x: -x[1]["count"]):
         print(f"  {name} — {data['count']} listings — {data['phone'] or 'no phone'}")
+
+    # Sample 3 listings
+    print(f"\n=== Sample listings ===")
+    for item in all_listings[:3]:
+        print(f"  {item.get('year')} {item.get('make')} {item.get('model')} | Reg: {item.get('registration') or 'N/A'} | Seller: {item.get('seller') or 'N/A'}")
 
 
 if __name__ == "__main__":
