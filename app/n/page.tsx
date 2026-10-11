@@ -384,7 +384,7 @@ function LookupResult() {
               </div>
             )}
           </div>
-            </div>
+        </div>
 
         {data.make && data.model && (
           <SdrSummary make={data.make} model={data.model} />
