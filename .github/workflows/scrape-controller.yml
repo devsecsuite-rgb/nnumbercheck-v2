@@ -1,0 +1,32 @@
+name: Scrape Controller Listings
+
+on:
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install deps
+        run: pip install -r scripts/requirements.txt
+
+      - name: Run scraper
+        run: python scripts/controller_scraper.py
+
+      - name: Show results
+        run: |
+          ls -la
+          head -c 2000 controller_listings.json || echo "No output file"
+
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: controller-listings
+          path: controller_listings.json
+          retention-days: 30
