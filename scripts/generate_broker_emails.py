@@ -20,17 +20,21 @@ def fmt_reg(reg):
 
 
 def build_listing_sentence(listing):
-    """Build a one-line description of a listing with its AD/accident risk."""
     year = listing.get("year") or "?"
     model = listing.get("model") or "?"
-    reg = fmt_reg(listing.get("registration_clean"))
+    reg_clean = listing.get("registration_clean")
+
+    # Skip listings with no N-number — we can't verify anything about them
+    if not reg_clean or reg_clean == "N/A":
+        return None
 
     ads = listing.get("ads_applies")
     acc = listing.get("accidents")
 
     flags = []
     if ads and ads > 0:
-        flags.append(f"**{ads} AD{'s' if ads != 1 else ''}** apply")
+        verb = "applies" if ads == 1 else "apply"
+        flags.append(f"**{ads} AD{'s' if ads != 1 else ''}** {verb}")
     if acc and acc > 0:
         flags.append(f"**{acc} NTSB accident{'s' if acc != 1 else ''}** on record")
 
@@ -39,7 +43,7 @@ def build_listing_sentence(listing):
     else:
         flag_str = " — clean history (no applicable ADs or accidents)"
 
-    return f"- {year} {model} ({reg}){flag_str}"
+    return f"- {year} {model} ({reg_clean}){flag_str}"
 
 
 def build_email(broker_name, listings):
@@ -55,7 +59,7 @@ def build_email(broker_name, listings):
     lines.append(f"Hi {broker_name},")
     lines.append("")
     lines.append(
-        f"I noticed you have {n} Cessna 172 {n_word} listed on Controller.com. "
+        f"I noticed you have {n} Cessna 172 {n_word} on Controller.com. "
         f"I ran each aircraft's N-number through a free AD and accident-history tool "
         f"I built, and thought the results might be useful to you."
     )
@@ -63,8 +67,16 @@ def build_email(broker_name, listings):
     lines.append("Here's what the tool flagged:")
     lines.append("")
 
-    for listing in listings[:5]:  # top 5
-        lines.append(build_listing_sentence(listing))
+        sentences = []
+    for listing in listings:
+        s = build_listing_sentence(listing)
+        if s:
+            sentences.append(s)
+        if len(sentences) >= 5:
+            break
+
+    for s in sentences:
+        lines.append(s)
 
     if n > 5:
         lines.append(f"- ...and {n - 5} more")
