@@ -73,9 +73,10 @@ def enrich_listing(listing):
 
     time.sleep(API_DELAY)
 
-    # 3. SDRs by model
-    if make and model:
-        sdr_url = f"{API_BASE}/sdrs?make={urllib.parse.quote(make)}&model={urllib.parse.quote(model)}"
+        # 3. SDRs by model — extract base model code from "172S SKYHAWK SP" → "172S"
+    model_code = model.strip().split()[0] if model else None
+    if make and model_code:
+        sdr_url = f"{API_BASE}/sdrs?make={urllib.parse.quote(make)}&model={urllib.parse.quote(model_code)}"
         sdr_data = fetch_json(sdr_url)
         if "total" in sdr_data:
             listing["sdr_count"] = sdr_data["total"]
