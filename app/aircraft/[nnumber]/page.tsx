@@ -4,20 +4,19 @@ import type { Metadata } from 'next';
 import fs from 'fs';
 import path from 'path';
 
-const TEST_LIMIT: number | null = 3000;
-
 const DATA_DIR = path.join(process.cwd(), 'data');
 const PAGES_FILE = path.join(DATA_DIR, 'aircraft-pages.json');
 const DATA_FILE = path.join(DATA_DIR, 'aircraft-data.json');
+const ENRICHMENT_FILE = path.join(DATA_DIR, 'aircraft-enrichment.json');
 
 let cachedData: Record<string, any> | null = null;
 let cachedList: string[] | null = null;
+let cachedEnrichment: Record<string, { accidents?: number; sdrs?: number }> | null = null;
 
 function loadNNumberList(): string[] {
   if (cachedList) return cachedList;
   const raw = fs.readFileSync(PAGES_FILE, 'utf-8');
-  const list = JSON.parse(raw) as string[];
-  cachedList = TEST_LIMIT ? list.slice(0, TEST_LIMIT) : list;
+  cachedList = JSON.parse(raw) as string[];
   return cachedList;
 }
 
@@ -26,6 +25,17 @@ function loadAircraftData(): Record<string, any> {
   const raw = fs.readFileSync(DATA_FILE, 'utf-8');
   cachedData = JSON.parse(raw);
   return cachedData!;
+}
+
+function loadEnrichment(): Record<string, { accidents?: number; sdrs?: number }> {
+  if (cachedEnrichment) return cachedEnrichment;
+  try {
+    const raw = fs.readFileSync(ENRICHMENT_FILE, 'utf-8');
+    cachedEnrichment = JSON.parse(raw);
+  } catch {
+    cachedEnrichment = {};
+  }
+  return cachedEnrichment!;
 }
 
 function severityLabel(raw: string | undefined): string {
@@ -49,22 +59,53 @@ function slugify(s: string) {
     .replace(/^-|-$/g, '');
 }
 
-function shouldIndex(entry: any): boolean {
-  const ac = entry.aircraft;
-  const fields = [
-    ac.make,
-    ac.model,
-    ac.year,
-    ac.serial_number,
-    ac.owner_name,
-  ].filter(Boolean).length;
+// ============================================================
+// QUALITY GATE — MUST MATCH sitemap.ts
+// Gate: 5+ accidents OR 10+ SDRs OR in seeded family
+// ============================================================
 
-  if (fields < 4) return false;
+const ACC_MIN = 5;
+const SDR_MIN = 10;
 
-  const accidentCount = (entry.accidents || []).length;
-  const adCount = (entry.directives || []).length;
+const SEEDED_FAMILIES = [
+  { make: 'cessna', model: '152' },
+  { make: 'cessna', model: '172' },
+  { make: 'cessna', model: '182' },
+  { make: 'piper', model: 'pa-28' },
+  { make: 'cirrus', model: 'sr22' },
+  { make: 'beech', model: '36' },
+  { make: 'beechcraft', model: '36' },
+  { make: 'raytheon', model: '36' },
+  { make: 'textron', model: '36' },
+  { make: 'hawker', model: '36' },
+];
 
-  return accidentCount >= 2 || adCount >= 3;
+function isSeededFamily(make: string, model: string): boolean {
+  if (!make || !model) return false;
+  const m = make.toLowerCase();
+  const mo = model.toLowerCase();
+  return SEEDED_FAMILIES.some(
+    (f) => m.includes(f.make) && mo.includes(f.model)
+  );
+}
+
+function shouldIndex(nNumber: string, entry: any): boolean {
+  const ac = entry?.aircraft || {};
+  const make = ac.make || '';
+  const model = ac.model || '';
+
+  // Seeded families always index
+  if (isSeededFamily(make, model)) return true;
+
+  // Otherwise, check enrichment data
+  const enrichment = loadEnrichment();
+  const enr = enrichment[nNumber];
+  if (!enr) return false;
+
+  if ((enr.accidents || 0) >= ACC_MIN) return true;
+  if ((enr.sdrs || 0) >= SDR_MIN) return true;
+
+  return false;
 }
 
 export const dynamic = 'force-static';
@@ -101,7 +142,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     metaTitle = nnumber;
   }
 
-  const indexable = shouldIndex(entry);
+  const indexable = shouldIndex(nnumber, entry);
 
   return {
     title: { absolute: metaTitle },
@@ -146,6 +187,12 @@ export default async function AircraftPage({ params }: Props) {
   const hasAccidents = accidents && accidents.length > 0;
   const hasDirectives = directives && directives.length > 0;
 
+  // Load enrichment data for this aircraft
+  const enrichment = loadEnrichment();
+  const enr = enrichment[nnumber] || {};
+  const sdrCount = enr.sdrs || 0;
+  const seeded = isSeededFamily(aircraft.make || '', aircraft.model || '');
+
   const aircraftTitle = [aircraft.year, aircraft.make, aircraft.model]
     .filter(Boolean)
     .join(' ');
@@ -154,19 +201,54 @@ export default async function AircraftPage({ params }: Props) {
     .filter(Boolean)
     .join(', ');
 
-  const answerParagraph = `${nnumber} is a ${aircraftTitle || 'US-registered aircraft'}${
-    aircraft.owner_name ? ` registered to ${aircraft.owner_name}` : ''
-  }${ownerLocation ? ` in ${ownerLocation}` : ''}. Its FAA registration status is ${
-    aircraft.registration_status || 'unknown'
-  }. ${
-    hasAccidents
-      ? `It has ${accidents.length} NTSB accident record${accidents.length === 1 ? '' : 's'} on file.`
-      : 'It has no NTSB accident records on file.'
-  } ${
-    hasDirectives
-      ? `${directives.length} Airworthiness Directive${directives.length === 1 ? '' : 's'} may apply.`
-      : ''
-  }`.trim();
+  // Build a data-driven unique intro paragraph
+  const introParts: string[] = [];
+
+  introParts.push(
+    `${nnumber} is a ${aircraftTitle || 'US-registered aircraft'}${
+      aircraft.owner_name ? ` registered to ${aircraft.owner_name}` : ''
+    }${ownerLocation ? ` in ${ownerLocation}` : ''}.`
+  );
+
+  introParts.push(
+    `Its FAA registration status is ${aircraft.registration_status || 'unknown'}.`
+  );
+
+  if (hasAccidents) {
+    introParts.push(
+      `This aircraft has ${accidents.length} NTSB accident record${
+        accidents.length === 1 ? '' : 's'
+      } on file${
+        accidents[0].event_date ? `, the most recent in ${accidents[0].event_date.slice(0, 4)}` : ''
+      }.`
+    );
+  } else {
+    introParts.push('It has no NTSB accident records on file.');
+  }
+
+  if (hasDirectives) {
+    introParts.push(
+      `${directives.length} Airworthiness Directive${
+        directives.length === 1 ? '' : 's'
+      } match this make and model.`
+    );
+  }
+
+  if (sdrCount > 0) {
+    introParts.push(
+      `${sdrCount} Service Difficulty Report${
+        sdrCount === 1 ? '' : 's'
+      } filed for this model on record.`
+    );
+  }
+
+  if (seeded) {
+    introParts.push(
+      'This aircraft is in one of the families with verified serial-level AD matching on NNumberCheck.'
+    );
+  }
+
+  const answerParagraph = introParts.join(' ');
 
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
@@ -474,7 +556,6 @@ export default async function AircraftPage({ params }: Props) {
                 the aircraft&apos;s logbooks before purchase.
               </p>
 
-              {/* Free AD Check link */}
               <div className="mt-5 pt-5 border-t border-slate-100">
                 <Link
                   href={`/ad-check/result?n=${nnumber}`}
@@ -510,6 +591,28 @@ export default async function AircraftPage({ params }: Props) {
           </div>
         )}
 
+        {/* SDR section — only if SDRs exist for this aircraft */}
+        {sdrCount > 0 && (
+          <div>
+            <h2 className="text-2xl font-bold text-slate-900 mb-6">
+              Service Difficulty Reports
+            </h2>
+            <div className="border border-slate-200 rounded-2xl p-6">
+              <p className="text-slate-600 text-sm leading-relaxed">
+                {sdrCount} Service Difficulty Report{sdrCount === 1 ? '' : 's'} on file
+                for the {aircraft.make} {aircraft.model} model. SDRs are
+                mechanic-filed reports of real failures and defects submitted
+                to the FAA. They indicate failure patterns for this model type,
+                though they are not regulatory mandates.
+              </p>
+              <p className="mt-3 text-xs text-slate-500">
+                SDR data is sourced from the FAA Service Difficulty Reporting System.
+                Full SDR details are included in the paid report.
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* Fleet context */}
         <div>
           <h2 className="text-2xl font-bold text-slate-900 mb-6">
@@ -533,11 +636,20 @@ export default async function AircraftPage({ params }: Props) {
                 ? `This aircraft may be affected by ${directives.length} Airworthiness Directive${directives.length === 1 ? '' : 's'} issued by the FAA. ADs are mandatory safety directives that must be complied with for the aircraft to remain legally airworthy. Buyers should verify AD compliance in the aircraft's logbook and maintenance records.`
                 : `No Airworthiness Directives matched this aircraft's make and model in our database. AD applicability can change as new directives are issued. Buyers should confirm current AD status with the FAA before purchase.`}
             </p>
+            {sdrCount > 0 && (
+              <p>
+                {sdrCount} Service Difficulty Report{sdrCount === 1 ? '' : 's'} have been filed
+                by mechanics for the {aircraft.make} {aircraft.model} model. These reports
+                document actual failures and defects encountered in service,
+                providing real-world reliability context for buyers.
+              </p>
+            )}
             <p>
               Data on this page is sourced from the FAA Releasable Aircraft
-              Database, NTSB Aviation Accident Reports, and the Federal Register.
-              All data is public and refreshes automatically on a weekly basis.
-              For a complete report including the full ownership chain, all AD
+              Database, NTSB Aviation Accident Reports, the Federal Register,
+              and the FAA Service Difficulty Reporting System. All data is
+              public and refreshes automatically on a weekly basis. For a
+              complete report including the full ownership chain, all AD
               documents, and a downloadable PDF, see the full history report
               option below.
             </p>
