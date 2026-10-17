@@ -13,54 +13,8 @@ let cachedData: Record<string, any> | null = null;
 let cachedList: string[] | null = null;
 let cachedEnrichment: Record<string, { accidents?: number; sdrs?: number }> | null = null;
 
-function loadNNumberList(): string[] {
-  if (cachedList) return cachedList;
-  const raw = fs.readFileSync(PAGES_FILE, 'utf-8');
-  cachedList = JSON.parse(raw) as string[];
-  return cachedList;
-}
-
-function loadAircraftData(): Record<string, any> {
-  if (cachedData) return cachedData;
-  const raw = fs.readFileSync(DATA_FILE, 'utf-8');
-  cachedData = JSON.parse(raw);
-  return cachedData!;
-}
-
-function loadEnrichment(): Record<string, { accidents?: number; sdrs?: number }> {
-  if (cachedEnrichment) return cachedEnrichment;
-  try {
-    const raw = fs.readFileSync(ENRICHMENT_FILE, 'utf-8');
-    cachedEnrichment = JSON.parse(raw);
-  } catch {
-    cachedEnrichment = {};
-  }
-  return cachedEnrichment!;
-}
-
-function severityLabel(raw: string | undefined): string {
-  if (!raw) return 'Injuries not yet reported';
-  const s = raw.toLowerCase().trim();
-  if (s === 'fatal') return 'Fatal injuries';
-  if (s === 'serious') return 'Serious injuries';
-  if (s === 'minor') return 'Minor injuries';
-  if (s === 'none') return 'No injuries reported';
-  if (s === 'unknown' || s === 'n/a') return 'Injuries not yet reported';
-  return raw;
-}
-
-function slugify(s: string) {
-  return s
-    .toLowerCase()
-    .replace(/[/\\]/g, '-')
-    .replace(/[^a-z0-9\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '');
-}
-
 // ============================================================
-// QUALITY GATE — MUST MATCH sitemap.ts
+// QUALITY GATE — MUST MATCH sitemap.ts AND reduce Cloudflare file count
 // Gate: 5+ accidents OR 10+ SDRs OR in seeded family
 // ============================================================
 
@@ -89,15 +43,87 @@ function isSeededFamily(make: string, model: string): boolean {
   );
 }
 
+function loadAircraftData(): Record<string, any> {
+  if (cachedData) return cachedData;
+  const raw = fs.readFileSync(DATA_FILE, 'utf-8');
+  cachedData = JSON.parse(raw);
+  return cachedData!;
+}
+
+function loadEnrichment(): Record<string, { accidents?: number; sdrs?: number }> {
+  if (cachedEnrichment) return cachedEnrichment;
+  try {
+    const raw = fs.readFileSync(ENRICHMENT_FILE, 'utf-8');
+    cachedEnrichment = JSON.parse(raw);
+  } catch {
+    cachedEnrichment = {};
+  }
+  return cachedEnrichment!;
+}
+
+// IMPORTANT: this returns only the aircraft that pass the quality gate.
+// This is what keeps the build under Cloudflare's 20,000 file limit.
+function loadNNumberList(): string[] {
+  if (cachedList) return cachedList;
+  const raw = fs.readFileSync(PAGES_FILE, 'utf-8');
+  const allAircraft = JSON.parse(raw) as string[];
+
+  const data = loadAircraftData();
+  const enrichment = loadEnrichment();
+
+  cachedList = allAircraft.filter((n) => {
+    const entry = data[n];
+    if (!entry) return false;
+
+    const ac = entry.aircraft || {};
+    const make = ac.make || '';
+    const model = ac.model || '';
+
+    // Seeded families always pass
+    if (isSeededFamily(make, model)) return true;
+
+    // Otherwise check enrichment
+    const enr = enrichment[n];
+    if (!enr) return false;
+
+    if ((enr.accidents || 0) >= ACC_MIN) return true;
+    if ((enr.sdrs || 0) >= SDR_MIN) return true;
+
+    return false;
+  });
+
+  console.log(`[aircraft pages] ${allAircraft.length} total → ${cachedList.length} after quality gate`);
+  return cachedList;
+}
+
+function severityLabel(raw: string | undefined): string {
+  if (!raw) return 'Injuries not yet reported';
+  const s = raw.toLowerCase().trim();
+  if (s === 'fatal') return 'Fatal injuries';
+  if (s === 'serious') return 'Serious injuries';
+  if (s === 'minor') return 'Minor injuries';
+  if (s === 'none') return 'No injuries reported';
+  if (s === 'unknown' || s === 'n/a') return 'Injuries not yet reported';
+  return raw;
+}
+
+function slugify(s: string) {
+  return s
+    .toLowerCase()
+    .replace(/[/\\]/g, '-')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
 function shouldIndex(nNumber: string, entry: any): boolean {
   const ac = entry?.aircraft || {};
   const make = ac.make || '';
   const model = ac.model || '';
 
-  // Seeded families always index
   if (isSeededFamily(make, model)) return true;
 
-  // Otherwise, check enrichment data
   const enrichment = loadEnrichment();
   const enr = enrichment[nNumber];
   if (!enr) return false;
@@ -187,7 +213,6 @@ export default async function AircraftPage({ params }: Props) {
   const hasAccidents = accidents && accidents.length > 0;
   const hasDirectives = directives && directives.length > 0;
 
-  // Load enrichment data for this aircraft
   const enrichment = loadEnrichment();
   const enr = enrichment[nnumber] || {};
   const sdrCount = enr.sdrs || 0;
@@ -201,19 +226,15 @@ export default async function AircraftPage({ params }: Props) {
     .filter(Boolean)
     .join(', ');
 
-  // Build a data-driven unique intro paragraph
   const introParts: string[] = [];
-
   introParts.push(
     `${nnumber} is a ${aircraftTitle || 'US-registered aircraft'}${
       aircraft.owner_name ? ` registered to ${aircraft.owner_name}` : ''
     }${ownerLocation ? ` in ${ownerLocation}` : ''}.`
   );
-
   introParts.push(
     `Its FAA registration status is ${aircraft.registration_status || 'unknown'}.`
   );
-
   if (hasAccidents) {
     introParts.push(
       `This aircraft has ${accidents.length} NTSB accident record${
@@ -225,7 +246,6 @@ export default async function AircraftPage({ params }: Props) {
   } else {
     introParts.push('It has no NTSB accident records on file.');
   }
-
   if (hasDirectives) {
     introParts.push(
       `${directives.length} Airworthiness Directive${
@@ -233,7 +253,6 @@ export default async function AircraftPage({ params }: Props) {
       } match this make and model.`
     );
   }
-
   if (sdrCount > 0) {
     introParts.push(
       `${sdrCount} Service Difficulty Report${
@@ -241,37 +260,20 @@ export default async function AircraftPage({ params }: Props) {
       } filed for this model on record.`
     );
   }
-
   if (seeded) {
     introParts.push(
       'This aircraft is in one of the families with verified serial-level AD matching on NNumberCheck.'
     );
   }
-
   const answerParagraph = introParts.join(' ');
 
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: 'https://nnumbercheck.com',
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Aircraft',
-        item: 'https://nnumbercheck.com/aircraft',
-      },
-      {
-        '@type': 'ListItem',
-        position: 3,
-        name: `${nnumber} — ${aircraftTitle}`,
-        item: `https://nnumbercheck.com/aircraft/${nnumber}`,
-      },
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://nnumbercheck.com' },
+      { '@type': 'ListItem', position: 2, name: 'Aircraft', item: 'https://nnumbercheck.com/aircraft' },
+      { '@type': 'ListItem', position: 3, name: `${nnumber} — ${aircraftTitle}`, item: `https://nnumbercheck.com/aircraft/${nnumber}` },
     ],
   };
 
@@ -281,10 +283,7 @@ export default async function AircraftPage({ params }: Props) {
     '@id': `https://nnumbercheck.com/aircraft/${nnumber}#vehicle`,
     name: aircraftTitle || nnumber,
     vehicleIdentificationNumber: nnumber,
-    brand: {
-      '@type': 'Brand',
-      name: aircraft.make || 'Unknown',
-    },
+    brand: { '@type': 'Brand', name: aircraft.make || 'Unknown' },
     model: aircraft.model || undefined,
     productionDate: aircraft.year ? `${aircraft.year}` : undefined,
     vehicleRegistration: {
@@ -295,36 +294,21 @@ export default async function AircraftPage({ params }: Props) {
   };
 
   const faqItems = [
-    {
-      question: `What is aircraft ${nnumber}?`,
-      answer: answerParagraph,
-    },
+    { question: `What is aircraft ${nnumber}?`, answer: answerParagraph },
     ...(hasAccidents
-      ? [
-          {
-            question: `Has ${nnumber} been in an accident?`,
-            answer: `Yes. ${nnumber} has ${accidents.length} NTSB accident record${
-              accidents.length === 1 ? '' : 's'
-            } on file. The most recent was on ${
-              accidents[0].event_date
-            } in ${accidents[0].location}.`,
-          },
-        ]
-      : [
-          {
-            question: `Has ${nnumber} been in an accident?`,
-            answer: `No. There are no NTSB accident records for ${nnumber} in the database covering 1982 to present.`,
-          },
-        ]),
+      ? [{
+          question: `Has ${nnumber} been in an accident?`,
+          answer: `Yes. ${nnumber} has ${accidents.length} NTSB accident record${accidents.length === 1 ? '' : 's'} on file. The most recent was on ${accidents[0].event_date} in ${accidents[0].location}.`,
+        }]
+      : [{
+          question: `Has ${nnumber} been in an accident?`,
+          answer: `No. There are no NTSB accident records for ${nnumber} in the database covering 1982 to present.`,
+        }]),
     ...(hasDirectives
-      ? [
-          {
-            question: `What Airworthiness Directives apply to ${nnumber}?`,
-            answer: `${directives.length} potentially applicable Airworthiness Directive${
-              directives.length === 1 ? '' : 's'
-            } found for this aircraft. ADs are FAA-mandated safety directives that must be complied with for the aircraft to remain airworthy.`,
-          },
-        ]
+      ? [{
+          question: `What Airworthiness Directives apply to ${nnumber}?`,
+          answer: `${directives.length} potentially applicable Airworthiness Directive${directives.length === 1 ? '' : 's'} found for this aircraft.`,
+        }]
       : []),
   ];
 
@@ -334,20 +318,12 @@ export default async function AircraftPage({ params }: Props) {
     mainEntity: faqItems.map((item) => ({
       '@type': 'Question',
       name: item.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: item.answer,
-      },
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
     })),
   };
 
   const related = Object.entries(data)
-    .filter(
-      ([n, e]) =>
-        n !== nnumber &&
-        e.aircraft?.make === aircraft.make &&
-        e.aircraft?.model === aircraft.model
-    )
+    .filter(([n, e]) => n !== nnumber && e.aircraft?.make === aircraft.make && e.aircraft?.model === aircraft.model)
     .slice(0, 6)
     .map(([n]) => n);
 
@@ -356,36 +332,14 @@ export default async function AircraftPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-white">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, '\\u003c'),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(vehicleJsonLd).replace(/</g, '\\u003c'),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(faqJsonLd).replace(/</g, '\\u003c'),
-        }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, '\\u003c') }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(vehicleJsonLd).replace(/</g, '\\u003c') }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd).replace(/</g, '\\u003c') }} />
 
       <header className="border-b border-slate-200 bg-white">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-bold text-sky-600">
-            NNumberCheck
-          </Link>
-          <Link
-            href="/"
-            className="text-sm font-medium text-sky-600 hover:underline"
-          >
-            ← New search
-          </Link>
+          <Link href="/" className="text-2xl font-bold text-sky-600">NNumberCheck</Link>
+          <Link href="/" className="text-sm font-medium text-sky-600 hover:underline">← New search</Link>
         </div>
       </header>
 
@@ -400,33 +354,19 @@ export default async function AircraftPage({ params }: Props) {
       <section className="bg-gradient-to-b from-sky-50 to-white border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-6 py-12">
           <div className="flex items-baseline gap-4 flex-wrap">
-            <h1 className="text-4xl md:text-5xl font-bold font-mono">
-              {aircraft.n_number}
-            </h1>
-            <span
-              className={`px-3 py-1 rounded-full text-sm font-medium ${
-                aircraft.registration_status === 'Valid'
-                  ? 'bg-green-100 text-green-700'
-                  : 'bg-amber-100 text-amber-700'
-              }`}
-            >
+            <h1 className="text-4xl md:text-5xl font-bold font-mono">{aircraft.n_number}</h1>
+            <span className={`px-3 py-1 rounded-full text-sm font-medium ${aircraft.registration_status === 'Valid' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}`}>
               {aircraft.registration_status} Registration
             </span>
           </div>
           <p className="mt-4 text-xl text-slate-700">{aircraftTitle}</p>
-
-          <p className="mt-6 text-lg text-slate-700 max-w-3xl leading-relaxed">
-            {answerParagraph}
-          </p>
+          <p className="mt-6 text-lg text-slate-700 max-w-3xl leading-relaxed">{answerParagraph}</p>
         </div>
       </section>
 
       <section className="max-w-6xl mx-auto px-6 py-12 space-y-12">
-        {/* Registration */}
         <div>
-          <h2 className="text-2xl font-bold text-slate-900 mb-6">
-            Registration Details
-          </h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-6">Registration Details</h2>
           <div className="border border-slate-200 rounded-2xl p-6">
             <dl className="grid sm:grid-cols-2 gap-4 text-sm">
               <Detail label="N-Number" value={aircraft.n_number} mono />
@@ -441,296 +381,109 @@ export default async function AircraftPage({ params }: Props) {
               <Detail label="Owner State" value={aircraft.owner_state} />
             </dl>
           </div>
-
-          <p className="mt-4 text-sm text-slate-600 leading-relaxed">
-            The {aircraft.make} {aircraft.model} is registered with the FAA
-            under N-number {nnumber}. {aircraft.year ? `This airframe was manufactured in ${aircraft.year}. ` : ''}
-            {aircraft.serial_number ? `Its manufacturer serial number is ${aircraft.serial_number}. ` : ''}
-            {aircraft.airworthiness_date ? `The aircraft was issued its airworthiness certificate on ${aircraft.airworthiness_date}. ` : ''}
-            {aircraft.owner_name ? `The current registered owner is ${aircraft.owner_name}${ownerLocation ? `, based in ${ownerLocation}` : ''}. ` : ''}
-            Registration data is sourced from the FAA Releasable Aircraft
-            Database and refreshed weekly.
-          </p>
         </div>
 
-        {/* Accidents */}
         <div>
-          <h2 className="text-2xl font-bold text-slate-900 mb-6">
-            Accident History
-          </h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-6">Accident History</h2>
           <div className="border border-slate-200 rounded-2xl p-6">
             {!hasAccidents ? (
               <>
-                <p className="text-slate-600 text-sm">
-                  No NTSB accidents found for this aircraft.
-                </p>
+                <p className="text-slate-600 text-sm">No NTSB accidents found for this aircraft.</p>
                 <p className="mt-3 text-sm text-slate-600 leading-relaxed">
-                  {nnumber} has no recorded NTSB accidents or incidents in the
-                  database covering 1982 to present. This means the aircraft has
-                  not been involved in any reportable accident within the last
-                  40+ years of NTSB records. A clean accident history is a
-                  positive indicator during pre-buy inspection, though it does
-                  not replace a full mechanical evaluation or logbook review.
+                  {nnumber} has no recorded NTSB accidents or incidents in the database covering 1982 to present.
                 </p>
               </>
             ) : (
               <>
                 <div className="space-y-4">
                   {accidents.map((acc: any) => (
-                    <div
-                      key={acc.id}
-                      className="text-sm border-l-2 border-red-400 pl-4"
-                    >
+                    <div key={acc.id} className="text-sm border-l-2 border-red-400 pl-4">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="bg-red-100 text-red-700 px-2 py-0.5 rounded text-xs font-medium">
-                          {severityLabel(acc.severity)}
-                        </span>
+                        <span className="bg-red-100 text-red-700 px-2 py-0.5 rounded text-xs font-medium">{severityLabel(acc.severity)}</span>
                         <span className="text-slate-500">{acc.event_date}</span>
                       </div>
-                      <p className="mt-1 font-medium text-slate-700">
-                        {acc.location}
-                      </p>
+                      <p className="mt-1 font-medium text-slate-700">{acc.location}</p>
                       <p className="mt-1 text-slate-600">{acc.summary}</p>
                     </div>
                   ))}
                 </div>
-                <p className="mt-4 text-xs text-slate-400 italic">
-                  Severity reflects injuries to people involved, not damage to
-                  the aircraft. A &ldquo;no injuries&rdquo; accident can still
-                  involve significant aircraft damage.
-                </p>
-
-                <p className="mt-4 text-sm text-slate-600 leading-relaxed">
-                  {nnumber} has been involved in {accidents.length} NTSB
-                  accident{accidents.length === 1 ? '' : 's'} since 1982. Each
-                  record above includes the date, location, severity, and NTSB
-                  summary. Buyers should review the full accident narratives and
-                  verify repairs in the aircraft&apos;s logbooks before purchase.
-                </p>
               </>
             )}
           </div>
         </div>
 
-        {/* AD preview */}
         {hasDirectives && (
           <div>
-            <h2 className="text-2xl font-bold text-slate-900 mb-6">
-              Applicable Airworthiness Directives
-            </h2>
+            <h2 className="text-2xl font-bold text-slate-900 mb-6">Applicable Airworthiness Directives</h2>
             <div className="border border-slate-200 rounded-2xl p-6">
-              <div className="flex items-baseline justify-between flex-wrap gap-2 mb-2">
-                <span className="text-xs text-slate-500">
-                  {directives.length} found
-                </span>
-              </div>
-
-              <div className="border-l-4 border-amber-400 pl-5 py-2">
+              <span className="text-xs text-slate-500">{directives.length} found</span>
+              <div className="mt-3 border-l-4 border-amber-400 pl-5 py-2">
                 <div className="flex items-center gap-3 flex-wrap">
-                  <span className="bg-amber-100 text-amber-800 px-2 py-0.5 rounded text-xs font-semibold">
-                    AD {directives[0].ad_number}
-                  </span>
-                  {directives[0].effective_date && (
-                    <span className="text-slate-500 text-xs">
-                      Effective: {directives[0].effective_date}
-                    </span>
-                  )}
+                  <span className="bg-amber-100 text-amber-800 px-2 py-0.5 rounded text-xs font-semibold">AD {directives[0].ad_number}</span>
+                  {directives[0].effective_date && <span className="text-slate-500 text-xs">Effective: {directives[0].effective_date}</span>}
                 </div>
-                <p className="mt-2 font-semibold text-slate-800 text-sm">
-                  {directives[0].title}
-                </p>
-                {directives[0].abstract && (
-                  <p className="mt-1 text-slate-600 text-sm">
-                    {directives[0].abstract}
-                  </p>
-                )}
+                <p className="mt-2 font-semibold text-slate-800 text-sm">{directives[0].title}</p>
+                {directives[0].abstract && <p className="mt-1 text-slate-600 text-sm">{directives[0].abstract}</p>}
               </div>
-
-              <p className="mt-4 text-sm text-slate-600 leading-relaxed">
-                Airworthiness Directives (ADs) are FAA-mandated safety
-                directives that apply to specific aircraft, engines, or
-                components. {nnumber} may be affected by{' '}
-                {directives.length} directive{directives.length === 1 ? '' : 's'}.
-                All applicable ADs must be complied with for the aircraft to
-                remain legally airworthy. Buyers should verify AD compliance in
-                the aircraft&apos;s logbooks before purchase.
-              </p>
-
               <div className="mt-5 pt-5 border-t border-slate-100">
-                <Link
-                  href={`/ad-check/result?n=${nnumber}`}
-                  className="inline-flex items-center gap-2 text-sm font-medium text-sky-600 hover:underline"
-                >
-                  <span className="bg-sky-100 text-sky-700 px-2 py-0.5 rounded text-xs font-semibold">
-                    FREE
-                  </span>
+                <Link href={`/ad-check/result?n=${nnumber}`} className="inline-flex items-center gap-2 text-sm font-medium text-sky-600 hover:underline">
+                  <span className="bg-sky-100 text-sky-700 px-2 py-0.5 rounded text-xs font-semibold">FREE</span>
                   Check exact serial-number applicability for all {directives.length} ADs →
                 </Link>
               </div>
-
-              {directives.length > 1 && (
-                <div className="mt-6 bg-slate-50 border border-dashed border-slate-300 rounded-xl p-5 text-center">
-                  <p className="text-sm font-medium text-slate-700">
-                    +{directives.length - 1} more Airworthiness Directive
-                    {directives.length - 1 === 1 ? '' : 's'} found for this
-                    aircraft
-                  </p>
-                  <p className="mt-1 text-xs text-slate-500">
-                    Full list, with effective dates and links to the official
-                    Federal Register documents, is included in the paid report.
-                  </p>
-                  <Link
-                    href={`/n?number=${nnumber}`}
-                    className="mt-4 inline-block bg-sky-600 text-white px-6 py-2 rounded-lg font-semibold text-sm hover:bg-sky-700 transition"
-                  >
-                    Get the full report →
-                  </Link>
-                </div>
-              )}
             </div>
           </div>
         )}
 
-        {/* SDR section — only if SDRs exist for this aircraft */}
         {sdrCount > 0 && (
           <div>
-            <h2 className="text-2xl font-bold text-slate-900 mb-6">
-              Service Difficulty Reports
-            </h2>
+            <h2 className="text-2xl font-bold text-slate-900 mb-6">Service Difficulty Reports</h2>
             <div className="border border-slate-200 rounded-2xl p-6">
               <p className="text-slate-600 text-sm leading-relaxed">
-                {sdrCount} Service Difficulty Report{sdrCount === 1 ? '' : 's'} on file
-                for the {aircraft.make} {aircraft.model} model. SDRs are
-                mechanic-filed reports of real failures and defects submitted
-                to the FAA. They indicate failure patterns for this model type,
-                though they are not regulatory mandates.
-              </p>
-              <p className="mt-3 text-xs text-slate-500">
-                SDR data is sourced from the FAA Service Difficulty Reporting System.
-                Full SDR details are included in the paid report.
+                {sdrCount} Service Difficulty Report{sdrCount === 1 ? '' : 's'} on file for the {aircraft.make} {aircraft.model} model. SDRs are mechanic-filed reports of real failures and defects submitted to the FAA.
               </p>
             </div>
           </div>
         )}
 
-        {/* Fleet context */}
-        <div>
-          <h2 className="text-2xl font-bold text-slate-900 mb-6">
-            About {aircraft.make} {aircraft.model} aircraft
-          </h2>
-          <div className="border border-slate-200 rounded-2xl p-6 space-y-3 text-sm text-slate-600 leading-relaxed">
-            <p>
-              The {aircraft.make} {aircraft.model}
-              {aircraft.year ? ` (${aircraft.year})` : ''} is one of the many
-              aircraft types tracked in the NNumberCheck database. This page
-              provides FAA registration data, complete NTSB accident history,
-              and applicable Airworthiness Directives for {nnumber} specifically.
-            </p>
-            <p>
-              {hasAccidents
-                ? `${nnumber} has ${accidents.length} NTSB accident record${accidents.length === 1 ? '' : 's'} on file. Each record shown above includes the date, location, injury severity, and NTSB summary. Buyers researching a ${aircraft.make} ${aircraft.model} should review the full accident narratives and verify that all required repairs were made by a licensed A&P mechanic.`
-                : `${nnumber} has no recorded NTSB accidents since 1982. A clean accident history is a positive indicator during pre-buy inspection, but it does not replace a full mechanical evaluation, logbook review, or title search.`}
-            </p>
-            <p>
-              {hasDirectives
-                ? `This aircraft may be affected by ${directives.length} Airworthiness Directive${directives.length === 1 ? '' : 's'} issued by the FAA. ADs are mandatory safety directives that must be complied with for the aircraft to remain legally airworthy. Buyers should verify AD compliance in the aircraft's logbook and maintenance records.`
-                : `No Airworthiness Directives matched this aircraft's make and model in our database. AD applicability can change as new directives are issued. Buyers should confirm current AD status with the FAA before purchase.`}
-            </p>
-            {sdrCount > 0 && (
-              <p>
-                {sdrCount} Service Difficulty Report{sdrCount === 1 ? '' : 's'} have been filed
-                by mechanics for the {aircraft.make} {aircraft.model} model. These reports
-                document actual failures and defects encountered in service,
-                providing real-world reliability context for buyers.
-              </p>
-            )}
-            <p>
-              Data on this page is sourced from the FAA Releasable Aircraft
-              Database, NTSB Aviation Accident Reports, the Federal Register,
-              and the FAA Service Difficulty Reporting System. All data is
-              public and refreshes automatically on a weekly basis. For a
-              complete report including the full ownership chain, all AD
-              documents, and a downloadable PDF, see the full history report
-              option below.
-            </p>
-          </div>
-        </div>
-
-        {/* Related aircraft */}
         {related.length > 0 && (
           <div>
-            <h2 className="text-2xl font-bold text-slate-900 mb-6">
-              Other {aircraft.make} {aircraft.model} aircraft in our database
-            </h2>
+            <h2 className="text-2xl font-bold text-slate-900 mb-6">Other {aircraft.make} {aircraft.model} aircraft</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {related.map((n) => (
-                <Link
-                  key={n}
-                  href={`/aircraft/${n}`}
-                  className="border border-slate-200 rounded-xl p-4 hover:border-sky-400 hover:bg-sky-50 transition"
-                >
-                  <span className="font-mono font-semibold text-slate-900">
-                    {n}
-                  </span>
+                <Link key={n} href={`/aircraft/${n}`} className="border border-slate-200 rounded-xl p-4 hover:border-sky-400 hover:bg-sky-50 transition">
+                  <span className="font-mono font-semibold text-slate-900">{n}</span>
                 </Link>
               ))}
             </div>
             <p className="mt-4 text-sm text-slate-600">
-              <Link
-                href={`/aircraft/make/${makeSlug}/model/${modelSlug}`}
-                className="text-sky-600 hover:underline font-medium"
-              >
+              <Link href={`/aircraft/make/${makeSlug}/model/${modelSlug}`} className="text-sky-600 hover:underline font-medium">
                 View all {aircraft.make} {aircraft.model} aircraft →
               </Link>
             </p>
           </div>
         )}
 
-        {/* CTA */}
         <div className="bg-sky-600 text-white rounded-2xl p-8 text-center">
-          <h2 className="text-2xl font-bold">
-            Get the complete history for {nnumber}
-          </h2>
-          <p className="mt-2 text-sky-100">
-            Full accident narratives, all Airworthiness Directives, ownership
-            chain, and a downloadable PDF.
-          </p>
+          <h2 className="text-2xl font-bold">Get the complete history for {nnumber}</h2>
+          <p className="mt-2 text-sky-100">Full accident narratives, all Airworthiness Directives, ownership chain, and a downloadable PDF.</p>
           <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center items-center">
-            <Link
-              href={`/n?number=${nnumber}`}
-              className="inline-block bg-white text-sky-600 px-8 py-3 rounded-xl font-semibold hover:bg-sky-50 transition"
-            >
+            <Link href={`/n?number=${nnumber}`} className="inline-block bg-white text-sky-600 px-8 py-3 rounded-xl font-semibold hover:bg-sky-50 transition">
               View Full Report →
             </Link>
-            <Link
-              href="/sample-report"
-              className="text-sm text-sky-100 hover:text-white underline"
-            >
-              See sample report
-            </Link>
+            <Link href="/sample-report" className="text-sm text-sky-100 hover:text-white underline">See sample report</Link>
           </div>
         </div>
       </section>
-
     </div>
   );
 }
 
-function Detail({
-  label,
-  value,
-  mono,
-}: {
-  label: string;
-  value: any;
-  mono?: boolean;
-}) {
+function Detail({ label, value, mono }: { label: string; value: any; mono?: boolean }) {
   return (
     <div className="flex justify-between border-b border-slate-100 pb-2">
       <dt className="text-slate-500">{label}</dt>
-      <dd className={`font-medium ${mono ? 'font-mono text-xs' : ''}`}>
-        {value || '—'}
-      </dd>
+      <dd className={`font-medium ${mono ? 'font-mono text-xs' : ''}`}>{value || '—'}</dd>
     </div>
   );
 }
