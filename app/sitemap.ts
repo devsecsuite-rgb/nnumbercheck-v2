@@ -38,39 +38,76 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/blog/how-to-check-aircraft-ad-history`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
   ];
 
-  const aircraftPages: MetadataRoute.Sitemap = (aircraftList as string[])
-    .slice(0, LIMIT)
-    .map((nNumber) => ({
-      url: `${BASE_URL}/aircraft/${nNumber}`,
-      lastModified: now,
-      changeFrequency: 'monthly' as const,
-      priority: 0.6,
-    }));
+// ============================================================
+// QUALITY GATE: only include aircraft with real unique data
+// Gate: 5+ accidents OR 10+ SDRs OR in seeded family
+// ============================================================
 
-  // Build the same 150 hub pages that generateStaticParams creates
-  const data = aircraftData as Record<string, any>;
-  const counts = new Map<string, { make: string; model: string; count: number }>();
+const ACC_MIN = 5;
+const SDR_MIN = 10;
 
-  for (const entry of Object.values(data)) {
-    const make = (entry as any).aircraft?.make;
-    const model = (entry as any).aircraft?.model;
-    if (!make || !model) continue;
-    const key = `${make}|${model}`;
-    const existing = counts.get(key);
-    if (existing) existing.count += 1;
-    else counts.set(key, { make, model, count: 1 });
+const SEEDED_FAMILIES = [
+  { make: 'cessna', model: '152' },
+  { make: 'cessna', model: '172' },
+  { make: 'cessna', model: '182' },
+  { make: 'piper', model: 'pa-28' },
+  { make: 'cirrus', model: 'sr22' },
+  { make: 'beech', model: '36' },
+  { make: 'beechcraft', model: '36' },
+  { make: 'raytheon', model: '36' },
+  { make: 'textron', model: '36' },
+  { make: 'hawker', model: '36' },
+];
+
+function isSeededFamily(make: string, model: string): boolean {
+  if (!make || !model) return false;
+  const m = make.toLowerCase();
+  const mo = model.toLowerCase();
+  return SEEDED_FAMILIES.some(
+    (f) => m.includes(f.make) && mo.includes(f.model)
+  );
+}
+
+// Load enrichment data — matches the file scripts/export_enrichment.py writes
+let enrichmentData: Record<string, { accidents?: number; sdrs?: number }> = {};
+try {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  enrichmentData = require('@/data/aircraft-enrichment.json');
+} catch {
+  // No enrichment file — only seeded families will be included
+}
+
+const filteredAircraft: string[] = [];
+
+for (const nNumber of (aircraftList as string[])) {
+  const entry = (aircraftData as Record<string, any>)[nNumber];
+  const aircraft = entry?.aircraft || entry || {};
+  const make = aircraft.make || '';
+  const model = aircraft.model || '';
+
+  // Always include seeded families
+  if (isSeededFamily(make, model)) {
+    filteredAircraft.push(nNumber);
+    continue;
   }
 
-  const hubPages: MetadataRoute.Sitemap = [...counts.values()]
-    .filter((p) => p.count >= 5)
-    .sort((a, b) => b.count - a.count)
-    .slice(0, 150)
-    .map(({ make, model }) => ({
-      url: `${BASE_URL}/aircraft/make/${slugify(make)}/model/${slugify(model)}`,
-      lastModified: now,
-      changeFrequency: 'weekly' as const,
-      priority: 0.7,
-    }));
+  // Otherwise, apply the enrichment gate
+  const enr = enrichmentData[nNumber];
+  if (enr) {
+    if ((enr.accidents || 0) >= ACC_MIN || (enr.sdrs || 0) >= SDR_MIN) {
+      filteredAircraft.push(nNumber);
+    }
+  }
+}
+
+const aircraftPages: MetadataRoute.Sitemap = filteredAircraft
+  .slice(0, 1200)
+  .map((nNumber) => ({
+    url: `${BASE_URL}/aircraft/${nNumber}`,
+    lastModified: now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }));
 
   return [...staticPages, ...aircraftPages, ...hubPages];
 }
