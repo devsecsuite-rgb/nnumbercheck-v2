@@ -5,7 +5,6 @@ import aircraftData from '@/data/aircraft-data.json';
 export const dynamic = 'force-static';
 
 const BASE_URL = 'https://nnumbercheck.com';
-const LIMIT = 3000;
 
 function slugify(s: string) {
   return s
@@ -17,29 +16,8 @@ function slugify(s: string) {
     .replace(/^-|-$/g, '');
 }
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
-
-  const staticPages: MetadataRoute.Sitemap = [
-    { url: `${BASE_URL}/`, lastModified: now, changeFrequency: 'daily', priority: 1.0 },
-    { url: `${BASE_URL}/aircraft`, lastModified: now, changeFrequency: 'daily', priority: 0.9 },
-    { url: `${BASE_URL}/ad-check`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE_URL}/sample-report`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${BASE_URL}/compare/aero-space-reports`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${BASE_URL}/about`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${BASE_URL}/privacy`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${BASE_URL}/terms`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${BASE_URL}/refund`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${BASE_URL}/disclaimer`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
-            { url: `${BASE_URL}/guides`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${BASE_URL}/guides/cessna-172`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${BASE_URL}/guides/piper-pa-28`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${BASE_URL}/blog`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
-    { url: `${BASE_URL}/blog/how-to-check-aircraft-ad-history`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-  ];
-
 // ============================================================
-// QUALITY GATE: only include aircraft with real unique data
+// QUALITY GATE for aircraft pages
 // Gate: 5+ accidents OR 10+ SDRs OR in seeded family
 // ============================================================
 
@@ -68,7 +46,7 @@ function isSeededFamily(make: string, model: string): boolean {
   );
 }
 
-// Load enrichment data — matches the file scripts/export_enrichment.py writes
+// Load enrichment data — written by scripts/export_enrichment.py
 let enrichmentData: Record<string, { accidents?: number; sdrs?: number }> = {};
 try {
   // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -77,37 +55,88 @@ try {
   // No enrichment file — only seeded families will be included
 }
 
-const filteredAircraft: string[] = [];
+// ============================================================
+// Sitemap generator
+// ============================================================
 
-for (const nNumber of (aircraftList as string[])) {
-  const entry = (aircraftData as Record<string, any>)[nNumber];
-  const aircraft = entry?.aircraft || entry || {};
-  const make = aircraft.make || '';
-  const model = aircraft.model || '';
+export default function sitemap(): MetadataRoute.Sitemap {
+  const now = new Date();
 
-  // Always include seeded families
-  if (isSeededFamily(make, model)) {
-    filteredAircraft.push(nNumber);
-    continue;
-  }
+  // ---------- Static pages ----------
+  const staticPages: MetadataRoute.Sitemap = [
+    { url: `${BASE_URL}/`, lastModified: now, changeFrequency: 'daily', priority: 1.0 },
+    { url: `${BASE_URL}/aircraft`, lastModified: now, changeFrequency: 'daily', priority: 0.9 },
+    { url: `${BASE_URL}/ad-check`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE_URL}/sample-report`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE_URL}/compare/aero-space-reports`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE_URL}/about`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${BASE_URL}/privacy`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${BASE_URL}/terms`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${BASE_URL}/refund`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${BASE_URL}/disclaimer`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${BASE_URL}/guides`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE_URL}/guides/cessna-172`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE_URL}/guides/piper-pa-28`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE_URL}/blog`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${BASE_URL}/blog/how-to-check-aircraft-ad-history`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+  ];
 
-  // Otherwise, apply the enrichment gate
-  const enr = enrichmentData[nNumber];
-  if (enr) {
-    if ((enr.accidents || 0) >= ACC_MIN || (enr.sdrs || 0) >= SDR_MIN) {
+  // ---------- Aircraft pages (quality-gated) ----------
+  const filteredAircraft: string[] = [];
+
+  for (const nNumber of (aircraftList as string[])) {
+    const entry = (aircraftData as Record<string, any>)[nNumber];
+    const aircraft = entry?.aircraft || entry || {};
+    const make = aircraft.make || '';
+    const model = aircraft.model || '';
+
+    // Always include seeded families
+    if (isSeededFamily(make, model)) {
       filteredAircraft.push(nNumber);
+      continue;
+    }
+
+    // Otherwise, apply the enrichment gate
+    const enr = enrichmentData[nNumber];
+    if (enr) {
+      if ((enr.accidents || 0) >= ACC_MIN || (enr.sdrs || 0) >= SDR_MIN) {
+        filteredAircraft.push(nNumber);
+      }
     }
   }
-}
 
-const aircraftPages: MetadataRoute.Sitemap = filteredAircraft
-  .slice(0, 1200)
-  .map((nNumber) => ({
-    url: `${BASE_URL}/aircraft/${nNumber}`,
-    lastModified: now,
-    changeFrequency: 'monthly' as const,
-    priority: 0.6,
-  }));
+  const aircraftPages: MetadataRoute.Sitemap = filteredAircraft
+    .slice(0, 1200)
+    .map((nNumber) => ({
+      url: `${BASE_URL}/aircraft/${nNumber}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    }));
+
+  // ---------- Hub pages (make/model combinations) ----------
+  const counts = new Map<string, { make: string; model: string; count: number }>();
+
+  for (const entry of Object.values(aircraftData as Record<string, any>)) {
+    const make = (entry as any).aircraft?.make;
+    const model = (entry as any).aircraft?.model;
+    if (!make || !model) continue;
+    const key = `${make}|${model}`;
+    const existing = counts.get(key);
+    if (existing) existing.count += 1;
+    else counts.set(key, { make, model, count: 1 });
+  }
+
+  const hubPages: MetadataRoute.Sitemap = [...counts.values()]
+    .filter((p) => p.count >= 5)
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 150)
+    .map(({ make, model }) => ({
+      url: `${BASE_URL}/aircraft/make/${slugify(make)}/model/${slugify(model)}`,
+      lastModified: now,
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    }));
 
   return [...staticPages, ...aircraftPages, ...hubPages];
 }
