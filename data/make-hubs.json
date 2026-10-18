@@ -1,0 +1,5229 @@
+{
+  "aero-commander": {
+    "make": "Aero Commander",
+    "slug": "aero-commander",
+    "raw_makes": [
+      "AERO COMMANDER"
+    ],
+    "total_aircraft": 714,
+    "models": [
+      {
+        "model": "112",
+        "count": 97,
+        "slug": "112"
+      },
+      {
+        "model": "100",
+        "count": 94,
+        "slug": "100"
+      },
+      {
+        "model": "500-B",
+        "count": 85,
+        "slug": "500-b"
+      },
+      {
+        "model": "100-180",
+        "count": 72,
+        "slug": "100-180"
+      },
+      {
+        "model": "S2R",
+        "count": 60,
+        "slug": "s2r"
+      },
+      {
+        "model": "200D",
+        "count": 54,
+        "slug": "200d"
+      },
+      {
+        "model": "500 S",
+        "count": 45,
+        "slug": "500-s"
+      },
+      {
+        "model": "500-A",
+        "count": 23,
+        "slug": "500-a"
+      },
+      {
+        "model": "CALLAIR A-9B",
+        "count": 23,
+        "slug": "callair-a-9b"
+      },
+      {
+        "model": "690A",
+        "count": 22,
+        "slug": "690a"
+      },
+      {
+        "model": "500",
+        "count": 12,
+        "slug": "500"
+      },
+      {
+        "model": "520",
+        "count": 12,
+        "slug": "520"
+      },
+      {
+        "model": "680",
+        "count": 12,
+        "slug": "680"
+      },
+      {
+        "model": "680-F",
+        "count": 11,
+        "slug": "680-f"
+      },
+      {
+        "model": "560-A",
+        "count": 10,
+        "slug": "560-a"
+      },
+      {
+        "model": "680FL",
+        "count": 10,
+        "slug": "680fl"
+      },
+      {
+        "model": "685",
+        "count": 9,
+        "slug": "685"
+      },
+      {
+        "model": "CALLAIR A-9",
+        "count": 7,
+        "slug": "callair-a-9"
+      },
+      {
+        "model": "560-F",
+        "count": 6,
+        "slug": "560-f"
+      },
+      {
+        "model": "681",
+        "count": 6,
+        "slug": "681"
+      }
+    ],
+    "total_accidents": 86,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N3662X",
+        "year": 1974,
+        "model": "S2R"
+      },
+      {
+        "n_number": "N1143J",
+        "year": 1974,
+        "model": "112"
+      },
+      {
+        "n_number": "N777CM",
+        "year": 1964,
+        "model": "500-B"
+      },
+      {
+        "n_number": "N5511X",
+        "year": 1973,
+        "model": "S2R"
+      },
+      {
+        "n_number": "N3718X",
+        "year": 1968,
+        "model": "100-180"
+      },
+      {
+        "n_number": "N51AR",
+        "year": 1970,
+        "model": "S2R"
+      }
+    ]
+  },
+  "aeronca": {
+    "make": "Aeronca",
+    "slug": "aeronca",
+    "raw_makes": [
+      "AERONCA"
+    ],
+    "total_aircraft": 3951,
+    "models": [
+      {
+        "model": "7AC",
+        "count": 1878,
+        "slug": "7ac"
+      },
+      {
+        "model": "11AC",
+        "count": 602,
+        "slug": "11ac"
+      },
+      {
+        "model": "7BCM",
+        "count": 175,
+        "slug": "7bcm"
+      },
+      {
+        "model": "15AC",
+        "count": 162,
+        "slug": "15ac"
+      },
+      {
+        "model": "65-CA",
+        "count": 140,
+        "slug": "65-ca"
+      },
+      {
+        "model": "0-58B",
+        "count": 132,
+        "slug": "0-58b"
+      },
+      {
+        "model": "7DC",
+        "count": 121,
+        "slug": "7dc"
+      },
+      {
+        "model": "7CCM",
+        "count": 91,
+        "slug": "7ccm"
+      },
+      {
+        "model": "11CC",
+        "count": 72,
+        "slug": "11cc"
+      },
+      {
+        "model": "65-C",
+        "count": 72,
+        "slug": "65-c"
+      },
+      {
+        "model": "11BC",
+        "count": 65,
+        "slug": "11bc"
+      },
+      {
+        "model": "7EC",
+        "count": 52,
+        "slug": "7ec"
+      },
+      {
+        "model": "C-3",
+        "count": 52,
+        "slug": "c-3"
+      },
+      {
+        "model": "65-TAC",
+        "count": 40,
+        "slug": "65-tac"
+      },
+      {
+        "model": "65-TC",
+        "count": 36,
+        "slug": "65-tc"
+      },
+      {
+        "model": "65-LB",
+        "count": 28,
+        "slug": "65-lb"
+      },
+      {
+        "model": "K",
+        "count": 22,
+        "slug": "k"
+      },
+      {
+        "model": "65-LA",
+        "count": 20,
+        "slug": "65-la"
+      },
+      {
+        "model": "65-TL",
+        "count": 19,
+        "slug": "65-tl"
+      },
+      {
+        "model": "7DC-CONV",
+        "count": 14,
+        "slug": "7dc-conv"
+      }
+    ],
+    "total_accidents": 427,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N1162H",
+        "year": 1948,
+        "model": "15AC"
+      },
+      {
+        "n_number": "N83391",
+        "year": 1946,
+        "model": "7DC"
+      },
+      {
+        "n_number": "N4101E",
+        "year": null,
+        "model": "11CC"
+      },
+      {
+        "n_number": "N1087E",
+        "year": null,
+        "model": "7AC"
+      },
+      {
+        "n_number": "N1069E",
+        "year": 1946,
+        "model": "7AC"
+      },
+      {
+        "n_number": "N3708E",
+        "year": 1947,
+        "model": "7AC"
+      }
+    ]
+  },
+  "aerostar-international-inc": {
+    "make": "Aerostar International Inc",
+    "slug": "aerostar-international-inc",
+    "raw_makes": [
+      "AEROSTAR INTERNATIONAL INC"
+    ],
+    "total_aircraft": 825,
+    "models": [
+      {
+        "model": "RX 8",
+        "count": 213,
+        "slug": "rx-8"
+      },
+      {
+        "model": "RX-7",
+        "count": 96,
+        "slug": "rx-7"
+      },
+      {
+        "model": "RAVEN S49A",
+        "count": 89,
+        "slug": "raven-s49a"
+      },
+      {
+        "model": "S-60A",
+        "count": 77,
+        "slug": "s-60a"
+      },
+      {
+        "model": "RXS-8",
+        "count": 64,
+        "slug": "rxs-8"
+      },
+      {
+        "model": "S53A",
+        "count": 63,
+        "slug": "s53a"
+      },
+      {
+        "model": "RAVEN S57-A",
+        "count": 38,
+        "slug": "raven-s57-a"
+      },
+      {
+        "model": "S-57A",
+        "count": 38,
+        "slug": "s-57a"
+      },
+      {
+        "model": "S-49A",
+        "count": 14,
+        "slug": "s-49a"
+      },
+      {
+        "model": "S-55A",
+        "count": 13,
+        "slug": "s-55a"
+      },
+      {
+        "model": "S57H",
+        "count": 13,
+        "slug": "s57h"
+      },
+      {
+        "model": "S-57S",
+        "count": 12,
+        "slug": "s-57s"
+      },
+      {
+        "model": "RAVEN S-55A",
+        "count": 10,
+        "slug": "raven-s-55a"
+      },
+      {
+        "model": "RAVEN S52A",
+        "count": 10,
+        "slug": "raven-s52a"
+      },
+      {
+        "model": "S-66A",
+        "count": 10,
+        "slug": "s-66a"
+      },
+      {
+        "model": "S-51A",
+        "count": 8,
+        "slug": "s-51a"
+      },
+      {
+        "model": "S-71A",
+        "count": 8,
+        "slug": "s-71a"
+      },
+      {
+        "model": "S-77A",
+        "count": 7,
+        "slug": "s-77a"
+      },
+      {
+        "model": "S-50A",
+        "count": 4,
+        "slug": "s-50a"
+      },
+      {
+        "model": "S81A",
+        "count": 4,
+        "slug": "s81a"
+      }
+    ],
+    "total_accidents": 199,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N9106Q",
+        "year": 1993,
+        "model": "RXS-8"
+      },
+      {
+        "n_number": "N3581D",
+        "year": 1989,
+        "model": "RX 8"
+      },
+      {
+        "n_number": "N9126K",
+        "year": 1998,
+        "model": "RX-7"
+      },
+      {
+        "n_number": "N5315M",
+        "year": 2002,
+        "model": "RX 8"
+      },
+      {
+        "n_number": "N90218",
+        "year": null,
+        "model": "RX 8"
+      },
+      {
+        "n_number": "N6319S",
+        "year": 1990,
+        "model": "RAVEN S49A"
+      }
+    ]
+  },
+  "air-tractor": {
+    "make": "Air Tractor",
+    "slug": "air-tractor",
+    "raw_makes": [
+      "AIR TRACTOR INC"
+    ],
+    "total_aircraft": 1811,
+    "models": [
+      {
+        "model": "AT-802A",
+        "count": 576,
+        "slug": "at-802a"
+      },
+      {
+        "model": "AT-502B",
+        "count": 328,
+        "slug": "at-502b"
+      },
+      {
+        "model": "AT-602",
+        "count": 246,
+        "slug": "at-602"
+      },
+      {
+        "model": "AT-802",
+        "count": 108,
+        "slug": "at-802"
+      },
+      {
+        "model": "AT-502A",
+        "count": 96,
+        "slug": "at-502a"
+      },
+      {
+        "model": "AT-301",
+        "count": 84,
+        "slug": "at-301"
+      },
+      {
+        "model": "AT-502",
+        "count": 78,
+        "slug": "at-502"
+      },
+      {
+        "model": "AT-402B",
+        "count": 77,
+        "slug": "at-402b"
+      },
+      {
+        "model": "AT-401",
+        "count": 50,
+        "slug": "at-401"
+      },
+      {
+        "model": "AT-402A",
+        "count": 48,
+        "slug": "at-402a"
+      },
+      {
+        "model": "AT-402",
+        "count": 35,
+        "slug": "at-402"
+      },
+      {
+        "model": "AT-400",
+        "count": 30,
+        "slug": "at-400"
+      },
+      {
+        "model": "AT-400A",
+        "count": 19,
+        "slug": "at-400a"
+      },
+      {
+        "model": "AT-401B",
+        "count": 17,
+        "slug": "at-401b"
+      },
+      {
+        "model": "AT-504",
+        "count": 9,
+        "slug": "at-504"
+      },
+      {
+        "model": "AT-501",
+        "count": 4,
+        "slug": "at-501"
+      },
+      {
+        "model": "AT-300",
+        "count": 2,
+        "slug": "at-300"
+      },
+      {
+        "model": "AT-1002A",
+        "count": 1,
+        "slug": "at-1002a"
+      },
+      {
+        "model": "AT-250",
+        "count": 1,
+        "slug": "at-250"
+      },
+      {
+        "model": "AT-302",
+        "count": 1,
+        "slug": "at-302"
+      }
+    ],
+    "total_accidents": 467,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N2065S",
+        "year": 2012,
+        "model": "AT-802A"
+      },
+      {
+        "n_number": "N11703",
+        "year": 2022,
+        "model": "AT-802A"
+      },
+      {
+        "n_number": "N4549E",
+        "year": null,
+        "model": "AT-401"
+      },
+      {
+        "n_number": "N10TP",
+        "year": 2006,
+        "model": "AT-802"
+      },
+      {
+        "n_number": "N8886S",
+        "year": 1979,
+        "model": "AT-301"
+      },
+      {
+        "n_number": "N8526H",
+        "year": 2006,
+        "model": "AT-502B"
+      }
+    ]
+  },
+  "amazon-com-services-llc": {
+    "make": "Amazon.Com Services Llc",
+    "slug": "amazon-com-services-llc",
+    "raw_makes": [
+      "AMAZON.COM SERVICES LLC"
+    ],
+    "total_aircraft": 744,
+    "models": [
+      {
+        "model": "MK30",
+        "count": 744,
+        "slug": "mk30"
+      }
+    ],
+    "total_accidents": 62,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N108PA",
+        "year": null,
+        "model": "MK30"
+      },
+      {
+        "n_number": "N142PA",
+        "year": null,
+        "model": "MK30"
+      },
+      {
+        "n_number": "N209PA",
+        "year": 2024,
+        "model": "MK30"
+      }
+    ]
+  },
+  "american-champion": {
+    "make": "American Champion",
+    "slug": "american-champion",
+    "raw_makes": [
+      "AMERICAN CHAMPION AIRCRAFT"
+    ],
+    "total_aircraft": 1097,
+    "models": [
+      {
+        "model": "8KCAB",
+        "count": 447,
+        "slug": "8kcab"
+      },
+      {
+        "model": "7GCBC",
+        "count": 232,
+        "slug": "7gcbc"
+      },
+      {
+        "model": "8GCBC",
+        "count": 217,
+        "slug": "8gcbc"
+      },
+      {
+        "model": "7GCAA",
+        "count": 119,
+        "slug": "7gcaa"
+      },
+      {
+        "model": "7EC",
+        "count": 38,
+        "slug": "7ec"
+      },
+      {
+        "model": "7ECA",
+        "count": 38,
+        "slug": "7eca"
+      },
+      {
+        "model": "8KCAB180",
+        "count": 3,
+        "slug": "8kcab180"
+      },
+      {
+        "model": "7AC",
+        "count": 2,
+        "slug": "7ac"
+      },
+      {
+        "model": "8KCBC",
+        "count": 1,
+        "slug": "8kcbc"
+      }
+    ],
+    "total_accidents": 181,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N175RA",
+        "year": 2002,
+        "model": "7GCBC"
+      },
+      {
+        "n_number": "N157WB",
+        "year": 2014,
+        "model": "8KCAB"
+      },
+      {
+        "n_number": "N101BC",
+        "year": 2008,
+        "model": "8GCBC"
+      },
+      {
+        "n_number": "N72EB",
+        "year": null,
+        "model": "7GCBC"
+      },
+      {
+        "n_number": "N15MM",
+        "year": 2016,
+        "model": "8GCBC"
+      },
+      {
+        "n_number": "N83DH",
+        "year": 1997,
+        "model": "8KCAB"
+      }
+    ]
+  },
+  "aviat": {
+    "make": "Aviat",
+    "slug": "aviat",
+    "raw_makes": [
+      "AVIAT AIRCRAFT INC"
+    ],
+    "total_aircraft": 971,
+    "models": [
+      {
+        "model": "A-1B",
+        "count": 361,
+        "slug": "a-1b"
+      },
+      {
+        "model": "A-1C-180",
+        "count": 233,
+        "slug": "a-1c-180"
+      },
+      {
+        "model": "A-1C-200",
+        "count": 186,
+        "slug": "a-1c-200"
+      },
+      {
+        "model": "A-1A",
+        "count": 58,
+        "slug": "a-1a"
+      },
+      {
+        "model": "S-2C",
+        "count": 57,
+        "slug": "s-2c"
+      },
+      {
+        "model": "A-1",
+        "count": 56,
+        "slug": "a-1"
+      },
+      {
+        "model": "PITTS S-2B",
+        "count": 11,
+        "slug": "pitts-s-2b"
+      },
+      {
+        "model": "PITTS S-2C",
+        "count": 4,
+        "slug": "pitts-s-2c"
+      },
+      {
+        "model": "A-1C",
+        "count": 2,
+        "slug": "a-1c"
+      },
+      {
+        "model": "S-1-11B",
+        "count": 2,
+        "slug": "s-1-11b"
+      },
+      {
+        "model": "MONOCOUPE 110 SPEC",
+        "count": 1,
+        "slug": "monocoupe-110-spec"
+      }
+    ],
+    "total_accidents": 227,
+    "total_ads": 0,
+    "total_sdrs": 3,
+    "sample_aircraft": [
+      {
+        "n_number": "N74HP",
+        "year": 2003,
+        "model": "A-1B"
+      },
+      {
+        "n_number": "N108AM",
+        "year": 2001,
+        "model": "A-1B"
+      },
+      {
+        "n_number": "N35AH",
+        "year": 2007,
+        "model": "A-1B"
+      },
+      {
+        "n_number": "N29HU",
+        "year": null,
+        "model": "A-1"
+      },
+      {
+        "n_number": "N134DD",
+        "year": 2008,
+        "model": "A-1C-200"
+      },
+      {
+        "n_number": "N113N",
+        "year": 1998,
+        "model": "A-1A"
+      }
+    ]
+  },
+  "balloon-works": {
+    "make": "Balloon Works",
+    "slug": "balloon-works",
+    "raw_makes": [
+      "BALLOON WORKS"
+    ],
+    "total_aircraft": 565,
+    "models": [
+      {
+        "model": "FIREFLY 7-15",
+        "count": 157,
+        "slug": "firefly-7-15"
+      },
+      {
+        "model": "FIREFLY 7",
+        "count": 129,
+        "slug": "firefly-7"
+      },
+      {
+        "model": "FIREFLY 8B-15",
+        "count": 123,
+        "slug": "firefly-8b-15"
+      },
+      {
+        "model": "FIREFLY 8B",
+        "count": 37,
+        "slug": "firefly-8b"
+      },
+      {
+        "model": "FIREFLY 7B-15",
+        "count": 33,
+        "slug": "firefly-7b-15"
+      },
+      {
+        "model": "FIREFLY 7-B",
+        "count": 26,
+        "slug": "firefly-7-b"
+      },
+      {
+        "model": "FIREFLY 8",
+        "count": 18,
+        "slug": "firefly-8"
+      },
+      {
+        "model": "FIREFLY 6B",
+        "count": 12,
+        "slug": "firefly-6b"
+      },
+      {
+        "model": "FIREFLY 9B-15",
+        "count": 8,
+        "slug": "firefly-9b-15"
+      },
+      {
+        "model": "FIREFLY 5",
+        "count": 5,
+        "slug": "firefly-5"
+      },
+      {
+        "model": "FIREFLY 8-24",
+        "count": 5,
+        "slug": "firefly-8-24"
+      },
+      {
+        "model": "FIREFLY 6",
+        "count": 3,
+        "slug": "firefly-6"
+      },
+      {
+        "model": "FIREFLY 6B-15",
+        "count": 3,
+        "slug": "firefly-6b-15"
+      },
+      {
+        "model": "FIREFLY 9",
+        "count": 3,
+        "slug": "firefly-9"
+      },
+      {
+        "model": "FIRE FLY 10",
+        "count": 1,
+        "slug": "fire-fly-10"
+      },
+      {
+        "model": "FIREFLY 11B",
+        "count": 1,
+        "slug": "firefly-11b"
+      },
+      {
+        "model": "FIREFLY C7",
+        "count": 1,
+        "slug": "firefly-c7"
+      }
+    ],
+    "total_accidents": 89,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N3239J",
+        "year": 1997,
+        "model": "FIREFLY 7-15"
+      },
+      {
+        "n_number": "N32858",
+        "year": 1997,
+        "model": "FIREFLY 8B-15"
+      },
+      {
+        "n_number": "N7067F",
+        "year": 1998,
+        "model": "FIREFLY 8B-15"
+      },
+      {
+        "n_number": "N25718",
+        "year": null,
+        "model": "FIREFLY 7B-15"
+      },
+      {
+        "n_number": "N25592",
+        "year": 1992,
+        "model": "FIREFLY 7B-15"
+      },
+      {
+        "n_number": "N90856",
+        "year": 1990,
+        "model": "FIREFLY C7"
+      }
+    ]
+  },
+  "beechcraft": {
+    "make": "Beechcraft",
+    "slug": "beechcraft",
+    "raw_makes": [
+      "BEECH",
+      "BEECHCRAFT",
+      "RAYTHEON AIRCRAFT COMPANY"
+    ],
+    "total_aircraft": 19595,
+    "models": [
+      {
+        "model": "A36",
+        "count": 1906,
+        "slug": "a36"
+      },
+      {
+        "model": "F33A",
+        "count": 977,
+        "slug": "f33a"
+      },
+      {
+        "model": "V35B",
+        "count": 913,
+        "slug": "v35b"
+      },
+      {
+        "model": "95-B55 (T42A)",
+        "count": 775,
+        "slug": "95-b55-t42a"
+      },
+      {
+        "model": "58",
+        "count": 726,
+        "slug": "58"
+      },
+      {
+        "model": "S35",
+        "count": 459,
+        "slug": "s35"
+      },
+      {
+        "model": "C23",
+        "count": 456,
+        "slug": "c23"
+      },
+      {
+        "model": "A36",
+        "count": 448,
+        "slug": "a36"
+      },
+      {
+        "model": "V35",
+        "count": 425,
+        "slug": "v35"
+      },
+      {
+        "model": "V35A",
+        "count": 321,
+        "slug": "v35a"
+      },
+      {
+        "model": "P35",
+        "count": 319,
+        "slug": "p35"
+      },
+      {
+        "model": "58P",
+        "count": 298,
+        "slug": "58p"
+      },
+      {
+        "model": "35-B33",
+        "count": 290,
+        "slug": "35-b33"
+      },
+      {
+        "model": "B200",
+        "count": 283,
+        "slug": "b200"
+      },
+      {
+        "model": "35",
+        "count": 266,
+        "slug": "35"
+      },
+      {
+        "model": "C35",
+        "count": 258,
+        "slug": "c35"
+      },
+      {
+        "model": "HAWKER 800XP",
+        "count": 252,
+        "slug": "hawker-800xp"
+      },
+      {
+        "model": "K35",
+        "count": 236,
+        "slug": "k35"
+      },
+      {
+        "model": "200",
+        "count": 234,
+        "slug": "200"
+      },
+      {
+        "model": "B300",
+        "count": 234,
+        "slug": "b300"
+      }
+    ],
+    "total_accidents": 1788,
+    "total_ads": 1,
+    "total_sdrs": 639,
+    "sample_aircraft": [
+      {
+        "n_number": "N40KG",
+        "year": 1983,
+        "model": "A36"
+      },
+      {
+        "n_number": "N3063W",
+        "year": 1998,
+        "model": "B36TC"
+      },
+      {
+        "n_number": "N217SD",
+        "year": 1942,
+        "model": "D17S"
+      },
+      {
+        "n_number": "N2531U",
+        "year": null,
+        "model": "A36"
+      },
+      {
+        "n_number": "N1174T",
+        "year": 1975,
+        "model": "E-55"
+      },
+      {
+        "n_number": "N111RV",
+        "year": 1966,
+        "model": "95-C55"
+      }
+    ]
+  },
+  "bell-helicopter-textron-canada": {
+    "make": "Bell Helicopter Textron Canada",
+    "slug": "bell-helicopter-textron-canada",
+    "raw_makes": [
+      "BELL HELICOPTER TEXTRON CANADA"
+    ],
+    "total_aircraft": 731,
+    "models": [
+      {
+        "model": "407",
+        "count": 418,
+        "slug": "407"
+      },
+      {
+        "model": "206L-4",
+        "count": 103,
+        "slug": "206l-4"
+      },
+      {
+        "model": "429",
+        "count": 101,
+        "slug": "429"
+      },
+      {
+        "model": "505",
+        "count": 62,
+        "slug": "505"
+      },
+      {
+        "model": "412EP",
+        "count": 17,
+        "slug": "412ep"
+      },
+      {
+        "model": "206B",
+        "count": 10,
+        "slug": "206b"
+      },
+      {
+        "model": "427",
+        "count": 7,
+        "slug": "427"
+      },
+      {
+        "model": "UH-1D",
+        "count": 6,
+        "slug": "uh-1d"
+      },
+      {
+        "model": "206L-3",
+        "count": 4,
+        "slug": "206l-3"
+      },
+      {
+        "model": "430",
+        "count": 3,
+        "slug": "430"
+      }
+    ],
+    "total_accidents": 95,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N108SC",
+        "year": null,
+        "model": "407"
+      },
+      {
+        "n_number": "N417AE",
+        "year": 2014,
+        "model": "206L-4"
+      },
+      {
+        "n_number": "N16WW",
+        "year": 2018,
+        "model": "429"
+      },
+      {
+        "n_number": "N119SP",
+        "year": null,
+        "model": "407"
+      },
+      {
+        "n_number": "N1088Y",
+        "year": 2018,
+        "model": "505"
+      },
+      {
+        "n_number": "N820H",
+        "year": 1976,
+        "model": "206B"
+      }
+    ]
+  },
+  "bellanca": {
+    "make": "Bellanca",
+    "slug": "bellanca",
+    "raw_makes": [
+      "BELLANCA"
+    ],
+    "total_aircraft": 2697,
+    "models": [
+      {
+        "model": "7GCBC",
+        "count": 487,
+        "slug": "7gcbc"
+      },
+      {
+        "model": "17-30A",
+        "count": 399,
+        "slug": "17-30a"
+      },
+      {
+        "model": "8KCAB",
+        "count": 370,
+        "slug": "8kcab"
+      },
+      {
+        "model": "7ECA",
+        "count": 347,
+        "slug": "7eca"
+      },
+      {
+        "model": "7KCAB",
+        "count": 230,
+        "slug": "7kcab"
+      },
+      {
+        "model": "8GCBC",
+        "count": 182,
+        "slug": "8gcbc"
+      },
+      {
+        "model": "7GCAA",
+        "count": 118,
+        "slug": "7gcaa"
+      },
+      {
+        "model": "17-30",
+        "count": 83,
+        "slug": "17-30"
+      },
+      {
+        "model": "14-13-2",
+        "count": 77,
+        "slug": "14-13-2"
+      },
+      {
+        "model": "17-31ATC",
+        "count": 71,
+        "slug": "17-31atc"
+      },
+      {
+        "model": "17-31A",
+        "count": 70,
+        "slug": "17-31a"
+      },
+      {
+        "model": "14-19-3",
+        "count": 57,
+        "slug": "14-19-3"
+      },
+      {
+        "model": "14-19-2",
+        "count": 49,
+        "slug": "14-19-2"
+      },
+      {
+        "model": "7ACA",
+        "count": 44,
+        "slug": "7aca"
+      },
+      {
+        "model": "14-13",
+        "count": 43,
+        "slug": "14-13"
+      },
+      {
+        "model": "14-19",
+        "count": 30,
+        "slug": "14-19"
+      },
+      {
+        "model": "14-13-3",
+        "count": 11,
+        "slug": "14-13-3"
+      },
+      {
+        "model": "14-9",
+        "count": 10,
+        "slug": "14-9"
+      },
+      {
+        "model": "17-31",
+        "count": 5,
+        "slug": "17-31"
+      },
+      {
+        "model": "14-12F-3",
+        "count": 3,
+        "slug": "14-12f-3"
+      }
+    ],
+    "total_accidents": 427,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N14695",
+        "year": 1974,
+        "model": "17-30A"
+      },
+      {
+        "n_number": "N57430",
+        "year": 1973,
+        "model": "7ECA"
+      },
+      {
+        "n_number": "N53954",
+        "year": 1976,
+        "model": "8GCBC"
+      },
+      {
+        "n_number": "N10DE",
+        "year": null,
+        "model": "17-31A"
+      },
+      {
+        "n_number": "N68529",
+        "year": 1972,
+        "model": "7ACA"
+      },
+      {
+        "n_number": "N1013E",
+        "year": 1977,
+        "model": "7GCBC"
+      }
+    ]
+  },
+  "cameron-balloons-us": {
+    "make": "Cameron Balloons Us",
+    "slug": "cameron-balloons-us",
+    "raw_makes": [
+      "CAMERON BALLOONS US"
+    ],
+    "total_aircraft": 712,
+    "models": [
+      {
+        "model": "V-77",
+        "count": 49,
+        "slug": "v-77"
+      },
+      {
+        "model": "Z-105",
+        "count": 48,
+        "slug": "z-105"
+      },
+      {
+        "model": "Z-77",
+        "count": 47,
+        "slug": "z-77"
+      },
+      {
+        "model": "Z-90",
+        "count": 42,
+        "slug": "z-90"
+      },
+      {
+        "model": "C-80",
+        "count": 41,
+        "slug": "c-80"
+      },
+      {
+        "model": "A-105",
+        "count": 31,
+        "slug": "a-105"
+      },
+      {
+        "model": "V-90",
+        "count": 31,
+        "slug": "v-90"
+      },
+      {
+        "model": "N-90",
+        "count": 28,
+        "slug": "n-90"
+      },
+      {
+        "model": "N-105",
+        "count": 27,
+        "slug": "n-105"
+      },
+      {
+        "model": "O-90",
+        "count": 26,
+        "slug": "o-90"
+      },
+      {
+        "model": "O-84",
+        "count": 25,
+        "slug": "o-84"
+      },
+      {
+        "model": "A-120",
+        "count": 21,
+        "slug": "a-120"
+      },
+      {
+        "model": "A-250",
+        "count": 20,
+        "slug": "a-250"
+      },
+      {
+        "model": "A-275",
+        "count": 20,
+        "slug": "a-275"
+      },
+      {
+        "model": "A-210",
+        "count": 19,
+        "slug": "a-210"
+      },
+      {
+        "model": "A-140",
+        "count": 16,
+        "slug": "a-140"
+      },
+      {
+        "model": "ZL-70",
+        "count": 16,
+        "slug": "zl-70"
+      },
+      {
+        "model": "ZL-65",
+        "count": 15,
+        "slug": "zl-65"
+      },
+      {
+        "model": "N-77",
+        "count": 14,
+        "slug": "n-77"
+      },
+      {
+        "model": "O-77",
+        "count": 14,
+        "slug": "o-77"
+      }
+    ],
+    "total_accidents": 127,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N105WB",
+        "year": 2013,
+        "model": "0-105"
+      },
+      {
+        "n_number": "N2087J",
+        "year": 2011,
+        "model": "A-250"
+      },
+      {
+        "n_number": "N3100Z",
+        "year": 2026,
+        "model": "A-250"
+      },
+      {
+        "n_number": "N31013",
+        "year": null,
+        "model": "XT-77"
+      },
+      {
+        "n_number": "N980VA",
+        "year": 2022,
+        "model": "A-225"
+      },
+      {
+        "n_number": "N4066X",
+        "year": 1999,
+        "model": "O-90"
+      }
+    ]
+  },
+  "cessna": {
+    "make": "Cessna",
+    "slug": "cessna",
+    "raw_makes": [
+      "CESSNA",
+      "TEXTRON AVIATION INC"
+    ],
+    "total_aircraft": 77098,
+    "models": [
+      {
+        "model": "172M",
+        "count": 3578,
+        "slug": "172m"
+      },
+      {
+        "model": "172N",
+        "count": 3138,
+        "slug": "172n"
+      },
+      {
+        "model": "182P",
+        "count": 2099,
+        "slug": "182p"
+      },
+      {
+        "model": "172S",
+        "count": 1914,
+        "slug": "172s"
+      },
+      {
+        "model": "172",
+        "count": 1806,
+        "slug": "172"
+      },
+      {
+        "model": "152",
+        "count": 1637,
+        "slug": "152"
+      },
+      {
+        "model": "140",
+        "count": 1605,
+        "slug": "140"
+      },
+      {
+        "model": "182Q",
+        "count": 1565,
+        "slug": "182q"
+      },
+      {
+        "model": "150L",
+        "count": 1448,
+        "slug": "150l"
+      },
+      {
+        "model": "150M",
+        "count": 1438,
+        "slug": "150m"
+      },
+      {
+        "model": "170B",
+        "count": 1301,
+        "slug": "170b"
+      },
+      {
+        "model": "172S",
+        "count": 1227,
+        "slug": "172s"
+      },
+      {
+        "model": "180",
+        "count": 1179,
+        "slug": "180"
+      },
+      {
+        "model": "172P",
+        "count": 1110,
+        "slug": "172p"
+      },
+      {
+        "model": "A185F",
+        "count": 1109,
+        "slug": "a185f"
+      },
+      {
+        "model": "150F",
+        "count": 1062,
+        "slug": "150f"
+      },
+      {
+        "model": "172K",
+        "count": 1026,
+        "slug": "172k"
+      },
+      {
+        "model": "150G",
+        "count": 978,
+        "slug": "150g"
+      },
+      {
+        "model": "182T",
+        "count": 967,
+        "slug": "182t"
+      },
+      {
+        "model": "172L",
+        "count": 858,
+        "slug": "172l"
+      }
+    ],
+    "total_accidents": 10357,
+    "total_ads": 5,
+    "total_sdrs": 4972,
+    "sample_aircraft": [
+      {
+        "n_number": "N52095",
+        "year": 1974,
+        "model": "180J"
+      },
+      {
+        "n_number": "N4324R",
+        "year": 1974,
+        "model": "172M"
+      },
+      {
+        "n_number": "N64SF",
+        "year": 1977,
+        "model": "172N"
+      },
+      {
+        "n_number": "N9522L",
+        "year": null,
+        "model": "172P"
+      },
+      {
+        "n_number": "N1071Z",
+        "year": 2005,
+        "model": "172S"
+      },
+      {
+        "n_number": "N5552E",
+        "year": null,
+        "model": "172N"
+      }
+    ]
+  },
+  "champion": {
+    "make": "Champion",
+    "slug": "champion",
+    "raw_makes": [
+      "CHAMPION"
+    ],
+    "total_aircraft": 1604,
+    "models": [
+      {
+        "model": "7ECA",
+        "count": 419,
+        "slug": "7eca"
+      },
+      {
+        "model": "7FC",
+        "count": 164,
+        "slug": "7fc"
+      },
+      {
+        "model": "7EC",
+        "count": 157,
+        "slug": "7ec"
+      },
+      {
+        "model": "7KCAB",
+        "count": 151,
+        "slug": "7kcab"
+      },
+      {
+        "model": "7AC",
+        "count": 144,
+        "slug": "7ac"
+      },
+      {
+        "model": "7GCBC",
+        "count": 144,
+        "slug": "7gcbc"
+      },
+      {
+        "model": "7GCAA",
+        "count": 114,
+        "slug": "7gcaa"
+      },
+      {
+        "model": "AERONCA 7AC",
+        "count": 58,
+        "slug": "aeronca-7ac"
+      },
+      {
+        "model": "7GCB",
+        "count": 55,
+        "slug": "7gcb"
+      },
+      {
+        "model": "7GC",
+        "count": 37,
+        "slug": "7gc"
+      },
+      {
+        "model": "7CCM",
+        "count": 20,
+        "slug": "7ccm"
+      },
+      {
+        "model": "7BCM",
+        "count": 19,
+        "slug": "7bcm"
+      },
+      {
+        "model": "AERONCA 7FC",
+        "count": 18,
+        "slug": "aeronca-7fc"
+      },
+      {
+        "model": "AERONCA 7BCM",
+        "count": 17,
+        "slug": "aeronca-7bcm"
+      },
+      {
+        "model": "AERONCA 7EC",
+        "count": 14,
+        "slug": "aeronca-7ec"
+      },
+      {
+        "model": "402",
+        "count": 8,
+        "slug": "402"
+      },
+      {
+        "model": "7HC",
+        "count": 8,
+        "slug": "7hc"
+      },
+      {
+        "model": "7DC",
+        "count": 7,
+        "slug": "7dc"
+      },
+      {
+        "model": "AERONCA 7DC",
+        "count": 7,
+        "slug": "aeronca-7dc"
+      },
+      {
+        "model": "AERONCA 7GC",
+        "count": 7,
+        "slug": "aeronca-7gc"
+      }
+    ],
+    "total_accidents": 304,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N1115E",
+        "year": 1946,
+        "model": "7AC"
+      },
+      {
+        "n_number": "N11023",
+        "year": 1965,
+        "model": "7ECA"
+      },
+      {
+        "n_number": "N7694E",
+        "year": null,
+        "model": "7FC"
+      },
+      {
+        "n_number": "N11077",
+        "year": 1965,
+        "model": "7ECA"
+      },
+      {
+        "n_number": "N9085L",
+        "year": 1970,
+        "model": "7GCAA"
+      },
+      {
+        "n_number": "N8CK",
+        "year": null,
+        "model": "7GCBC"
+      }
+    ]
+  },
+  "cirrus": {
+    "make": "Cirrus",
+    "slug": "cirrus",
+    "raw_makes": [
+      "CIRRUS DESIGN CORP"
+    ],
+    "total_aircraft": 9450,
+    "models": [
+      {
+        "model": "SR22",
+        "count": 4011,
+        "slug": "sr22"
+      },
+      {
+        "model": "SR22T",
+        "count": 3045,
+        "slug": "sr22t"
+      },
+      {
+        "model": "SR20",
+        "count": 1629,
+        "slug": "sr20"
+      },
+      {
+        "model": "SF50",
+        "count": 760,
+        "slug": "sf50"
+      },
+      {
+        "model": "SR10",
+        "count": 3,
+        "slug": "sr10"
+      },
+      {
+        "model": "EX18",
+        "count": 1,
+        "slug": "ex18"
+      },
+      {
+        "model": "SRT",
+        "count": 1,
+        "slug": "srt"
+      }
+    ],
+    "total_accidents": 988,
+    "total_ads": 4,
+    "total_sdrs": 173,
+    "sample_aircraft": [
+      {
+        "n_number": "N103BK",
+        "year": 2025,
+        "model": "SR22T"
+      },
+      {
+        "n_number": "N100RZ",
+        "year": 2010,
+        "model": "SR22T"
+      },
+      {
+        "n_number": "N125V",
+        "year": 2023,
+        "model": "SR20"
+      },
+      {
+        "n_number": "N612CB",
+        "year": 2025,
+        "model": "SF50"
+      },
+      {
+        "n_number": "N135CD",
+        "year": 2026,
+        "model": "SR22T"
+      },
+      {
+        "n_number": "N100TL",
+        "year": 2018,
+        "model": "SF50"
+      }
+    ]
+  },
+  "costruzioni-aeronautiche-tecna": {
+    "make": "Costruzioni Aeronautiche Tecna",
+    "slug": "costruzioni-aeronautiche-tecna",
+    "raw_makes": [
+      "COSTRUZIONI AERONAUTICHE TECNA"
+    ],
+    "total_aircraft": 623,
+    "models": [
+      {
+        "model": "P2006T",
+        "count": 104,
+        "slug": "p2006t"
+      },
+      {
+        "model": "P2008",
+        "count": 89,
+        "slug": "p2008"
+      },
+      {
+        "model": "P2010",
+        "count": 84,
+        "slug": "p2010"
+      },
+      {
+        "model": "P-MENTOR",
+        "count": 71,
+        "slug": "p-mentor"
+      },
+      {
+        "model": "P2010 TDI",
+        "count": 53,
+        "slug": "p2010-tdi"
+      },
+      {
+        "model": "P2012 TRAVELLER",
+        "count": 48,
+        "slug": "p2012-traveller"
+      },
+      {
+        "model": "P2002 SIERRA",
+        "count": 33,
+        "slug": "p2002-sierra"
+      },
+      {
+        "model": "ASTORE",
+        "count": 29,
+        "slug": "astore"
+      },
+      {
+        "model": "P92 EAGLET",
+        "count": 29,
+        "slug": "p92-eaglet"
+      },
+      {
+        "model": "P2004 BRAVO",
+        "count": 28,
+        "slug": "p2004-bravo"
+      },
+      {
+        "model": "P92 ECHO MKII",
+        "count": 20,
+        "slug": "p92-echo-mkii"
+      },
+      {
+        "model": "P92 ECHO SUPER",
+        "count": 15,
+        "slug": "p92-echo-super"
+      },
+      {
+        "model": "P2002 SIERRA MKII",
+        "count": 10,
+        "slug": "p2002-sierra-mkii"
+      },
+      {
+        "model": "P92 ECHO CLASSIC",
+        "count": 5,
+        "slug": "p92-echo-classic"
+      },
+      {
+        "model": "P92 TAIL DRAGGER",
+        "count": 3,
+        "slug": "p92-tail-dragger"
+      },
+      {
+        "model": "P2008 TC",
+        "count": 1,
+        "slug": "p2008-tc"
+      },
+      {
+        "model": "P92 TD",
+        "count": 1,
+        "slug": "p92-td"
+      }
+    ],
+    "total_accidents": 104,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N929HA",
+        "year": 2005,
+        "model": "P92 ECHO SUPER"
+      },
+      {
+        "n_number": "N16SE",
+        "year": 2025,
+        "model": "P92 ECHO MKII"
+      },
+      {
+        "n_number": "N357CA",
+        "year": 2021,
+        "model": "P2012 TRAVELLER"
+      },
+      {
+        "n_number": "N116CA",
+        "year": 2025,
+        "model": "P-MENTOR"
+      },
+      {
+        "n_number": "N108CA",
+        "year": 2025,
+        "model": "P-MENTOR"
+      },
+      {
+        "n_number": "N107LS",
+        "year": 2006,
+        "model": "P92 ECHO SUPER"
+      }
+    ]
+  },
+  "dehavilland": {
+    "make": "DeHavilland",
+    "slug": "dehavilland",
+    "raw_makes": [
+      "DEHAVILLAND"
+    ],
+    "total_aircraft": 861,
+    "models": [
+      {
+        "model": "DHC-2 MK. I(L20A)",
+        "count": 91,
+        "slug": "dhc-2-mk-i-l20a"
+      },
+      {
+        "model": "BEAVER DHC-2 MK.1",
+        "count": 76,
+        "slug": "beaver-dhc-2-mk-1"
+      },
+      {
+        "model": "DHC-2",
+        "count": 69,
+        "slug": "dhc-2"
+      },
+      {
+        "model": "DHC-3",
+        "count": 66,
+        "slug": "dhc-3"
+      },
+      {
+        "model": "DHC-6-300",
+        "count": 59,
+        "slug": "dhc-6-300"
+      },
+      {
+        "model": "TIGER MOTH DH 82A",
+        "count": 52,
+        "slug": "tiger-moth-dh-82a"
+      },
+      {
+        "model": "DHC-2 MK 1",
+        "count": 45,
+        "slug": "dhc-2-mk-1"
+      },
+      {
+        "model": "BEAVER DHC-2",
+        "count": 38,
+        "slug": "beaver-dhc-2"
+      },
+      {
+        "model": "DHC-6 TWIN OTTER",
+        "count": 26,
+        "slug": "dhc-6-twin-otter"
+      },
+      {
+        "model": "DHC 2 MK III",
+        "count": 24,
+        "slug": "dhc-2-mk-iii"
+      },
+      {
+        "model": "DHC-1 CHIPMUNK",
+        "count": 23,
+        "slug": "dhc-1-chipmunk"
+      },
+      {
+        "model": "BEAVER U-6A",
+        "count": 20,
+        "slug": "beaver-u-6a"
+      },
+      {
+        "model": "DHC-2 MK.I",
+        "count": 20,
+        "slug": "dhc-2-mk-i"
+      },
+      {
+        "model": "DHC-6-200",
+        "count": 19,
+        "slug": "dhc-6-200"
+      },
+      {
+        "model": "DHC-1 SERIES 22",
+        "count": 17,
+        "slug": "dhc-1-series-22"
+      },
+      {
+        "model": "DHC-8-202",
+        "count": 17,
+        "slug": "dhc-8-202"
+      },
+      {
+        "model": "DHC-1B-2-S5",
+        "count": 16,
+        "slug": "dhc-1b-2-s5"
+      },
+      {
+        "model": "DHC-1B-2-S3",
+        "count": 15,
+        "slug": "dhc-1b-2-s3"
+      },
+      {
+        "model": "DHC-1",
+        "count": 11,
+        "slug": "dhc-1"
+      },
+      {
+        "model": "DHC-1B-2",
+        "count": 11,
+        "slug": "dhc-1b-2"
+      }
+    ],
+    "total_accidents": 241,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N166DH",
+        "year": 1967,
+        "model": "DHC-6 TWIN OTTER"
+      },
+      {
+        "n_number": "N5349G",
+        "year": 1956,
+        "model": "BEAVER DHC-2 MK.1"
+      },
+      {
+        "n_number": "N5221G",
+        "year": 1954,
+        "model": "BEAVER DHC-2 MK.1"
+      },
+      {
+        "n_number": "N241SA",
+        "year": 1977,
+        "model": "DHC-6-300"
+      },
+      {
+        "n_number": "N30EA",
+        "year": 1968,
+        "model": "DHC-6 TWIN OTTER"
+      },
+      {
+        "n_number": "N67112",
+        "year": 1955,
+        "model": "BEAVER DHC-2 MK.1"
+      }
+    ]
+  },
+  "diamond": {
+    "make": "Diamond",
+    "slug": "diamond",
+    "raw_makes": [
+      "DIAMOND AIRCRAFT IND INC"
+    ],
+    "total_aircraft": 1542,
+    "models": [
+      {
+        "model": "DA 40",
+        "count": 679,
+        "slug": "da-40"
+      },
+      {
+        "model": "DA20-C1",
+        "count": 335,
+        "slug": "da20-c1"
+      },
+      {
+        "model": "DA 40 NG",
+        "count": 306,
+        "slug": "da-40-ng"
+      },
+      {
+        "model": "DA 42",
+        "count": 86,
+        "slug": "da-42"
+      },
+      {
+        "model": "DA 62",
+        "count": 79,
+        "slug": "da-62"
+      },
+      {
+        "model": "DA20-A1",
+        "count": 29,
+        "slug": "da20-a1"
+      },
+      {
+        "model": "DA40 F",
+        "count": 14,
+        "slug": "da40-f"
+      },
+      {
+        "model": "DA 42 NG",
+        "count": 11,
+        "slug": "da-42-ng"
+      },
+      {
+        "model": "DA 50 C",
+        "count": 3,
+        "slug": "da-50-c"
+      }
+    ],
+    "total_accidents": 172,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N173RS",
+        "year": 2003,
+        "model": "DA 40"
+      },
+      {
+        "n_number": "N127X",
+        "year": 2004,
+        "model": "DA 40"
+      },
+      {
+        "n_number": "N116CL",
+        "year": 1998,
+        "model": "DA20-C1"
+      },
+      {
+        "n_number": "N112DM",
+        "year": 2021,
+        "model": "DA 62"
+      },
+      {
+        "n_number": "N22QT",
+        "year": 2005,
+        "model": "DA 40"
+      },
+      {
+        "n_number": "N765DC",
+        "year": null,
+        "model": "DA20-C1"
+      }
+    ]
+  },
+  "ea-vision": {
+    "make": "Ea Vision",
+    "slug": "ea-vision",
+    "raw_makes": [
+      "EA VISION"
+    ],
+    "total_aircraft": 728,
+    "models": [
+      {
+        "model": "EA J100",
+        "count": 594,
+        "slug": "ea-j100"
+      },
+      {
+        "model": "J-150",
+        "count": 92,
+        "slug": "j-150"
+      },
+      {
+        "model": "J100",
+        "count": 42,
+        "slug": "j100"
+      }
+    ],
+    "total_accidents": 67,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N4379A",
+        "year": null,
+        "model": "EA J100"
+      },
+      {
+        "n_number": "N112JF",
+        "year": null,
+        "model": "J100"
+      },
+      {
+        "n_number": "N4175A",
+        "year": null,
+        "model": "EA J100"
+      },
+      {
+        "n_number": "N5336",
+        "year": null,
+        "model": "EA J100"
+      },
+      {
+        "n_number": "N111NA",
+        "year": null,
+        "model": "EA J100"
+      },
+      {
+        "n_number": "N4732E",
+        "year": null,
+        "model": "EA J100"
+      }
+    ]
+  },
+  "embraer": {
+    "make": "Embraer",
+    "slug": "embraer",
+    "raw_makes": [
+      "EMBRAER"
+    ],
+    "total_aircraft": 663,
+    "models": [
+      {
+        "model": "EMB-145LR",
+        "count": 204,
+        "slug": "emb-145lr"
+      },
+      {
+        "model": "EMB-145XR",
+        "count": 98,
+        "slug": "emb-145xr"
+      },
+      {
+        "model": "ERJ 170-200 LR",
+        "count": 50,
+        "slug": "erj-170-200-lr"
+      },
+      {
+        "model": "EMB-135BJ",
+        "count": 43,
+        "slug": "emb-135bj"
+      },
+      {
+        "model": "ERJ 170-100 SE",
+        "count": 40,
+        "slug": "erj-170-100-se"
+      },
+      {
+        "model": "EMB-120ER",
+        "count": 37,
+        "slug": "emb-120er"
+      },
+      {
+        "model": "EMB-135KL",
+        "count": 31,
+        "slug": "emb-135kl"
+      },
+      {
+        "model": "EMB-135LR",
+        "count": 29,
+        "slug": "emb-135lr"
+      },
+      {
+        "model": "ERJ 190-100 IGW",
+        "count": 27,
+        "slug": "erj-190-100-igw"
+      },
+      {
+        "model": "EMB 312F",
+        "count": 23,
+        "slug": "emb-312f"
+      },
+      {
+        "model": "ERJ 170-100 LR",
+        "count": 17,
+        "slug": "erj-170-100-lr"
+      },
+      {
+        "model": "ERJ 170-100SU",
+        "count": 14,
+        "slug": "erj-170-100su"
+      },
+      {
+        "model": "EMB-110P1",
+        "count": 13,
+        "slug": "emb-110p1"
+      },
+      {
+        "model": "EMB-135ER",
+        "count": 10,
+        "slug": "emb-135er"
+      },
+      {
+        "model": "EMB-145",
+        "count": 7,
+        "slug": "emb-145"
+      },
+      {
+        "model": "ERJ 170-100 STD",
+        "count": 5,
+        "slug": "erj-170-100-std"
+      },
+      {
+        "model": "EMB-145EP",
+        "count": 4,
+        "slug": "emb-145ep"
+      },
+      {
+        "model": "ERJ 190-100 ECJ",
+        "count": 4,
+        "slug": "erj-190-100-ecj"
+      },
+      {
+        "model": "EMB-120",
+        "count": 3,
+        "slug": "emb-120"
+      },
+      {
+        "model": "ERJ 190-200 LR",
+        "count": 3,
+        "slug": "erj-190-200-lr"
+      }
+    ],
+    "total_accidents": 87,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N116WA",
+        "year": 1982,
+        "model": "EMB-110P1"
+      },
+      {
+        "n_number": "N11191",
+        "year": 2005,
+        "model": "EMB-145XR"
+      },
+      {
+        "n_number": "N619AE",
+        "year": 1998,
+        "model": "EMB-145LR"
+      },
+      {
+        "n_number": "N11176",
+        "year": 2004,
+        "model": "EMB-145XR"
+      },
+      {
+        "n_number": "N92VA",
+        "year": 1999,
+        "model": "EMB-145LR"
+      },
+      {
+        "n_number": "N11187",
+        "year": 2005,
+        "model": "EMB-145XR"
+      }
+    ]
+  },
+  "embraer-executive-aircraft-inc": {
+    "make": "Embraer Executive Aircraft Inc",
+    "slug": "embraer-executive-aircraft-inc",
+    "raw_makes": [
+      "EMBRAER EXECUTIVE AIRCRAFT INC"
+    ],
+    "total_aircraft": 603,
+    "models": [
+      {
+        "model": "EMB-505",
+        "count": 526,
+        "slug": "emb-505"
+      },
+      {
+        "model": "EMB-500",
+        "count": 72,
+        "slug": "emb-500"
+      },
+      {
+        "model": "EMB-545",
+        "count": 3,
+        "slug": "emb-545"
+      },
+      {
+        "model": "EMB-550",
+        "count": 2,
+        "slug": "emb-550"
+      }
+    ],
+    "total_accidents": 38,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N8KD",
+        "year": null,
+        "model": "EMB-500"
+      },
+      {
+        "n_number": "N103DE",
+        "year": 2023,
+        "model": "EMB-505"
+      }
+    ]
+  },
+  "embraer-s-a": {
+    "make": "Embraer S A",
+    "slug": "embraer-s-a",
+    "raw_makes": [
+      "EMBRAER S A"
+    ],
+    "total_aircraft": 845,
+    "models": [
+      {
+        "model": "ERJ 170-200 LR",
+        "count": 432,
+        "slug": "erj-170-200-lr"
+      },
+      {
+        "model": "EMB-545",
+        "count": 170,
+        "slug": "emb-545"
+      },
+      {
+        "model": "ERJ 170-200 LL",
+        "count": 114,
+        "slug": "erj-170-200-ll"
+      },
+      {
+        "model": "EMB-505",
+        "count": 112,
+        "slug": "emb-505"
+      },
+      {
+        "model": "ERJ 170-100 LR",
+        "count": 8,
+        "slug": "erj-170-100-lr"
+      },
+      {
+        "model": "ERJ 190-100 LR",
+        "count": 5,
+        "slug": "erj-190-100-lr"
+      },
+      {
+        "model": "ERJ 170-200 STD",
+        "count": 2,
+        "slug": "erj-170-200-std"
+      },
+      {
+        "model": "ERJ 190-200 IGW",
+        "count": 2,
+        "slug": "erj-190-200-igw"
+      }
+    ],
+    "total_accidents": 47,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N100LC",
+        "year": 2012,
+        "model": "EMB-505"
+      },
+      {
+        "n_number": "N110SY",
+        "year": 2014,
+        "model": "ERJ 170-200 LL"
+      },
+      {
+        "n_number": "N100FG",
+        "year": 2011,
+        "model": "EMB-505"
+      },
+      {
+        "n_number": "N88327",
+        "year": 2015,
+        "model": "ERJ 170-200 LL"
+      },
+      {
+        "n_number": "N1073P",
+        "year": null,
+        "model": "ERJ 190-200 IGW"
+      }
+    ]
+  },
+  "engineering-research": {
+    "make": "Engineering & Research",
+    "slug": "engineering-research",
+    "raw_makes": [
+      "ENGINEERING & RESEARCH"
+    ],
+    "total_aircraft": 550,
+    "models": [
+      {
+        "model": "ERCOUPE 415-C",
+        "count": 272,
+        "slug": "ercoupe-415-c"
+      },
+      {
+        "model": "415-C",
+        "count": 160,
+        "slug": "415-c"
+      },
+      {
+        "model": "ERCOUPE 415-CD",
+        "count": 31,
+        "slug": "ercoupe-415-cd"
+      },
+      {
+        "model": "415-D",
+        "count": 24,
+        "slug": "415-d"
+      },
+      {
+        "model": "ERCOUPE 415-D",
+        "count": 24,
+        "slug": "ercoupe-415-d"
+      },
+      {
+        "model": "415-CD",
+        "count": 16,
+        "slug": "415-cd"
+      },
+      {
+        "model": "ERCOUPE 415-E",
+        "count": 11,
+        "slug": "ercoupe-415-e"
+      },
+      {
+        "model": "415-E",
+        "count": 7,
+        "slug": "415-e"
+      },
+      {
+        "model": "415-G",
+        "count": 3,
+        "slug": "415-g"
+      },
+      {
+        "model": "ERCOUPE 415-G",
+        "count": 2,
+        "slug": "ercoupe-415-g"
+      }
+    ],
+    "total_accidents": 38,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N87349",
+        "year": 1946,
+        "model": "ERCOUPE 415-D"
+      },
+      {
+        "n_number": "N99811",
+        "year": 1946,
+        "model": "ERCOUPE 415-C"
+      },
+      {
+        "n_number": "N93415",
+        "year": 1946,
+        "model": "415-C"
+      }
+    ]
+  },
+  "ercoupe": {
+    "make": "Ercoupe",
+    "slug": "ercoupe",
+    "raw_makes": [
+      "ERCOUPE"
+    ],
+    "total_aircraft": 833,
+    "models": [
+      {
+        "model": "415-C",
+        "count": 624,
+        "slug": "415-c"
+      },
+      {
+        "model": "415-D",
+        "count": 100,
+        "slug": "415-d"
+      },
+      {
+        "model": "415-CD",
+        "count": 48,
+        "slug": "415-cd"
+      },
+      {
+        "model": "G",
+        "count": 21,
+        "slug": "g"
+      },
+      {
+        "model": "E",
+        "count": 19,
+        "slug": "e"
+      },
+      {
+        "model": "415-E",
+        "count": 18,
+        "slug": "415-e"
+      },
+      {
+        "model": "415-G",
+        "count": 3,
+        "slug": "415-g"
+      }
+    ],
+    "total_accidents": 57,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N127G",
+        "year": 1963,
+        "model": "415-CD"
+      },
+      {
+        "n_number": "N93606",
+        "year": 1946,
+        "model": "415-C"
+      }
+    ]
+  },
+  "eurocopter": {
+    "make": "Eurocopter",
+    "slug": "eurocopter",
+    "raw_makes": [
+      "EUROCOPTER"
+    ],
+    "total_aircraft": 666,
+    "models": [
+      {
+        "model": "AS 350 B3",
+        "count": 166,
+        "slug": "as-350-b3"
+      },
+      {
+        "model": "EC 130 B4",
+        "count": 154,
+        "slug": "ec-130-b4"
+      },
+      {
+        "model": "AS 350 B2",
+        "count": 146,
+        "slug": "as-350-b2"
+      },
+      {
+        "model": "EC120B",
+        "count": 68,
+        "slug": "ec120b"
+      },
+      {
+        "model": "EC 130 T2",
+        "count": 22,
+        "slug": "ec-130-t2"
+      },
+      {
+        "model": "EC 225 LP",
+        "count": 19,
+        "slug": "ec-225-lp"
+      },
+      {
+        "model": "AS 350 B2 ECUREUIL",
+        "count": 13,
+        "slug": "as-350-b2-ecureuil"
+      },
+      {
+        "model": "AS 350 BA",
+        "count": 13,
+        "slug": "as-350-ba"
+      },
+      {
+        "model": "AS365N3",
+        "count": 12,
+        "slug": "as365n3"
+      },
+      {
+        "model": "EC 155 B1",
+        "count": 9,
+        "slug": "ec-155-b1"
+      },
+      {
+        "model": "SA341F2",
+        "count": 7,
+        "slug": "sa341f2"
+      },
+      {
+        "model": "AS350BB",
+        "count": 5,
+        "slug": "as350bb"
+      },
+      {
+        "model": "GAZELLE SA341F2",
+        "count": 5,
+        "slug": "gazelle-sa341f2"
+      },
+      {
+        "model": "EC 155B",
+        "count": 4,
+        "slug": "ec-155b"
+      },
+      {
+        "model": "AS 365 N2 DAUPHIN",
+        "count": 3,
+        "slug": "as-365-n2-dauphin"
+      },
+      {
+        "model": "AS332L1",
+        "count": 3,
+        "slug": "as332l1"
+      },
+      {
+        "model": "COLIBRI EC 120B",
+        "count": 2,
+        "slug": "colibri-ec-120b"
+      },
+      {
+        "model": "EC 130",
+        "count": 2,
+        "slug": "ec-130"
+      },
+      {
+        "model": "SA315B",
+        "count": 2,
+        "slug": "sa315b"
+      },
+      {
+        "model": "AS 350 B3E",
+        "count": 1,
+        "slug": "as-350-b3e"
+      }
+    ],
+    "total_accidents": 110,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N130WS",
+        "year": 2003,
+        "model": "EC 130 B4"
+      },
+      {
+        "n_number": "N153GC",
+        "year": 2010,
+        "model": "EC 130 B4"
+      },
+      {
+        "n_number": "N6087C",
+        "year": 1992,
+        "model": "AS 350 B2 ECUREUIL"
+      },
+      {
+        "n_number": "N405AE",
+        "year": 2000,
+        "model": "AS 350 B3"
+      },
+      {
+        "n_number": "N413LP",
+        "year": 1999,
+        "model": "AS 350 B3"
+      },
+      {
+        "n_number": "N808LF",
+        "year": 2010,
+        "model": "AS 350 B3"
+      }
+    ]
+  },
+  "fairchild": {
+    "make": "Fairchild",
+    "slug": "fairchild",
+    "raw_makes": [
+      "FAIRCHILD"
+    ],
+    "total_aircraft": 615,
+    "models": [
+      {
+        "model": "M-62A",
+        "count": 116,
+        "slug": "m-62a"
+      },
+      {
+        "model": "M-62A-3",
+        "count": 56,
+        "slug": "m-62a-3"
+      },
+      {
+        "model": "SA227-AC",
+        "count": 55,
+        "slug": "sa227-ac"
+      },
+      {
+        "model": "24W-46",
+        "count": 53,
+        "slug": "24w-46"
+      },
+      {
+        "model": "24R-46",
+        "count": 50,
+        "slug": "24r-46"
+      },
+      {
+        "model": "24W-41A",
+        "count": 18,
+        "slug": "24w-41a"
+      },
+      {
+        "model": "24R-46A",
+        "count": 15,
+        "slug": "24r-46a"
+      },
+      {
+        "model": "24W-40",
+        "count": 15,
+        "slug": "24w-40"
+      },
+      {
+        "model": "24 C8C",
+        "count": 14,
+        "slug": "24-c8c"
+      },
+      {
+        "model": "24 G",
+        "count": 14,
+        "slug": "24-g"
+      },
+      {
+        "model": "SA227-DC",
+        "count": 12,
+        "slug": "sa227-dc"
+      },
+      {
+        "model": "KR-21",
+        "count": 11,
+        "slug": "kr-21"
+      },
+      {
+        "model": "M-62A-4",
+        "count": 10,
+        "slug": "m-62a-4"
+      },
+      {
+        "model": "24 H",
+        "count": 9,
+        "slug": "24-h"
+      },
+      {
+        "model": "24R-9",
+        "count": 9,
+        "slug": "24r-9"
+      },
+      {
+        "model": "KR-31",
+        "count": 9,
+        "slug": "kr-31"
+      },
+      {
+        "model": "SA227-AT",
+        "count": 9,
+        "slug": "sa227-at"
+      },
+      {
+        "model": "24 J",
+        "count": 8,
+        "slug": "24-j"
+      },
+      {
+        "model": "C-123K",
+        "count": 8,
+        "slug": "c-123k"
+      },
+      {
+        "model": "KR-34C",
+        "count": 8,
+        "slug": "kr-34c"
+      }
+    ],
+    "total_accidents": 54,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N320MC",
+        "year": 1987,
+        "model": "SA227-AC"
+      },
+      {
+        "n_number": "N53953",
+        "year": 1942,
+        "model": "M-62A"
+      },
+      {
+        "n_number": "N103JC",
+        "year": 1943,
+        "model": "M-62A-3"
+      },
+      {
+        "n_number": "N425MA",
+        "year": 1986,
+        "model": "SA227-AC"
+      },
+      {
+        "n_number": "N106M",
+        "year": 1929,
+        "model": "42"
+      },
+      {
+        "n_number": "N232E",
+        "year": null,
+        "model": "24R-40"
+      }
+    ]
+  },
+  "grumman-american": {
+    "make": "Grumman American",
+    "slug": "grumman-american",
+    "raw_makes": [
+      "GRUMMAN AMERICAN AVN. CORP."
+    ],
+    "total_aircraft": 1676,
+    "models": [
+      {
+        "model": "AA-5B",
+        "count": 642,
+        "slug": "aa-5b"
+      },
+      {
+        "model": "AA-5A",
+        "count": 386,
+        "slug": "aa-5a"
+      },
+      {
+        "model": "AA-5",
+        "count": 258,
+        "slug": "aa-5"
+      },
+      {
+        "model": "AA-1B",
+        "count": 231,
+        "slug": "aa-1b"
+      },
+      {
+        "model": "AA-1C",
+        "count": 102,
+        "slug": "aa-1c"
+      },
+      {
+        "model": "GA-7",
+        "count": 43,
+        "slug": "ga-7"
+      },
+      {
+        "model": "G-1159",
+        "count": 4,
+        "slug": "g-1159"
+      },
+      {
+        "model": "G-164",
+        "count": 3,
+        "slug": "g-164"
+      },
+      {
+        "model": "G-164A",
+        "count": 3,
+        "slug": "g-164a"
+      },
+      {
+        "model": "G-164B",
+        "count": 3,
+        "slug": "g-164b"
+      },
+      {
+        "model": "G-159",
+        "count": 1,
+        "slug": "g-159"
+      }
+    ],
+    "total_accidents": 111,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N1082Z",
+        "year": 1976,
+        "model": "AA-5B"
+      },
+      {
+        "n_number": "N100XX",
+        "year": 1975,
+        "model": "AA-1B"
+      },
+      {
+        "n_number": "N28565",
+        "year": 1977,
+        "model": "AA-5B"
+      },
+      {
+        "n_number": "N76GC",
+        "year": 1976,
+        "model": "AA-5A"
+      },
+      {
+        "n_number": "N7015N",
+        "year": 1976,
+        "model": "G-164B"
+      },
+      {
+        "n_number": "N81317",
+        "year": null,
+        "model": "AA-5B"
+      }
+    ]
+  },
+  "hawker-beechcraft-corp": {
+    "make": "Hawker Beechcraft Corp",
+    "slug": "hawker-beechcraft-corp",
+    "raw_makes": [
+      "HAWKER BEECHCRAFT CORP"
+    ],
+    "total_aircraft": 849,
+    "models": [
+      {
+        "model": "G36",
+        "count": 146,
+        "slug": "g36"
+      },
+      {
+        "model": "B300",
+        "count": 144,
+        "slug": "b300"
+      },
+      {
+        "model": "HAWKER 900XP",
+        "count": 129,
+        "slug": "hawker-900xp"
+      },
+      {
+        "model": "B200GT",
+        "count": 76,
+        "slug": "b200gt"
+      },
+      {
+        "model": "G58",
+        "count": 67,
+        "slug": "g58"
+      },
+      {
+        "model": "390",
+        "count": 65,
+        "slug": "390"
+      },
+      {
+        "model": "C90GTI",
+        "count": 57,
+        "slug": "c90gti"
+      },
+      {
+        "model": "400A",
+        "count": 39,
+        "slug": "400a"
+      },
+      {
+        "model": "4000",
+        "count": 35,
+        "slug": "4000"
+      },
+      {
+        "model": "HAWKER 750",
+        "count": 28,
+        "slug": "hawker-750"
+      },
+      {
+        "model": "HAWKER 850XP",
+        "count": 20,
+        "slug": "hawker-850xp"
+      },
+      {
+        "model": "B300C",
+        "count": 14,
+        "slug": "b300c"
+      },
+      {
+        "model": "B200",
+        "count": 12,
+        "slug": "b200"
+      },
+      {
+        "model": "HAWKER 4000",
+        "count": 9,
+        "slug": "hawker-4000"
+      },
+      {
+        "model": "C90GT",
+        "count": 6,
+        "slug": "c90gt"
+      },
+      {
+        "model": "BAE 125-800B",
+        "count": 1,
+        "slug": "bae-125-800b"
+      },
+      {
+        "model": "HAWKER 800XP",
+        "count": 1,
+        "slug": "hawker-800xp"
+      }
+    ],
+    "total_accidents": 78,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N41HR",
+        "year": 2011,
+        "model": "G36"
+      },
+      {
+        "n_number": "N11",
+        "year": 2009,
+        "model": "C90GTI"
+      },
+      {
+        "n_number": "N10GF",
+        "year": 2009,
+        "model": "C90GTI"
+      },
+      {
+        "n_number": "N100FN",
+        "year": 2008,
+        "model": "400A"
+      },
+      {
+        "n_number": "N3133L",
+        "year": 2008,
+        "model": "C90GTI"
+      },
+      {
+        "n_number": "N7385W",
+        "year": null,
+        "model": "G36"
+      }
+    ]
+  },
+  "learjet-inc": {
+    "make": "Learjet Inc",
+    "slug": "learjet-inc",
+    "raw_makes": [
+      "LEARJET INC"
+    ],
+    "total_aircraft": 847,
+    "models": [
+      {
+        "model": "45",
+        "count": 434,
+        "slug": "45"
+      },
+      {
+        "model": "60",
+        "count": 237,
+        "slug": "60"
+      },
+      {
+        "model": "31A",
+        "count": 104,
+        "slug": "31a"
+      },
+      {
+        "model": "35A",
+        "count": 23,
+        "slug": "35a"
+      },
+      {
+        "model": "31",
+        "count": 15,
+        "slug": "31"
+      },
+      {
+        "model": "24",
+        "count": 7,
+        "slug": "24"
+      },
+      {
+        "model": "23",
+        "count": 6,
+        "slug": "23"
+      },
+      {
+        "model": "24D",
+        "count": 4,
+        "slug": "24d"
+      },
+      {
+        "model": "55",
+        "count": 4,
+        "slug": "55"
+      },
+      {
+        "model": "24B",
+        "count": 3,
+        "slug": "24b"
+      },
+      {
+        "model": "24A",
+        "count": 2,
+        "slug": "24a"
+      },
+      {
+        "model": "25",
+        "count": 2,
+        "slug": "25"
+      },
+      {
+        "model": "60 XR",
+        "count": 2,
+        "slug": "60-xr"
+      },
+      {
+        "model": "C-21A",
+        "count": 2,
+        "slug": "c-21a"
+      },
+      {
+        "model": "25D",
+        "count": 1,
+        "slug": "25d"
+      },
+      {
+        "model": "35",
+        "count": 1,
+        "slug": "35"
+      }
+    ],
+    "total_accidents": 49,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N79SC",
+        "year": 2003,
+        "model": "60"
+      },
+      {
+        "n_number": "N312MA",
+        "year": null,
+        "model": "45"
+      },
+      {
+        "n_number": "N100VQ",
+        "year": null,
+        "model": "24"
+      }
+    ]
+  },
+  "luscombe": {
+    "make": "Luscombe",
+    "slug": "luscombe",
+    "raw_makes": [
+      "LUSCOMBE"
+    ],
+    "total_aircraft": 1472,
+    "models": [
+      {
+        "model": "8A",
+        "count": 897,
+        "slug": "8a"
+      },
+      {
+        "model": "8E",
+        "count": 326,
+        "slug": "8e"
+      },
+      {
+        "model": "8F",
+        "count": 119,
+        "slug": "8f"
+      },
+      {
+        "model": "8C",
+        "count": 37,
+        "slug": "8c"
+      },
+      {
+        "model": "11A",
+        "count": 25,
+        "slug": "11a"
+      },
+      {
+        "model": "T-8F",
+        "count": 25,
+        "slug": "t-8f"
+      },
+      {
+        "model": "8B",
+        "count": 16,
+        "slug": "8b"
+      },
+      {
+        "model": "8D",
+        "count": 14,
+        "slug": "8d"
+      },
+      {
+        "model": "8",
+        "count": 11,
+        "slug": "8"
+      },
+      {
+        "model": "11E",
+        "count": 2,
+        "slug": "11e"
+      }
+    ],
+    "total_accidents": 200,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N1544K",
+        "year": 1946,
+        "model": "8A"
+      },
+      {
+        "n_number": "N1109K",
+        "year": 1946,
+        "model": "8A"
+      },
+      {
+        "n_number": "N39087",
+        "year": 1941,
+        "model": "8A"
+      },
+      {
+        "n_number": "N1164K",
+        "year": 1946,
+        "model": "8A"
+      },
+      {
+        "n_number": "N1160K",
+        "year": 1946,
+        "model": "8A"
+      },
+      {
+        "n_number": "N1183K",
+        "year": 1946,
+        "model": "8E"
+      }
+    ]
+  },
+  "maule": {
+    "make": "Maule",
+    "slug": "maule",
+    "raw_makes": [
+      "MAULE"
+    ],
+    "total_aircraft": 1344,
+    "models": [
+      {
+        "model": "M-5-235C",
+        "count": 181,
+        "slug": "m-5-235c"
+      },
+      {
+        "model": "M-5-210C",
+        "count": 94,
+        "slug": "m-5-210c"
+      },
+      {
+        "model": "M-4-220C",
+        "count": 83,
+        "slug": "m-4-220c"
+      },
+      {
+        "model": "M-6-235",
+        "count": 79,
+        "slug": "m-6-235"
+      },
+      {
+        "model": "M-7-235C",
+        "count": 77,
+        "slug": "m-7-235c"
+      },
+      {
+        "model": "MXT-7-180A",
+        "count": 74,
+        "slug": "mxt-7-180a"
+      },
+      {
+        "model": "M-7-235B",
+        "count": 66,
+        "slug": "m-7-235b"
+      },
+      {
+        "model": "MT-7-235",
+        "count": 60,
+        "slug": "mt-7-235"
+      },
+      {
+        "model": "M-5-180C",
+        "count": 57,
+        "slug": "m-5-180c"
+      },
+      {
+        "model": "MXT-7-180",
+        "count": 55,
+        "slug": "mxt-7-180"
+      },
+      {
+        "model": "M-7-235",
+        "count": 49,
+        "slug": "m-7-235"
+      },
+      {
+        "model": "M-7-260C",
+        "count": 48,
+        "slug": "m-7-260c"
+      },
+      {
+        "model": "M-4-210C",
+        "count": 46,
+        "slug": "m-4-210c"
+      },
+      {
+        "model": "MX-7-235",
+        "count": 46,
+        "slug": "mx-7-235"
+      },
+      {
+        "model": "M-4",
+        "count": 42,
+        "slug": "m-4"
+      },
+      {
+        "model": "MX-7-180A",
+        "count": 39,
+        "slug": "mx-7-180a"
+      },
+      {
+        "model": "MX-7-160",
+        "count": 31,
+        "slug": "mx-7-160"
+      },
+      {
+        "model": "M-5-220C",
+        "count": 27,
+        "slug": "m-5-220c"
+      },
+      {
+        "model": "MX-7-180",
+        "count": 27,
+        "slug": "mx-7-180"
+      },
+      {
+        "model": "MX-7-180C",
+        "count": 24,
+        "slug": "mx-7-180c"
+      }
+    ],
+    "total_accidents": 380,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N40676",
+        "year": null,
+        "model": "M-4-220C"
+      },
+      {
+        "n_number": "N7ZF",
+        "year": 2001,
+        "model": "M-7-260"
+      },
+      {
+        "n_number": "N205MX",
+        "year": 1999,
+        "model": "M-8-235"
+      },
+      {
+        "n_number": "N897DC",
+        "year": null,
+        "model": "MX-7-180A"
+      },
+      {
+        "n_number": "N4235R",
+        "year": 1999,
+        "model": "M-7-235C"
+      },
+      {
+        "n_number": "N6140B",
+        "year": null,
+        "model": "M-6-235"
+      }
+    ]
+  },
+  "mooney": {
+    "make": "Mooney",
+    "slug": "mooney",
+    "raw_makes": [
+      "MOONEY",
+      "MOONEY AIRCRAFT CORP."
+    ],
+    "total_aircraft": 6247,
+    "models": [
+      {
+        "model": "M20J",
+        "count": 1407,
+        "slug": "m20j"
+      },
+      {
+        "model": "M20C",
+        "count": 1257,
+        "slug": "m20c"
+      },
+      {
+        "model": "M20E",
+        "count": 829,
+        "slug": "m20e"
+      },
+      {
+        "model": "M20K",
+        "count": 771,
+        "slug": "m20k"
+      },
+      {
+        "model": "M20F",
+        "count": 721,
+        "slug": "m20f"
+      },
+      {
+        "model": "M20R",
+        "count": 399,
+        "slug": "m20r"
+      },
+      {
+        "model": "M20M",
+        "count": 249,
+        "slug": "m20m"
+      },
+      {
+        "model": "M-20G",
+        "count": 116,
+        "slug": "m-20g"
+      },
+      {
+        "model": "M20B",
+        "count": 98,
+        "slug": "m20b"
+      },
+      {
+        "model": "M20D",
+        "count": 88,
+        "slug": "m20d"
+      },
+      {
+        "model": "M20A",
+        "count": 59,
+        "slug": "m20a"
+      },
+      {
+        "model": "M20S",
+        "count": 58,
+        "slug": "m20s"
+      },
+      {
+        "model": "M-18C",
+        "count": 52,
+        "slug": "m-18c"
+      },
+      {
+        "model": "M10",
+        "count": 39,
+        "slug": "m10"
+      },
+      {
+        "model": "M-18L",
+        "count": 23,
+        "slug": "m-18l"
+      },
+      {
+        "model": "M20",
+        "count": 23,
+        "slug": "m20"
+      },
+      {
+        "model": "M20L",
+        "count": 16,
+        "slug": "m20l"
+      },
+      {
+        "model": "M22",
+        "count": 14,
+        "slug": "m22"
+      },
+      {
+        "model": "M-18C 55",
+        "count": 12,
+        "slug": "m-18c-55"
+      },
+      {
+        "model": "M-18LA",
+        "count": 11,
+        "slug": "m-18la"
+      }
+    ],
+    "total_accidents": 500,
+    "total_ads": 0,
+    "total_sdrs": 29,
+    "sample_aircraft": [
+      {
+        "n_number": "N79833",
+        "year": 1964,
+        "model": "M20E"
+      },
+      {
+        "n_number": "N555ED",
+        "year": null,
+        "model": "M20J"
+      },
+      {
+        "n_number": "N10143",
+        "year": 1981,
+        "model": "M20J"
+      },
+      {
+        "n_number": "N112DB",
+        "year": 1981,
+        "model": "M20J"
+      },
+      {
+        "n_number": "N102PT",
+        "year": 2008,
+        "model": "M20R"
+      },
+      {
+        "n_number": "N1156N",
+        "year": 1981,
+        "model": "M20J"
+      }
+    ]
+  },
+  "north-american": {
+    "make": "North American",
+    "slug": "north-american",
+    "raw_makes": [
+      "NORTH AMERICAN"
+    ],
+    "total_aircraft": 1297,
+    "models": [
+      {
+        "model": "NAVION",
+        "count": 202,
+        "slug": "navion"
+      },
+      {
+        "model": "SNJ-5",
+        "count": 121,
+        "slug": "snj-5"
+      },
+      {
+        "model": "T-6G",
+        "count": 103,
+        "slug": "t-6g"
+      },
+      {
+        "model": "T-28B",
+        "count": 89,
+        "slug": "t-28b"
+      },
+      {
+        "model": "AT-6D",
+        "count": 87,
+        "slug": "at-6d"
+      },
+      {
+        "model": "T-28A",
+        "count": 55,
+        "slug": "t-28a"
+      },
+      {
+        "model": "T-28C",
+        "count": 52,
+        "slug": "t-28c"
+      },
+      {
+        "model": "SNJ-4",
+        "count": 50,
+        "slug": "snj-4"
+      },
+      {
+        "model": "F-51D",
+        "count": 49,
+        "slug": "f-51d"
+      },
+      {
+        "model": "NAVION A",
+        "count": 46,
+        "slug": "navion-a"
+      },
+      {
+        "model": "AT-6C",
+        "count": 42,
+        "slug": "at-6c"
+      },
+      {
+        "model": "AT-6G",
+        "count": 37,
+        "slug": "at-6g"
+      },
+      {
+        "model": "P-51D",
+        "count": 37,
+        "slug": "p-51d"
+      },
+      {
+        "model": "SNJ-6",
+        "count": 31,
+        "slug": "snj-6"
+      },
+      {
+        "model": "AT-6",
+        "count": 28,
+        "slug": "at-6"
+      },
+      {
+        "model": "AT-6F",
+        "count": 22,
+        "slug": "at-6f"
+      },
+      {
+        "model": "TB-25N",
+        "count": 20,
+        "slug": "tb-25n"
+      },
+      {
+        "model": "OV-10A",
+        "count": 18,
+        "slug": "ov-10a"
+      },
+      {
+        "model": "B-25J",
+        "count": 17,
+        "slug": "b-25j"
+      },
+      {
+        "model": "SNJ-5C",
+        "count": 11,
+        "slug": "snj-5c"
+      }
+    ],
+    "total_accidents": 193,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N29931",
+        "year": 1943,
+        "model": "AT-6G"
+      },
+      {
+        "n_number": "N61429",
+        "year": 1942,
+        "model": "P-51C"
+      },
+      {
+        "n_number": "N10607",
+        "year": 1944,
+        "model": "P-51D"
+      },
+      {
+        "n_number": "N29947",
+        "year": 1944,
+        "model": "AT-6D"
+      },
+      {
+        "n_number": "N22NA",
+        "year": 1946,
+        "model": "T-6G"
+      },
+      {
+        "n_number": "N3173L",
+        "year": 1945,
+        "model": "AT-6"
+      }
+    ]
+  },
+  "pilatus": {
+    "make": "Pilatus",
+    "slug": "pilatus",
+    "raw_makes": [
+      "PILATUS",
+      "PILATUS AIRCRAFT LTD"
+    ],
+    "total_aircraft": 1758,
+    "models": [
+      {
+        "model": "PC-12/47E",
+        "count": 831,
+        "slug": "pc-12-47e"
+      },
+      {
+        "model": "PC-12/45",
+        "count": 278,
+        "slug": "pc-12-45"
+      },
+      {
+        "model": "PC-24",
+        "count": 198,
+        "slug": "pc-24"
+      },
+      {
+        "model": "PC-12/47",
+        "count": 120,
+        "slug": "pc-12-47"
+      },
+      {
+        "model": "PC-12/45",
+        "count": 100,
+        "slug": "pc-12-45"
+      },
+      {
+        "model": "PC-12/47G",
+        "count": 65,
+        "slug": "pc-12-47g"
+      },
+      {
+        "model": "PC-12",
+        "count": 32,
+        "slug": "pc-12"
+      },
+      {
+        "model": "PC-9/A",
+        "count": 21,
+        "slug": "pc-9-a"
+      },
+      {
+        "model": "B4-PC11",
+        "count": 20,
+        "slug": "b4-pc11"
+      },
+      {
+        "model": "PC-7",
+        "count": 19,
+        "slug": "pc-7"
+      },
+      {
+        "model": "P3-05",
+        "count": 15,
+        "slug": "p3-05"
+      },
+      {
+        "model": "B4-PC11AF",
+        "count": 9,
+        "slug": "b4-pc11af"
+      },
+      {
+        "model": "B-4",
+        "count": 8,
+        "slug": "b-4"
+      },
+      {
+        "model": "PC-6/B2-H2",
+        "count": 8,
+        "slug": "pc-6-b2-h2"
+      },
+      {
+        "model": "PC-6/B2-H4",
+        "count": 8,
+        "slug": "pc-6-b2-h4"
+      },
+      {
+        "model": "P3",
+        "count": 7,
+        "slug": "p3"
+      },
+      {
+        "model": "P3-03",
+        "count": 3,
+        "slug": "p3-03"
+      },
+      {
+        "model": "PC-6/B2-H4",
+        "count": 3,
+        "slug": "pc-6-b2-h4"
+      },
+      {
+        "model": "PC-9/F",
+        "count": 3,
+        "slug": "pc-9-f"
+      },
+      {
+        "model": "PC-9M",
+        "count": 3,
+        "slug": "pc-9m"
+      }
+    ],
+    "total_accidents": 135,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N717DR",
+        "year": 2024,
+        "model": "PC-12/47E"
+      },
+      {
+        "n_number": "N409LH",
+        "year": 2024,
+        "model": "PC-12/47E"
+      },
+      {
+        "n_number": "N10DF",
+        "year": null,
+        "model": "PC-12/47E"
+      },
+      {
+        "n_number": "N100J",
+        "year": 2019,
+        "model": "PC-24"
+      },
+      {
+        "n_number": "N99805",
+        "year": 2018,
+        "model": "PC-12/47E"
+      },
+      {
+        "n_number": "N101PK",
+        "year": 2016,
+        "model": "PC-12/47E"
+      }
+    ]
+  },
+  "piper": {
+    "make": "Piper",
+    "slug": "piper",
+    "raw_makes": [
+      "PIPER",
+      "PIPER AIRCRAFT INC"
+    ],
+    "total_aircraft": 46279,
+    "models": [
+      {
+        "model": "PA-28-140",
+        "count": 4259,
+        "slug": "pa-28-140"
+      },
+      {
+        "model": "PA-28-180",
+        "count": 3505,
+        "slug": "pa-28-180"
+      },
+      {
+        "model": "J3C-65",
+        "count": 3191,
+        "slug": "j3c-65"
+      },
+      {
+        "model": "PA-28-181",
+        "count": 2936,
+        "slug": "pa-28-181"
+      },
+      {
+        "model": "PA-18-150",
+        "count": 2054,
+        "slug": "pa-18-150"
+      },
+      {
+        "model": "PA-28-161",
+        "count": 1496,
+        "slug": "pa-28-161"
+      },
+      {
+        "model": "PA-12",
+        "count": 1242,
+        "slug": "pa-12"
+      },
+      {
+        "model": "PA-28R-200",
+        "count": 1223,
+        "slug": "pa-28r-200"
+      },
+      {
+        "model": "PA-24-250",
+        "count": 1222,
+        "slug": "pa-24-250"
+      },
+      {
+        "model": "PA-22-150",
+        "count": 1199,
+        "slug": "pa-22-150"
+      },
+      {
+        "model": "PA-32-300",
+        "count": 993,
+        "slug": "pa-32-300"
+      },
+      {
+        "model": "PA-28-151",
+        "count": 960,
+        "slug": "pa-28-151"
+      },
+      {
+        "model": "PA-23-250",
+        "count": 894,
+        "slug": "pa-23-250"
+      },
+      {
+        "model": "PA-30",
+        "count": 878,
+        "slug": "pa-30"
+      },
+      {
+        "model": "PA-28-235",
+        "count": 859,
+        "slug": "pa-28-235"
+      },
+      {
+        "model": "PA-32-260",
+        "count": 650,
+        "slug": "pa-32-260"
+      },
+      {
+        "model": "PA-28-181",
+        "count": 606,
+        "slug": "pa-28-181"
+      },
+      {
+        "model": "PA-24-260",
+        "count": 590,
+        "slug": "pa-24-260"
+      },
+      {
+        "model": "PA-22-108",
+        "count": 587,
+        "slug": "pa-22-108"
+      },
+      {
+        "model": "PA-34-200T",
+        "count": 563,
+        "slug": "pa-34-200t"
+      }
+    ],
+    "total_accidents": 5994,
+    "total_ads": 1,
+    "total_sdrs": 731,
+    "sample_aircraft": [
+      {
+        "n_number": "N274MA",
+        "year": 2024,
+        "model": "PA-28-181"
+      },
+      {
+        "n_number": "N3997Z",
+        "year": 1963,
+        "model": "PA-18-150"
+      },
+      {
+        "n_number": "N8739P",
+        "year": 1965,
+        "model": "PA-24-260"
+      },
+      {
+        "n_number": "N14HR",
+        "year": 1947,
+        "model": "PA-12"
+      },
+      {
+        "n_number": "N114SA",
+        "year": 1980,
+        "model": "PA-31-350"
+      },
+      {
+        "n_number": "N2518A",
+        "year": 1953,
+        "model": "PA-18"
+      }
+    ]
+  },
+  "rockwell-international": {
+    "make": "Rockwell International",
+    "slug": "rockwell-international",
+    "raw_makes": [
+      "ROCKWELL INTERNATIONAL"
+    ],
+    "total_aircraft": 657,
+    "models": [
+      {
+        "model": "114",
+        "count": 186,
+        "slug": "114"
+      },
+      {
+        "model": "S-2R",
+        "count": 97,
+        "slug": "s-2r"
+      },
+      {
+        "model": "112A",
+        "count": 92,
+        "slug": "112a"
+      },
+      {
+        "model": "690B",
+        "count": 59,
+        "slug": "690b"
+      },
+      {
+        "model": "112TC",
+        "count": 47,
+        "slug": "112tc"
+      },
+      {
+        "model": "112TCA",
+        "count": 43,
+        "slug": "112tca"
+      },
+      {
+        "model": "690A",
+        "count": 34,
+        "slug": "690a"
+      },
+      {
+        "model": "114A",
+        "count": 21,
+        "slug": "114a"
+      },
+      {
+        "model": "690C",
+        "count": 21,
+        "slug": "690c"
+      },
+      {
+        "model": "500-S",
+        "count": 19,
+        "slug": "500-s"
+      },
+      {
+        "model": "112B",
+        "count": 16,
+        "slug": "112b"
+      },
+      {
+        "model": "700",
+        "count": 10,
+        "slug": "700"
+      },
+      {
+        "model": "112",
+        "count": 9,
+        "slug": "112"
+      },
+      {
+        "model": "65",
+        "count": 1,
+        "slug": "65"
+      },
+      {
+        "model": "NA-265-80",
+        "count": 1,
+        "slug": "na-265-80"
+      },
+      {
+        "model": "S-2R-800",
+        "count": 1,
+        "slug": "s-2r-800"
+      }
+    ],
+    "total_accidents": 96,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N112EF",
+        "year": 1975,
+        "model": "112"
+      },
+      {
+        "n_number": "N109SB",
+        "year": null,
+        "model": "NA-265-80"
+      },
+      {
+        "n_number": "N116RC",
+        "year": 1976,
+        "model": "114"
+      },
+      {
+        "n_number": "N8441V",
+        "year": 1976,
+        "model": "S-2R"
+      },
+      {
+        "n_number": "N8466V",
+        "year": 1976,
+        "model": "S-2R"
+      },
+      {
+        "n_number": "N5596X",
+        "year": 1977,
+        "model": "S-2R"
+      }
+    ]
+  },
+  "schleicher": {
+    "make": "Schleicher",
+    "slug": "schleicher",
+    "raw_makes": [
+      "SCHLEICHER"
+    ],
+    "total_aircraft": 507,
+    "models": [
+      {
+        "model": "ASW-27",
+        "count": 72,
+        "slug": "asw-27"
+      },
+      {
+        "model": "ASW-20",
+        "count": 57,
+        "slug": "asw-20"
+      },
+      {
+        "model": "ASK-21",
+        "count": 43,
+        "slug": "ask-21"
+      },
+      {
+        "model": "ASW-24",
+        "count": 32,
+        "slug": "asw-24"
+      },
+      {
+        "model": "KA 6 CR",
+        "count": 28,
+        "slug": "ka-6-cr"
+      },
+      {
+        "model": "ASW-19",
+        "count": 26,
+        "slug": "asw-19"
+      },
+      {
+        "model": "ASW-15",
+        "count": 22,
+        "slug": "asw-15"
+      },
+      {
+        "model": "ASW-20C",
+        "count": 20,
+        "slug": "asw-20c"
+      },
+      {
+        "model": "K 8 B",
+        "count": 19,
+        "slug": "k-8-b"
+      },
+      {
+        "model": "KA 6 E",
+        "count": 19,
+        "slug": "ka-6-e"
+      },
+      {
+        "model": "ASW-19B",
+        "count": 17,
+        "slug": "asw-19b"
+      },
+      {
+        "model": "ASW-28",
+        "count": 16,
+        "slug": "asw-28"
+      },
+      {
+        "model": "AS-K13",
+        "count": 14,
+        "slug": "as-k13"
+      },
+      {
+        "model": "ASW27-18",
+        "count": 13,
+        "slug": "asw27-18"
+      },
+      {
+        "model": "ASW-20B",
+        "count": 11,
+        "slug": "asw-20b"
+      },
+      {
+        "model": "ASW-24B",
+        "count": 9,
+        "slug": "asw-24b"
+      },
+      {
+        "model": "ASW-20BL",
+        "count": 8,
+        "slug": "asw-20bl"
+      },
+      {
+        "model": "ASH-25",
+        "count": 5,
+        "slug": "ash-25"
+      },
+      {
+        "model": "ASK-14",
+        "count": 5,
+        "slug": "ask-14"
+      },
+      {
+        "model": "ASW-15B",
+        "count": 5,
+        "slug": "asw-15b"
+      }
+    ],
+    "total_accidents": 80,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N341KS",
+        "year": 2002,
+        "model": "ASK-21"
+      },
+      {
+        "n_number": "N503CW",
+        "year": null,
+        "model": "ASW-27"
+      },
+      {
+        "n_number": "N10011",
+        "year": null,
+        "model": "KA 10"
+      },
+      {
+        "n_number": "N81KP",
+        "year": 1997,
+        "model": "ASW-27"
+      },
+      {
+        "n_number": "N361KS",
+        "year": 1984,
+        "model": "ASK-21"
+      },
+      {
+        "n_number": "N367T",
+        "year": null,
+        "model": "ASW27-18"
+      }
+    ]
+  },
+  "sikorsky": {
+    "make": "Sikorsky",
+    "slug": "sikorsky",
+    "raw_makes": [
+      "SIKORSKY"
+    ],
+    "total_aircraft": 802,
+    "models": [
+      {
+        "model": "UH-60A",
+        "count": 211,
+        "slug": "uh-60a"
+      },
+      {
+        "model": "UH-60L",
+        "count": 137,
+        "slug": "uh-60l"
+      },
+      {
+        "model": "S-76C",
+        "count": 78,
+        "slug": "s-76c"
+      },
+      {
+        "model": "S-61N",
+        "count": 45,
+        "slug": "s-61n"
+      },
+      {
+        "model": "S-92A",
+        "count": 45,
+        "slug": "s-92a"
+      },
+      {
+        "model": "S-76B",
+        "count": 34,
+        "slug": "s-76b"
+      },
+      {
+        "model": "EH-60A",
+        "count": 33,
+        "slug": "eh-60a"
+      },
+      {
+        "model": "HH-60L",
+        "count": 32,
+        "slug": "hh-60l"
+      },
+      {
+        "model": "S-76A",
+        "count": 19,
+        "slug": "s-76a"
+      },
+      {
+        "model": "S-70I",
+        "count": 17,
+        "slug": "s-70i"
+      },
+      {
+        "model": "SH-3H",
+        "count": 13,
+        "slug": "sh-3h"
+      },
+      {
+        "model": "S-64E",
+        "count": 11,
+        "slug": "s-64e"
+      },
+      {
+        "model": "UH-60",
+        "count": 10,
+        "slug": "uh-60"
+      },
+      {
+        "model": "S-55B",
+        "count": 9,
+        "slug": "s-55b"
+      },
+      {
+        "model": "S-76C-2",
+        "count": 6,
+        "slug": "s-76c-2"
+      },
+      {
+        "model": "UH-19D",
+        "count": 6,
+        "slug": "uh-19d"
+      },
+      {
+        "model": "S-58JT",
+        "count": 5,
+        "slug": "s-58jt"
+      },
+      {
+        "model": "S-61A",
+        "count": 5,
+        "slug": "s-61a"
+      },
+      {
+        "model": "S-64F",
+        "count": 5,
+        "slug": "s-64f"
+      },
+      {
+        "model": "S-70M",
+        "count": 5,
+        "slug": "s-70m"
+      }
+    ],
+    "total_accidents": 75,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N76VR",
+        "year": 1989,
+        "model": "S-76B"
+      },
+      {
+        "n_number": "N77227",
+        "year": null,
+        "model": "UH-60L"
+      },
+      {
+        "n_number": "N111VA",
+        "year": 1953,
+        "model": "S-55"
+      },
+      {
+        "n_number": "N8286",
+        "year": 1979,
+        "model": "UH-60A"
+      },
+      {
+        "n_number": "N113B",
+        "year": null,
+        "model": "EH-60A"
+      },
+      {
+        "n_number": "N1043T",
+        "year": 1961,
+        "model": "S-61A"
+      }
+    ]
+  },
+  "socata": {
+    "make": "Socata",
+    "slug": "socata",
+    "raw_makes": [
+      "SOCATA"
+    ],
+    "total_aircraft": 1055,
+    "models": [
+      {
+        "model": "TBM 700",
+        "count": 642,
+        "slug": "tbm-700"
+      },
+      {
+        "model": "TB-20 TRINIDAD",
+        "count": 175,
+        "slug": "tb-20-trinidad"
+      },
+      {
+        "model": "TB 10",
+        "count": 52,
+        "slug": "tb-10"
+      },
+      {
+        "model": "TB21",
+        "count": 50,
+        "slug": "tb21"
+      },
+      {
+        "model": "TB 30 EPSILON",
+        "count": 36,
+        "slug": "tb-30-epsilon"
+      },
+      {
+        "model": "TB 9 TAMPICO",
+        "count": 34,
+        "slug": "tb-9-tampico"
+      },
+      {
+        "model": "TB20",
+        "count": 25,
+        "slug": "tb20"
+      },
+      {
+        "model": "TAMPICO TB 9C",
+        "count": 16,
+        "slug": "tampico-tb-9c"
+      },
+      {
+        "model": "TB200",
+        "count": 11,
+        "slug": "tb200"
+      },
+      {
+        "model": "TB21TC",
+        "count": 7,
+        "slug": "tb21tc"
+      },
+      {
+        "model": "TBM 700A",
+        "count": 2,
+        "slug": "tbm-700a"
+      },
+      {
+        "model": "TBM 700B",
+        "count": 2,
+        "slug": "tbm-700b"
+      },
+      {
+        "model": "TBM-700 C2",
+        "count": 2,
+        "slug": "tbm-700-c2"
+      },
+      {
+        "model": "TBM-700N",
+        "count": 1,
+        "slug": "tbm-700n"
+      }
+    ],
+    "total_accidents": 118,
+    "total_ads": 0,
+    "total_sdrs": 3,
+    "sample_aircraft": [
+      {
+        "n_number": "N88HA",
+        "year": 2017,
+        "model": "TBM 700"
+      },
+      {
+        "n_number": "N110U",
+        "year": null,
+        "model": "TB-20 TRINIDAD"
+      },
+      {
+        "n_number": "N55510",
+        "year": null,
+        "model": "TB21TC"
+      },
+      {
+        "n_number": "N111RF",
+        "year": 2003,
+        "model": "TBM 700"
+      },
+      {
+        "n_number": "N715V",
+        "year": 1995,
+        "model": "TBM 700"
+      },
+      {
+        "n_number": "N115DS",
+        "year": 2000,
+        "model": "TB-20 TRINIDAD"
+      }
+    ]
+  },
+  "stinson": {
+    "make": "Stinson",
+    "slug": "stinson",
+    "raw_makes": [
+      "STINSON"
+    ],
+    "total_aircraft": 1730,
+    "models": [
+      {
+        "model": "108-3",
+        "count": 433,
+        "slug": "108-3"
+      },
+      {
+        "model": "108-1",
+        "count": 338,
+        "slug": "108-1"
+      },
+      {
+        "model": "108-2",
+        "count": 285,
+        "slug": "108-2"
+      },
+      {
+        "model": "108",
+        "count": 213,
+        "slug": "108"
+      },
+      {
+        "model": "VULTEE V-77",
+        "count": 85,
+        "slug": "vultee-v-77"
+      },
+      {
+        "model": "L-5",
+        "count": 72,
+        "slug": "l-5"
+      },
+      {
+        "model": "10A",
+        "count": 61,
+        "slug": "10a"
+      },
+      {
+        "model": "10",
+        "count": 28,
+        "slug": "10"
+      },
+      {
+        "model": "HW75",
+        "count": 23,
+        "slug": "hw75"
+      },
+      {
+        "model": "L-5G",
+        "count": 22,
+        "slug": "l-5g"
+      },
+      {
+        "model": "L-5E",
+        "count": 20,
+        "slug": "l-5e"
+      },
+      {
+        "model": "SM-8A",
+        "count": 18,
+        "slug": "sm-8a"
+      },
+      {
+        "model": "SR-9C",
+        "count": 13,
+        "slug": "sr-9c"
+      },
+      {
+        "model": "JR. S",
+        "count": 12,
+        "slug": "jr-s"
+      },
+      {
+        "model": "JR. SR",
+        "count": 9,
+        "slug": "jr-sr"
+      },
+      {
+        "model": "L-5B",
+        "count": 7,
+        "slug": "l-5b"
+      },
+      {
+        "model": "SR-10J",
+        "count": 5,
+        "slug": "sr-10j"
+      },
+      {
+        "model": "SR-8B",
+        "count": 5,
+        "slug": "sr-8b"
+      },
+      {
+        "model": "SR-8C",
+        "count": 5,
+        "slug": "sr-8c"
+      },
+      {
+        "model": "SR-9E",
+        "count": 5,
+        "slug": "sr-9e"
+      }
+    ],
+    "total_accidents": 196,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N68591",
+        "year": null,
+        "model": "L-5"
+      },
+      {
+        "n_number": "N97781",
+        "year": 1946,
+        "model": "108-1"
+      },
+      {
+        "n_number": "N97599",
+        "year": 1946,
+        "model": "108"
+      },
+      {
+        "n_number": "N87607",
+        "year": 1945,
+        "model": "108"
+      },
+      {
+        "n_number": "N1156V",
+        "year": 1943,
+        "model": "L-5"
+      },
+      {
+        "n_number": "N136SP",
+        "year": 1946,
+        "model": "108-1"
+      }
+    ]
+  },
+  "taylorcraft": {
+    "make": "Taylorcraft",
+    "slug": "taylorcraft",
+    "raw_makes": [
+      "TAYLORCRAFT"
+    ],
+    "total_aircraft": 1898,
+    "models": [
+      {
+        "model": "BC12-D",
+        "count": 1011,
+        "slug": "bc12-d"
+      },
+      {
+        "model": "DCO-65",
+        "count": 195,
+        "slug": "dco-65"
+      },
+      {
+        "model": "BL-65",
+        "count": 134,
+        "slug": "bl-65"
+      },
+      {
+        "model": "BC-65",
+        "count": 109,
+        "slug": "bc-65"
+      },
+      {
+        "model": "BC12-65",
+        "count": 104,
+        "slug": "bc12-65"
+      },
+      {
+        "model": "BC12-D1",
+        "count": 76,
+        "slug": "bc12-d1"
+      },
+      {
+        "model": "DC-65",
+        "count": 49,
+        "slug": "dc-65"
+      },
+      {
+        "model": "A",
+        "count": 28,
+        "slug": "a"
+      },
+      {
+        "model": "BC12D-85",
+        "count": 28,
+        "slug": "bc12d-85"
+      },
+      {
+        "model": "BC",
+        "count": 17,
+        "slug": "bc"
+      },
+      {
+        "model": "BL12-65",
+        "count": 16,
+        "slug": "bl12-65"
+      },
+      {
+        "model": "BF12-65",
+        "count": 14,
+        "slug": "bf12-65"
+      },
+      {
+        "model": "BL",
+        "count": 13,
+        "slug": "bl"
+      },
+      {
+        "model": "F21B",
+        "count": 13,
+        "slug": "f21b"
+      },
+      {
+        "model": "BCS12-D",
+        "count": 11,
+        "slug": "bcs12-d"
+      },
+      {
+        "model": "15A",
+        "count": 9,
+        "slug": "15a"
+      },
+      {
+        "model": "BF",
+        "count": 9,
+        "slug": "bf"
+      },
+      {
+        "model": "BF-65",
+        "count": 9,
+        "slug": "bf-65"
+      },
+      {
+        "model": "L-2M",
+        "count": 9,
+        "slug": "l-2m"
+      },
+      {
+        "model": "DF-65",
+        "count": 7,
+        "slug": "df-65"
+      }
+    ],
+    "total_accidents": 175,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N95250",
+        "year": 1946,
+        "model": "BC12-D"
+      },
+      {
+        "n_number": "N95356",
+        "year": null,
+        "model": "BC12-D"
+      },
+      {
+        "n_number": "N49368",
+        "year": 1946,
+        "model": "BC12-D"
+      },
+      {
+        "n_number": "N95078",
+        "year": 1946,
+        "model": "BC12-D"
+      },
+      {
+        "n_number": "N27492",
+        "year": null,
+        "model": "BL-65"
+      },
+      {
+        "n_number": "N64518",
+        "year": 1946,
+        "model": "BC12-D"
+      }
+    ]
+  },
+  "uvify": {
+    "make": "Uvify",
+    "slug": "uvify",
+    "raw_makes": [
+      "UVIFY"
+    ],
+    "total_aircraft": 650,
+    "models": [
+      {
+        "model": "810-00028",
+        "count": 650,
+        "slug": "810-00028"
+      }
+    ],
+    "total_accidents": 27,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N9555U",
+        "year": null,
+        "model": "810-00028"
+      }
+    ]
+  },
+  "vans": {
+    "make": "Vans",
+    "slug": "vans",
+    "raw_makes": [
+      "VANS",
+      "VANS AIRCRAFT INC"
+    ],
+    "total_aircraft": 961,
+    "models": [
+      {
+        "model": "RV-12",
+        "count": 577,
+        "slug": "rv-12"
+      },
+      {
+        "model": "RV-12IS",
+        "count": 367,
+        "slug": "rv-12is"
+      },
+      {
+        "model": "RV-7A",
+        "count": 4,
+        "slug": "rv-7a"
+      },
+      {
+        "model": "RV-14A",
+        "count": 2,
+        "slug": "rv-14a"
+      },
+      {
+        "model": "RV-9A",
+        "count": 2,
+        "slug": "rv-9a"
+      },
+      {
+        "model": "RV4",
+        "count": 1,
+        "slug": "rv4"
+      },
+      {
+        "model": "RV-14",
+        "count": 1,
+        "slug": "rv-14"
+      },
+      {
+        "model": "RV-7",
+        "count": 1,
+        "slug": "rv-7"
+      },
+      {
+        "model": "RV-8",
+        "count": 1,
+        "slug": "rv-8"
+      },
+      {
+        "model": "RV-8A",
+        "count": 1,
+        "slug": "rv-8a"
+      },
+      {
+        "model": "RV-8X",
+        "count": 1,
+        "slug": "rv-8x"
+      },
+      {
+        "model": "RV-X",
+        "count": 1,
+        "slug": "rv-x"
+      },
+      {
+        "model": "RV8",
+        "count": 1,
+        "slug": "rv8"
+      },
+      {
+        "model": "VANS RV-7",
+        "count": 1,
+        "slug": "vans-rv-7"
+      }
+    ],
+    "total_accidents": 84,
+    "total_ads": 0,
+    "total_sdrs": 0,
+    "sample_aircraft": [
+      {
+        "n_number": "N205BR",
+        "year": 2021,
+        "model": "RV-12IS"
+      },
+      {
+        "n_number": "N46RJ",
+        "year": 2014,
+        "model": "RV-12"
+      },
+      {
+        "n_number": "N120R",
+        "year": 2010,
+        "model": "RV-12"
+      },
+      {
+        "n_number": "N46TB",
+        "year": 2025,
+        "model": "RV-12IS"
+      },
+      {
+        "n_number": "N49DD",
+        "year": 2013,
+        "model": "RV-12"
+      }
+    ]
+  },
+  "waco": {
+    "make": "Waco",
+    "slug": "waco",
+    "raw_makes": [
+      "WACO"
+    ],
+    "total_aircraft": 657,
+    "models": [
+      {
+        "model": "UPF-7",
+        "count": 189,
+        "slug": "upf-7"
+      },
+      {
+        "model": "RNF",
+        "count": 35,
+        "slug": "rnf"
+      },
+      {
+        "model": "ASO",
+        "count": 33,
+        "slug": "aso"
+      },
+      {
+        "model": "GXE",
+        "count": 33,
+        "slug": "gxe"
+      },
+      {
+        "model": "ATO",
+        "count": 27,
+        "slug": "ato"
+      },
+      {
+        "model": "YKS-7",
+        "count": 21,
+        "slug": "yks-7"
+      },
+      {
+        "model": "QCF",
+        "count": 19,
+        "slug": "qcf"
+      },
+      {
+        "model": "CTO",
+        "count": 17,
+        "slug": "cto"
+      },
+      {
+        "model": "YKS-6",
+        "count": 15,
+        "slug": "yks-6"
+      },
+      {
+        "model": "BSO",
+        "count": 14,
+        "slug": "bso"
+      },
+      {
+        "model": "YMF",
+        "count": 14,
+        "slug": "ymf"
+      },
+      {
+        "model": "UBF",
+        "count": 13,
+        "slug": "ubf"
+      },
+      {
+        "model": "UIC",
+        "count": 13,
+        "slug": "uic"
+      },
+      {
+        "model": "10",
+        "count": 11,
+        "slug": "10"
+      },
+      {
+        "model": "YKC",
+        "count": 10,
+        "slug": "ykc"
+      },
+      {
+        "model": "INF",
+        "count": 8,
+        "slug": "inf"
+      },
+      {
+        "model": "DSO",
+        "count": 7,
+        "slug": "dso"
+      },
+      {
+        "model": "EGC-8",
+        "count": 7,
+        "slug": "egc-8"
+      },
+      {
+        "model": "UEC",
+        "count": 7,
+        "slug": "uec"
+      },
+      {
+        "model": "VKS-7F",
+        "count": 7,
+        "slug": "vks-7f"
+      }
+    ],
+    "total_accidents": 135,
+    "total_ads": 0,
+    "total_sdrs": 1,
+    "sample_aircraft": [
+      {
+        "n_number": "N11256",
+        "year": 1931,
+        "model": "RNF"
+      },
+      {
+        "n_number": "N9577H",
+        "year": 1929,
+        "model": "CTO"
+      },
+      {
+        "n_number": "N39714",
+        "year": 1942,
+        "model": "UPF-7"
+      },
+      {
+        "n_number": "N32133",
+        "year": 1941,
+        "model": "UPF-7"
+      },
+      {
+        "n_number": "N11254",
+        "year": 1931,
+        "model": "RNF"
+      },
+      {
+        "n_number": "N11273",
+        "year": 1931,
+        "model": "QCF"
+      }
+    ]
+  }
+}

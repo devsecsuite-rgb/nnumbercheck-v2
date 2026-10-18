@@ -1,0 +1,4657 @@
+[
+  {
+    "name": "RIDGEAIRE INC",
+    "certificate": "D000011",
+    "expiration": "20270705",
+    "city": "JACKSONVILLE",
+    "state": "TX"
+  },
+  {
+    "name": "FLIGHT SOLUTIONS INC",
+    "certificate": "D000019",
+    "expiration": "20270908",
+    "city": "HENDERSONVILLE",
+    "state": "TN"
+  },
+  {
+    "name": "STEPHENS AVIATION INC",
+    "certificate": "D000062",
+    "expiration": "20270201",
+    "city": "MISHAWAKA",
+    "state": "IN"
+  },
+  {
+    "name": "HELICOPTER AVIATION SERVICES & LEASING INC",
+    "certificate": "D000063",
+    "expiration": "20270414",
+    "city": "BOYNTON BEACH",
+    "state": "FL"
+  },
+  {
+    "name": "HILL AIR EXECUTIVE INC",
+    "certificate": "D000153",
+    "expiration": "20270315",
+    "city": "FORT PIERCE",
+    "state": "FL"
+  },
+  {
+    "name": "AVIATION ENTERPRISES AIRCRAFT SALES LLC",
+    "certificate": "D000162",
+    "expiration": "20270120",
+    "city": "SPRINGFIELD",
+    "state": "MO"
+  },
+  {
+    "name": "HM AIRCRAFT SALES INC",
+    "certificate": "D000168",
+    "expiration": "20270616",
+    "city": "PEMBROKE PINES",
+    "state": "FL"
+  },
+  {
+    "name": "WETZEL AVIATION INC",
+    "certificate": "D000172",
+    "expiration": "20261023",
+    "city": "ENGLEWOOD",
+    "state": "CO"
+  },
+  {
+    "name": "CANNAN AVIATION INC",
+    "certificate": "D000189",
+    "expiration": "20271024",
+    "city": "GEORGETOWN",
+    "state": "TX"
+  },
+  {
+    "name": "AEROSTAR AIRCRAFT CORP",
+    "certificate": "D000203",
+    "expiration": "20270519",
+    "city": "HAYDEN",
+    "state": "ID"
+  },
+  {
+    "name": "LANCAIR CORP",
+    "certificate": "D000216",
+    "expiration": "20270730",
+    "city": "ALPINE",
+    "state": "CA"
+  },
+  {
+    "name": "ORBIC HELICOPTERS SALES & SERVICE AT CAMARILLO LLC",
+    "certificate": "D000251",
+    "expiration": "20270303",
+    "city": "CAMARILLO",
+    "state": "CA"
+  },
+  {
+    "name": "STEWART AVIATION LLC",
+    "certificate": "D000253",
+    "expiration": "20261023",
+    "city": "SEYMOUR",
+    "state": "IN"
+  },
+  {
+    "name": "MUNCIE AVIATION CO",
+    "certificate": "D000254",
+    "expiration": "20270829",
+    "city": "MUNCIE",
+    "state": "IN"
+  },
+  {
+    "name": "PALM BEACH AIRCRAFT SERVICES INC",
+    "certificate": "D000268",
+    "expiration": "20270328",
+    "city": "LANTANA",
+    "state": "FL"
+  },
+  {
+    "name": "CASAVANNAH AVIATION LLC",
+    "certificate": "D000272",
+    "expiration": "20270830",
+    "city": "CLEARWATER",
+    "state": "FL"
+  },
+  {
+    "name": "SHIER AVIATION CORP DBA",
+    "certificate": "D000286",
+    "expiration": "20261213",
+    "city": "SAN DIEGO",
+    "state": "CA"
+  },
+  {
+    "name": "ULTRALIGHT SPORT AVIATION LLC",
+    "certificate": "D000319",
+    "expiration": "20270615",
+    "city": "UNION",
+    "state": "MI"
+  },
+  {
+    "name": "GULF AIRBATICS LTD",
+    "certificate": "D000358",
+    "expiration": "20270405",
+    "city": "JENNINGS",
+    "state": "LA"
+  },
+  {
+    "name": "LOCK HAVEN AIRCRAFT SALES",
+    "certificate": "D000359",
+    "expiration": "20270624",
+    "city": "LOCK HAVEN",
+    "state": "PA"
+  },
+  {
+    "name": "RANDALL AVIATION LLC",
+    "certificate": "D000360",
+    "expiration": "20270518",
+    "city": "ARVADA",
+    "state": "CO"
+  },
+  {
+    "name": "MINUTEMAN AVIATION INC",
+    "certificate": "D000363",
+    "expiration": "20270609",
+    "city": "MISSOULA",
+    "state": "MT"
+  },
+  {
+    "name": "PACIFIC AVIATION AIRCRAFT MANAGEMENT INC",
+    "certificate": "D000364",
+    "expiration": "20270615",
+    "city": "FRESNO",
+    "state": "CA"
+  },
+  {
+    "name": "KANSAS CITY AVIATION CENTER INC",
+    "certificate": "D000416",
+    "expiration": "20270524",
+    "city": "OLATHE",
+    "state": "KS"
+  },
+  {
+    "name": "BOULDER VALLEY AVIATION INC",
+    "certificate": "D000458",
+    "expiration": "20270304",
+    "city": "BOULDER",
+    "state": "CO"
+  },
+  {
+    "name": "FLORIDA JET SALES INC",
+    "certificate": "D000470",
+    "expiration": "20270804",
+    "city": "JUPITER",
+    "state": "FL"
+  },
+  {
+    "name": "GLIDE SLOPE AVIATION INC",
+    "certificate": "D000477",
+    "expiration": "20270216",
+    "city": "MYAKKA CITY",
+    "state": "FL"
+  },
+  {
+    "name": "QUEEN BEE AIR SPECIALTIES INC",
+    "certificate": "D000479",
+    "expiration": "20270623",
+    "city": "RIGBY",
+    "state": "ID"
+  },
+  {
+    "name": "SIDNEY AVIATION LLC",
+    "certificate": "D000503",
+    "expiration": "20270420",
+    "city": "SIDNEY",
+    "state": "NE"
+  },
+  {
+    "name": "MAULE AIR INC",
+    "certificate": "D000507",
+    "expiration": "20270824",
+    "city": "MOULTRIE",
+    "state": "GA"
+  },
+  {
+    "name": "GRINCH AVIATION INC",
+    "certificate": "D000513",
+    "expiration": "20270520",
+    "city": "RIDGEWOOD",
+    "state": "NJ"
+  },
+  {
+    "name": "DAN JAY AIRCRAFT SALES INC",
+    "certificate": "D000525",
+    "expiration": "20270107",
+    "city": "CHICO",
+    "state": "CA"
+  },
+  {
+    "name": "BYERLY AVIATION INC",
+    "certificate": "D000534",
+    "expiration": "20271017",
+    "city": "PEORIA",
+    "state": "IL"
+  },
+  {
+    "name": "MARK A SMITH AIRCRAFT SALES INC",
+    "certificate": "D000560",
+    "expiration": "20270403",
+    "city": "HOMOSASSA",
+    "state": "FL"
+  },
+  {
+    "name": "WACO CLASSIC AIRCRAFT CORP DBA",
+    "certificate": "D000574",
+    "expiration": "20270608",
+    "city": "BATTLE CREEK",
+    "state": "MI"
+  },
+  {
+    "name": "MANNAFLIGHT LLC",
+    "certificate": "D000589",
+    "expiration": "20270320",
+    "city": "MORRISON",
+    "state": "CO"
+  },
+  {
+    "name": "MIDWEST AVIATION INC",
+    "certificate": "D000591",
+    "expiration": "20270804",
+    "city": "MAYFIELD",
+    "state": "KY"
+  },
+  {
+    "name": "BARTON AVIATION LLC",
+    "certificate": "D000601",
+    "expiration": "20270324",
+    "city": "COLORADO SPRINGS",
+    "state": "CO"
+  },
+  {
+    "name": "NORTHERN JET SALES LLC",
+    "certificate": "D000602",
+    "expiration": "20270402",
+    "city": "PORT SAINT LUCIE",
+    "state": "FL"
+  },
+  {
+    "name": "HALL AIR INC",
+    "certificate": "D000636",
+    "expiration": "20270409",
+    "city": "WEINER",
+    "state": "AR"
+  },
+  {
+    "name": "AIR TRACTOR INC",
+    "certificate": "D000665",
+    "expiration": "20270928",
+    "city": "OLNEY",
+    "state": "TX"
+  },
+  {
+    "name": "QUEST AIR INC",
+    "certificate": "D000679",
+    "expiration": "20270515",
+    "city": "APEX",
+    "state": "NC"
+  },
+  {
+    "name": "CONTRAIL AVIATION INC",
+    "certificate": "D000712",
+    "expiration": "20270412",
+    "city": "CHEBOYGAN",
+    "state": "MI"
+  },
+  {
+    "name": "SIKORSKY AIRCRAFT CORP",
+    "certificate": "D000748",
+    "expiration": "20270404",
+    "city": "STRATFORD",
+    "state": "CT"
+  },
+  {
+    "name": "EL PASO AIRCRAFT INC",
+    "certificate": "D000757",
+    "expiration": "20270410",
+    "city": "LOCK HAVEN",
+    "state": "PA"
+  },
+  {
+    "name": "AIR IMPRESSIONS INC",
+    "certificate": "D000767",
+    "expiration": "20270723",
+    "city": "WACO",
+    "state": "TX"
+  },
+  {
+    "name": "HEARTLAND AIRPLANES LLC",
+    "certificate": "D000805",
+    "expiration": "20270314",
+    "city": "OLATHE",
+    "state": "KS"
+  },
+  {
+    "name": "WIPAIRE INC",
+    "certificate": "D000832",
+    "expiration": "20271108",
+    "city": "SOUTH SAINT PAUL",
+    "state": "MN"
+  },
+  {
+    "name": "MARTINAIR INC",
+    "certificate": "D000845",
+    "expiration": "20270508",
+    "city": "RICHMOND",
+    "state": "VA"
+  },
+  {
+    "name": "BIGGS AIRCRAFT INC",
+    "certificate": "D000849",
+    "expiration": "20270120",
+    "city": "WELLSTON",
+    "state": "OK"
+  },
+  {
+    "name": "JET SALES OF FLORIDA INC",
+    "certificate": "D000867",
+    "expiration": "20270821",
+    "city": "WEST PALM BEACH",
+    "state": "FL"
+  },
+  {
+    "name": "MCCREERY AVIATION CO INC",
+    "certificate": "D000869",
+    "expiration": "20270202",
+    "city": "MCALLEN",
+    "state": "TX"
+  },
+  {
+    "name": "JETT AVIATION LLC",
+    "certificate": "D000904",
+    "expiration": "20271011",
+    "city": "SUCCESS",
+    "state": "AR"
+  },
+  {
+    "name": "AMERICAN CHAMPION AIRCRAFT CORP",
+    "certificate": "D000918",
+    "expiration": "20270401",
+    "city": "ROCHESTER",
+    "state": "WI"
+  },
+  {
+    "name": "ARIZONA AIRCRAFT INC",
+    "certificate": "D000927",
+    "expiration": "20270205",
+    "city": "PRESCOTT VALLEY",
+    "state": "AZ"
+  },
+  {
+    "name": "ALPINE AVIATION INC",
+    "certificate": "D000929",
+    "expiration": "20270809",
+    "city": "GRASS VALLEY",
+    "state": "CA"
+  },
+  {
+    "name": "WESTERN AIRCRAFT INC",
+    "certificate": "D000941",
+    "expiration": "20271002",
+    "city": "BOISE",
+    "state": "ID"
+  },
+  {
+    "name": "GANTT AVIATION INC",
+    "certificate": "D001006",
+    "expiration": "20270119",
+    "city": "GEORGETOWN",
+    "state": "TX"
+  },
+  {
+    "name": "ADVANCED AVIATION SALES INC",
+    "certificate": "D001019",
+    "expiration": "20271005",
+    "city": "NAPLES",
+    "state": "FL"
+  },
+  {
+    "name": "FLIGHTLINE GROUP INC",
+    "certificate": "D001034",
+    "expiration": "20270912",
+    "city": "TALLAHASSEE",
+    "state": "FL"
+  },
+  {
+    "name": "LTA AVIATION INC",
+    "certificate": "D001077",
+    "expiration": "20270125",
+    "city": "FAYETTEVILLE",
+    "state": "NY"
+  },
+  {
+    "name": "FLIGHT SOURCE INTERNATIONAL INC",
+    "certificate": "D001129",
+    "expiration": "20261114",
+    "city": "SARASOTA",
+    "state": "FL"
+  },
+  {
+    "name": "CUTTER SOUTHWEST AIRCRAFT SALES LLC",
+    "certificate": "D001141",
+    "expiration": "20270304",
+    "city": "PHOENIX",
+    "state": "AZ"
+  },
+  {
+    "name": "CROSSWINDS FLIGHT CENTER INC",
+    "certificate": "D001149",
+    "expiration": "20270223",
+    "city": "DRUMS",
+    "state": "PA"
+  },
+  {
+    "name": "NORTHWEST BACK COUNTRY AIRCRAFT LLC",
+    "certificate": "D001163",
+    "expiration": "20270730",
+    "city": "CALDWELL",
+    "state": "ID"
+  },
+  {
+    "name": "ADVENT AVIATION CORP",
+    "certificate": "D001166",
+    "expiration": "20270427",
+    "city": "EASTON",
+    "state": "MD"
+  },
+  {
+    "name": "AUSTIN AVIATION LLC",
+    "certificate": "D001181",
+    "expiration": "20261227",
+    "city": "BOISE",
+    "state": "ID"
+  },
+  {
+    "name": "FRICK AVIATION INC",
+    "certificate": "D001184",
+    "expiration": "20270208",
+    "city": "AWENDAW",
+    "state": "SC"
+  },
+  {
+    "name": "PRESTIGE AIRCRAFT INC",
+    "certificate": "D001209",
+    "expiration": "20261209",
+    "city": "SWANTON",
+    "state": "VT"
+  },
+  {
+    "name": "PARIS AIR INC",
+    "certificate": "D001228",
+    "expiration": "20270827",
+    "city": "VERO BEACH",
+    "state": "FL"
+  },
+  {
+    "name": "EUROPEAN AMERICAN AVIATION CORP",
+    "certificate": "D001241",
+    "expiration": "20270921",
+    "city": "TROY",
+    "state": "VA"
+  },
+  {
+    "name": "LITTLETON AVIATION INC",
+    "certificate": "D001266",
+    "expiration": "20270403",
+    "city": "OZARK",
+    "state": "MO"
+  },
+  {
+    "name": "JM AIRCRAFT INC",
+    "certificate": "D001277",
+    "expiration": "20270323",
+    "city": "HICKORY",
+    "state": "NC"
+  },
+  {
+    "name": "SR AVIATION INC",
+    "certificate": "D001280",
+    "expiration": "20270323",
+    "city": "GREER",
+    "state": "SC"
+  },
+  {
+    "name": "AVIAT AIRCRAFT INC",
+    "certificate": "D001291",
+    "expiration": "20270203",
+    "city": "AFTON",
+    "state": "WY"
+  },
+  {
+    "name": "LOYDS AVIATION INC",
+    "certificate": "D001297",
+    "expiration": "20270804",
+    "city": "BAKERSFIELD",
+    "state": "CA"
+  },
+  {
+    "name": "DAN HOWARD AIRCRAFT SALES LLC",
+    "certificate": "D001316",
+    "expiration": "20270623",
+    "city": "TULSA",
+    "state": "OK"
+  },
+  {
+    "name": "ABBOTT AIR INC",
+    "certificate": "D001332",
+    "expiration": "20261112",
+    "city": "HYDRO",
+    "state": "OK"
+  },
+  {
+    "name": "SKY PATH AVIATION LLC",
+    "certificate": "D001348",
+    "expiration": "20270831",
+    "city": "DENVILLE",
+    "state": "NJ"
+  },
+  {
+    "name": "GSH AVIATION LLC",
+    "certificate": "D001358",
+    "expiration": "20261201",
+    "city": "OKLAHOMA CITY",
+    "state": "OK"
+  },
+  {
+    "name": "VARIETY AIRCRAFT INC",
+    "certificate": "D001371",
+    "expiration": "20261202",
+    "city": "LAS ANIMAS",
+    "state": "CO"
+  },
+  {
+    "name": "UNITED AIRCRAFT HOLDINGS LLC",
+    "certificate": "D001375",
+    "expiration": "20270727",
+    "city": "CHARLOTTE",
+    "state": "NC"
+  },
+  {
+    "name": "AUGUSTA AVIATION INC",
+    "certificate": "D001378",
+    "expiration": "20270222",
+    "city": "AUGUSTA",
+    "state": "GA"
+  },
+  {
+    "name": "P & L AIRCRAFT LEASING INC",
+    "certificate": "D001381",
+    "expiration": "20261211",
+    "city": "SALEM",
+    "state": "OH"
+  },
+  {
+    "name": "MEISNER AIRCRAFT INC",
+    "certificate": "D001388",
+    "expiration": "20261203",
+    "city": "JANESVILLE",
+    "state": "WI"
+  },
+  {
+    "name": "BARTELT AVIATION INC",
+    "certificate": "D001399",
+    "expiration": "20271002",
+    "city": "STURGIS",
+    "state": "MI"
+  },
+  {
+    "name": "G & M AIRCRAFT INC",
+    "certificate": "D001445",
+    "expiration": "20270223",
+    "city": "WHEAT RIDGE",
+    "state": "CO"
+  },
+  {
+    "name": "AIR TRANSPORT INC DBA",
+    "certificate": "D001472",
+    "expiration": "20270928",
+    "city": "LAS VEGAS",
+    "state": "NV"
+  },
+  {
+    "name": "HIGH PERFORMANCE AIRCRAFT INC",
+    "certificate": "D001473",
+    "expiration": "20270903",
+    "city": "EL CAJON",
+    "state": "CA"
+  },
+  {
+    "name": "LAND AIR ENTERPRISES INC",
+    "certificate": "D001512",
+    "expiration": "20271005",
+    "city": "BOYNTON BEACH",
+    "state": "FL"
+  },
+  {
+    "name": "MAULE FLIGHT INC",
+    "certificate": "D001527",
+    "expiration": "20270704",
+    "city": "MOULTRIE",
+    "state": "GA"
+  },
+  {
+    "name": "SHERMAN AIRCRAFT SALES INC",
+    "certificate": "D001532",
+    "expiration": "20270614",
+    "city": "WEST PALM BEACH",
+    "state": "FL"
+  },
+  {
+    "name": "AVIATION ADVISOR INC",
+    "certificate": "D001538",
+    "expiration": "20270304",
+    "city": "ANTIOCH",
+    "state": "IL"
+  },
+  {
+    "name": "CAROLINA AIRCRAFT INC",
+    "certificate": "D001545",
+    "expiration": "20270423",
+    "city": "GREENSBORO",
+    "state": "NC"
+  },
+  {
+    "name": "AIR 1ST AVIATION COMPANIES INC",
+    "certificate": "D001552",
+    "expiration": "20270804",
+    "city": "AIKEN",
+    "state": "SC"
+  },
+  {
+    "name": "STEVES AIRCRAFT",
+    "certificate": "D001585",
+    "expiration": "20270526",
+    "city": "LAKEPORT",
+    "state": "CA"
+  },
+  {
+    "name": "TRAVELAIRE SERVICE INC",
+    "certificate": "D001586",
+    "expiration": "20261123",
+    "city": "PUEBLO",
+    "state": "CO"
+  },
+  {
+    "name": "CENTRAL AVIATION MANAGEMENT SERVICES LLC",
+    "certificate": "D001596",
+    "expiration": "20270429",
+    "city": "EASTON",
+    "state": "MD"
+  },
+  {
+    "name": "WEST WIND AIR LLC DBA",
+    "certificate": "D001614",
+    "expiration": "20271012",
+    "city": "LAKE VILLAGE",
+    "state": "AR"
+  },
+  {
+    "name": "BOLDER FLIGHT INC",
+    "certificate": "D001633",
+    "expiration": "20270317",
+    "city": "BOULDER",
+    "state": "CO"
+  },
+  {
+    "name": "SOUTHERN WINGS AIRCRAFT SALES LTD",
+    "certificate": "D001639",
+    "expiration": "20261113",
+    "city": "BETHANY",
+    "state": "OK"
+  },
+  {
+    "name": "AIRPLANESUSA LLC",
+    "certificate": "D001640",
+    "expiration": "20270801",
+    "city": "SCHAUMBURG",
+    "state": "IL"
+  },
+  {
+    "name": "PETECRAFT AVIATION SERVICES INC",
+    "certificate": "D001651",
+    "expiration": "20270731",
+    "city": "PLAINS",
+    "state": "GA"
+  },
+  {
+    "name": "NEWPORT SIGNAL AIR INC",
+    "certificate": "D001670",
+    "expiration": "20270922",
+    "city": "SIGNAL HILL",
+    "state": "CA"
+  },
+  {
+    "name": "QUEST AVIATION INC",
+    "certificate": "D001671",
+    "expiration": "20270722",
+    "city": "LAKE CITY",
+    "state": "FL"
+  },
+  {
+    "name": "AIRCRAFT ASSOCIATES LLC",
+    "certificate": "D001690",
+    "expiration": "20270115",
+    "city": "CHICAGO",
+    "state": "IL"
+  },
+  {
+    "name": "EMPIRE AIRLINES INC",
+    "certificate": "D001692",
+    "expiration": "20270115",
+    "city": "LEBANON",
+    "state": "MO"
+  },
+  {
+    "name": "AVIATION TRAINING INC",
+    "certificate": "D001730",
+    "expiration": "20261121",
+    "city": "CAMERON PARK",
+    "state": "CA"
+  },
+  {
+    "name": "AIRCRAFT MARKETING LTD",
+    "certificate": "D001739",
+    "expiration": "20270715",
+    "city": "LAS VEGAS",
+    "state": "NV"
+  },
+  {
+    "name": "BLACKWELL AVIATION INC",
+    "certificate": "D001744",
+    "expiration": "20261107",
+    "city": "BELLE VERNON",
+    "state": "PA"
+  },
+  {
+    "name": "SHORELINE AVIATION INC",
+    "certificate": "D001756",
+    "expiration": "20271028",
+    "city": "MARSHFIELD",
+    "state": "MA"
+  },
+  {
+    "name": "SOUTHWIND AVIATION INC",
+    "certificate": "D001760",
+    "expiration": "20270223",
+    "city": "FORT MYERS",
+    "state": "FL"
+  },
+  {
+    "name": "AIR ASSETS INTERNATIONAL INC",
+    "certificate": "D001776",
+    "expiration": "20270305",
+    "city": "NAMPA",
+    "state": "ID"
+  },
+  {
+    "name": "GREAT LAKES AIRCRAFT LLC",
+    "certificate": "D001794",
+    "expiration": "20270202",
+    "city": "PALMER LAKE",
+    "state": "CO"
+  },
+  {
+    "name": "LARSON AND MOORE AVIATION",
+    "certificate": "D001823",
+    "expiration": "20270218",
+    "city": "OKLAHOMA CITY",
+    "state": "OK"
+  },
+  {
+    "name": "A R AVIATION INC",
+    "certificate": "D001836",
+    "expiration": "20270831",
+    "city": "WORCESTER",
+    "state": "MA"
+  },
+  {
+    "name": "WOODLAND AVIATION INC",
+    "certificate": "D001838",
+    "expiration": "20271021",
+    "city": "DAVIS",
+    "state": "CA"
+  },
+  {
+    "name": "US AVIATION GROUP LLC",
+    "certificate": "D001864",
+    "expiration": "20261028",
+    "city": "DENTON",
+    "state": "TX"
+  },
+  {
+    "name": "CAY AIR INC",
+    "certificate": "D001895",
+    "expiration": "20270801",
+    "city": "LARGO",
+    "state": "FL"
+  },
+  {
+    "name": "SOUTHERN CROSS AIRCRAFT LLC",
+    "certificate": "D001902",
+    "expiration": "20261217",
+    "city": "FORT LAUDERDALE",
+    "state": "FL"
+  },
+  {
+    "name": "MID CONTINENT AIRCRAFT CORP",
+    "certificate": "D001907",
+    "expiration": "20270912",
+    "city": "HAYTI",
+    "state": "MO"
+  },
+  {
+    "name": "CHRISTIANSEN AVIATION LLC",
+    "certificate": "D001928",
+    "expiration": "20270416",
+    "city": "TULSA",
+    "state": "OK"
+  },
+  {
+    "name": "BILTON AIRCRAFT MANAGEMENT INC",
+    "certificate": "D001940",
+    "expiration": "20261110",
+    "city": "UMATILLA",
+    "state": "FL"
+  },
+  {
+    "name": "VAN BORTEL AIRCRAFT INC",
+    "certificate": "D001962",
+    "expiration": "20270925",
+    "city": "ARLINGTON",
+    "state": "TX"
+  },
+  {
+    "name": "SIX G AVIATION LLC",
+    "certificate": "D001973",
+    "expiration": "20270113",
+    "city": "LORIDA",
+    "state": "FL"
+  },
+  {
+    "name": "TWIST AIR INC",
+    "certificate": "D001982",
+    "expiration": "20270130",
+    "city": "OVERLAND PARK",
+    "state": "KS"
+  },
+  {
+    "name": "AIR CARE SYSTEMS INC",
+    "certificate": "D001992",
+    "expiration": "20261227",
+    "city": "LAMAR",
+    "state": "CO"
+  },
+  {
+    "name": "AIRCRAFT INVESTMENT GROUP INC",
+    "certificate": "D001994",
+    "expiration": "20270201",
+    "city": "WEST PALM BEACH",
+    "state": "FL"
+  },
+  {
+    "name": "FOOTHILL AIRCRAFT SALES & SERVICE INC",
+    "certificate": "D001998",
+    "expiration": "20270112",
+    "city": "UPLAND",
+    "state": "CA"
+  },
+  {
+    "name": "EMERALD AVIATION INC",
+    "certificate": "D002026",
+    "expiration": "20261020",
+    "city": "MANASSAS",
+    "state": "VA"
+  },
+  {
+    "name": "SEBRING AVIATION OF HIGHLANDS COUNTY INC",
+    "certificate": "D002039",
+    "expiration": "20270225",
+    "city": "SEBRING",
+    "state": "FL"
+  },
+  {
+    "name": "CORPORATE JET SALES INC",
+    "certificate": "D002042",
+    "expiration": "20270514",
+    "city": "MIDDLEBURG",
+    "state": "VA"
+  },
+  {
+    "name": "LANE AVIATION INC",
+    "certificate": "D002047",
+    "expiration": "20270217",
+    "city": "ROSENBERG",
+    "state": "TX"
+  },
+  {
+    "name": "K-R AIRCRAFT INC",
+    "certificate": "D002056",
+    "expiration": "20261217",
+    "city": "HENDERSON",
+    "state": "NV"
+  },
+  {
+    "name": "UGLY JOHNS AIRCRAFT LLC",
+    "certificate": "D002115",
+    "expiration": "20270418",
+    "city": "AFTON",
+    "state": "OK"
+  },
+  {
+    "name": "COASTAL AIR INC",
+    "certificate": "D002135",
+    "expiration": "20271014",
+    "city": "GROTON",
+    "state": "CT"
+  },
+  {
+    "name": "RONNIES AIRCRAFT SALES LLP",
+    "certificate": "D002145",
+    "expiration": "20270807",
+    "city": "PITTSFIELD",
+    "state": "MA"
+  },
+  {
+    "name": "DOLPHIN SALES INC",
+    "certificate": "D002171",
+    "expiration": "20270806",
+    "city": "WILKES BARRE",
+    "state": "PA"
+  },
+  {
+    "name": "DENT AIR LTD",
+    "certificate": "D002185",
+    "expiration": "20270423",
+    "city": "ANNAPOLIS",
+    "state": "MD"
+  },
+  {
+    "name": "CAROLINA TURBINE SALES INC",
+    "certificate": "D002193",
+    "expiration": "20261020",
+    "city": "TYLER",
+    "state": "TX"
+  },
+  {
+    "name": "AVIATION CONSULTANTS INC",
+    "certificate": "D002202",
+    "expiration": "20270505",
+    "city": "SAN LUIS OBISPO",
+    "state": "CA"
+  },
+  {
+    "name": "GOLDWING AIRCRAFT SERVICES INC",
+    "certificate": "D002209",
+    "expiration": "20270824",
+    "city": "SOUTH FULTON",
+    "state": "TN"
+  },
+  {
+    "name": "BATES SHOW SALES STAFF INC DBA",
+    "certificate": "D002220",
+    "expiration": "20270809",
+    "city": "NOKOMIS",
+    "state": "FL"
+  },
+  {
+    "name": "WALLIS AIRCRAFT INC",
+    "certificate": "D002243",
+    "expiration": "20270806",
+    "city": "CLIFFORD TOWNSHIP",
+    "state": "PA"
+  },
+  {
+    "name": "OLD CITY HELICOPTER SALES LLC",
+    "certificate": "D002247",
+    "expiration": "20270430",
+    "city": "SAINT AUGUSTINE",
+    "state": "FL"
+  },
+  {
+    "name": "FLAP-AIR HELICOPTER SERVICE INC",
+    "certificate": "D002277",
+    "expiration": "20270317",
+    "city": "CANADIAN",
+    "state": "TX"
+  },
+  {
+    "name": "ALPINE AIR ALASKA LLC",
+    "certificate": "D002280",
+    "expiration": "20271001",
+    "city": "GIRDWOOD",
+    "state": "AK"
+  },
+  {
+    "name": "MIKE JONES AIRCRAFT SALES INC",
+    "certificate": "D002301",
+    "expiration": "20270617",
+    "city": "MURFREESBORO",
+    "state": "TN"
+  },
+  {
+    "name": "EASTERN JET SALES INC",
+    "certificate": "D002321",
+    "expiration": "20270328",
+    "city": "STUART",
+    "state": "FL"
+  },
+  {
+    "name": "QUEST AIR SERVICES LTD INC",
+    "certificate": "D002337",
+    "expiration": "20261123",
+    "city": "LAKELAND",
+    "state": "FL"
+  },
+  {
+    "name": "LIBERTY AIR INC",
+    "certificate": "D002385",
+    "expiration": "20270809",
+    "city": "DELRAY BEACH",
+    "state": "FL"
+  },
+  {
+    "name": "BOTSIS AIRCRAFT LTD INC",
+    "certificate": "D002412",
+    "expiration": "20270322",
+    "city": "CHESTERLAND",
+    "state": "OH"
+  },
+  {
+    "name": "AMERICAN AIRCRAFT SALES LLC",
+    "certificate": "D002505",
+    "expiration": "20261030",
+    "city": "LINCOLNSHIRE",
+    "state": "IL"
+  },
+  {
+    "name": "CENTRAL VIRGINIA AVIATION INC",
+    "certificate": "D002556",
+    "expiration": "20270323",
+    "city": "NORTH DINWIDDIE",
+    "state": "VA"
+  },
+  {
+    "name": "R CONSULTING & SALES INC",
+    "certificate": "D002590",
+    "expiration": "20271014",
+    "city": "SAN MARCOS",
+    "state": "CA"
+  },
+  {
+    "name": "AIRCRAFT OWNERSHIP SOLUTIONS LLC",
+    "certificate": "D002601",
+    "expiration": "20270218",
+    "city": "KOKOMO",
+    "state": "IN"
+  },
+  {
+    "name": "TAYLOR AVIATION INC",
+    "certificate": "D002607",
+    "expiration": "20270317",
+    "city": "MONTGOMERY",
+    "state": "NY"
+  },
+  {
+    "name": "HYLDBURG AVIATION INC",
+    "certificate": "D002619",
+    "expiration": "20270818",
+    "city": "PLYMOUTH",
+    "state": "MA"
+  },
+  {
+    "name": "TVPX SALES LLC",
+    "certificate": "D002621",
+    "expiration": "20270512",
+    "city": "CONCORD",
+    "state": "MA"
+  },
+  {
+    "name": "LEADING EDGE AVIATION INC",
+    "certificate": "D002664",
+    "expiration": "20270824",
+    "city": "BEND",
+    "state": "OR"
+  },
+  {
+    "name": "SOUTH DELTA AVIATION INC",
+    "certificate": "D002688",
+    "expiration": "20270811",
+    "city": "WEST HELENA",
+    "state": "AR"
+  },
+  {
+    "name": "FLAIRSHIPS LLC",
+    "certificate": "D002728",
+    "expiration": "20270509",
+    "city": "DURHAM",
+    "state": "NC"
+  },
+  {
+    "name": "TURNER AIRCRAFT WEST",
+    "certificate": "D002860",
+    "expiration": "20270910",
+    "city": "RESCUE",
+    "state": "CA"
+  },
+  {
+    "name": "AIRRESOURCE GROUP LLC",
+    "certificate": "D002890",
+    "expiration": "20270218",
+    "city": "LITTLE ROCK",
+    "state": "AR"
+  },
+  {
+    "name": "LODI AIRPORT MAINTENANCE CORP",
+    "certificate": "D002922",
+    "expiration": "20270420",
+    "city": "LAS VEGAS",
+    "state": "NV"
+  },
+  {
+    "name": "HEARTLAND AVIATION INC",
+    "certificate": "D002923",
+    "expiration": "20271026",
+    "city": "ALLIANCE",
+    "state": "NE"
+  },
+  {
+    "name": "MATRIX AVIATION INC",
+    "certificate": "D002945",
+    "expiration": "20270330",
+    "city": "FORT LAUDERDALE",
+    "state": "FL"
+  },
+  {
+    "name": "MT AIRY TRANSPORTATION LLC",
+    "certificate": "D002971",
+    "expiration": "20261107",
+    "city": "CINCINNATI",
+    "state": "OH"
+  },
+  {
+    "name": "SKYVIEW AVIATION LLC",
+    "certificate": "D002985",
+    "expiration": "20271207",
+    "city": "TRACY",
+    "state": "CA"
+  },
+  {
+    "name": "SIMMONS AVIATION SERVICES LLC",
+    "certificate": "D003080",
+    "expiration": "20270210",
+    "city": "PAWCATUCK",
+    "state": "CT"
+  },
+  {
+    "name": "ROCHESTER AIR CENTER LLC",
+    "certificate": "D003099",
+    "expiration": "20271005",
+    "city": "CANANDAIGUA",
+    "state": "NY"
+  },
+  {
+    "name": "GFT AVIATION LLC",
+    "certificate": "D003157",
+    "expiration": "20270408",
+    "city": "JACKSONVILLE",
+    "state": "FL"
+  },
+  {
+    "name": "ALOHA AIRCRAFT SALES LLC",
+    "certificate": "D003171",
+    "expiration": "20270806",
+    "city": "FRESNO",
+    "state": "CA"
+  },
+  {
+    "name": "CALIFORNIA AVIATION SERVICES INC",
+    "certificate": "D003192",
+    "expiration": "20270727",
+    "city": "RIVERSIDE",
+    "state": "CA"
+  },
+  {
+    "name": "FOLDEN AVIATION INC",
+    "certificate": "D003202",
+    "expiration": "20270304",
+    "city": "WEINER",
+    "state": "AR"
+  },
+  {
+    "name": "SKY MANOR AIRCRAFT SALES LLC",
+    "certificate": "D003242",
+    "expiration": "20261028",
+    "city": "PITTSTOWN",
+    "state": "NJ"
+  },
+  {
+    "name": "JD AIR LLC",
+    "certificate": "D003245",
+    "expiration": "20270210",
+    "city": "EAST PRAIRIE",
+    "state": "MO"
+  },
+  {
+    "name": "GULF ATLANTIC AIRWAYS INC",
+    "certificate": "D003246",
+    "expiration": "20270330",
+    "city": "GAINESVILLE",
+    "state": "FL"
+  },
+  {
+    "name": "KIN-CO AG AVIATION INC",
+    "certificate": "D003258",
+    "expiration": "20270313",
+    "city": "BEECH GROVE",
+    "state": "AR"
+  },
+  {
+    "name": "TAC AIR LLC",
+    "certificate": "D003368",
+    "expiration": "20270919",
+    "city": "PEACHTREE CITY",
+    "state": "GA"
+  },
+  {
+    "name": "GATEWAY AIR CENTER INC",
+    "certificate": "D003376",
+    "expiration": "20270504",
+    "city": "MERCED",
+    "state": "CA"
+  },
+  {
+    "name": "CRISTOBAL AIRCRAFT BROKERAGE LLC",
+    "certificate": "D003458",
+    "expiration": "20261208",
+    "city": "FORT LAUDERDALE",
+    "state": "FL"
+  },
+  {
+    "name": "WOLFORD SALES AND LEASING LLC",
+    "certificate": "D003515",
+    "expiration": "20261209",
+    "city": "ABINGDON",
+    "state": "IL"
+  },
+  {
+    "name": "INTEGRAL AVIATION SOLUTIONS INC",
+    "certificate": "D003561",
+    "expiration": "20270218",
+    "city": "ROSLYN",
+    "state": "NY"
+  },
+  {
+    "name": "RARE AIRCRAFT LTD",
+    "certificate": "D003585",
+    "expiration": "20261109",
+    "city": "FARIBAULT",
+    "state": "MN"
+  },
+  {
+    "name": "HOG AIR AVIATION INC",
+    "certificate": "D003639",
+    "expiration": "20270609",
+    "city": "PARAGOULD",
+    "state": "AR"
+  },
+  {
+    "name": "RNP AVIATION SERVICES LLC",
+    "certificate": "D003660",
+    "expiration": "20270617",
+    "city": "LINDEN",
+    "state": "MI"
+  },
+  {
+    "name": "AIRCRAFT BY FARKAS LLC",
+    "certificate": "D003697",
+    "expiration": "20270506",
+    "city": "MIDDLEBURG HEIGHTS",
+    "state": "OH"
+  },
+  {
+    "name": "TRI STATE AIRMOTIVE LLC",
+    "certificate": "D003708",
+    "expiration": "20270628",
+    "city": "BERRYVILLE",
+    "state": "AR"
+  },
+  {
+    "name": "PROFESSIONAL AIRCRAFT CORP",
+    "certificate": "D003833",
+    "expiration": "20270319",
+    "city": "WELLINGTON",
+    "state": "FL"
+  },
+  {
+    "name": "BANKAIR INC",
+    "certificate": "D003851",
+    "expiration": "20261114",
+    "city": "WEST COLUMBIA",
+    "state": "SC"
+  },
+  {
+    "name": "HILLIS AVIATION LLC",
+    "certificate": "D003860",
+    "expiration": "20270530",
+    "city": "POPLAR BLUFF",
+    "state": "MO"
+  },
+  {
+    "name": "LONE MOUNTAIN AIRCRAFT LLC",
+    "certificate": "D003884",
+    "expiration": "20270715",
+    "city": "VANDALIA",
+    "state": "OH"
+  },
+  {
+    "name": "SUMMIT AIRCRAFT SALES LLC",
+    "certificate": "D003973",
+    "expiration": "20270806",
+    "city": "AKRON",
+    "state": "OH"
+  },
+  {
+    "name": "CB AVIATION INC",
+    "certificate": "D003987",
+    "expiration": "20270215",
+    "city": "OGDEN",
+    "state": "UT"
+  },
+  {
+    "name": "JET SALES OF STUART LLC",
+    "certificate": "D004014",
+    "expiration": "20270322",
+    "city": "STUART",
+    "state": "FL"
+  },
+  {
+    "name": "WORLD AIRCRAFT INC",
+    "certificate": "D004020",
+    "expiration": "20270727",
+    "city": "GULFPORT",
+    "state": "MS"
+  },
+  {
+    "name": "JJ AIRLIFT INC",
+    "certificate": "D004057",
+    "expiration": "20270211",
+    "city": "BROOMFIELD",
+    "state": "CO"
+  },
+  {
+    "name": "AMERICAN AVIATION INC",
+    "certificate": "D004084",
+    "expiration": "20270724",
+    "city": "BROOKSVILLE",
+    "state": "FL"
+  },
+  {
+    "name": "AG AIR INC",
+    "certificate": "D004147",
+    "expiration": "20270709",
+    "city": "JOHNSTOWN",
+    "state": "CO"
+  },
+  {
+    "name": "SAN ANTONIO LIGHT SPORT AIRCRAFT INC",
+    "certificate": "D004151",
+    "expiration": "20270420",
+    "city": "DADE CITY",
+    "state": "FL"
+  },
+  {
+    "name": "SIGMA AVIATION LLC",
+    "certificate": "D004158",
+    "expiration": "20270503",
+    "city": "KATY",
+    "state": "TX"
+  },
+  {
+    "name": "COLUMBIA AIRCRAFT SALES INC",
+    "certificate": "D004212",
+    "expiration": "20270323",
+    "city": "GROTON",
+    "state": "CT"
+  },
+  {
+    "name": "WEST COAST SPORT AIRCRAFT INC",
+    "certificate": "D004215",
+    "expiration": "20270608",
+    "city": "SANTA CRUZ",
+    "state": "CA"
+  },
+  {
+    "name": "RONS AIR SERVICE INC",
+    "certificate": "D004222",
+    "expiration": "20270223",
+    "city": "TWO BUTTES",
+    "state": "CO"
+  },
+  {
+    "name": "KRAEMER AVIATION SERVICES LLC",
+    "certificate": "D004246",
+    "expiration": "20270527",
+    "city": "GERMANTOWN",
+    "state": "MD"
+  },
+  {
+    "name": "FARM AIR INC",
+    "certificate": "D004253",
+    "expiration": "20270511",
+    "city": "ASTORIA",
+    "state": "IL"
+  },
+  {
+    "name": "MWT AIRCRAFT SALES LLC",
+    "certificate": "D004308",
+    "expiration": "20270328",
+    "city": "AKRON",
+    "state": "OH"
+  },
+  {
+    "name": "AKC AVIATION LLC",
+    "certificate": "D004332",
+    "expiration": "20270104",
+    "city": "LAKE IN THE HILLS",
+    "state": "IL"
+  },
+  {
+    "name": "LEE AVIATION LLC",
+    "certificate": "D004341",
+    "expiration": "20261102",
+    "city": "GENOA",
+    "state": "NV"
+  },
+  {
+    "name": "RACE COAST AVIATION LLC",
+    "certificate": "D004360",
+    "expiration": "20261113",
+    "city": "PORT ORANGE",
+    "state": "FL"
+  },
+  {
+    "name": "WEBB FAIRCHILD INC",
+    "certificate": "D004403",
+    "expiration": "20261214",
+    "city": "DANVILLE",
+    "state": "CA"
+  },
+  {
+    "name": "TGP AVIATION SERVICES LLC",
+    "certificate": "D004404",
+    "expiration": "20261203",
+    "city": "PEYTON",
+    "state": "CO"
+  },
+  {
+    "name": "SOUTHERN SKIES AVIATION INC",
+    "certificate": "D004419",
+    "expiration": "20270519",
+    "city": "CEDAR CITY",
+    "state": "UT"
+  },
+  {
+    "name": "PIPER AIRCRAFT INC",
+    "certificate": "D004422",
+    "expiration": "20270821",
+    "city": "VERO BEACH",
+    "state": "FL"
+  },
+  {
+    "name": "VERACITY AVIATION LLC",
+    "certificate": "D004428",
+    "expiration": "20261217",
+    "city": "SEGUIN",
+    "state": "TX"
+  },
+  {
+    "name": "SWAN AIR LLC",
+    "certificate": "D004436",
+    "expiration": "20261211",
+    "city": "MARYVILLE",
+    "state": "IL"
+  },
+  {
+    "name": "STEEL AVIATION INC",
+    "certificate": "D004442",
+    "expiration": "20270428",
+    "city": "PHILLIPSBURG",
+    "state": "OH"
+  },
+  {
+    "name": "PRO TEAM AVIATION LLC",
+    "certificate": "D004470",
+    "expiration": "20270330",
+    "city": "MANILA",
+    "state": "AR"
+  },
+  {
+    "name": "FLIGHT OPTIONS LLC",
+    "certificate": "D004537",
+    "expiration": "20270417",
+    "city": "CLEVELAND",
+    "state": "OH"
+  },
+  {
+    "name": "AMERICAN AIRCRAFT & MARINE LLC",
+    "certificate": "D004564",
+    "expiration": "20270426",
+    "city": "INDIANAPOLIS",
+    "state": "IN"
+  },
+  {
+    "name": "BALLARD AVIATION INC",
+    "certificate": "D004573",
+    "expiration": "20270518",
+    "city": "NEWTON",
+    "state": "KS"
+  },
+  {
+    "name": "JAG AVIATION LLC",
+    "certificate": "D004576",
+    "expiration": "20270308",
+    "city": "TERLINGUA",
+    "state": "TX"
+  },
+  {
+    "name": "JAYBIRD AVIATION LLC",
+    "certificate": "D004592",
+    "expiration": "20271121",
+    "city": "CHESTERFIELD",
+    "state": "MO"
+  },
+  {
+    "name": "AIR SPRAYERS INC",
+    "certificate": "D004595",
+    "expiration": "20270322",
+    "city": "TWO BUTTES",
+    "state": "CO"
+  },
+  {
+    "name": "AIR 1ST INC",
+    "certificate": "D004609",
+    "expiration": "20270804",
+    "city": "AIKEN",
+    "state": "SC"
+  },
+  {
+    "name": "VALIANT AVIATION LLC",
+    "certificate": "D004665",
+    "expiration": "20270402",
+    "city": "MIAMI",
+    "state": "FL"
+  },
+  {
+    "name": "MAC AIR INC",
+    "certificate": "D004667",
+    "expiration": "20270211",
+    "city": "FARMINGTON",
+    "state": "MO"
+  },
+  {
+    "name": "INDY AIR SALES LLC",
+    "certificate": "D004685",
+    "expiration": "20271018",
+    "city": "ANDERSON",
+    "state": "IN"
+  },
+  {
+    "name": "AIR SHASTA ROTOR & WING INC",
+    "certificate": "D004688",
+    "expiration": "20270413",
+    "city": "REDDING",
+    "state": "CA"
+  },
+  {
+    "name": "GAD AIRCRAFT SERVICES LLC",
+    "certificate": "D004722",
+    "expiration": "20270101",
+    "city": "SOLON",
+    "state": "ME"
+  },
+  {
+    "name": "APOLLO AVIATION LLC",
+    "certificate": "D004779",
+    "expiration": "20270410",
+    "city": "VAN NUYS",
+    "state": "CA"
+  },
+  {
+    "name": "BASE AVIATION MANAGEMENT LLC",
+    "certificate": "D004787",
+    "expiration": "20270114",
+    "city": "SEYMOUR",
+    "state": "IN"
+  },
+  {
+    "name": "ASI JET SALES LLC",
+    "certificate": "D004850",
+    "expiration": "20270624",
+    "city": "HUTCHINSON",
+    "state": "MN"
+  },
+  {
+    "name": "KIRBY RAMSEY AVIATION GROUP LLC",
+    "certificate": "D004870",
+    "expiration": "20270515",
+    "city": "ALMONT",
+    "state": "CO"
+  },
+  {
+    "name": "EMBRAER EXECUTIVE AIRCRAFT INC",
+    "certificate": "D004874",
+    "expiration": "20261201",
+    "city": "MELBOURNE",
+    "state": "FL"
+  },
+  {
+    "name": "BONANZA FLIGHT LLC",
+    "certificate": "D004901",
+    "expiration": "20270420",
+    "city": "CLAYTON",
+    "state": "MO"
+  },
+  {
+    "name": "SAMS AIRCRAFT LLC",
+    "certificate": "D004927",
+    "expiration": "20270316",
+    "city": "FREDONIA",
+    "state": "KY"
+  },
+  {
+    "name": "HORIZON AVIATION GROUP INC",
+    "certificate": "D004943",
+    "expiration": "20270320",
+    "city": "BRADENTON",
+    "state": "FL"
+  },
+  {
+    "name": "RAPTOR AVIATION INC",
+    "certificate": "D004956",
+    "expiration": "20270303",
+    "city": "PORT SAINT LUCIE",
+    "state": "FL"
+  },
+  {
+    "name": "NO NAME AVIATION LLC",
+    "certificate": "D004969",
+    "expiration": "20270323",
+    "city": "WILMINGTON",
+    "state": "DE"
+  },
+  {
+    "name": "UNIVERSAL AVIATION LLC",
+    "certificate": "D004998",
+    "expiration": "20270504",
+    "city": "DECATUR",
+    "state": "AR"
+  },
+  {
+    "name": "MD AVIATION CONSULTING LLC",
+    "certificate": "D005015",
+    "expiration": "20270818",
+    "city": "STUART",
+    "state": "FL"
+  },
+  {
+    "name": "WHELAN FARMS AIRPORT LLC",
+    "certificate": "D005136",
+    "expiration": "20261207",
+    "city": "BETHLEHEM",
+    "state": "CT"
+  },
+  {
+    "name": "GULF STATE AVIATION LLC",
+    "certificate": "D005155",
+    "expiration": "20270810",
+    "city": "FORT LAUDERDALE",
+    "state": "FL"
+  },
+  {
+    "name": "DELTAFOX AIRCRAFT SERVICES INC",
+    "certificate": "D005168",
+    "expiration": "20261202",
+    "city": "MIAMI",
+    "state": "FL"
+  },
+  {
+    "name": "IGB AVIATION",
+    "certificate": "D005219",
+    "expiration": "20270803",
+    "city": "BOYNTON BEACH",
+    "state": "FL"
+  },
+  {
+    "name": "J & S AIR LLC",
+    "certificate": "D005232",
+    "expiration": "20270326",
+    "city": "JONESBORO",
+    "state": "AR"
+  },
+  {
+    "name": "MERIDIAN SOUTH AVIATION LLC",
+    "certificate": "D005248",
+    "expiration": "20270613",
+    "city": "CLEARWATER",
+    "state": "FL"
+  },
+  {
+    "name": "COMPASS ROSE AVIATION LLC",
+    "certificate": "D005261",
+    "expiration": "20261023",
+    "city": "DERBY",
+    "state": "KS"
+  },
+  {
+    "name": "LEEWARD AERO SALES CORP",
+    "certificate": "D005274",
+    "expiration": "20270403",
+    "city": "OCALA",
+    "state": "FL"
+  },
+  {
+    "name": "AIRVIEW INC",
+    "certificate": "D005276",
+    "expiration": "20271006",
+    "city": "LIGONIER",
+    "state": "PA"
+  },
+  {
+    "name": "RIVERSIDE AIR SERVICE INC DBA",
+    "certificate": "D005292",
+    "expiration": "20270119",
+    "city": "RIVERSIDE",
+    "state": "CA"
+  },
+  {
+    "name": "AIRCRAFT SERVICES OF SOUTH FLORIDA LLC",
+    "certificate": "D005306",
+    "expiration": "20270614",
+    "city": "PORT SAINT LUCIE",
+    "state": "FL"
+  },
+  {
+    "name": "OBRIEN AVIATION INC",
+    "certificate": "D005323",
+    "expiration": "20270122",
+    "city": "PORT ORANGE",
+    "state": "FL"
+  },
+  {
+    "name": "EVOLUTION AIRCRAFT INC",
+    "certificate": "D005362",
+    "expiration": "20270705",
+    "city": "ZEPHYRHILLS",
+    "state": "FL"
+  },
+  {
+    "name": "GLASS AVIATION INC",
+    "certificate": "D005372",
+    "expiration": "20270614",
+    "city": "HOLLIDAYSBURG",
+    "state": "PA"
+  },
+  {
+    "name": "DAVIS AVIATION INC",
+    "certificate": "D005399",
+    "expiration": "20270120",
+    "city": "BRANDON",
+    "state": "MS"
+  },
+  {
+    "name": "YOUNGER AVIATION LLC",
+    "certificate": "D005406",
+    "expiration": "20270529",
+    "city": "POTEAU",
+    "state": "OK"
+  },
+  {
+    "name": "AIRCRAFT SPECIALISTS INC",
+    "certificate": "D005478",
+    "expiration": "20270223",
+    "city": "LAWRENCEVILLE",
+    "state": "GA"
+  },
+  {
+    "name": "MERCAIR SERVICES INC",
+    "certificate": "D005494",
+    "expiration": "20270521",
+    "city": "FLORAHOME",
+    "state": "FL"
+  },
+  {
+    "name": "JCV AIRSALES INC",
+    "certificate": "D005535",
+    "expiration": "20270402",
+    "city": "CORAL SPRINGS",
+    "state": "FL"
+  },
+  {
+    "name": "WING AVIATION CHARTER SERVICES LLC",
+    "certificate": "D005567",
+    "expiration": "20270304",
+    "city": "HOUSTON",
+    "state": "TX"
+  },
+  {
+    "name": "COMMONWEALTH AIRCRAFT",
+    "certificate": "D005618",
+    "expiration": "20270610",
+    "city": "ASHLAND",
+    "state": "VA"
+  },
+  {
+    "name": "JET 1 AVIATION INC",
+    "certificate": "D005648",
+    "expiration": "20261118",
+    "city": "NAPLES",
+    "state": "FL"
+  },
+  {
+    "name": "R & C AVIATION INC",
+    "certificate": "D005680",
+    "expiration": "20261102",
+    "city": "MENA",
+    "state": "AR"
+  },
+  {
+    "name": "MARTIN AVIATION",
+    "certificate": "D005683",
+    "expiration": "20270305",
+    "city": "SANTA ANA",
+    "state": "CA"
+  },
+  {
+    "name": "SMITH AVIATION LLC",
+    "certificate": "D005709",
+    "expiration": "20261106",
+    "city": "SPRINGER",
+    "state": "OK"
+  },
+  {
+    "name": "CENTRAL CONNECTICUT AIRCRAFT LLC",
+    "certificate": "D005716",
+    "expiration": "20270810",
+    "city": "PLAINVILLE",
+    "state": "CT"
+  },
+  {
+    "name": "BRAVAN AVIATION INC",
+    "certificate": "D005719",
+    "expiration": "20270309",
+    "city": "FORT LAUDERDALE",
+    "state": "FL"
+  },
+  {
+    "name": "CASEY AVIATION INC",
+    "certificate": "D005725",
+    "expiration": "20261217",
+    "city": "DIBOLL",
+    "state": "TX"
+  },
+  {
+    "name": "JET & ROTOR AVIATION LLC",
+    "certificate": "D005747",
+    "expiration": "20261227",
+    "city": "SACRAMENTO",
+    "state": "CA"
+  },
+  {
+    "name": "CBP AIR LOGISTICS LLC",
+    "certificate": "D005758",
+    "expiration": "20270329",
+    "city": "STATHAM",
+    "state": "GA"
+  },
+  {
+    "name": "DCM AIR LLC",
+    "certificate": "D005798",
+    "expiration": "20261207",
+    "city": "LA FOLLETTE",
+    "state": "TN"
+  },
+  {
+    "name": "ALPHA ZULU AVIATION LLC",
+    "certificate": "D005806",
+    "expiration": "20270210",
+    "city": "PHOENIX",
+    "state": "AZ"
+  },
+  {
+    "name": "NELSON AIRCRAFT SALES LLC",
+    "certificate": "D005846",
+    "expiration": "20270320",
+    "city": "AUSTIN",
+    "state": "MN"
+  },
+  {
+    "name": "ATHENS AIR LLC",
+    "certificate": "D005850",
+    "expiration": "20270402",
+    "city": "ATHENS",
+    "state": "TN"
+  },
+  {
+    "name": "SOUTHPORT AVIATION LLC",
+    "certificate": "D005853",
+    "expiration": "20270513",
+    "city": "CAPE CORAL",
+    "state": "FL"
+  },
+  {
+    "name": "ITM AIRCRAFT LLC",
+    "certificate": "D005870",
+    "expiration": "20270427",
+    "city": "CHARLESTON",
+    "state": "SC"
+  },
+  {
+    "name": "SECOND LIFE FLIGHT INC",
+    "certificate": "D005899",
+    "expiration": "20261106",
+    "city": "DELRAY BEACH",
+    "state": "FL"
+  },
+  {
+    "name": "GAINESVILLE AIRCRAFT SALES INC",
+    "certificate": "D005913",
+    "expiration": "20270910",
+    "city": "GAINESVILLE",
+    "state": "FL"
+  },
+  {
+    "name": "GRIZZLY AIR SERVICE INC",
+    "certificate": "D005930",
+    "expiration": "20270304",
+    "city": "PARIS",
+    "state": "TX"
+  },
+  {
+    "name": "JERRY CHRISTIAN AIRCRAFT SALES INC",
+    "certificate": "D005933",
+    "expiration": "20270210",
+    "city": "MEMPHIS",
+    "state": "TN"
+  },
+  {
+    "name": "ADVANTAGE FLIGHT TRAINING AND SERVICES LLC",
+    "certificate": "D005934",
+    "expiration": "20270202",
+    "city": "WARREN",
+    "state": "AR"
+  },
+  {
+    "name": "AIRMART AIRCRAFT HOLDINGS INC",
+    "certificate": "D005952",
+    "expiration": "20270113",
+    "city": "OAK RIDGE",
+    "state": "NC"
+  },
+  {
+    "name": "ROCKET AIR LLC",
+    "certificate": "D005965",
+    "expiration": "20270311",
+    "city": "OAK CREEK",
+    "state": "CO"
+  },
+  {
+    "name": "NILES AIR LLC",
+    "certificate": "D006017",
+    "expiration": "20270825",
+    "city": "CONCORD",
+    "state": "NC"
+  },
+  {
+    "name": "AIRMART INC",
+    "certificate": "D006018",
+    "expiration": "20270304",
+    "city": "LEXINGTON",
+    "state": "KY"
+  },
+  {
+    "name": "GPK AVIATION LLC",
+    "certificate": "D006020",
+    "expiration": "20270929",
+    "city": "GRANITE SHOALS",
+    "state": "TX"
+  },
+  {
+    "name": "J & J AIRCRAFT HOLDINGS LLC",
+    "certificate": "D006024",
+    "expiration": "20261026",
+    "city": "VONORE",
+    "state": "TN"
+  },
+  {
+    "name": "ARMSTRONG AVIATION INC",
+    "certificate": "D006032",
+    "expiration": "20270914",
+    "city": "CANYON LAKE",
+    "state": "TX"
+  },
+  {
+    "name": "FAYETTEVILLE AVIATION INC",
+    "certificate": "D006078",
+    "expiration": "20270803",
+    "city": "FAYETTEVILLE",
+    "state": "TN"
+  },
+  {
+    "name": "BT AVIATION LLC",
+    "certificate": "D006085",
+    "expiration": "20270322",
+    "city": "NORTH PORT",
+    "state": "FL"
+  },
+  {
+    "name": "LARK AIRCRAFT LEASING",
+    "certificate": "D006090",
+    "expiration": "20270314",
+    "city": "PORT TOWNSEND",
+    "state": "WA"
+  },
+  {
+    "name": "AIRMOBILE INC",
+    "certificate": "D006105",
+    "expiration": "20261212",
+    "city": "MCKEESPORT",
+    "state": "PA"
+  },
+  {
+    "name": "AGRICAIR LEASING LLC",
+    "certificate": "D006106",
+    "expiration": "20271005",
+    "city": "BANCROFT",
+    "state": "WI"
+  },
+  {
+    "name": "JET AIR INC",
+    "certificate": "D006109",
+    "expiration": "20270311",
+    "city": "IOWA CITY",
+    "state": "IA"
+  },
+  {
+    "name": "GOAL AIRCRAFTS CORP",
+    "certificate": "D006112",
+    "expiration": "20270924",
+    "city": "ORLANDO",
+    "state": "FL"
+  },
+  {
+    "name": "GUGGENAIR LLC",
+    "certificate": "D006114",
+    "expiration": "20261217",
+    "city": "CARBONDALE",
+    "state": "CO"
+  },
+  {
+    "name": "JET AIR INC",
+    "certificate": "D006115",
+    "expiration": "20270417",
+    "city": "GALESBURG",
+    "state": "IL"
+  },
+  {
+    "name": "LEWIS AVIATION LLC",
+    "certificate": "D006118",
+    "expiration": "20270201",
+    "city": "BATON ROUGE",
+    "state": "LA"
+  },
+  {
+    "name": "TEXTRON AVIATION INC",
+    "certificate": "D006123",
+    "expiration": "20270621",
+    "city": "WICHITA",
+    "state": "KS"
+  },
+  {
+    "name": "FAST FLIGHT INC",
+    "certificate": "D006146",
+    "expiration": "20270126",
+    "city": "SPRINGDALE",
+    "state": "AR"
+  },
+  {
+    "name": "TELFORD AIRCRAFT LLC",
+    "certificate": "D006166",
+    "expiration": "20270205",
+    "city": "TELFORD",
+    "state": "TN"
+  },
+  {
+    "name": "SAI FLIGHT SERVICES INC",
+    "certificate": "D006184",
+    "expiration": "20270316",
+    "city": "GREER",
+    "state": "SC"
+  },
+  {
+    "name": "FRESH AIRCRAFT SALES LLC",
+    "certificate": "D006190",
+    "expiration": "20270217",
+    "city": "VILLA HILLS",
+    "state": "KY"
+  },
+  {
+    "name": "LATE AIRCRAFT REPAIR LLC",
+    "certificate": "D006200",
+    "expiration": "20270615",
+    "city": "POCAHONTAS",
+    "state": "AR"
+  },
+  {
+    "name": "SKYBLUE JET AVIATION LLC",
+    "certificate": "D006206",
+    "expiration": "20270818",
+    "city": "WEST PALM BEACH",
+    "state": "FL"
+  },
+  {
+    "name": "ST PETE AVIATION SERVICES LLC",
+    "certificate": "D006217",
+    "expiration": "20270727",
+    "city": "ST PETERSBURG",
+    "state": "FL"
+  },
+  {
+    "name": "AIR CARE LEASING LLC",
+    "certificate": "D006218",
+    "expiration": "20270315",
+    "city": "LAMAR",
+    "state": "CO"
+  },
+  {
+    "name": "CC AVIATION INC",
+    "certificate": "D006243",
+    "expiration": "20270119",
+    "city": "DISCOVERY BAY",
+    "state": "CA"
+  },
+  {
+    "name": "SEARCY MOTO-AIR INC",
+    "certificate": "D006313",
+    "expiration": "20270329",
+    "city": "SEARCY",
+    "state": "AR"
+  },
+  {
+    "name": "UPWARD AIRCRAFT LLC",
+    "certificate": "D006357",
+    "expiration": "20270420",
+    "city": "LOUISVILLE",
+    "state": "KY"
+  },
+  {
+    "name": "MICHAEL EDWIN MADISON AIRCRAFT LLC",
+    "certificate": "D006358",
+    "expiration": "20270617",
+    "city": "CHATTANOOGA",
+    "state": "TN"
+  },
+  {
+    "name": "RG AVIATION LLC",
+    "certificate": "D006400",
+    "expiration": "20270822",
+    "city": "FULTON",
+    "state": "MS"
+  },
+  {
+    "name": "AVJET GLOBAL SALES LLC",
+    "certificate": "D006408",
+    "expiration": "20261203",
+    "city": "SCOTTSDALE",
+    "state": "AZ"
+  },
+  {
+    "name": "M HIXSON AVIATION LLC",
+    "certificate": "D006456",
+    "expiration": "20270520",
+    "city": "LAKE DALLAS",
+    "state": "TX"
+  },
+  {
+    "name": "C & M AVIATION LLC",
+    "certificate": "D006462",
+    "expiration": "20270923",
+    "city": "BULLHEAD CITY",
+    "state": "AZ"
+  },
+  {
+    "name": "NEVADA AIRCRAFT CORP",
+    "certificate": "D006471",
+    "expiration": "20261212",
+    "city": "HENDERSON",
+    "state": "NV"
+  },
+  {
+    "name": "MY WAY AVIATION LLC",
+    "certificate": "D006474",
+    "expiration": "20270202",
+    "city": "WESTON",
+    "state": "FL"
+  },
+  {
+    "name": "BEST AIRCRAFT DEALS LLC",
+    "certificate": "D006480",
+    "expiration": "20270415",
+    "city": "SALT LAKE CITY",
+    "state": "UT"
+  },
+  {
+    "name": "SONOMA VALLEY AIRCRAFT INC",
+    "certificate": "D006499",
+    "expiration": "20270503",
+    "city": "VINEBURG",
+    "state": "CA"
+  },
+  {
+    "name": "STOL-IT AIRCRAFT INC",
+    "certificate": "D006532",
+    "expiration": "20270126",
+    "city": "LINDEN",
+    "state": "TN"
+  },
+  {
+    "name": "AJD AVIATION LLC",
+    "certificate": "D006539",
+    "expiration": "20271008",
+    "city": "GUILFORD",
+    "state": "CT"
+  },
+  {
+    "name": "BOOMERANG AIR LLC",
+    "certificate": "D006555",
+    "expiration": "20271108",
+    "city": "CEDAR PARK",
+    "state": "TX"
+  },
+  {
+    "name": "AMERICAN AIR ACADEMY INC",
+    "certificate": "D006556",
+    "expiration": "20270317",
+    "city": "MERRITT ISLAND",
+    "state": "FL"
+  },
+  {
+    "name": "J&J AIR SERVICE",
+    "certificate": "D006560",
+    "expiration": "20270416",
+    "city": "WEINER",
+    "state": "AR"
+  },
+  {
+    "name": "EPIC AIRCRAFT LLC",
+    "certificate": "D006563",
+    "expiration": "20271108",
+    "city": "BEND",
+    "state": "OR"
+  },
+  {
+    "name": "SKYBLUE AVIATION CR INC",
+    "certificate": "D006575",
+    "expiration": "20270210",
+    "city": "MERRITT ISLAND",
+    "state": "FL"
+  },
+  {
+    "name": "CAPITAL FLIGHT LLC",
+    "certificate": "D006576",
+    "expiration": "20270524",
+    "city": "MIDDLETON",
+    "state": "WI"
+  },
+  {
+    "name": "RH AVIATION LLC",
+    "certificate": "D006592",
+    "expiration": "20270202",
+    "city": "CHATTANOOGA",
+    "state": "TN"
+  },
+  {
+    "name": "DAN AVIATION SERVICES LLC",
+    "certificate": "D006611",
+    "expiration": "20261120",
+    "city": "MIAMI",
+    "state": "FL"
+  },
+  {
+    "name": "PEGASUS AIR CHARTER LLC",
+    "certificate": "D006626",
+    "expiration": "20270922",
+    "city": "HARTFORD",
+    "state": "CT"
+  },
+  {
+    "name": "MERCER AVIATION LLC",
+    "certificate": "D006646",
+    "expiration": "20261029",
+    "city": "WICHITA",
+    "state": "KS"
+  },
+  {
+    "name": "OZARK AVIATION SERVICES LLC",
+    "certificate": "D006688",
+    "expiration": "20270827",
+    "city": "WASOLA",
+    "state": "MO"
+  },
+  {
+    "name": "AIR & SEA LEASING INC",
+    "certificate": "D006689",
+    "expiration": "20261027",
+    "city": "CAHOKIA",
+    "state": "IL"
+  },
+  {
+    "name": "THUNDER WINGS AIRCRAFT SALES LLC",
+    "certificate": "D006691",
+    "expiration": "20271009",
+    "city": "BETHANY",
+    "state": "OK"
+  },
+  {
+    "name": "MILE HIGH AVIATION INC",
+    "certificate": "D006700",
+    "expiration": "20270910",
+    "city": "ESTES PARK",
+    "state": "CO"
+  },
+  {
+    "name": "BAS PART SALES LLC",
+    "certificate": "D006717",
+    "expiration": "20270520",
+    "city": "GREELEY",
+    "state": "CO"
+  },
+  {
+    "name": "BANKSTON AVIATION LLC",
+    "certificate": "D006719",
+    "expiration": "20270501",
+    "city": "MOUNT JULIET",
+    "state": "TN"
+  },
+  {
+    "name": "RIGHT RUDDER AVIATION LLC",
+    "certificate": "D006720",
+    "expiration": "20270810",
+    "city": "INVERNESS",
+    "state": "FL"
+  },
+  {
+    "name": "VAERUS JET SALES LLC",
+    "certificate": "D006721",
+    "expiration": "20270319",
+    "city": "TOPEKA",
+    "state": "KS"
+  },
+  {
+    "name": "NEXGA AIRCRAFT INC",
+    "certificate": "D006730",
+    "expiration": "20270519",
+    "city": "GREENSBORO",
+    "state": "NC"
+  },
+  {
+    "name": "ROBINSON AIR CRANE LLC",
+    "certificate": "D006751",
+    "expiration": "20271005",
+    "city": "FORT PIERCE",
+    "state": "FL"
+  },
+  {
+    "name": "AIR FLIGHT ENTERPRISES INC",
+    "certificate": "D006765",
+    "expiration": "20270328",
+    "city": "NEW SMYRNA BEACH",
+    "state": "FL"
+  },
+  {
+    "name": "PROPELLING AVIATION LLC",
+    "certificate": "D006783",
+    "expiration": "20270131",
+    "city": "LENOIR CITY",
+    "state": "TN"
+  },
+  {
+    "name": "BJ AVIATION LLC",
+    "certificate": "D006800",
+    "expiration": "20271018",
+    "city": "BEAVER MEADOWS",
+    "state": "PA"
+  },
+  {
+    "name": "PENN AIRE AVIATION INC",
+    "certificate": "D006821",
+    "expiration": "20270830",
+    "city": "FRANKLIN",
+    "state": "PA"
+  },
+  {
+    "name": "BALLARD AVIATION HOLDINGS LLC",
+    "certificate": "D006831",
+    "expiration": "20270519",
+    "city": "NEWTON",
+    "state": "KS"
+  },
+  {
+    "name": "AMERICAN JET BROKERS LLC",
+    "certificate": "D006852",
+    "expiration": "20261203",
+    "city": "CALEDONIA",
+    "state": "MI"
+  },
+  {
+    "name": "AIRCRAFT PROPULSION LEASING LLC",
+    "certificate": "D006856",
+    "expiration": "20270930",
+    "city": "HOLLAND",
+    "state": "OH"
+  },
+  {
+    "name": "LOGIN AVIATION SERVICES CORP",
+    "certificate": "D006863",
+    "expiration": "20270526",
+    "city": "CORAL SPRINGS",
+    "state": "FL"
+  },
+  {
+    "name": "NORTH STAR AVIATION INC",
+    "certificate": "D006869",
+    "expiration": "20270622",
+    "city": "ULYSSES",
+    "state": "KS"
+  },
+  {
+    "name": "BOCA AIRCRAFT LLC",
+    "certificate": "D006895",
+    "expiration": "20270106",
+    "city": "BOCA RATON",
+    "state": "FL"
+  },
+  {
+    "name": "OVER THE TOP AVIATION INC",
+    "certificate": "D006916",
+    "expiration": "20270610",
+    "city": "JONESBORO",
+    "state": "AR"
+  },
+  {
+    "name": "AIRSOUTH AVIATION SERVICES INC",
+    "certificate": "D006924",
+    "expiration": "20270727",
+    "city": "LITTLE ROCK",
+    "state": "AR"
+  },
+  {
+    "name": "COMPLETE AVIATION MANAGEMENT LLC",
+    "certificate": "D006925",
+    "expiration": "20270926",
+    "city": "LANTANA",
+    "state": "FL"
+  },
+  {
+    "name": "HONDA AVIATION SERVICE CO INC",
+    "certificate": "D006931",
+    "expiration": "20270317",
+    "city": "GREENSBORO",
+    "state": "NC"
+  },
+  {
+    "name": "WAYNE'S AIRCRAFT MAINTENANCE",
+    "certificate": "D006938",
+    "expiration": "20270408",
+    "city": "HOMESTEAD",
+    "state": "FL"
+  },
+  {
+    "name": "SHIVER TOTAL AVIATION SOLUTIONS INC",
+    "certificate": "D006947",
+    "expiration": "20270517",
+    "city": "LIBERTY TOWNSHIP",
+    "state": "OH"
+  },
+  {
+    "name": "AIRMANN LLC",
+    "certificate": "D006957",
+    "expiration": "20270818",
+    "city": "MT STERLING",
+    "state": "KY"
+  },
+  {
+    "name": "FLIGHT TRAINING 101 LLC",
+    "certificate": "D006964",
+    "expiration": "20270214",
+    "city": "WINTER HAVEN",
+    "state": "FL"
+  },
+  {
+    "name": "7 STAR AVIATION LLC",
+    "certificate": "D006967",
+    "expiration": "20270806",
+    "city": "ADDISON",
+    "state": "TX"
+  },
+  {
+    "name": "FORTE AVIATION PARTS INC",
+    "certificate": "D006977",
+    "expiration": "20270423",
+    "city": "FORT LAUDERDALE",
+    "state": "FL"
+  },
+  {
+    "name": "JESNET AVIATION LLC",
+    "certificate": "D006989",
+    "expiration": "20270322",
+    "city": "SANFORD",
+    "state": "FL"
+  },
+  {
+    "name": "FLYING CROWN AVIATION LLC",
+    "certificate": "D006993",
+    "expiration": "20261204",
+    "city": "FOND DU LAC",
+    "state": "WI"
+  },
+  {
+    "name": "BEEGLES AIRCRAFT SERVICE LLC",
+    "certificate": "D007006",
+    "expiration": "20270610",
+    "city": "GREELEY",
+    "state": "CO"
+  },
+  {
+    "name": "KODIAK AIRCRAFT CO INC",
+    "certificate": "D007014",
+    "expiration": "20270508",
+    "city": "SANDPOINT",
+    "state": "ID"
+  },
+  {
+    "name": "AGWERX AVIATION INC",
+    "certificate": "D007051",
+    "expiration": "20261118",
+    "city": "MAPLETON",
+    "state": "IA"
+  },
+  {
+    "name": "LOW AND SLOW AVIATION LLC",
+    "certificate": "D007055",
+    "expiration": "20270710",
+    "city": "WILLISTON",
+    "state": "FL"
+  },
+  {
+    "name": "NEEL AVIATION LLC",
+    "certificate": "D007075",
+    "expiration": "20270325",
+    "city": "LAKELAND",
+    "state": "FL"
+  },
+  {
+    "name": "GARDNER AVIATION SPECIALIST INC",
+    "certificate": "D007083",
+    "expiration": "20270821",
+    "city": "FAYETTEVILLE",
+    "state": "GA"
+  },
+  {
+    "name": "CUTTER SWISS AIRCRAFT LLC",
+    "certificate": "D007094",
+    "expiration": "20270308",
+    "city": "PHOENIX",
+    "state": "AZ"
+  },
+  {
+    "name": "ADVANCED AIRCRAFT SALES LLC",
+    "certificate": "D007110",
+    "expiration": "20270826",
+    "city": "MIAMI",
+    "state": "FL"
+  },
+  {
+    "name": "HETRICK AIR SERVICES INC",
+    "certificate": "D007113",
+    "expiration": "20270408",
+    "city": "LAWRENCE",
+    "state": "KS"
+  },
+  {
+    "name": "RICH LUCAS AIRCRAFT SALES LLC",
+    "certificate": "D007144",
+    "expiration": "20270617",
+    "city": "LINCOLN PARK",
+    "state": "NJ"
+  },
+  {
+    "name": "CAT AGRI AVIATION INC",
+    "certificate": "D007174",
+    "expiration": "20270601",
+    "city": "WALNUT RIDGE",
+    "state": "AR"
+  },
+  {
+    "name": "DRUMMOND AVIATION LLC",
+    "certificate": "D007178",
+    "expiration": "20270328",
+    "city": "WICHITA",
+    "state": "KS"
+  },
+  {
+    "name": "GARRETT AIR INC",
+    "certificate": "D007186",
+    "expiration": "20270412",
+    "city": "WILMINGTON",
+    "state": "DE"
+  },
+  {
+    "name": "NOVA AIRCRAFT INC",
+    "certificate": "D007196",
+    "expiration": "20270316",
+    "city": "CLEARWATER",
+    "state": "FL"
+  },
+  {
+    "name": "RIDEINSKY AVIATION LLC",
+    "certificate": "D007213",
+    "expiration": "20270210",
+    "city": "DAYTONA BEACH",
+    "state": "FL"
+  },
+  {
+    "name": "GARDNER AVIATION LLC",
+    "certificate": "D007219",
+    "expiration": "20270508",
+    "city": "HOT SPRINGS",
+    "state": "AR"
+  },
+  {
+    "name": "GREATER CHATTANOOGA AVIATION CLUB LLC",
+    "certificate": "D007226",
+    "expiration": "20270428",
+    "city": "CHATTANOOGA",
+    "state": "TN"
+  },
+  {
+    "name": "SEITZ AVIATION LLC",
+    "certificate": "D007249",
+    "expiration": "20270727",
+    "city": "HAYDEN",
+    "state": "ID"
+  },
+  {
+    "name": "SOUTHERN AIR GROUP LLC",
+    "certificate": "D007250",
+    "expiration": "20270514",
+    "city": "JEFFERSON",
+    "state": "GA"
+  },
+  {
+    "name": "RXAIR 2 INC",
+    "certificate": "D007253",
+    "expiration": "20270205",
+    "city": "BELLA VISTA",
+    "state": "AR"
+  },
+  {
+    "name": "TINY TIGER AIRCRAFT INC",
+    "certificate": "D007257",
+    "expiration": "20261023",
+    "city": "OWASSO",
+    "state": "OK"
+  },
+  {
+    "name": "LANDAIR AVIATION LLC",
+    "certificate": "D007265",
+    "expiration": "20270429",
+    "city": "VINITA",
+    "state": "OK"
+  },
+  {
+    "name": "YOUNG AVIATION LLC",
+    "certificate": "D007275",
+    "expiration": "20270708",
+    "city": "OLATHE",
+    "state": "KS"
+  },
+  {
+    "name": "AEROVENCA AIRCRAFT SERVICES CORP",
+    "certificate": "D007277",
+    "expiration": "20261021",
+    "city": "MIAMI",
+    "state": "FL"
+  },
+  {
+    "name": "FLYMAX AIRCRAFT LLC",
+    "certificate": "D007290",
+    "expiration": "20270226",
+    "city": "BALL GROUND",
+    "state": "GA"
+  },
+  {
+    "name": "OC AIRCRAFT SALES INC",
+    "certificate": "D007292",
+    "expiration": "20270322",
+    "city": "NEWPORT BEACH",
+    "state": "CA"
+  },
+  {
+    "name": "JET SENSE AVIATION AIRCRAFT HOLDINGS CORP",
+    "certificate": "D007293",
+    "expiration": "20270526",
+    "city": "LAKE ZURICH",
+    "state": "IL"
+  },
+  {
+    "name": "STREAMLINE AVIATION LLC",
+    "certificate": "D007302",
+    "expiration": "20271018",
+    "city": "BATTLEFIELD",
+    "state": "MO"
+  },
+  {
+    "name": "SKYLINE AVIATION SERVICES LLC",
+    "certificate": "D007320",
+    "expiration": "20270616",
+    "city": "MIRAMAR",
+    "state": "FL"
+  },
+  {
+    "name": "APOLLO AIR GROUP LLC",
+    "certificate": "D007337",
+    "expiration": "20270727",
+    "city": "PORT ORANGE",
+    "state": "FL"
+  },
+  {
+    "name": "INTERMOUNTAIN AIR INC",
+    "certificate": "D007341",
+    "expiration": "20261202",
+    "city": "COLORADO SPRINGS",
+    "state": "CO"
+  },
+  {
+    "name": "ROTOR SPEC AVIATION LLC",
+    "certificate": "D007351",
+    "expiration": "20270323",
+    "city": "STAR",
+    "state": "ID"
+  },
+  {
+    "name": "FULL THROTTLE AVIATION LLC",
+    "certificate": "D007353",
+    "expiration": "20270308",
+    "city": "TERLINGUA",
+    "state": "TX"
+  },
+  {
+    "name": "EASI AIRCRAFT LLC",
+    "certificate": "D007367",
+    "expiration": "20261106",
+    "city": "MELBOURNE",
+    "state": "AR"
+  },
+  {
+    "name": "AIR GILES LLC",
+    "certificate": "D007374",
+    "expiration": "20270322",
+    "city": "ORLANDO",
+    "state": "FL"
+  },
+  {
+    "name": "BOCA AIRCRAFT MAINTENANCE LLC",
+    "certificate": "D007379",
+    "expiration": "20270104",
+    "city": "BOCA RATON",
+    "state": "FL"
+  },
+  {
+    "name": "FLYING COLORS AIRPARTS INC",
+    "certificate": "D007383",
+    "expiration": "20270529",
+    "city": "LEESBURG",
+    "state": "FL"
+  },
+  {
+    "name": "DCD AIRCRAFT SALES LLC",
+    "certificate": "D007385",
+    "expiration": "20261024",
+    "city": "LEESBURG",
+    "state": "FL"
+  },
+  {
+    "name": "AIR VEHICLE INTEGRATION INC",
+    "certificate": "D007426",
+    "expiration": "20270519",
+    "city": "WEST BLOOMFIELD",
+    "state": "MI"
+  },
+  {
+    "name": "RENDEZVOUS ISLAND AIR LLC",
+    "certificate": "D007441",
+    "expiration": "20270915",
+    "city": "FORT COLLINS",
+    "state": "CO"
+  },
+  {
+    "name": "TARRAGON AIRCRAFT USA LLC",
+    "certificate": "D007471",
+    "expiration": "20270302",
+    "city": "PEKIN",
+    "state": "IL"
+  },
+  {
+    "name": "BROADSEAM AVIATION LLC",
+    "certificate": "D007477",
+    "expiration": "20270210",
+    "city": "KODAK  E",
+    "state": "TN"
+  },
+  {
+    "name": "CAVU AIRCRAFT SALES & MANAGEMENT INC",
+    "certificate": "D007486",
+    "expiration": "20261203",
+    "city": "OLYPHANT",
+    "state": "PA"
+  },
+  {
+    "name": "DDY WING AVIATION INC",
+    "certificate": "D007501",
+    "expiration": "20270330",
+    "city": "VALENCIA",
+    "state": "CA"
+  },
+  {
+    "name": "WILCO AVIATION LLC",
+    "certificate": "D007528",
+    "expiration": "20270513",
+    "city": "JONESBORO",
+    "state": "AR"
+  },
+  {
+    "name": "THRUSH AIRCRAFT LLC",
+    "certificate": "D007542",
+    "expiration": "20270320",
+    "city": "ALBANY",
+    "state": "GA"
+  },
+  {
+    "name": "MOUNTAINSIDE AVIATION LLC",
+    "certificate": "D007547",
+    "expiration": "20270615",
+    "city": "LONGMONT",
+    "state": "CO"
+  },
+  {
+    "name": "SARSFIELD AVIATION LLC",
+    "certificate": "D007566",
+    "expiration": "20270809",
+    "city": "DACULA",
+    "state": "GA"
+  },
+  {
+    "name": "PREMIERE AVIATION INC",
+    "certificate": "D007567",
+    "expiration": "20270818",
+    "city": "CONCORD",
+    "state": "CA"
+  },
+  {
+    "name": "STOFFER AVIATION LLC",
+    "certificate": "D007578",
+    "expiration": "20270609",
+    "city": "MARION",
+    "state": "IN"
+  },
+  {
+    "name": "MAC FLIGHT LLC",
+    "certificate": "D007583",
+    "expiration": "20270826",
+    "city": "CONWAY",
+    "state": "AR"
+  },
+  {
+    "name": "FBR AVIATION INC",
+    "certificate": "D007600",
+    "expiration": "20270809",
+    "city": "FORT LAUDERDALE",
+    "state": "FL"
+  },
+  {
+    "name": "SKYLANCER AVIATION LLC",
+    "certificate": "D007622",
+    "expiration": "20261202",
+    "city": "MARION",
+    "state": "SD"
+  },
+  {
+    "name": "XAVIER AIR LLC",
+    "certificate": "D007625",
+    "expiration": "20270427",
+    "city": "LAKELAND",
+    "state": "FL"
+  },
+  {
+    "name": "HIGH PERFORMANCE AVIATION LLC",
+    "certificate": "D007630",
+    "expiration": "20261026",
+    "city": "DAVIDSON",
+    "state": "NC"
+  },
+  {
+    "name": "PLANE PRO AVIATION LLC",
+    "certificate": "D007659",
+    "expiration": "20261211",
+    "city": "SHELBY",
+    "state": "NC"
+  },
+  {
+    "name": "CONCENTRIC AVIATION LLC",
+    "certificate": "D007661",
+    "expiration": "20271020",
+    "city": "FLOWER MOUND",
+    "state": "TX"
+  },
+  {
+    "name": "ISLAND AIRCRAFT CORP",
+    "certificate": "D007662",
+    "expiration": "20270202",
+    "city": "MERRITT ISLAND",
+    "state": "FL"
+  },
+  {
+    "name": "CALIFORNIA AVIATION LLC",
+    "certificate": "D007670",
+    "expiration": "20270806",
+    "city": "FRESNO",
+    "state": "CA"
+  },
+  {
+    "name": "CAVALIER AVIATION INC",
+    "certificate": "D007671",
+    "expiration": "20270407",
+    "city": "DAYTONA BEACH",
+    "state": "FL"
+  },
+  {
+    "name": "AIR AMERICA ATLANTIC INC",
+    "certificate": "D007682",
+    "expiration": "20271024",
+    "city": "PALM CITY",
+    "state": "FL"
+  },
+  {
+    "name": "INFLIGHT CORP DBA",
+    "certificate": "D007691",
+    "expiration": "20270326",
+    "city": "CAPE GIRARDEAU",
+    "state": "MO"
+  },
+  {
+    "name": "ORMOND AIRCRAFT BROKERS LLC",
+    "certificate": "D007702",
+    "expiration": "20271023",
+    "city": "ORMOND BEACH",
+    "state": "FL"
+  },
+  {
+    "name": "REYN/CRAFT WILD SIDE AVIATION LLC",
+    "certificate": "D007712",
+    "expiration": "20270503",
+    "city": "ATHENS",
+    "state": "IL"
+  },
+  {
+    "name": "HENSLEY AVIATION LLC",
+    "certificate": "D007722",
+    "expiration": "20270215",
+    "city": "TELFORD",
+    "state": "TN"
+  },
+  {
+    "name": "VAUGHN AVIATION LLC",
+    "certificate": "D007723",
+    "expiration": "20270521",
+    "city": "LOWELL",
+    "state": "AR"
+  },
+  {
+    "name": "HIGH PLANES AVIATION LLC",
+    "certificate": "D007739",
+    "expiration": "20270401",
+    "city": "GOODLAND",
+    "state": "KS"
+  },
+  {
+    "name": "AIR MODS AND REPAIR",
+    "certificate": "D007744",
+    "expiration": "20270630",
+    "city": "JACKSON",
+    "state": "NJ"
+  },
+  {
+    "name": "ARC AVIATION LLC",
+    "certificate": "D007775",
+    "expiration": "20270111",
+    "city": "ADDISON",
+    "state": "TX"
+  },
+  {
+    "name": "CLEMENS AVIATION LLC",
+    "certificate": "D007778",
+    "expiration": "20270325",
+    "city": "WICHITA",
+    "state": "KS"
+  },
+  {
+    "name": "RB AVIATION ENTERPRISE LLC",
+    "certificate": "D007786",
+    "expiration": "20270501",
+    "city": "PALM CITY",
+    "state": "FL"
+  },
+  {
+    "name": "AMELIA REID AVIATION LLC",
+    "certificate": "D007805",
+    "expiration": "20261019",
+    "city": "SAN JOSE",
+    "state": "CA"
+  },
+  {
+    "name": "PAPER AIRPLANE INC",
+    "certificate": "D007815",
+    "expiration": "20270408",
+    "city": "ROYAL PALM BEACH",
+    "state": "FL"
+  },
+  {
+    "name": "JC AIRPARTS CORP",
+    "certificate": "D007819",
+    "expiration": "20270801",
+    "city": "FORT LAUDERDALE",
+    "state": "FL"
+  },
+  {
+    "name": "COLORADO AIRCRAFT CORP",
+    "certificate": "D007828",
+    "expiration": "20270820",
+    "city": "WATKINS",
+    "state": "CO"
+  },
+  {
+    "name": "WACO AIRCRAFT CORP",
+    "certificate": "D007840",
+    "expiration": "20270603",
+    "city": "BATTLE CREEK",
+    "state": "MI"
+  },
+  {
+    "name": "SPACE COAST AIRCRAFT CO",
+    "certificate": "D007871",
+    "expiration": "20270928",
+    "city": "MERRITT ISLAND",
+    "state": "FL"
+  },
+  {
+    "name": "AMERICAN AVIATION II LLC",
+    "certificate": "D007876",
+    "expiration": "20270717",
+    "city": "PEYTON",
+    "state": "CO"
+  },
+  {
+    "name": "CLEAR BLUE AVIATION LLC",
+    "certificate": "D007879",
+    "expiration": "20270309",
+    "city": "HAYDEN",
+    "state": "ID"
+  },
+  {
+    "name": "MELODY AVIATION SALES LLC",
+    "certificate": "D007885",
+    "expiration": "20261103",
+    "city": "COTTONTOWN",
+    "state": "TN"
+  },
+  {
+    "name": "SKYWAY AVIATION INC",
+    "certificate": "D007899",
+    "expiration": "20270113",
+    "city": "JACKSON",
+    "state": "MI"
+  },
+  {
+    "name": "RAMP AVIATION LLC",
+    "certificate": "D007902",
+    "expiration": "20270127",
+    "city": "PLANTATION",
+    "state": "FL"
+  },
+  {
+    "name": "THOROUGHBRED AVIATION LLC",
+    "certificate": "D007903",
+    "expiration": "20270926",
+    "city": "CRESTWOOD",
+    "state": "KY"
+  },
+  {
+    "name": "S&P AIRPLANE SALES",
+    "certificate": "D007920",
+    "expiration": "20270829",
+    "city": "BRANSON WEST",
+    "state": "MO"
+  },
+  {
+    "name": "RIO BRAZOS AVIATION LLC",
+    "certificate": "D007923",
+    "expiration": "20270930",
+    "city": "WACO",
+    "state": "TX"
+  },
+  {
+    "name": "ELEVATED AIRCRAFT SALES LLC",
+    "certificate": "D007927",
+    "expiration": "20261209",
+    "city": "BALDWIN",
+    "state": "WI"
+  },
+  {
+    "name": "AVIATION GROUP JMJ INC",
+    "certificate": "D007930",
+    "expiration": "20261020",
+    "city": "CALLAHAN",
+    "state": "FL"
+  },
+  {
+    "name": "AVIATION ACADEMY OF LOUISIANA LLC",
+    "certificate": "D007962",
+    "expiration": "20270304",
+    "city": "NEW IBERIA",
+    "state": "LA"
+  },
+  {
+    "name": "AVIATION SERVICES OF TN INC",
+    "certificate": "D007972",
+    "expiration": "20270406",
+    "city": "SPARTA",
+    "state": "TN"
+  },
+  {
+    "name": "NAPLES AIRPORT PROPERTIES 2 LLC",
+    "certificate": "D007978",
+    "expiration": "20270916",
+    "city": "PITTSBORO",
+    "state": "IN"
+  },
+  {
+    "name": "PRO WEST AIR LLC",
+    "certificate": "D007999",
+    "expiration": "20270503",
+    "city": "WEST POINT",
+    "state": "UT"
+  },
+  {
+    "name": "TRU FLIGHT MATERIALS LLC",
+    "certificate": "D008002",
+    "expiration": "20270211",
+    "city": "WILMINGTON",
+    "state": "DE"
+  },
+  {
+    "name": "WINGS AVIATION INC",
+    "certificate": "D008024",
+    "expiration": "20270309",
+    "city": "ORLANDO",
+    "state": "FL"
+  },
+  {
+    "name": "SYNERGY AIRCRAFT SALES LLC",
+    "certificate": "D008026",
+    "expiration": "20270210",
+    "city": "BLOOMINGTON",
+    "state": "IL"
+  },
+  {
+    "name": "RS AVIATION LLC",
+    "certificate": "D008034",
+    "expiration": "20270628",
+    "city": "WASHINGTON",
+    "state": "PA"
+  },
+  {
+    "name": "NEXT AVIATION LLC",
+    "certificate": "D008037",
+    "expiration": "20270504",
+    "city": "EVANSTON",
+    "state": "IL"
+  },
+  {
+    "name": "DELTAFOX AVIATION LLC",
+    "certificate": "D008050",
+    "expiration": "20270519",
+    "city": "PORT ORANGE",
+    "state": "FL"
+  },
+  {
+    "name": "REGIONAL AIR INC",
+    "certificate": "D008058",
+    "expiration": "20270501",
+    "city": "LAWTON",
+    "state": "OK"
+  },
+  {
+    "name": "AG AIR AIRCRAFT INC",
+    "certificate": "D008082",
+    "expiration": "20270617",
+    "city": "PARAGOULD",
+    "state": "AR"
+  },
+  {
+    "name": "WALLS SALES LLC",
+    "certificate": "D008083",
+    "expiration": "20270818",
+    "city": "POPLAR BLUFF",
+    "state": "MO"
+  },
+  {
+    "name": "EXECUTIVE AIRCRAFT SERVICES INC",
+    "certificate": "D008084",
+    "expiration": "20270113",
+    "city": "SCOTTSDALE",
+    "state": "AZ"
+  },
+  {
+    "name": "PITCH N POWER AVIATION INC",
+    "certificate": "D008098",
+    "expiration": "20270616",
+    "city": "JUPITER",
+    "state": "FL"
+  },
+  {
+    "name": "LAWSON AIRCRAFT SALES LLC",
+    "certificate": "D008099",
+    "expiration": "20270721",
+    "city": "ARGYLE",
+    "state": "TX"
+  },
+  {
+    "name": "AIRCRAFT RECOVERY & MAINTENANCE LLC",
+    "certificate": "D008123",
+    "expiration": "20270906",
+    "city": "WEST MEMPHIS",
+    "state": "AR"
+  },
+  {
+    "name": "MANTIS AVIATION LLC",
+    "certificate": "D008124",
+    "expiration": "20270911",
+    "city": "DE SOTO",
+    "state": "MO"
+  },
+  {
+    "name": "FUN FLIGHT AVIATION LLC",
+    "certificate": "D008127",
+    "expiration": "20271005",
+    "city": "DE SOTO",
+    "state": "MO"
+  },
+  {
+    "name": "MIAMI AVIATION SPECIALIST INC",
+    "certificate": "D008132",
+    "expiration": "20261105",
+    "city": "PEMBROKE PINES",
+    "state": "FL"
+  },
+  {
+    "name": "ROSS AVIATION SERVICES LLC",
+    "certificate": "D008134",
+    "expiration": "20270323",
+    "city": "CHELSEA",
+    "state": "AL"
+  },
+  {
+    "name": "BUFFALO AVIATION LLC",
+    "certificate": "D008150",
+    "expiration": "20261109",
+    "city": "MONETTE",
+    "state": "AR"
+  },
+  {
+    "name": "ALPHA TANGO AVIATION LLC",
+    "certificate": "D008160",
+    "expiration": "20271023",
+    "city": "ARDMORE",
+    "state": "OK"
+  },
+  {
+    "name": "EXCEPTIONAL AIRCRAFTS LLC",
+    "certificate": "D008171",
+    "expiration": "20261126",
+    "city": "MCALLEN",
+    "state": "TX"
+  },
+  {
+    "name": "JET FLEET AVIATION LLC",
+    "certificate": "D008178",
+    "expiration": "20270829",
+    "city": "PHOENIX",
+    "state": "AZ"
+  },
+  {
+    "name": "PIONEER AVIATION LLC",
+    "certificate": "D008182",
+    "expiration": "20270119",
+    "city": "CROSSETT",
+    "state": "AR"
+  },
+  {
+    "name": "BORDER AIR LTD",
+    "certificate": "D008184",
+    "expiration": "20270419",
+    "city": "SWANTON",
+    "state": "VT"
+  },
+  {
+    "name": "JOURNEYS AVIATION INC",
+    "certificate": "D008195",
+    "expiration": "20270320",
+    "city": "BOULDER",
+    "state": "CO"
+  },
+  {
+    "name": "HALE AIR LLC",
+    "certificate": "D008203",
+    "expiration": "20270120",
+    "city": "DE SOTO",
+    "state": "MO"
+  },
+  {
+    "name": "FALCON AIR INC",
+    "certificate": "D008208",
+    "expiration": "20270403",
+    "city": "BOULDER",
+    "state": "CO"
+  },
+  {
+    "name": "FLIGHT GATE LLC",
+    "certificate": "D008211",
+    "expiration": "20270322",
+    "city": "WILTON",
+    "state": "CA"
+  },
+  {
+    "name": "MID SOUTH AIRCRAFT SALES INC",
+    "certificate": "D008240",
+    "expiration": "20270325",
+    "city": "GADSDEN",
+    "state": "AL"
+  },
+  {
+    "name": "JIMMY L AVIATION LLC",
+    "certificate": "D008242",
+    "expiration": "20270319",
+    "city": "OCONOMOWOC",
+    "state": "WI"
+  },
+  {
+    "name": "CORNERSTONE AVIATION LLC",
+    "certificate": "D008243",
+    "expiration": "20270303",
+    "city": "TAMPA",
+    "state": "FL"
+  },
+  {
+    "name": "JUNKERS AIRCRAFT CORP",
+    "certificate": "D008247",
+    "expiration": "20270308",
+    "city": "BATTLE CREEK",
+    "state": "MI"
+  },
+  {
+    "name": "BFF AVIATION LLC",
+    "certificate": "D008255",
+    "expiration": "20270412",
+    "city": "PARAGOULD",
+    "state": "AR"
+  },
+  {
+    "name": "A & M AVIATION LLC",
+    "certificate": "D008256",
+    "expiration": "20270305",
+    "city": "HELENA",
+    "state": "AL"
+  },
+  {
+    "name": "PLANE JANE AVIATION LLC",
+    "certificate": "D008257",
+    "expiration": "20270308",
+    "city": "SYLVANIA",
+    "state": "GA"
+  },
+  {
+    "name": "AVENTI AVIATION GROUP LLC",
+    "certificate": "D008266",
+    "expiration": "20270529",
+    "city": "SMYRNA",
+    "state": "TN"
+  },
+  {
+    "name": "SOFTCOMM AVIATION INC",
+    "certificate": "D008284",
+    "expiration": "20270412",
+    "city": "IRVINE",
+    "state": "CA"
+  },
+  {
+    "name": "ADAMS AVIATION INC",
+    "certificate": "D008292",
+    "expiration": "20270622",
+    "city": "DISCOVERY BAY",
+    "state": "CA"
+  },
+  {
+    "name": "AR AVIATION SERVICES LLC",
+    "certificate": "D008293",
+    "expiration": "20270427",
+    "city": "HIALEAH",
+    "state": "FL"
+  },
+  {
+    "name": "SUNRIDER AVIATION INC",
+    "certificate": "D008307",
+    "expiration": "20270625",
+    "city": "IRVINE",
+    "state": "CA"
+  },
+  {
+    "name": "ZEPHAIR AVIATION LLC DBA",
+    "certificate": "D008309",
+    "expiration": "20270522",
+    "city": "CHARLESTON",
+    "state": "SC"
+  },
+  {
+    "name": "KEYSTONE AIR LLC",
+    "certificate": "D008314",
+    "expiration": "20270308",
+    "city": "MIAMI",
+    "state": "FL"
+  },
+  {
+    "name": "CHEYENNE AVIATION PARTS LLC DBA",
+    "certificate": "D008322",
+    "expiration": "20270322",
+    "city": "STUART",
+    "state": "FL"
+  },
+  {
+    "name": "AGRI AIR INDUSTRIES OF ARKANSAS LLC",
+    "certificate": "D008338",
+    "expiration": "20270727",
+    "city": "PARAGOULD",
+    "state": "AR"
+  },
+  {
+    "name": "DEVANEY AVIATION INC",
+    "certificate": "D008340",
+    "expiration": "20270811",
+    "city": "PALM CITY",
+    "state": "FL"
+  },
+  {
+    "name": "ELEMENTAL AVIATION LC",
+    "certificate": "D008350",
+    "expiration": "20270814",
+    "city": "WICHITA",
+    "state": "KS"
+  },
+  {
+    "name": "FREE MAN AIRSHOWS LTD",
+    "certificate": "D008365",
+    "expiration": "20271009",
+    "city": "LYONS",
+    "state": "CO"
+  },
+  {
+    "name": "LOWCOUNTRY FLIGHT LLC",
+    "certificate": "D008370",
+    "expiration": "20261109",
+    "city": "JOHNS ISLAND",
+    "state": "SC"
+  },
+  {
+    "name": "ANGELS AVIATION LLC",
+    "certificate": "D008377",
+    "expiration": "20261105",
+    "city": "ORMOND BEACH",
+    "state": "FL"
+  },
+  {
+    "name": "WEBSTRONG AVIATION LLC",
+    "certificate": "D008388",
+    "expiration": "20261209",
+    "city": "CONWAY",
+    "state": "AR"
+  },
+  {
+    "name": "RELIABLE AVIATION SOLUTIONS LLC",
+    "certificate": "D008390",
+    "expiration": "20261103",
+    "city": "FORT LAUDERDALE",
+    "state": "FL"
+  },
+  {
+    "name": "ADDISON AIRCRAFT ACQUISITIONS LLC",
+    "certificate": "D008392",
+    "expiration": "20270318",
+    "city": "DALLAS",
+    "state": "TX"
+  },
+  {
+    "name": "AVIATION COMPANY INC",
+    "certificate": "D008393",
+    "expiration": "20261029",
+    "city": "SAN MARCOS",
+    "state": "CA"
+  },
+  {
+    "name": "MORRISON AIRCRAFT CORP INC",
+    "certificate": "D008401",
+    "expiration": "20270609",
+    "city": "HARRISBURG",
+    "state": "AR"
+  },
+  {
+    "name": "WEBER AVIATION LLC",
+    "certificate": "D008407",
+    "expiration": "20270315",
+    "city": "LIBERTYVILLE",
+    "state": "IL"
+  },
+  {
+    "name": "MT AIRCRAFT LLC",
+    "certificate": "D008413",
+    "expiration": "20270308",
+    "city": "PORT ORANGE",
+    "state": "FL"
+  },
+  {
+    "name": "SIGMAN AVIATION LLC",
+    "certificate": "D008421",
+    "expiration": "20270218",
+    "city": "PELION",
+    "state": "SC"
+  },
+  {
+    "name": "AIR COWBOY LLC",
+    "certificate": "D008428",
+    "expiration": "20270316",
+    "city": "ROCA",
+    "state": "NE"
+  },
+  {
+    "name": "AVIONAIRE LLC",
+    "certificate": "D008432",
+    "expiration": "20270310",
+    "city": "FISHERS",
+    "state": "IN"
+  },
+  {
+    "name": "FLY RITE AVIATION LLC",
+    "certificate": "D008437",
+    "expiration": "20270607",
+    "city": "FORT MYERS",
+    "state": "FL"
+  },
+  {
+    "name": "PLANE N SIMPLE AVIATION LLC",
+    "certificate": "D008440",
+    "expiration": "20270224",
+    "city": "LOS ANGELES",
+    "state": "CA"
+  },
+  {
+    "name": "MATRIX SEA AIR AND LAND BROKERAGE LLC",
+    "certificate": "D008441",
+    "expiration": "20270310",
+    "city": "HYPOLUXO",
+    "state": "FL"
+  },
+  {
+    "name": "BULLARD AVIATION SERVICES INC",
+    "certificate": "D008442",
+    "expiration": "20270303",
+    "city": "ORMOND BEACH",
+    "state": "FL"
+  },
+  {
+    "name": "RT AVIATION LLC",
+    "certificate": "D008445",
+    "expiration": "20270316",
+    "city": "LAUREL",
+    "state": "MS"
+  },
+  {
+    "name": "MAGNIFLIGHT LLC",
+    "certificate": "D008456",
+    "expiration": "20270220",
+    "city": "ARLINGTON",
+    "state": "TX"
+  },
+  {
+    "name": "EDD CONN AIRCRAFT LLC",
+    "certificate": "D008457",
+    "expiration": "20270330",
+    "city": "EDGEWATER",
+    "state": "FL"
+  },
+  {
+    "name": "PROVIDENTIAL AVIATION LLC",
+    "certificate": "D008467",
+    "expiration": "20270330",
+    "city": "JONESBORO",
+    "state": "AR"
+  },
+  {
+    "name": "PRECISION AIR LLC",
+    "certificate": "D008468",
+    "expiration": "20270323",
+    "city": "DERMOTT",
+    "state": "AR"
+  },
+  {
+    "name": "ARAPAHOE AERO AIRCRAFT SALES LLC",
+    "certificate": "D008471",
+    "expiration": "20270402",
+    "city": "ENGLEWOOD",
+    "state": "CO"
+  },
+  {
+    "name": "TEXAS AIRCRAFT PARTS BROKERS LLC",
+    "certificate": "D008475",
+    "expiration": "20270321",
+    "city": "SEGUIN",
+    "state": "TX"
+  },
+  {
+    "name": "FOUR CORNERS AVIATION LLC",
+    "certificate": "D008483",
+    "expiration": "20270416",
+    "city": "FRISCO",
+    "state": "TX"
+  },
+  {
+    "name": "AIRCRAFT ENGINE LEASE FINANCE INC",
+    "certificate": "D008484",
+    "expiration": "20270403",
+    "city": "CHICAGO",
+    "state": "IL"
+  },
+  {
+    "name": "FLY BONAIR CORP",
+    "certificate": "D008497",
+    "expiration": "20270501",
+    "city": "FORT LAUDERDALE",
+    "state": "FL"
+  },
+  {
+    "name": "SKYRIDER AVIATION LLC",
+    "certificate": "D008500",
+    "expiration": "20270612",
+    "city": "WILMINGTON",
+    "state": "DE"
+  },
+  {
+    "name": "88WEST JET SALES LLC",
+    "certificate": "D008504",
+    "expiration": "20270520",
+    "city": "WISCONSIN RAPIDS",
+    "state": "WI"
+  },
+  {
+    "name": "AIR FIRST LLC",
+    "certificate": "D008506",
+    "expiration": "20270526",
+    "city": "KALISPELL",
+    "state": "MT"
+  },
+  {
+    "name": "AIRCRAFT 1821 LLC",
+    "certificate": "D008525",
+    "expiration": "20261123",
+    "city": "NORTH CHARLESTON",
+    "state": "SC"
+  },
+  {
+    "name": "UNLIMITED MOTOR SALES",
+    "certificate": "D008545",
+    "expiration": "20270730",
+    "city": "GRIFFIN",
+    "state": "GA"
+  },
+  {
+    "name": "GLOBAL FLIGHT SUPPORT AND SALES INC",
+    "certificate": "D008547",
+    "expiration": "20270929",
+    "city": "TAMPA",
+    "state": "FL"
+  },
+  {
+    "name": "SIERRA AVIATION LLC",
+    "certificate": "D008553",
+    "expiration": "20270914",
+    "city": "FOND DU LAC",
+    "state": "WI"
+  },
+  {
+    "name": "FELIX FLIGHT SERVICES LLC",
+    "certificate": "D008559",
+    "expiration": "20270825",
+    "city": "RYE",
+    "state": "CO"
+  },
+  {
+    "name": "AIRCRAFT HANDLING LLC",
+    "certificate": "D008573",
+    "expiration": "20261123",
+    "city": "ORLANDO",
+    "state": "FL"
+  },
+  {
+    "name": "TRANSATLANTIC AIR LEASING LLC",
+    "certificate": "D008577",
+    "expiration": "20271001",
+    "city": "MIAMI",
+    "state": "FL"
+  },
+  {
+    "name": "PATRIOT AVIATION LLC",
+    "certificate": "D008578",
+    "expiration": "20261109",
+    "city": "HUNTINGTON",
+    "state": "IN"
+  },
+  {
+    "name": "AJV AVIATION HOLDINGS LLC",
+    "certificate": "D008583",
+    "expiration": "20270205",
+    "city": "VENICE",
+    "state": "FL"
+  },
+  {
+    "name": "SKYLINE AVIATION SALES LLC",
+    "certificate": "D008587",
+    "expiration": "20261027",
+    "city": "PHOENIX",
+    "state": "AZ"
+  },
+  {
+    "name": "GIGA AVIATION LIV296 LLC",
+    "certificate": "D008589",
+    "expiration": "20261020",
+    "city": "MIAMI",
+    "state": "FL"
+  },
+  {
+    "name": "NORTHWOODS GATEWAY AVIATION LLC",
+    "certificate": "D008594",
+    "expiration": "20261130",
+    "city": "ANTIGO",
+    "state": "WI"
+  },
+  {
+    "name": "LEE MIESNER AVIATION LLC",
+    "certificate": "D008621",
+    "expiration": "20270205",
+    "city": "PARK HILLS",
+    "state": "MO"
+  },
+  {
+    "name": "JRB AIRCRAFT SALES LLC",
+    "certificate": "D008623",
+    "expiration": "20270217",
+    "city": "CARLSBAD",
+    "state": "CA"
+  },
+  {
+    "name": "PATTERSON AVIATION CO OF TEXAS",
+    "certificate": "D008625",
+    "expiration": "20270116",
+    "city": "DALLAS",
+    "state": "TX"
+  },
+  {
+    "name": "KEAAIR LLC",
+    "certificate": "D008638",
+    "expiration": "20270205",
+    "city": "KILGORE",
+    "state": "TX"
+  },
+  {
+    "name": "DESERT AIR AG INC",
+    "certificate": "D008645",
+    "expiration": "20270223",
+    "city": "TERRETON",
+    "state": "ID"
+  },
+  {
+    "name": "SKY TRADER AVIATION LLC",
+    "certificate": "D008649",
+    "expiration": "20270420",
+    "city": "VERO BEACH",
+    "state": "FL"
+  },
+  {
+    "name": "SUNDANCE AIR SERVICES INC",
+    "certificate": "D008650",
+    "expiration": "20270227",
+    "city": "ALAMEDA",
+    "state": "CA"
+  },
+  {
+    "name": "HIGHLAND AVIATION LLC",
+    "certificate": "D008655",
+    "expiration": "20270223",
+    "city": "IDAHO FALLS",
+    "state": "ID"
+  },
+  {
+    "name": "BUCKEYE AVIATION LLC",
+    "certificate": "D008658",
+    "expiration": "20270212",
+    "city": "HENDERSON",
+    "state": "NV"
+  },
+  {
+    "name": "AIRSTRIKE AG LLC",
+    "certificate": "D008659",
+    "expiration": "20270402",
+    "city": "BARNUM",
+    "state": "IA"
+  },
+  {
+    "name": "CORPORATE FLIGHT INTERNATIONAL LLC",
+    "certificate": "D008663",
+    "expiration": "20270212",
+    "city": "GLENWOOD SPRINGS",
+    "state": "CO"
+  },
+  {
+    "name": "WILLOUGHBY AVIATION LLC",
+    "certificate": "D008671",
+    "expiration": "20270326",
+    "city": "OKLAHOMA CITY",
+    "state": "OK"
+  },
+  {
+    "name": "WOLLERT AIRCRAFT SALES",
+    "certificate": "D008680",
+    "expiration": "20270317",
+    "city": "WILEY",
+    "state": "CO"
+  },
+  {
+    "name": "FREEBIRD AVIATION LLC",
+    "certificate": "D008686",
+    "expiration": "20270324",
+    "city": "LONE JACK",
+    "state": "MO"
+  },
+  {
+    "name": "BRISTELL AIRCRAFT LLC",
+    "certificate": "D008689",
+    "expiration": "20270402",
+    "city": "REMSENBURG",
+    "state": "NY"
+  },
+  {
+    "name": "M STAR AVIATION LLC",
+    "certificate": "D008703",
+    "expiration": "20270413",
+    "city": "OCONTO",
+    "state": "WI"
+  },
+  {
+    "name": "JOE DORY AVIATION LLC",
+    "certificate": "D008707",
+    "expiration": "20270420",
+    "city": "STAR",
+    "state": "ID"
+  },
+  {
+    "name": "AGL FLIGHT LLC",
+    "certificate": "D008721",
+    "expiration": "20270507",
+    "city": "CALLAHAN",
+    "state": "FL"
+  },
+  {
+    "name": "GLIDEPATH AVIATION LLC",
+    "certificate": "D008734",
+    "expiration": "20270609",
+    "city": "SHERIDAN",
+    "state": "WY"
+  },
+  {
+    "name": "EAGLE AVIATION COLUMBIA LLC",
+    "certificate": "D008743",
+    "expiration": "20270612",
+    "city": "WEST COLUMBIA",
+    "state": "SC"
+  },
+  {
+    "name": "GLOBAL AVIATION MANAGEMENT INC",
+    "certificate": "D008748",
+    "expiration": "20270727",
+    "city": "WELLINGTON",
+    "state": "FL"
+  },
+  {
+    "name": "AVIATION SOLUTIONS GROUP LLC",
+    "certificate": "D008755",
+    "expiration": "20270717",
+    "city": "ROYAL OAK",
+    "state": "MI"
+  },
+  {
+    "name": "MEGEL AIR LLC",
+    "certificate": "D008763",
+    "expiration": "20270804",
+    "city": "CLEVELAND",
+    "state": "GA"
+  },
+  {
+    "name": "NBC SALES LLC",
+    "certificate": "D008764",
+    "expiration": "20270803",
+    "city": "SOMERVILLE",
+    "state": "TN"
+  },
+  {
+    "name": "HELIGOOD AVIATION LLC",
+    "certificate": "D008773",
+    "expiration": "20270827",
+    "city": "CONROE",
+    "state": "TX"
+  },
+  {
+    "name": "ROMANAIR WDR INC",
+    "certificate": "D008774",
+    "expiration": "20270820",
+    "city": "WINDER",
+    "state": "GA"
+  },
+  {
+    "name": "PALM BEACH AIRCRAFT GROUP LLC",
+    "certificate": "D008778",
+    "expiration": "20270830",
+    "city": "WEST PALM BEACH",
+    "state": "FL"
+  },
+  {
+    "name": "BEACON LIGHT AVIATION LLC",
+    "certificate": "D008787",
+    "expiration": "20270905",
+    "city": "JOHNS CREEK",
+    "state": "GA"
+  },
+  {
+    "name": "HX AVIATION LLC",
+    "certificate": "D008798",
+    "expiration": "20270929",
+    "city": "BULLARD",
+    "state": "TX"
+  },
+  {
+    "name": "WHITE RIVER AVIATION LLC",
+    "certificate": "D008802",
+    "expiration": "20271008",
+    "city": "MIDWAY",
+    "state": "AR"
+  },
+  {
+    "name": "AIRCRAFT SALES & LEASING INC",
+    "certificate": "D008807",
+    "expiration": "20271017",
+    "city": "CLEVELAND",
+    "state": "TN"
+  },
+  {
+    "name": "SCT AVIATION LLC",
+    "certificate": "D008810",
+    "expiration": "20271019",
+    "city": "WAUKESHA",
+    "state": "WI"
+  },
+  {
+    "name": "H&A AIRCRAFT SERVICES LLC",
+    "certificate": "D008817",
+    "expiration": "20261109",
+    "city": "OMAHA",
+    "state": "AR"
+  },
+  {
+    "name": "AEROSMITH FLIGHT SCHOOL LLC",
+    "certificate": "D008820",
+    "expiration": "20261116",
+    "city": "PANAMA CITY",
+    "state": "FL"
+  },
+  {
+    "name": "AIRBORNE ENTERPRISES LLC",
+    "certificate": "D008825",
+    "expiration": "20261201",
+    "city": "AVA",
+    "state": "MO"
+  },
+  {
+    "name": "WINGS AVIATION ACADEMY ENTERPRISES INC",
+    "certificate": "D008827",
+    "expiration": "20261201",
+    "city": "ORLANDO",
+    "state": "FL"
+  },
+  {
+    "name": "AEROMOBIL AVIATION INC",
+    "certificate": "D008828",
+    "expiration": "20261202",
+    "city": "MARGATE",
+    "state": "FL"
+  },
+  {
+    "name": "SF AVIATION LLC",
+    "certificate": "D008832",
+    "expiration": "20261204",
+    "city": "BRANSON",
+    "state": "MO"
+  },
+  {
+    "name": "A TO Z AIRCRAFT SERVICES INC",
+    "certificate": "D008833",
+    "expiration": "20261207",
+    "city": "PEMBROKE PINES",
+    "state": "FL"
+  },
+  {
+    "name": "FBX AVIATION LLC",
+    "certificate": "D008834",
+    "expiration": "20261207",
+    "city": "MIAMI",
+    "state": "FL"
+  },
+  {
+    "name": "WESTERN AIRCRAFT GROUP LLC",
+    "certificate": "D008836",
+    "expiration": "20261207",
+    "city": "SHERIDAN",
+    "state": "WY"
+  },
+  {
+    "name": "GYROFLIGHT LLC",
+    "certificate": "D008838",
+    "expiration": "20261208",
+    "city": "DANE",
+    "state": "WI"
+  },
+  {
+    "name": "INDIGO BLUE AVIATION LLC",
+    "certificate": "D008843",
+    "expiration": "20261230",
+    "city": "SPARTANBURG",
+    "state": "SC"
+  },
+  {
+    "name": "E & D AVIATION SALES LLC",
+    "certificate": "D008848",
+    "expiration": "20270112",
+    "city": "SAINTE GENEVIEVE",
+    "state": "MO"
+  },
+  {
+    "name": "MCCARTER AVIATION LLC",
+    "certificate": "D008849",
+    "expiration": "20270115",
+    "city": "SPARTANBURG",
+    "state": "SC"
+  },
+  {
+    "name": "TTA AVIATION LLC",
+    "certificate": "D008850",
+    "expiration": "20270117",
+    "city": "NEW SMYRNA BEACH",
+    "state": "FL"
+  },
+  {
+    "name": "MCGINNIS AIR LLC",
+    "certificate": "D008851",
+    "expiration": "20270119",
+    "city": "GREENUP",
+    "state": "KY"
+  },
+  {
+    "name": "AEOLUS AVIATION LLC",
+    "certificate": "D008852",
+    "expiration": "20270119",
+    "city": "FRANKLIN",
+    "state": "TN"
+  },
+  {
+    "name": "LUXURY AVIATION LLC",
+    "certificate": "D008853",
+    "expiration": "20270120",
+    "city": "BUTLER",
+    "state": "PA"
+  },
+  {
+    "name": "SHAFFER AIRCRAFT SALES LLC",
+    "certificate": "D008856",
+    "expiration": "20270122",
+    "city": "OZARK",
+    "state": "AR"
+  },
+  {
+    "name": "HUMMINGBIRD AIRE LLC",
+    "certificate": "D008858",
+    "expiration": "20270131",
+    "city": "KALISPELL",
+    "state": "MT"
+  },
+  {
+    "name": "MIDWEST AVIATION SERVICES LLC",
+    "certificate": "D008867",
+    "expiration": "20270211",
+    "city": "BLUE ASH",
+    "state": "OH"
+  },
+  {
+    "name": "J M ROWLAND AVIATION LLC",
+    "certificate": "D008868",
+    "expiration": "20270212",
+    "city": "EASTMAN",
+    "state": "GA"
+  },
+  {
+    "name": "MEAD AIRCRAFT SALES LLC",
+    "certificate": "D008869",
+    "expiration": "20270220",
+    "city": "OLATHE",
+    "state": "KS"
+  },
+  {
+    "name": "PYLON AVIATION SERVICES LLC",
+    "certificate": "D008870",
+    "expiration": "20270223",
+    "city": "CHANDLER",
+    "state": "AZ"
+  },
+  {
+    "name": "LTR AVIATION LLC",
+    "certificate": "D008872",
+    "expiration": "20270227",
+    "city": "AFTON",
+    "state": "WY"
+  },
+  {
+    "name": "FORSBERG AVIATION INC",
+    "certificate": "D008878",
+    "expiration": "20270304",
+    "city": "ELK GROVE",
+    "state": "CA"
+  },
+  {
+    "name": "CYGNUS AVIATION LLC",
+    "certificate": "D008879",
+    "expiration": "20270305",
+    "city": "POMPANO BEACH",
+    "state": "FL"
+  },
+  {
+    "name": "OMAHA AIRCRAFT LLC",
+    "certificate": "D008883",
+    "expiration": "20270308",
+    "city": "BLAIR",
+    "state": "NE"
+  },
+  {
+    "name": "J7 AVIATION LLC",
+    "certificate": "D008884",
+    "expiration": "20270309",
+    "city": "HORSESHOE BAY",
+    "state": "TX"
+  },
+  {
+    "name": "TALLAHATCHIE AIRCRAFT SALES LLC",
+    "certificate": "D008885",
+    "expiration": "20270309",
+    "city": "CHARLESTON",
+    "state": "MS"
+  },
+  {
+    "name": "AVIATION INTERNATIONAL RESOURCES LLC",
+    "certificate": "D008888",
+    "expiration": "20270314",
+    "city": "BRIDGEPORT",
+    "state": "CT"
+  },
+  {
+    "name": "NEWMAN AVIATION SERVICES INC",
+    "certificate": "D008889",
+    "expiration": "20270314",
+    "city": "TIFFIN",
+    "state": "OH"
+  },
+  {
+    "name": "WICHITA AIR SERVICES INC",
+    "certificate": "D008890",
+    "expiration": "20270316",
+    "city": "WICHITA",
+    "state": "KS"
+  },
+  {
+    "name": "PHOENIXAIR II LLC",
+    "certificate": "D008891",
+    "expiration": "20270316",
+    "city": "LAKE WORTH BEACH",
+    "state": "FL"
+  },
+  {
+    "name": "HOTROD AVIATION LLC",
+    "certificate": "D008893",
+    "expiration": "20270318",
+    "city": "SPRINGDALE",
+    "state": "AR"
+  },
+  {
+    "name": "ANYWAY AVIATION INC",
+    "certificate": "D008898",
+    "expiration": "20270329",
+    "city": "OKEECHOBEE",
+    "state": "FL"
+  },
+  {
+    "name": "PHYDEAUX AVIATION LTD",
+    "certificate": "D008899",
+    "expiration": "20270329",
+    "city": "SPARTANBURG",
+    "state": "SC"
+  },
+  {
+    "name": "SCREAMING EAGLE AVIATION INC",
+    "certificate": "D008900",
+    "expiration": "20270330",
+    "city": "WEBB CITY",
+    "state": "MO"
+  },
+  {
+    "name": "AIR ALLY ASSET MANAGEMENT LLC",
+    "certificate": "D008902",
+    "expiration": "20270330",
+    "city": "CHISAGO CITY",
+    "state": "MN"
+  },
+  {
+    "name": "GENERAL AVIATION SUPPORT CORP",
+    "certificate": "D008903",
+    "expiration": "20270330",
+    "city": "ROSAMOND",
+    "state": "CA"
+  },
+  {
+    "name": "FREE BIRD AVIATION LLC",
+    "certificate": "D008908",
+    "expiration": "20270401",
+    "city": "WEINER",
+    "state": "AR"
+  },
+  {
+    "name": "SKYVIEW AVIATION SERVICES INC",
+    "certificate": "D008912",
+    "expiration": "20270407",
+    "city": "LAKELAND",
+    "state": "FL"
+  },
+  {
+    "name": "BIG SHOOTER AIRCRAFT SALES LLC",
+    "certificate": "D008913",
+    "expiration": "20270407",
+    "city": "ORLANDO",
+    "state": "FL"
+  },
+  {
+    "name": "AIRCORPS AVIATION LLC",
+    "certificate": "D008914",
+    "expiration": "20270407",
+    "city": "BEMIDJI",
+    "state": "MN"
+  },
+  {
+    "name": "EAST WIND AVIATION LLC",
+    "certificate": "D008916",
+    "expiration": "20270407",
+    "city": "SHERIDAN",
+    "state": "WY"
+  },
+  {
+    "name": "HARTLAND AVIATION LLC",
+    "certificate": "D008917",
+    "expiration": "20270408",
+    "city": "ORMOND BEACH",
+    "state": "FL"
+  },
+  {
+    "name": "C&W AIRCRAFT MANAGEMENT & SALES",
+    "certificate": "D008919",
+    "expiration": "20270408",
+    "city": "HOMESTEAD",
+    "state": "FL"
+  },
+  {
+    "name": "DUNAIRE LLC",
+    "certificate": "D008925",
+    "expiration": "20270415",
+    "city": "MECHANICSBURG",
+    "state": "PA"
+  },
+  {
+    "name": "COWBOY AIRCRAFT LLC",
+    "certificate": "D008926",
+    "expiration": "20270420",
+    "city": "JOPLIN",
+    "state": "MO"
+  },
+  {
+    "name": "MC AVIATION LLC",
+    "certificate": "D008927",
+    "expiration": "20270420",
+    "city": "SAN MIGUEL",
+    "state": "CA"
+  },
+  {
+    "name": "PREMIER AIRCRAFT TRADING SERVICE INC",
+    "certificate": "D008934",
+    "expiration": "20270429",
+    "city": "LEWES",
+    "state": "DE"
+  },
+  {
+    "name": "NEW CENTURY AIR SERVICE INC",
+    "certificate": "D008935",
+    "expiration": "20270429",
+    "city": "NEW CENTURY",
+    "state": "KS"
+  },
+  {
+    "name": "MARTIN AVIATION LLC",
+    "certificate": "D008938",
+    "expiration": "20270505",
+    "city": "BARGERSVILLE",
+    "state": "IN"
+  },
+  {
+    "name": "FMA AUTO SALES LLC",
+    "certificate": "D008939",
+    "expiration": "20270506",
+    "city": "GREENSBORO",
+    "state": "NC"
+  },
+  {
+    "name": "PILATUS AIRCRAFT USA LTD",
+    "certificate": "D008940",
+    "expiration": "20270507",
+    "city": "BROOMFIELD",
+    "state": "CO"
+  },
+  {
+    "name": "PB AVIATION LLC",
+    "certificate": "D008943",
+    "expiration": "20270510",
+    "city": "LANTANA",
+    "state": "FL"
+  },
+  {
+    "name": "SJM SALES INC",
+    "certificate": "D008945",
+    "expiration": "20270511",
+    "city": "GILROY",
+    "state": "CA"
+  },
+  {
+    "name": "HAWKE AG AVIATION INC",
+    "certificate": "D008947",
+    "expiration": "20270514",
+    "city": "OAKDALE",
+    "state": "CA"
+  },
+  {
+    "name": "SOTER AVIATION INC",
+    "certificate": "D008948",
+    "expiration": "20270514",
+    "city": "CASPER",
+    "state": "WY"
+  },
+  {
+    "name": "ASCENSION AIRCRAFT LLC",
+    "certificate": "D008950",
+    "expiration": "20270518",
+    "city": "AUGUSTA",
+    "state": "GA"
+  },
+  {
+    "name": "AUXANO AVIATION LLC",
+    "certificate": "D008952",
+    "expiration": "20270519",
+    "city": "NEWARK",
+    "state": "DE"
+  },
+  {
+    "name": "ARTEMIS AVIATION GROUP LLC",
+    "certificate": "D008960",
+    "expiration": "20270611",
+    "city": "KALISPELL",
+    "state": "MT"
+  },
+  {
+    "name": "AIRCRAFT HOUSING LLC",
+    "certificate": "D008964",
+    "expiration": "20270615",
+    "city": "WINDERMERE",
+    "state": "FL"
+  },
+  {
+    "name": "AVIATION SOLUTION EXPERTS LLC",
+    "certificate": "D008966",
+    "expiration": "20270615",
+    "city": "SAINT MARYS",
+    "state": "IA"
+  },
+  {
+    "name": "ARTHUR AIRCRAFT LLC",
+    "certificate": "D008973",
+    "expiration": "20270624",
+    "city": "SPARTA",
+    "state": "IL"
+  },
+  {
+    "name": "HORIZON AIRCRAFT SALES AND LEASING LLC",
+    "certificate": "D008974",
+    "expiration": "20270625",
+    "city": "SULPHUR ROCK",
+    "state": "AR"
+  },
+  {
+    "name": "KEY AVIATION LLC",
+    "certificate": "D008975",
+    "expiration": "20270704",
+    "city": "WEST FARGO",
+    "state": "ND"
+  },
+  {
+    "name": "COCOA AIRCRAFT INC",
+    "certificate": "D008978",
+    "expiration": "20270707",
+    "city": "MERRITT ISLAND",
+    "state": "FL"
+  },
+  {
+    "name": "SKYWAYS AIR TRANSPORTATION INC",
+    "certificate": "D008979",
+    "expiration": "20270709",
+    "city": "AUSTIN",
+    "state": "TX"
+  },
+  {
+    "name": "MDG AVIATION LTD",
+    "certificate": "D008981",
+    "expiration": "20270712",
+    "city": "CASTLE ROCK",
+    "state": "CO"
+  },
+  {
+    "name": "FLYING AVIATION LLC",
+    "certificate": "D008982",
+    "expiration": "20270713",
+    "city": "FREDERICKSBURG",
+    "state": "TX"
+  },
+  {
+    "name": "HIGH PERFORMANCE AVIATION LLC",
+    "certificate": "D008984",
+    "expiration": "20270714",
+    "city": "CONROE",
+    "state": "TX"
+  },
+  {
+    "name": "LAKER AVIATION LLC",
+    "certificate": "D008986",
+    "expiration": "20270715",
+    "city": "PORTAGE",
+    "state": "MI"
+  },
+  {
+    "name": "ATLAS AVIATION LLC",
+    "certificate": "D008987",
+    "expiration": "20270720",
+    "city": "TEXARKANA",
+    "state": "AR"
+  },
+  {
+    "name": "TUCKER AVIATION LLC",
+    "certificate": "D008990",
+    "expiration": "20270727",
+    "city": "HOLLISTER",
+    "state": "MO"
+  },
+  {
+    "name": "AXEL AVIATION INC",
+    "certificate": "D008994",
+    "expiration": "20270803",
+    "city": "ROSWELL",
+    "state": "GA"
+  },
+  {
+    "name": "BRICKHOUSE AVIATION LLC",
+    "certificate": "D008995",
+    "expiration": "20270806",
+    "city": "FRANKLIN",
+    "state": "TN"
+  },
+  {
+    "name": "LIGHTHOUSE SPORT AIR LLC",
+    "certificate": "D008996",
+    "expiration": "20270806",
+    "city": "RACINE",
+    "state": "WI"
+  },
+  {
+    "name": "COHEN AVIATION LLC",
+    "certificate": "D009000",
+    "expiration": "20270811",
+    "city": "ROLLA",
+    "state": "MO"
+  },
+  {
+    "name": "NEXTWING AVIATION LLC",
+    "certificate": "D009003",
+    "expiration": "20270819",
+    "city": "POOLER",
+    "state": "GA"
+  },
+  {
+    "name": "PRAIRIE AIR INC",
+    "certificate": "D009004",
+    "expiration": "20270824",
+    "city": "ELBOW LAKE",
+    "state": "MN"
+  },
+  {
+    "name": "AIR COVER AVIATION LLC",
+    "certificate": "D009008",
+    "expiration": "20270901",
+    "city": "FRANKFORD",
+    "state": "MO"
+  },
+  {
+    "name": "JTA LEASING AND SALES LLC",
+    "certificate": "D009011",
+    "expiration": "20270903",
+    "city": "HERCULANEUM",
+    "state": "MO"
+  },
+  {
+    "name": "GREEN MALLARD AVIATION LLC",
+    "certificate": "D009013",
+    "expiration": "20270908",
+    "city": "WILMINGTON",
+    "state": "DE"
+  },
+  {
+    "name": "ADVENTURE AIRWAYS LLC",
+    "certificate": "D009015",
+    "expiration": "20270908",
+    "city": "SACRAMENTO",
+    "state": "CA"
+  },
+  {
+    "name": "STRONGHOLD AVIATION LLC",
+    "certificate": "D009018",
+    "expiration": "20270910",
+    "city": "SANDY SPRINGS",
+    "state": "GA"
+  },
+  {
+    "name": "HILLER AVIATION CONSULTING LLC",
+    "certificate": "D009021",
+    "expiration": "20270923",
+    "city": "LA GRANDE",
+    "state": "OR"
+  },
+  {
+    "name": "CD AIRCRAFT LLC",
+    "certificate": "D009031",
+    "expiration": "20271005",
+    "city": "SIGNAL HILL",
+    "state": "CA"
+  },
+  {
+    "name": "RB AVIATION LLC",
+    "certificate": "D009035",
+    "expiration": "20271013",
+    "city": "JASPER",
+    "state": "GA"
+  },
+  {
+    "name": "CECOR AVIATION",
+    "certificate": "D009037",
+    "expiration": "20271015",
+    "city": "PLANTATION",
+    "state": "FL"
+  }
+]
