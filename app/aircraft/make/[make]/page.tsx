@@ -55,6 +55,9 @@ export default async function MakeHubPage({ params }: Props) {
     ],
   };
 
+  const samples = hub.sample_aircraft || [];
+  const models = hub.models || [];
+
   return (
     <div className="min-h-screen bg-white">
       <script
@@ -102,7 +105,7 @@ export default async function MakeHubPage({ params }: Props) {
           </div>
         </div>
 
-        {/* Model breakdown */}
+        {/* Model breakdown — no links, only counts */}
         <div>
           <h2 className="text-2xl font-bold text-slate-900 mb-6">{hub.make} Models</h2>
           <div className="border border-slate-200 rounded-2xl overflow-hidden">
@@ -111,32 +114,33 @@ export default async function MakeHubPage({ params }: Props) {
                 <tr>
                   <th className="text-left px-4 py-3 font-semibold text-slate-700">Model</th>
                   <th className="text-right px-4 py-3 font-semibold text-slate-700">Aircraft</th>
-                                 <th className="text-right px-4 py-3 font-semibold text-slate-700">Aircraft</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
-                {hub.models.map((m: any) => (
+                {models.map((m: any) => (
                   <tr key={m.slug} className="hover:bg-slate-50">
                     <td className="px-4 py-3 font-mono text-slate-900">{m.model}</td>
                     <td className="px-4 py-3 text-right text-slate-600">{m.count.toLocaleString()}</td>
                   </tr>
                 ))}
-                            </tbody>
+              </tbody>
             </table>
           </div>
-          <p className="mt-4 text-sm text-slate-600">
+          <p className="mt-4 text-sm">
             <Link href="/aircraft" className="text-sky-600 hover:underline font-medium">
               Browse all {hub.make} aircraft →
             </Link>
           </p>
         </div>
 
-        {/* Sample aircraft */}
-        {hub.sample_aircraft && hub.sample_aircraft.length > 0 && (
+        {/* Sample aircraft — only if samples exist */}
+        {samples.length > 0 && (
           <div>
-            <h2 className="text-2xl font-bold text-slate-900 mb-6">Sample {hub.make} Aircraft</h2>
+            <h2 className="text-2xl font-bold text-slate-900 mb-6">
+              Sample {hub.make} Aircraft
+            </h2>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {hub.sample_aircraft.map((ac: any) => (
+              {samples.map((ac: any) => (
                 <Link
                   key={ac.n_number}
                   href={`/aircraft/${ac.n_number}`}
