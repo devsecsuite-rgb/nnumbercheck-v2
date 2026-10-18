@@ -138,5 +138,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     }));
 
-  return [...staticPages, ...aircraftPages, ...hubPages];
+    const makeHubsData = require('@/data/make-hubs.json');
+  const makeHubs: MetadataRoute.Sitemap = Object.keys(makeHubsData).map((make) => ({
+    url: `${BASE_URL}/aircraft/make/${make}`,
+    lastModified: now,
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }));
+
+  return [...staticPages, ...aircraftPages, ...hubPages, ...makeHubs];
 }
