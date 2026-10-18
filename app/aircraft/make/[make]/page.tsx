@@ -111,7 +111,7 @@ export default async function MakeHubPage({ params }: Props) {
                 <tr>
                   <th className="text-left px-4 py-3 font-semibold text-slate-700">Model</th>
                   <th className="text-right px-4 py-3 font-semibold text-slate-700">Aircraft</th>
-                  <th className="text-right px-4 py-3 font-semibold text-slate-700">Browse</th>
+                                 <th className="text-right px-4 py-3 font-semibold text-slate-700">Aircraft</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -119,19 +119,16 @@ export default async function MakeHubPage({ params }: Props) {
                   <tr key={m.slug} className="hover:bg-slate-50">
                     <td className="px-4 py-3 font-mono text-slate-900">{m.model}</td>
                     <td className="px-4 py-3 text-right text-slate-600">{m.count.toLocaleString()}</td>
-                    <td className="px-4 py-3 text-right">
-                      <Link
-                        href={`/aircraft/make/${make}/model/${m.slug}`}
-                        className="text-sky-600 hover:underline text-xs font-medium"
-                      >
-                        View →
-                      </Link>
-                    </td>
                   </tr>
                 ))}
-              </tbody>
+                            </tbody>
             </table>
           </div>
+          <p className="mt-4 text-sm text-slate-600">
+            <Link href="/aircraft" className="text-sky-600 hover:underline font-medium">
+              Browse all {hub.make} aircraft →
+            </Link>
+          </p>
         </div>
 
         {/* Sample aircraft */}
