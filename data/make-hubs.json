@@ -223,7 +223,7 @@
       }
     ],
     "total_accidents": 427,
-    "total_ads": 0,
+    "total_ads": 8,
     "total_sdrs": 0,
     "sample_aircraft": [
       {
@@ -422,7 +422,7 @@
       }
     ],
     "total_accidents": 467,
-    "total_ads": 0,
+    "total_ads": 47,
     "total_sdrs": 0,
     "sample_aircraft": []
   },
@@ -485,7 +485,7 @@
       }
     ],
     "total_accidents": 181,
-    "total_ads": 0,
+    "total_ads": 3,
     "total_sdrs": 0,
     "sample_aircraft": []
   },
@@ -534,7 +534,7 @@
       }
     ],
     "total_accidents": 227,
-    "total_ads": 0,
+    "total_ads": 15,
     "total_sdrs": 3,
     "sample_aircraft": []
   },
@@ -719,17 +719,27 @@
       }
     ],
     "total_accidents": 1788,
-    "total_ads": 1,
+    "total_ads": 41,
     "total_sdrs": 639,
     "sample_aircraft": [
       {
-        "n_number": "N1122Y",
-        "year": 1982,
-        "model": "B36TC"
+        "n_number": "N100XH",
+        "year": 1999,
+        "model": "A36"
       },
       {
-        "n_number": "N5677X",
-        "year": 1993,
+        "n_number": "N103SM",
+        "year": 1978,
+        "model": "A36"
+      },
+      {
+        "n_number": "N1088L",
+        "year": 1995,
+        "model": "A36"
+      },
+      {
+        "n_number": "N1089W",
+        "year": 1973,
         "model": "A36"
       },
       {
@@ -738,19 +748,9 @@
         "model": "A36"
       },
       {
-        "n_number": "N3220J",
-        "year": 1995,
+        "n_number": "N1099A",
+        "year": 1997,
         "model": "A36"
-      },
-      {
-        "n_number": "N2531U",
-        "year": null,
-        "model": "A36"
-      },
-      {
-        "n_number": "N983DB",
-        "year": 2000,
-        "model": "B36TC"
       }
     ]
   },
@@ -913,7 +913,7 @@
       }
     ],
     "total_accidents": 427,
-    "total_ads": 0,
+    "total_ads": 5,
     "total_sdrs": 0,
     "sample_aircraft": [
       {
@@ -1148,38 +1148,38 @@
       }
     ],
     "total_accidents": 10357,
-    "total_ads": 5,
+    "total_ads": 202,
     "total_sdrs": 4972,
     "sample_aircraft": [
       {
-        "n_number": "N2387G",
-        "year": 1959,
-        "model": "182B"
+        "n_number": "N10033",
+        "year": null,
+        "model": "172S"
       },
       {
-        "n_number": "N7111W",
-        "year": 1999,
-        "model": "182S"
+        "n_number": "N100CA",
+        "year": 1978,
+        "model": "182Q"
       },
       {
-        "n_number": "N8775X",
-        "year": 1961,
-        "model": "182D"
-      },
-      {
-        "n_number": "N1141U",
-        "year": 1976,
-        "model": "172M"
-      },
-      {
-        "n_number": "N673MA",
-        "year": 1999,
+        "n_number": "N100LU",
+        "year": 1997,
         "model": "172R"
       },
       {
-        "n_number": "N735JN",
+        "n_number": "N100PM",
+        "year": 2004,
+        "model": "172S"
+      },
+      {
+        "n_number": "N100TY",
         "year": null,
-        "model": "182Q"
+        "model": "182T"
+      },
+      {
+        "n_number": "N1011N",
+        "year": 1970,
+        "model": "172L"
       }
     ]
   },
@@ -1293,7 +1293,7 @@
       }
     ],
     "total_accidents": 304,
-    "total_ads": 0,
+    "total_ads": 3,
     "total_sdrs": 0,
     "sample_aircraft": []
   },
@@ -1327,38 +1327,38 @@
       }
     ],
     "total_accidents": 988,
-    "total_ads": 4,
+    "total_ads": 18,
     "total_sdrs": 173,
     "sample_aircraft": [
+      {
+        "n_number": "N10000",
+        "year": null,
+        "model": "SR22T"
+      },
+      {
+        "n_number": "N100JB",
+        "year": 2024,
+        "model": "SR22"
+      },
+      {
+        "n_number": "N100RZ",
+        "year": 2010,
+        "model": "SR22T"
+      },
       {
         "n_number": "N1014A",
         "year": 2017,
         "model": "SR22T"
       },
       {
-        "n_number": "N44ED",
-        "year": 2025,
-        "model": "SR22T"
-      },
-      {
-        "n_number": "N2824M",
-        "year": 2004,
+        "n_number": "N101CD",
+        "year": 2001,
         "model": "SR22"
       },
       {
-        "n_number": "N107CB",
-        "year": 2008,
+        "n_number": "N101MW",
+        "year": 2007,
         "model": "SR22"
-      },
-      {
-        "n_number": "N5030S",
-        "year": 2004,
-        "model": "SR22"
-      },
-      {
-        "n_number": "N11532",
-        "year": 2026,
-        "model": "SR22T"
       }
     ]
   },
@@ -1556,7 +1556,7 @@
       }
     ],
     "total_accidents": 241,
-    "total_ads": 0,
+    "total_ads": 30,
     "total_sdrs": 0,
     "sample_aircraft": [
       {
@@ -1616,7 +1616,7 @@
       }
     ],
     "total_accidents": 172,
-    "total_ads": 0,
+    "total_ads": 50,
     "total_sdrs": 0,
     "sample_aircraft": []
   },
@@ -2142,7 +2142,7 @@
       }
     ],
     "total_accidents": 111,
-    "total_ads": 0,
+    "total_ads": 4,
     "total_sdrs": 0,
     "sample_aircraft": []
   },
@@ -2235,13 +2235,13 @@
     "total_sdrs": 0,
     "sample_aircraft": [
       {
-        "n_number": "N41HR",
-        "year": 2011,
+        "n_number": "N247RJ",
+        "year": 2007,
         "model": "G36"
       },
       {
-        "n_number": "N247RJ",
-        "year": 2007,
+        "n_number": "N41HR",
+        "year": 2011,
         "model": "G36"
       },
       {
@@ -2355,7 +2355,7 @@
       }
     ],
     "total_accidents": 200,
-    "total_ads": 0,
+    "total_ads": 3,
     "total_sdrs": 0,
     "sample_aircraft": []
   },
@@ -2469,7 +2469,7 @@
       }
     ],
     "total_accidents": 380,
-    "total_ads": 0,
+    "total_ads": 2,
     "total_sdrs": 0,
     "sample_aircraft": []
   },
@@ -2584,7 +2584,7 @@
       }
     ],
     "total_accidents": 500,
-    "total_ads": 0,
+    "total_ads": 11,
     "total_sdrs": 29,
     "sample_aircraft": []
   },
@@ -2698,7 +2698,7 @@
       }
     ],
     "total_accidents": 193,
-    "total_ads": 0,
+    "total_ads": 12,
     "total_sdrs": 0,
     "sample_aircraft": []
   },
@@ -2793,7 +2793,7 @@
       }
     ],
     "total_accidents": 135,
-    "total_ads": 0,
+    "total_ads": 179,
     "total_sdrs": 0,
     "sample_aircraft": []
   },
@@ -2908,38 +2908,38 @@
       }
     ],
     "total_accidents": 5994,
-    "total_ads": 1,
+    "total_ads": 41,
     "total_sdrs": 731,
     "sample_aircraft": [
       {
-        "n_number": "N30561",
-        "year": 1978,
-        "model": "PA-28-181"
-      },
-      {
-        "n_number": "N3621X",
-        "year": 2018,
-        "model": "PA-28-181"
-      },
-      {
-        "n_number": "N970AC",
-        "year": 1980,
-        "model": "PA-28-161"
-      },
-      {
-        "n_number": "N627WB",
-        "year": 1979,
-        "model": "PA-28-236"
-      },
-      {
-        "n_number": "N4349J",
-        "year": null,
-        "model": "PA-28-180"
-      },
-      {
-        "n_number": "N9466K",
+        "n_number": "N1004H",
         "year": 1976,
-        "model": "PA-28R-200"
+        "model": "PA-28-151"
+      },
+      {
+        "n_number": "N101LL",
+        "year": 2000,
+        "model": "PA-28-181"
+      },
+      {
+        "n_number": "N1020D",
+        "year": 1974,
+        "model": "PA-28-140"
+      },
+      {
+        "n_number": "N1029H",
+        "year": null,
+        "model": "PA-28-181"
+      },
+      {
+        "n_number": "N1039X",
+        "year": 1975,
+        "model": "PA-28-140"
+      },
+      {
+        "n_number": "N103AV",
+        "year": 1983,
+        "model": "PA-28-181"
       }
     ]
   },
@@ -3310,7 +3310,7 @@
       }
     ],
     "total_accidents": 118,
-    "total_ads": 0,
+    "total_ads": 20,
     "total_sdrs": 3,
     "sample_aircraft": []
   },
@@ -3424,7 +3424,7 @@
       }
     ],
     "total_accidents": 196,
-    "total_ads": 0,
+    "total_ads": 3,
     "total_sdrs": 0,
     "sample_aircraft": []
   },
@@ -3538,7 +3538,7 @@
       }
     ],
     "total_accidents": 175,
-    "total_ads": 0,
+    "total_ads": 4,
     "total_sdrs": 0,
     "sample_aircraft": []
   },
@@ -3582,7 +3582,7 @@
       }
     ],
     "total_accidents": 84,
-    "total_ads": 0,
+    "total_ads": 4,
     "total_sdrs": 0,
     "sample_aircraft": []
   },

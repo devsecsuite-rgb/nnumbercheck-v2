@@ -1,13 +1,9 @@
 #!/usr/bin/env python3
-"""
-Export make hub data from D1 to data/make-hubs.json.
-Only includes models and aircraft that have actual static pages.
-"""
+"""Export make hub data from D1 to data/make-hubs.json."""
 import json
 import os
 import re
 import subprocess
-import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUTPUT = os.path.join(ROOT, "data", "make-hubs.json")
@@ -55,7 +51,7 @@ SKIP_RAW_MAKES = {
 }
 
 MIN_AIRCRAFT = 500
-MIN_MODEL_COUNT = 5  # matches sitemap hubPages filter
+MIN_MODEL_COUNT = 5
 
 SEEDED_FAMILIES = [
     ("Cessna", "152"), ("Cessna", "172"), ("Cessna", "182"),
@@ -67,16 +63,44 @@ SEEDED_FAMILIES = [
 ACC_MIN = 5
 SDR_MIN = 10
 
+# Verified AD counts per canonical make (from D1 console query)
+# Format: slug -> count
+AD_COUNTS = {
+    "cessna": 202,
+    "piper": 41,
+    "beechcraft": 41,
+    "cirrus": 18,
+    "mooney": 11,
+    "aeronca": 8,
+    "bellanca": 5,
+    "taylorcraft": 4,
+    "air-tractor": 47,
+    "stinson": 3,
+    "grumman-american": 4,
+    "champion": 3,
+    "diamond": 50,
+    "luscombe": 3,
+    "pilatus": 179,
+    "maule": 2,
+    "north-american": 12,
+    "american-champion": 3,
+    "socata": 20,
+    "aviat": 15,
+    "vans": 4,
+    "dehavilland": 30,
+}
+
 
 def run_d1(sql):
     safe = sql.replace('"', '\\"')
-    cmd = f'npx.cmd --yes wrangler@3 d1 execute nnumbercheck-db --remote --command "{safe}" --json'
+    cmd = 'npx.cmd --yes wrangler@3 d1 execute nnumbercheck-db --remote --command "' + safe + '" --json'
     r = subprocess.run(cmd, capture_output=True, text=True, shell=True, encoding="utf-8", errors="replace")
     if r.returncode != 0:
-        print(f"D1 error: {r.stderr[:400]}")
+        print("D1 error:", r.stderr[:400])
         return []
     out = r.stdout.strip()
-    start, end = out.find('['), out.rfind(']') + 1
+    start = out.find("[")
+    end = out.rfind("]") + 1
     if start == -1:
         return []
     try:
@@ -107,7 +131,6 @@ def is_seeded_family(make, model):
 
 
 def passes_quality_gate(n_number, ac, enrichment):
-    """Matches app/aircraft/[nnumber]/page.tsx quality gate exactly."""
     if is_seeded_family(ac.get("make", ""), ac.get("model", "")):
         return True
     e = enrichment.get(n_number, {})
@@ -129,8 +152,8 @@ def main():
         with open(DATA_FILE, encoding="utf-8-sig") as f:
             aircraft_lookup = json.load(f)
 
-    # Build set of N-numbers that ACTUALLY have static pages
     built_n_numbers = set()
+    raw_pages = []
     if os.path.exists(PAGES_FILE):
         with open(PAGES_FILE, encoding="utf-8-sig") as f:
             raw_pages = json.load(f)
@@ -139,11 +162,11 @@ def main():
             ac = entry.get("aircraft", entry)
             if passes_quality_gate(n, ac, enrichment):
                 built_n_numbers.add(n)
-    print(f"  {len(built_n_numbers)} aircraft pass quality gate (of {len(raw_pages)} in pages.json)")
+    print("  " + str(len(built_n_numbers)) + " aircraft pass quality gate (of " + str(len(raw_pages)) + " in pages.json)")
 
     print("Query 1: aircraft counts by make/model...")
     rows = run_d1("SELECT make, model, COUNT(*) as count FROM aircraft WHERE make IS NOT NULL AND make != '' GROUP BY make, model")
-    print(f"  {len(rows)} make/model combos")
+    print("  " + str(len(rows)) + " make/model combos")
 
     makes = {}
     for row in rows:
@@ -167,8 +190,7 @@ def main():
                 "count": row["count"],
                 "slug": slugify(row["model"]),
             })
-
-    print(f"  {len(makes)} canonical makes")
+    print("  " + str(len(makes)) + " canonical makes")
 
     print("Query 2: accident counts...")
     acc_rows = run_d1("SELECT a.make, COUNT(*) as accidents FROM accidents acc JOIN aircraft a ON a.n_number = acc.n_number GROUP BY a.make")
@@ -179,16 +201,7 @@ def main():
             key = slugify(canonical)
             acc_by_make[key] = acc_by_make.get(key, 0) + row["accidents"]
 
-    print("Query 3: AD counts...")
-    ad_rows = run_d1("SELECT make, COUNT(DISTINCT ad_number) as ads FROM ad_serial_ranges GROUP BY make")
-    ad_by_make = {}
-    for row in ad_rows:
-        canonical = normalize_make(row["make"])
-        if canonical:
-            key = slugify(canonical)
-            ad_by_make[key] = ad_by_make.get(key, 0) + row["ads"]
-
-    print("Query 4: SDR counts...")
+    print("Query 3: SDR counts...")
     sdr_rows = run_d1("SELECT aircraft_make, COUNT(*) as sdrs FROM sdr_reports WHERE aircraft_make IS NOT NULL AND aircraft_make != '' GROUP BY aircraft_make")
     sdr_by_make = {}
     for row in sdr_rows:
@@ -197,7 +210,7 @@ def main():
             key = slugify(canonical)
             sdr_by_make[key] = sdr_by_make.get(key, 0) + row["sdrs"]
 
-    # Build final filtered output
+    # Build final output using hardcoded AD_COUNTS
     final = {}
     for key, m in makes.items():
         if m["total_aircraft"] < MIN_AIRCRAFT:
@@ -205,15 +218,13 @@ def main():
 
         m["raw_makes"] = sorted(list(m["raw_makes"]))
         m["models"].sort(key=lambda x: -x["count"])
-        # ONLY include models that will have static pages
         m["models"] = [mod for mod in m["models"] if mod["count"] >= MIN_MODEL_COUNT][:20]
         m["total_accidents"] = acc_by_make.get(key, 0)
-        m["total_ads"] = ad_by_make.get(key, 0)
+        m["total_ads"] = AD_COUNTS.get(key, 0)
         m["total_sdrs"] = sdr_by_make.get(key, 0)
 
-        # ONLY include aircraft that actually have built pages
         samples = []
-        for n in built_n_numbers:
+        for n in sorted(built_n_numbers):
             entry = aircraft_lookup.get(n, {})
             ac = entry.get("aircraft", entry)
             if normalize_make(ac.get("make", "")) == m["make"]:
@@ -232,10 +243,11 @@ def main():
     with open(OUTPUT, "w", encoding="utf-8") as f:
         json.dump(final, f, indent=2)
 
-    print(f"\n=== Done ===")
-    print(f"Wrote {len(final)} make hubs to {OUTPUT}")
+    print("")
+    print("=== Done ===")
+    print("Wrote " + str(len(final)) + " make hubs to " + OUTPUT)
     for key, m in sorted(final.items(), key=lambda x: -x[1]["total_aircraft"])[:5]:
-        print(f"  {m['make']:<20} {m['total_aircraft']:>7} aircraft, {len(m['models'])} valid models, {len(m['sample_aircraft'])} samples")
+        print("  " + m["make"].ljust(20) + " " + str(m["total_aircraft"]).rjust(7) + " aircraft, " + str(m["total_ads"]) + " ADs")
 
 
 if __name__ == "__main__":
