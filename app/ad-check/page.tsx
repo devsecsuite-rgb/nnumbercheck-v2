@@ -16,7 +16,7 @@ export default function AdCheckPage() {
   return (
     <div className="min-h-screen bg-white">
       
-     <section className="bg-gradient-to-b from-sky-50 to-white border-b border-slate-200">
+      <section className="bg-gradient-to-b from-sky-50 to-white border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-6 py-20 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-slate-900">
             Free AD Applicability Check
@@ -105,12 +105,42 @@ export default function AdCheckPage() {
             <li>✓ Links to official Federal Register documents</li>
             <li>✓ Free — no signup required</li>
           </ul>
-                   <p className="mt-6 text-sm text-slate-500">
+          <p className="mt-6 text-sm text-slate-500">
             Want a downloadable PDF and full ownership chain?{' '}
-            <Link href="/" className="text-sky-600 hover:underline">
+            <Link href="/" className="text-sky-600 hover:underline font-medium">
               Search an N-number →
             </Link>
           </p>
+        </div>
+
+        {/* ============================================================ */}
+        {/* PHASE 2 UPGRADE: Fan-Out SEO Content for "where to find ADs" */}
+        {/* ============================================================ */}
+        <div className="border-t border-slate-200 mt-12 pt-12">
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">Where to Find Airworthiness Directives for Your Aircraft</h2>
+          <p className="text-slate-700 leading-relaxed mb-4">
+            Wondering where to find airworthiness directives for a specific aircraft? The official FAA AD search tool (Dynamic Regulatory System) is notoriously difficult to use and often returns broad, confusing results that require manual interpretation.
+          </p>
+          <p className="text-slate-700 leading-relaxed mb-4">
+            Instead of a generic FAA AD search, use our free tool above. Simply enter the N-Number, and our system cross-references the aircraft's <strong>manufacturer serial number</strong> against the entire database of active ADs, showing you exactly which ones apply, which require manual verification, and which do not apply.
+          </p>
+
+          <h2 className="text-2xl font-bold text-slate-900 mt-12 mb-4">Why Generic AD Searches Miss Critical Safety Issues</h2>
+          <p className="text-slate-700 leading-relaxed mb-4">
+            An Airworthiness Directive might apply to a 1978 Cessna 172 but <em>not</em> a 1998 Cessna 172R, even though they share the same model name. Generic searches often miss this nuance. 
+          </p>
+          <p className="text-slate-700 leading-relaxed mb-4">
+            By tracking the immutable manufacturer serial number, NNumberCheck ensures you are looking at the true, physical history of the airframe you are about to buy, protecting you from costly, unexpected maintenance grounded by an overlooked AD.
+          </p>
+
+          {/* Internal linking to keep crawl depth shallow and pass authority */}
+          <div className="mt-8 pt-8 border-t border-slate-200">
+            <h3 className="text-lg font-semibold text-slate-900 mb-4">Related Aircraft Guides</h3>
+            <ul className="space-y-2 text-sky-600">
+              <li><Link href="/guides/cessna-172-history-and-ad-check" className="hover:underline">Cessna 172 History & AD Lookup Guide</Link></li>
+              <li><Link href="/guides/piper-pa-28" className="hover:underline">Piper PA-28 History & AD Lookup Guide</Link></li>
+            </ul>
+          </div>
         </div>
       </section>
 
