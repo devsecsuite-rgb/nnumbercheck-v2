@@ -159,8 +159,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const ac = entry.aircraft;
   const yearMakeModel = [ac.year, ac.make, ac.model].filter(Boolean).join(' ');
   
-  const metaTitle = `${nnumber} Aircraft History: Free NTSB Accident & AD Lookup | NNumberCheck`;
-  const metaDescription = `Instantly check FAA registry, 44 years of NTSB accident history, and serial-matched Airworthiness Directives for ${nnumber} (${yearMakeModel}). Free basic lookup.`;
+  // SHORTENED for strict SEO limits
+  const metaTitle = `${nnumber} Aircraft History & AD Lookup | NNumberCheck`;
+  const metaDescription = `Check FAA registry, NTSB accident history, and serial-matched Airworthiness Directives for ${nnumber} (${yearMakeModel}). Free lookup.`;
 
   const indexable = shouldIndex(nnumber, entry);
 
