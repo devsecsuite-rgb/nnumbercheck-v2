@@ -4,18 +4,24 @@ import type { Metadata } from 'next';
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: 'Cessna 172 Pre-Buy Guide — Common ADs, Accident History & Checklist',
-  description:
-    'Complete pre-buy guide for the Cessna 172 (and C172S). Covers the most common Airworthiness Directives, accident patterns from 44 years of NTSB data, cost of ownership, and a step-by-step inspection checklist.',
+  title: 'Cessna 172 Pre-Buy Guide: ADs, History & Checklist',
+  description: 'Complete Cessna 172 pre-buy guide. Covers common ADs, 44 years of NTSB accident patterns, cost of ownership, and a step-by-step inspection checklist.',
   alternates: {
     canonical: 'https://nnumbercheck.com/guides/cessna-172',
   },
   openGraph: {
-    title: 'Cessna 172 Pre-Buy Guide — ADs, Accidents & Checklist',
-    description:
-      'Everything to check before buying a Cessna 172 — ADs, accident history, and pre-buy checklist.',
+    title: 'Cessna 172 Pre-Buy Guide: ADs, History & Checklist',
+    description: 'Complete Cessna 172 pre-buy guide. Covers common ADs, 44 years of NTSB accident patterns, cost of ownership, and a step-by-step inspection checklist.',
     url: 'https://nnumbercheck.com/guides/cessna-172',
     type: 'article',
+    images: [
+      {
+        url: 'https://nnumbercheck.com/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Cessna 172 Pre-Buy Guide',
+      },
+    ],
   },
 };
 
