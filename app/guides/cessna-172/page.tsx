@@ -6,7 +6,7 @@ export const dynamic = 'force-static';
 export const metadata: Metadata = {
   title: 'Cessna 172 Pre-Buy Guide — Common ADs, Accident History & Checklist',
   description:
-    'Complete pre-buy guide for the Cessna 172. Covers the most common Airworthiness Directives, accident patterns from 44 years of NTSB data, cost of ownership, and a step-by-step inspection checklist.',
+    'Complete pre-buy guide for the Cessna 172 (and C172S). Covers the most common Airworthiness Directives, accident patterns from 44 years of NTSB data, cost of ownership, and a step-by-step inspection checklist.',
   alternates: {
     canonical: 'https://nnumbercheck.com/guides/cessna-172',
   },
@@ -71,7 +71,7 @@ export default function Cessna172GuidePage() {
           </h1>
           <p className="mt-6 text-lg text-slate-700 leading-relaxed">
             <strong>
-              The Cessna 172 is the most-produced aircraft in history
+              The Cessna 172 (also frequently searched as Cesna 172) is the most-produced aircraft in history
             </strong>{' '}
             with over 44,000 built since 1956. Its predictable handling and
             parts availability make it the default choice for flight schools,
@@ -123,7 +123,7 @@ export default function Cessna172GuidePage() {
                 <tr>
                   <td className="px-4 py-3 text-slate-700">1956–1960</td>
                   <td className="px-4 py-3 text-slate-700">172, 172A–172B</td>
-                  <td className="px-4 py-3 text-slate-600">Continental O-300 engine. Straight tail. Manual flaps. Lowest prices but older systems.</td>
+                  <td className="px-4 py-3 text-slate-600">Continental O-300 engine. Straight tail. Manual flaps. Includes the classic 1959 Cessna 172. Lowest prices but older systems.</td>
                 </tr>
                 <tr>
                   <td className="px-4 py-3 text-slate-700">1961–1967</td>
@@ -142,7 +142,7 @@ export default function Cessna172GuidePage() {
                 </tr>
                 <tr>
                   <td className="px-4 py-3 text-slate-700">1996–present</td>
-                  <td className="px-4 py-3 text-slate-700">172R, 172S</td>
+                  <td className="px-4 py-3 text-slate-700">Cessna 172R, Cessna C172S</td>
                   <td className="px-4 py-3 text-slate-600">Fuel-injected Lycoming IO-360. Modern avionics. Highest prices.</td>
                 </tr>
               </tbody>
@@ -154,7 +154,7 @@ export default function Cessna172GuidePage() {
             172N (1973–1980) is the most common starting point. These have the
             Lycoming engine, decent parts availability, and reasonable prices
             ($45,000–$90,000 depending on avionics and time remaining). The
-            172R/S models (1996+) are newer but sell for $150,000+.
+            172R and C172S models (1996+) are newer but sell for $150,000+.
           </p>
         </section>
 
@@ -436,8 +436,7 @@ export default function Cessna172GuidePage() {
             6. How to check a specific 172
           </h2>
           <p className="mt-4 text-slate-700 leading-relaxed">
-            You&apos;ve identified a 172 you&apos;re interested in. Here&apos;s
-            how to use NNumberCheck to evaluate it before you make an offer.
+            You&apos;ve identified a 172 you&apos;re interested in. Whether you are evaluating a vintage 1959 Cessna 172 or a modern Cessna C172S, the process is the same. Here&apos;s how to use NNumberCheck to evaluate it before you make an offer.
           </p>
 
           <ol className="mt-4 space-y-3 text-slate-700 list-decimal pl-6">
@@ -512,8 +511,6 @@ export default function Cessna172GuidePage() {
           </ul>
         </section>
       </article>
-
-      {/* Footer is global from layout */}
     </div>
   );
 }
@@ -522,12 +519,4 @@ function ChecklistItem({ title, desc }: { title: string; desc: string }) {
   return (
     <div className="border border-slate-200 rounded-xl p-4 bg-white">
       <div className="flex items-start gap-3">
-        <div className="flex-shrink-0 w-5 h-5 rounded border-2 border-slate-300 mt-0.5" />
-        <div>
-          <h4 className="font-semibold text-slate-900 text-sm">{title}</h4>
-          <p className="mt-1 text-sm text-slate-600 leading-relaxed">{desc}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
+        <div className="flex-shrink-0 w-5 h-5 rounded border-2 border-slate-30
