@@ -4,9 +4,8 @@ import type { Metadata } from 'next';
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "Piper PA-28 Buyer's Guide — Common ADs, Serial Numbers & Pre-Buy Checklist",
-  description:
-    'Complete guide to buying a Piper PA-28 Cherokee, Warrior, or Archer. Covers common Airworthiness Directives, serial number ranges, pre-buy inspection checklist, and known problem areas.',
+  title: 'Piper PA-28 Pre-Buy Guide: ADs, History & Checklist',
+  description: 'Complete Piper PA-28 pre-buy guide. Covers common ADs, accident patterns, cost of ownership, and a step-by-step inspection checklist for Cherokee, Warrior, and Archer.',
   alternates: {
     canonical: 'https://nnumbercheck.com/guides/piper-pa-28',
   },
