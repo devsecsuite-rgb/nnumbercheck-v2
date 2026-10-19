@@ -4,9 +4,8 @@ import type { Metadata } from 'next';
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: 'Free AD Applicability Check — Find Airworthiness Directives',
-  description:
-    'Enter any N-number to see which Airworthiness Directives apply to that specific aircraft. Free serial-number-level AD matching. No signup required.',
+  title: 'Free AD Check: Find Airworthiness Directives',
+  description: 'Instantly check which Airworthiness Directives apply to your specific aircraft serial number. Free, no signup required.',
   alternates: {
     canonical: 'https://nnumbercheck.com/ad-check',
   },
