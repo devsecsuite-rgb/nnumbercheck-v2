@@ -32,23 +32,23 @@ class PremiumEnricher:
         })
         
     def load_existing_data(self) -> Dict:
-        """Load existing aircraft and enrichment data."""
-        with open(AIRCRAFT_DATA_FILE, 'r') as f:
-            aircraft_data = json.load(f)
-        
-        if ENRICHMENT_FILE.exists():
-            with open(ENRICHMENT_FILE, 'r') as f:
-                enrichment = json.load(f)
-        else:
-            enrichment = {}
-            
-        return aircraft_data, enrichment
+    """Load existing aircraft and enrichment data."""
+    with open(AIRCRAFT_DATA_FILE, 'r', encoding='utf-8') as f:
+        aircraft_data = json.load(f)
     
-    def save_enrichment(self, enrichment: Dict):
-        """Save enrichment data back to file."""
-        with open(ENRICHMENT_FILE, 'w') as f:
-            json.dump(enrichment, f, indent=2)
-        print(f"✓ Saved enrichment data for {len(enrichment)} aircraft")
+    if ENRICHMENT_FILE.exists():
+        with open(ENRICHMENT_FILE, 'r', encoding='utf-8') as f:
+            enrichment = json.load(f)
+    else:
+        enrichment = {}
+        
+    return aircraft_data, enrichment
+
+def save_enrichment(self, enrichment: Dict):
+    """Save enrichment data back to file."""
+    with open(ENRICHMENT_FILE, 'w', encoding='utf-8') as f:
+        json.dump(enrichment, f, indent=2, ensure_ascii=False)
+    print(f"✓ Saved enrichment data for {len(enrichment)} aircraft")
     
     def fetch_sdr_summaries(self, make: str, model: str, serial: str) -> List[Dict]:
         """
