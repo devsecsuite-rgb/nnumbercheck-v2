@@ -146,6 +146,9 @@ type Props = {
   params: Promise<{ nnumber: string }>;
 };
 
+// ============================================================
+// PHASE 1 UPGRADE: High-CTR Metadata targeting exact search intent
+// ============================================================
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { nnumber } = await params;
   const data = loadAircraftData();
@@ -155,24 +158,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const ac = entry.aircraft;
   const yearMakeModel = [ac.year, ac.make, ac.model].filter(Boolean).join(' ');
-  const yearModel = [ac.year, ac.model].filter(Boolean).join(' ');
-
-  let metaTitle = `${nnumber} — ${yearMakeModel} — Aircraft History`;
-  if (metaTitle.length > 60) {
-    metaTitle = `${nnumber} — ${yearModel} — Aircraft History`;
-  }
-  if (metaTitle.length > 60) {
-    metaTitle = `${nnumber} — Aircraft History`;
-  }
-  if (metaTitle.length > 60) {
-    metaTitle = nnumber;
-  }
+  
+  const metaTitle = `${nnumber} Aircraft History: Free NTSB Accident & AD Lookup | NNumberCheck`;
+  const metaDescription = `Instantly check FAA registry, 44 years of NTSB accident history, and serial-matched Airworthiness Directives for ${nnumber} (${yearMakeModel}). Free basic lookup.`;
 
   const indexable = shouldIndex(nnumber, entry);
 
   return {
     title: { absolute: metaTitle },
-    description: `Complete history for aircraft ${nnumber}: FAA registration, NTSB accident records, and applicable Airworthiness Directives. Free to view.`,
+    description: metaDescription,
     alternates: {
       canonical: `https://nnumbercheck.com/aircraft/${nnumber}`,
     },
@@ -180,8 +174,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       ? { index: true, follow: true }
       : { index: false, follow: true },
     openGraph: {
-      title: `${nnumber} — NNumberCheck`,
-      description: `FAA registration, NTSB accidents, and Airworthiness Directives for ${nnumber}.`,
+      title: metaTitle,
+      description: metaDescription,
       url: `https://nnumbercheck.com/aircraft/${nnumber}`,
       type: 'website',
       images: [
@@ -189,14 +183,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           url: 'https://nnumbercheck.com/og-image.png',
           width: 1200,
           height: 630,
-          alt: `${nnumber} — Aircraft History`,
+          alt: `${nnumber} Aircraft History`,
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${nnumber} — NNumberCheck`,
-      description: `FAA registration, NTSB accidents, and ADs for ${nnumber}.`,
+      title: metaTitle,
+      description: metaDescription,
       images: ['https://nnumbercheck.com/og-image.png'],
     },
   };
@@ -457,14 +451,46 @@ export default async function AircraftPage({ params }: Props) {
           </div>
         )}
 
-        <div className="bg-sky-600 text-white rounded-2xl p-8 text-center">
-          <h2 className="text-2xl font-bold">Get the complete history for {nnumber}</h2>
-          <p className="mt-2 text-sky-100">Full accident narratives, all Airworthiness Directives, ownership chain, and a downloadable PDF.</p>
-          <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center items-center">
-            <Link href={`/n?number=${nnumber}`} className="inline-block bg-white text-sky-600 px-8 py-3 rounded-xl font-semibold hover:bg-sky-50 transition">
-              View Full Report →
+        {/* PHASE 1 UPGRADE: Risk-Mitigation Conversion Block */}
+        <div className="bg-slate-900 text-white rounded-2xl p-8 text-center border-2 border-amber-500">
+          <h2 className="text-2xl font-bold text-amber-400">⚠️ Don't Buy Blind. Hidden ADs Can Cost You $10,000+</h2>
+          <p className="mt-4 text-slate-300 max-w-2xl mx-auto">
+            You’ve seen the basic registration and accident preview. But a single unresolved Airworthiness Directive (AD) on this aircraft’s specific serial number could ground it or require expensive, unexpected repairs.
+          </p>
+          
+          <div className="mt-6 grid sm:grid-cols-3 gap-4 text-left max-w-3xl mx-auto text-sm text-slate-300">
+            <div className="flex items-start gap-2">
+              <span className="text-green-400 text-lg">✅</span>
+              <span>Every FAA AD matched <strong>exactly</strong> to this serial number.</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-green-400 text-lg">✅</span>
+              <span>Complete, unredacted NTSB accident records (1982–Present).</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-green-400 text-lg">✅</span>
+              <span>Full ownership history & downloadable PDF for your broker/lender.</span>
+            </div>
+          </div>
+
+          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link href={`/n?number=${nnumber}`} className="inline-block bg-amber-500 text-slate-900 px-8 py-4 rounded-xl font-bold text-lg hover:bg-amber-400 transition shadow-lg">
+              Get Full History Report for $149
             </Link>
-            <Link href="/sample-report" className="text-sm text-sky-100 hover:text-white underline">See sample report</Link>
+            <Link href="/sample-report" className="text-sm text-slate-400 hover:text-white underline">
+              See a sample report first
+            </Link>
+          </div>
+          <p className="mt-4 text-xs text-slate-500">One-time payment. Instant PDF delivery. 100% Secure.</p>
+          
+          {/* Dealer Plan Teaser */}
+          <div className="mt-6 pt-6 border-t border-slate-700">
+            <p className="text-sm text-slate-400">
+              Are you an aircraft broker or dealer?{' '}
+              <Link href="/dealer-plan" className="text-sky-400 hover:text-sky-300 font-semibold underline">
+                Get Unlimited Lookups, Bulk Search, and API Access for $199/mo →
+              </Link>
+            </p>
           </div>
         </div>
       </section>
