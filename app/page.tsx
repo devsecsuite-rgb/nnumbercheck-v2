@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'N Number Lookup: Free Aircraft History, NTSB & AD Check | NNumberCheck',
-  description:
-    'Instant N number lookup for any US aircraft. Check FAA registry, 44 years of NTSB accident history, and serial-matched Airworthiness Directives. Free, no signup required.',
+  title: 'Free N Number Lookup: Aircraft History & AD Check',
+  description: 'Instant N number lookup for US aircraft. Check FAA registry, 44 years of NTSB accident history, and serial-matched Airworthiness Directives.',
   keywords: [
     'N number lookup',
     'N lookup',
@@ -12,7 +11,6 @@ export const metadata: Metadata = {
     'aircraft history report',
     'FAA registry lookup',
     'NTSB accident records',
-    'aircraft registration',
   ],
   openGraph: {
     title: 'NNumberCheck — Free Aircraft N-Number Lookup',
