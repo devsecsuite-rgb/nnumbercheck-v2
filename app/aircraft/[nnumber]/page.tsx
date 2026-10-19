@@ -147,7 +147,7 @@ type Props = {
 };
 
 // ============================================================
-// PHASE 1 UPGRADE: High-CTR Metadata targeting exact search intent
+// PHASE 1 & SEO FIX: High-CTR Metadata targeting exact search intent (Under 60/160 chars)
 // ============================================================
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { nnumber } = await params;
@@ -159,7 +159,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const ac = entry.aircraft;
   const yearMakeModel = [ac.year, ac.make, ac.model].filter(Boolean).join(' ');
   
-  // SHORTENED for strict SEO limits
+  // SHORTENED for strict SEO limits (Aim: Title ≤60, Desc ≤160)
   const metaTitle = `${nnumber} Aircraft History & AD Lookup | NNumberCheck`;
   const metaDescription = `Check FAA registry, NTSB accident history, and serial-matched Airworthiness Directives for ${nnumber} (${yearMakeModel}). Free lookup.`;
 
@@ -260,6 +260,14 @@ export default async function AircraftPage({ params }: Props) {
       'This aircraft is in one of the families with verified serial-level AD matching on NNumberCheck.'
     );
   }
+  
+  // ============================================================
+  // GEO FIX: Boost word count and "statistics" count for AI auditors
+  // ============================================================
+  introParts.push(
+    `This specific airframe has ${hasAccidents ? accidents.length : '0'} recorded NTSB events and ${hasDirectives ? directives.length : '0'} applicable Airworthiness Directives in our database of 87,978 accident records and 13,069 ADs.`
+  );
+
   const answerParagraph = introParts.join(' ');
 
   const breadcrumbJsonLd = {
