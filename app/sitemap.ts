@@ -1,20 +1,11 @@
 import type { MetadataRoute } from 'next';
 import aircraftList from '@/data/aircraft-pages.json';
 import aircraftData from '@/data/aircraft-data.json';
+import { normalizeMake, CANONICAL_MAKES, slugifyModel } from '@/lib/make-normalize';
 
 export const dynamic = 'force-static';
 
 const BASE_URL = 'https://nnumbercheck.com';
-
-function slugify(s: string) {
-  return s
-    .toLowerCase()
-    .replace(/[/\\]/g, '-')
-    .replace(/[^a-z0-9\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '');
-}
 
 // ============================================================
 // QUALITY GATE for aircraft pages
@@ -90,13 +81,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const make = aircraft.make || '';
     const model = aircraft.model || '';
 
-    // Always include seeded families
     if (isSeededFamily(make, model)) {
       filteredAircraft.push(nNumber);
       continue;
     }
 
-    // Otherwise, apply the enrichment gate
     const enr = enrichmentData[nNumber];
     if (enr) {
       if ((enr.accidents || 0) >= ACC_MIN || (enr.sdrs || 0) >= SDR_MIN) {
@@ -115,13 +104,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }));
 
   // ---------- Hub pages (make/model combinations) ----------
+  // Aggregate by NORMALIZED make + model so Textron/Cessna merge into one.
   const counts = new Map<string, { make: string; model: string; count: number }>();
 
   for (const entry of Object.values(aircraftData as Record<string, any>)) {
-    const make = (entry as any).aircraft?.make;
+    const rawMake = (entry as any).aircraft?.make;
     const model = (entry as any).aircraft?.model;
-    if (!make || !model) continue;
-    const key = `${make}|${model}`;
+    if (!rawMake || !model) continue;
+    const make = normalizeMake(rawMake);
+    if (!make || !CANONICAL_MAKES.has(make)) continue;
+    const modelSlug = slugifyModel(model);
+    if (!modelSlug) continue;
+    const key = `${make}|${modelSlug}`;
     const existing = counts.get(key);
     if (existing) existing.count += 1;
     else counts.set(key, { make, model, count: 1 });
@@ -132,19 +126,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     .sort((a, b) => b.count - a.count)
     .slice(0, 150)
     .map(({ make, model }) => ({
-      url: `${BASE_URL}/aircraft/make/${slugify(make)}/model/${slugify(model)}`,
+      url: `${BASE_URL}/aircraft/make/${make}/model/${slugifyModel(model)}`,
       lastModified: now,
       changeFrequency: 'weekly' as const,
       priority: 0.7,
     }));
 
-    const makeHubsData = require('@/data/make-hubs.json');
-  const makeHubs: MetadataRoute.Sitemap = Object.keys(makeHubsData).map((make) => ({
-    url: `${BASE_URL}/aircraft/make/${make}`,
-    lastModified: now,
-    changeFrequency: 'weekly' as const,
-    priority: 0.8,
-  }));
+  // ---------- Make hubs (top-level make pages) ----------
+  const makeHubsData = require('@/data/make-hubs.json') as Record<string, any>;
+  const makeHubs: MetadataRoute.Sitemap = Object.keys(makeHubsData)
+    .map((rawKey) => normalizeMake(rawKey))
+    .filter((m): m is string => m !== null && CANONICAL_MAKES.has(m))
+    .map((make) => ({
+      url: `${BASE_URL}/aircraft/make/${make}`,
+      lastModified: now,
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+    }));
 
   return [...staticPages, ...aircraftPages, ...hubPages, ...makeHubs];
 }
