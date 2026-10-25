@@ -2,8 +2,25 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import makeHubsData from '@/data/make-hubs.json';
+import {
+  normalizeMake,
+  CANONICAL_MAKES,
+  displayMakeFromSlug,
+} from '@/lib/make-normalize';
 
-const makeHubs = makeHubsData as Record<string, any>;
+// Rebuild the make-hubs map, keyed by CANONICAL slug.
+// Helicopters, drones, balloons, and duplicate raw-name entries are filtered out.
+const makeHubsRaw = makeHubsData as Record<string, any>;
+const makeHubs: Record<string, any> = {};
+for (const [rawKey, hub] of Object.entries(makeHubsRaw)) {
+  const canonical = normalizeMake(rawKey);
+  if (!canonical || !CANONICAL_MAKES.has(canonical)) continue;
+  const existing = makeHubs[canonical];
+  // If two raw entries map to the same canonical make, keep the larger one
+  if (!existing || (hub.total_aircraft ?? 0) > (existing.total_aircraft ?? 0)) {
+    makeHubs[canonical] = { ...hub, make: displayMakeFromSlug(canonical) };
+  }
+}
 
 export const dynamic = 'force-static';
 export const dynamicParams = false;
@@ -85,7 +102,6 @@ export default async function MakeHubPage({ params }: Props) {
       </section>
 
       <section className="max-w-6xl mx-auto px-6 py-12 space-y-12">
-        {/* Stats bar */}
         <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
           <div className="border border-slate-200 rounded-xl p-5 text-center">
             <div className="text-2xl font-bold text-sky-600">{hub.total_aircraft.toLocaleString()}</div>
@@ -105,7 +121,6 @@ export default async function MakeHubPage({ params }: Props) {
           </div>
         </div>
 
-        {/* Model breakdown — no links, only counts */}
         <div>
           <h2 className="text-2xl font-bold text-slate-900 mb-6">{hub.make} Models</h2>
           <div className="border border-slate-200 rounded-2xl overflow-hidden">
@@ -133,7 +148,6 @@ export default async function MakeHubPage({ params }: Props) {
           </p>
         </div>
 
-        {/* Sample aircraft — only if samples exist */}
         {samples.length > 0 && (
           <div>
             <h2 className="text-2xl font-bold text-slate-900 mb-6">
@@ -156,7 +170,6 @@ export default async function MakeHubPage({ params }: Props) {
           </div>
         )}
 
-        {/* CTA */}
         <div className="bg-sky-600 text-white rounded-2xl p-8 text-center">
           <h2 className="text-2xl font-bold">Check any {hub.make} aircraft by N-number</h2>
           <p className="mt-2 text-sky-100">
@@ -172,7 +185,6 @@ export default async function MakeHubPage({ params }: Props) {
           </div>
         </div>
 
-        {/* Related */}
         <div>
           <h2 className="text-2xl font-bold text-slate-900 mb-6">Related guides</h2>
           <ul className="space-y-2 text-sm">
