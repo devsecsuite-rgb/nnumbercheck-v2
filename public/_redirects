@@ -1,0 +1,26 @@
+# 301: raw FAA make slug -> canonical (model hubs)
+/aircraft/make/textron-aviation-inc/model/* /aircraft/make/cessna/model/:splat 301
+/aircraft/make/cessna-aircraft-co/model/* /aircraft/make/cessna/model/:splat 301
+/aircraft/make/raytheon-aircraft-company/model/* /aircraft/make/beechcraft/model/:splat 301
+/aircraft/make/beech-aircraft-corp/model/* /aircraft/make/beechcraft/model/:splat 301
+/aircraft/make/hawker-beechcraft-corp/model/* /aircraft/make/beechcraft/model/:splat 301
+/aircraft/make/piper-aircraft-inc/model/* /aircraft/make/piper/model/:splat 301
+/aircraft/make/new-piper-aircraft-inc/model/* /aircraft/make/piper/model/:splat 301
+/aircraft/make/cirrus-design-corp/model/* /aircraft/make/cirrus/model/:splat 301
+/aircraft/make/embraer-executive-aircraft-inc/model/* /aircraft/make/embraer/model/:splat 301
+/aircraft/make/embraer-s-a/model/* /aircraft/make/embraer/model/:splat 301
+/aircraft/make/learjet-inc/model/* /aircraft/make/learjet/model/:splat 301
+/aircraft/make/north-american-aviation/model/* /aircraft/make/north-american/model/:splat 301
+/aircraft/make/air-tractor-inc/model/* /aircraft/make/air-tractor/model/:splat 301
+/aircraft/make/american-champion-aircraft/model/* /aircraft/make/american-champion/model/:splat 301
+/aircraft/make/aerostar-international-inc/model/* /aircraft/make/aerostar/model/:splat 301
+/aircraft/make/grumman-american-aviation/model/* /aircraft/make/grumman-american/model/:splat 301
+
+# 301: raw FAA make slug -> canonical (make hub roots)
+/aircraft/make/textron-aviation-inc /aircraft/make/cessna 301
+/aircraft/make/raytheon-aircraft-company /aircraft/make/beechcraft 301
+/aircraft/make/hawker-beechcraft-corp /aircraft/make/beechcraft 301
+/aircraft/make/piper-aircraft-inc /aircraft/make/piper 301
+/aircraft/make/cirrus-design-corp /aircraft/make/cirrus 301
+/aircraft/make/learjet-inc /aircraft/make/learjet 301
+/aircraft/make/aerostar-international-inc /aircraft/make/aerostar 301
