@@ -3,6 +3,12 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import fs from 'fs';
 import path from 'path';
+import {
+  normalizeMake,
+  CANONICAL_MAKES,
+  slugifyModel,
+  displayMakeFromSlug,
+} from '@/lib/make-normalize';
 
 let cachedData: Record<string, any> | null = null;
 
@@ -12,16 +18,6 @@ function loadData() {
   const raw = fs.readFileSync(dataFile, 'utf-8');
   cachedData = JSON.parse(raw);
   return cachedData!;
-}
-
-function slugify(s: string) {
-  return s
-    .toLowerCase()
-    .replace(/[/\\]/g, '-')
-    .replace(/[^a-z0-9\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '');
 }
 
 function unslugify(s: string) {
@@ -39,30 +35,34 @@ export async function generateStaticParams() {
   const data = loadData();
   const entries = Object.values(data) as any[];
 
-  const counts = new Map<string, { make: string; model: string; count: number }>();
+  const counts = new Map<
+    string,
+    { make: string; model: string; count: number }
+  >();
   for (const entry of entries) {
-    const make = entry.aircraft?.make;
-    const model = entry.aircraft?.model;
-    if (!make || !model) continue;
-    const key = `${make}|${model}`;
+    const rawMake = entry.aircraft?.make;
+    const rawModel = entry.aircraft?.model;
+    if (!rawMake || !rawModel) continue;
+    const make = normalizeMake(rawMake);
+    if (!make || !CANONICAL_MAKES.has(make)) continue;
+    const modelSlug = slugifyModel(rawModel);
+    if (!modelSlug) continue;
+    const key = `${make}|${modelSlug}`;
     const existing = counts.get(key);
     if (existing) existing.count += 1;
-    else counts.set(key, { make, model, count: 1 });
+    else counts.set(key, { make, model: modelSlug, count: 1 });
   }
 
   return [...counts.values()]
     .filter((p) => p.count >= 5)
     .sort((a, b) => b.count - a.count)
     .slice(0, 150)
-    .map(({ make, model }) => ({
-      make: slugify(make),
-      model: slugify(model),
-    }));
+    .map(({ make, model }) => ({ make, model }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { make, model } = await params;
-  const displayMake = unslugify(make);
+  const displayMake = displayMakeFromSlug(make);
   const displayModel = unslugify(model);
 
   const baseTitle = `${displayMake} ${displayModel} Aircraft`;
@@ -99,8 +99,8 @@ export default async function MakeModelPage({ params }: Props) {
 
   const matching = Object.entries(data)
     .filter(([_, entry]: [string, any]) => {
-      const acMake = slugify(entry.aircraft?.make || '');
-      const acModel = slugify(entry.aircraft?.model || '');
+      const acMake = normalizeMake(entry.aircraft?.make || '');
+      const acModel = slugifyModel(entry.aircraft?.model || '');
       return acMake === make && acModel === model;
     })
     .map(([n, entry]: [string, any]) => ({
@@ -113,7 +113,7 @@ export default async function MakeModelPage({ params }: Props) {
 
   if (matching.length === 0) notFound();
 
-  const displayMake = unslugify(make);
+  const displayMake = displayMakeFromSlug(make);
   const displayModel = unslugify(model);
   const total = matching.length;
   const withAccidents = matching.filter((a) => a.accidentCount > 0).length;
@@ -125,8 +125,8 @@ export default async function MakeModelPage({ params }: Props) {
   // Collect unique ADs across all aircraft of this make/model
   const adMap = new Map<string, any>();
   for (const [_, entry] of Object.entries(data)) {
-    if (slugify((entry as any).aircraft?.make || '') !== make) continue;
-    if (slugify((entry as any).aircraft?.model || '') !== model) continue;
+    if (normalizeMake((entry as any).aircraft?.make || '') !== make) continue;
+    if (slugifyModel((entry as any).aircraft?.model || '') !== model) continue;
     for (const ad of (entry as any).directives || []) {
       if (!adMap.has(ad.ad_number)) adMap.set(ad.ad_number, ad);
     }
@@ -266,7 +266,7 @@ export default async function MakeModelPage({ params }: Props) {
           </p>
         </div>
 
-        {/* Why buyers check — content block that always renders */}
+        {/* Why buyers check */}
         <div className="mt-8 border border-slate-200 rounded-2xl p-8">
           <h2 className="text-xl font-bold text-slate-900 mb-4">
             Why buyers check {displayMake} {displayModel} history
@@ -300,7 +300,7 @@ export default async function MakeModelPage({ params }: Props) {
           </p>
         </div>
 
-        {/* Common ADs section (only if ADs exist) */}
+        {/* Common ADs section */}
         {topADs.length > 0 && (
           <div className="mt-8 border border-slate-200 rounded-2xl p-8">
             <h2 className="text-xl font-bold text-slate-900 mb-4">
@@ -327,7 +327,7 @@ export default async function MakeModelPage({ params }: Props) {
           </div>
         )}
 
-        {/* Data sources block — always renders, ~80 words */}
+        {/* Data sources */}
         <div className="mt-8 border border-slate-200 rounded-2xl p-8 bg-slate-50">
           <h2 className="text-xl font-bold text-slate-900 mb-4">
             Data sources and refresh schedule
