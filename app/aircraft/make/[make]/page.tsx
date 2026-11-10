@@ -148,6 +148,19 @@ export default async function MakeHubPage({ params }: Props) {
           </p>
         </div>
 
+        {/* Internal Link to the Blog Comparison */}
+        {(make === 'cessna' || make === 'piper') && (
+          <div className="bg-sky-50 border border-sky-200 rounded-2xl p-6">
+            <h3 className="text-lg font-bold text-slate-900 mb-2">Thinking about buying a {hub.make}?</h3>
+            <p className="text-sm text-slate-600 mb-4">
+              Read our data-driven comparison guide to see how it stacks up against the competition.
+            </p>
+            <Link href="/blog/piper-pa-28-vs-cessna-172" className="inline-block bg-sky-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-sky-700 transition">
+              Read the Piper PA-28 vs Cessna 172 Comparison →
+            </Link>
+          </div>
+        )}
+
         {samples.length > 0 && (
           <div>
             <h2 className="text-2xl font-bold text-slate-900 mb-6">
