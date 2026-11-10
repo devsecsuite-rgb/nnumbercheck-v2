@@ -1,4 +1,5 @@
 ﻿import type { MetadataRoute } from 'next';
+import { getAllPosts } from '@/lib/blog';
 import aircraftList from '@/data/aircraft-pages.json';
 import aircraftData from '@/data/aircraft-data.json';
 import { normalizeMake, CANONICAL_MAKES, slugifyModel } from '@/lib/make-normalize';
@@ -69,7 +70,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/guides/cessna-172`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE_URL}/guides/piper-pa-28`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE_URL}/blog`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
-    { url: `${BASE_URL}/blog/how-to-check-aircraft-ad-history`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
   ];
 
   // ---------- Aircraft pages (quality-gated) ----------
@@ -144,5 +144,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     }));
 
-  return [...staticPages, ...aircraftPages, ...hubPages, ...makeHubs];
+  // ---------- Blog Posts ----------
+  const posts = getAllPosts();
+  const blogPages: MetadataRoute.Sitemap = posts.map((post) => ({
+    url: `${BASE_URL}/blog/${post.slug}`,
+    lastModified: new Date(post.date),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }));
+
+  return [...staticPages, ...aircraftPages, ...hubPages, ...makeHubs, ...blogPages];
 }
