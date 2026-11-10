@@ -1,15 +1,14 @@
 ﻿import os
 import json
+import time
 from google import genai
 from datetime import datetime
 
-# Read from environment variable
 api_key = os.environ.get("GEMINI_API_KEY")
 if not api_key:
     print("ERROR: GEMINI_API_KEY environment variable not set.")
     exit(1)
 
-# Initialize the NEW Google GenAI client
 client = genai.Client(api_key=api_key)
 
 def slugify(text):
@@ -17,45 +16,57 @@ def slugify(text):
 
 def get_aviation_data_context(keyword):
     try:
-        # FIXED: using utf-8-sig to ignore PowerShell BOM
         with open("data/aircraft-data.json", "r", encoding="utf-8-sig") as f:
             data = json.load(f)
     except FileNotFoundError:
         return "No database context available."
 
-    matches = []
-    for n_number, entry in data.items():
-        aircraft = entry.get("aircraft", {})
-        make = str(aircraft.get("make", "")).lower()
-        model = str(aircraft.get("model", "")).lower()
-        
-        if make in keyword.lower() and model in keyword.lower():
-            matches.append(entry)
-            
-        if len(matches) >= 100:
-            break
-            
-    if not matches:
-        return "No specific model stats found for this keyword."
+    targets = keyword.lower().split(" vs ")
+    contexts = []
 
-    total_aircraft = len(matches)
-    total_accidents = sum(len(entry.get("accidents", [])) for entry in matches)
-    
-    ads = set()
-    for entry in matches:
-        for ad in entry.get("directives", []):
-            ads.add(ad.get("ad_number"))
+    for target in targets:
+        matches = []
+        for n_number, entry in data.items():
+            aircraft = entry.get("aircraft", {})
+            make = str(aircraft.get("make", "")).lower()
+            model = str(aircraft.get("model", "")).lower()
             
-    context = f"""
-    DATABASE FACTS for {keyword}:
-    - Aircraft in our database matching this search: {total_aircraft}
-    - Total NTSB accident records for these aircraft: {total_accidents}
-    - Relevant Airworthiness Directives found: {', '.join(list(ads)[:5])}
-    """
-    return context
+            if make in target and model in target:
+                matches.append(entry)
+                
+            if len(matches) >= 50:
+                break
+                
+        if matches:
+            total_aircraft = len(matches)
+            total_accidents = sum(len(entry.get("accidents", [])) for entry in matches)
+            ads = set()
+            for entry in matches:
+                for ad in entry.get("directives", []):
+                    ads.add(ad.get("ad_number"))
+            
+            contexts.append(f"""
+            DATA FOR "{target}":
+            - Matching Aircraft in DB: {total_aircraft}
+            - Total NTSB Accidents: {total_accidents}
+            - Relevant Airworthiness Directives: {', '.join(list(ads)[:5])}
+            """)
+
+    if not contexts:
+        return "General aviation data. Use industry knowledge."
+        
+    return "\n".join(contexts)
 
 def generate_article(opportunity):
     keyword = opportunity["keyword"]
+    slug = slugify(keyword)
+    filepath = f"content/blog/{slug}.md"
+    
+    # Skip if already generated
+    if os.path.exists(filepath):
+        print(f"Skipping: {keyword} (already exists)")
+        return
+
     print(f"Generating: {keyword}")
     
     data_context = get_aviation_data_context(keyword)
@@ -70,31 +81,31 @@ def generate_article(opportunity):
     Guidelines:
     1. Format the output in Markdown. Use H2 (##) and H3 (###) tags.
     2. Write in a professional, helpful tone for aircraft buyers and pilots.
-    3. Include a section on why checking an aircraft's specific N-number history is critical.
-    4. Do NOT use generic filler. Use the data provided.
-    5. Include a Call to Action (CTA) at the end encouraging the reader to use the free N-number lookup on NNumberCheck.com.
+    3. If the query is a comparison (e.g., "X vs Y"), create a structured comparison. If it is a general guide, use the data to recommend specific models.
+    4. Include a section on why checking an aircraft's specific N-number history is critical.
+    5. Do NOT use generic filler. Use the data provided.
+    6. Include a Call to Action (CTA) at the end encouraging the reader to use the free N-number lookup on NNumberCheck.com.
     
     Format the very first line as the article title (e.g., # Title Here).
     """
     
-    # FIXED: New SDK syntax
-    response = client.models.generate_content(
-        model='gemini-3.5-flash',
-        contents=prompt,
-    )
-    
-    content = response.text
-    
-    title = keyword.title()
-    lines = content.split('\n')
-    if lines and lines[0].startswith('# '):
-        title = lines[0].replace('# ', '').strip()
-        content = '\n'.join(lines[1:])
+    try:
+        response = client.models.generate_content(
+            model='gemini-3.6-flash',
+            contents=prompt,
+        )
         
-    slug = slugify(keyword)
-    date = datetime.now().strftime("%Y-%m-%d")
-    
-    frontmatter = f"""---
+        content = response.text
+        title = keyword.title()
+        lines = content.split('\n')
+        
+        if lines and lines[0].startswith('# '):
+            title = lines[0].replace('# ', '').strip()
+            content = '\n'.join(lines[1:])
+            
+        date = datetime.now().strftime("%Y-%m-%d")
+        
+        frontmatter = f"""---
 title: "{title}"
 date: "{date}"
 keyword: "{keyword}"
@@ -102,24 +113,36 @@ description: "Learn about {keyword}. Real FAA data, accident history, and buyer'
 ---
 
 """
-    
-    filepath = f"content/blog/{slug}.md"
-    with open(filepath, "w", encoding="utf-8") as f:
-        f.write(frontmatter + content)
         
-    print(f"  [OK] Saved to {filepath}")
+        with open(filepath, "w", encoding="utf-8") as f:
+            f.write(frontmatter + content)
+            
+        print(f"  [OK] Saved to {filepath}")
+        
+        # Wait 5 seconds to avoid rate limits
+        time.sleep(5)
+        
+    except Exception as e:
+        print(f"  [ERROR] Failed to generate {keyword}: {e}")
+        print("  Waiting 10 seconds before trying the next one...")
+        time.sleep(10)
 
 def main():
     try:
-        # FIXED: using utf-8-sig to ignore PowerShell BOM
         with open("data/seo_opportunities.json", "r", encoding="utf-8-sig") as f:
             opportunities = json.load(f)
     except FileNotFoundError:
         print("Error: data/seo_opportunities.json not found.")
         return
 
-    # Process the top 1 opportunity for testing
-    for opp in opportunities[:1]:
+    seen = set()
+    unique_opps = []
+    for opp in opportunities:
+        if opp["keyword"] not in seen:
+            unique_opps.append(opp)
+            seen.add(opp["keyword"])
+            
+    for opp in unique_opps[:3]:
         generate_article(opp)
         
 if __name__ == "__main__":
