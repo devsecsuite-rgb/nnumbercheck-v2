@@ -20,7 +20,7 @@ SEED_KEYWORDS = [
 ]
 
 YOUR_DOMAIN = "nnumbercheck.com"
-MIN_SCORE_TO_LOG = 50
+MIN_SCORE_TO_LOG = 30
 MAX_POSITIONS_TO_CHECK = 10
 
 def fetch_serp(keyword):
