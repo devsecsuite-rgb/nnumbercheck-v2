@@ -1,4 +1,4 @@
-import type { MetadataRoute } from 'next';
+﻿import type { MetadataRoute } from 'next';
 import aircraftList from '@/data/aircraft-pages.json';
 import aircraftData from '@/data/aircraft-data.json';
 import { normalizeMake, CANONICAL_MAKES, slugifyModel } from '@/lib/make-normalize';
@@ -37,13 +37,13 @@ function isSeededFamily(make: string, model: string): boolean {
   );
 }
 
-// Load enrichment data — written by scripts/export_enrichment.py
+// Load enrichment data โ€” written by scripts/export_enrichment.py
 let enrichmentData: Record<string, { accidents?: number; sdrs?: number }> = {};
 try {
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   enrichmentData = require('@/data/aircraft-enrichment.json');
 } catch {
-  // No enrichment file — only seeded families will be included
+  // No enrichment file โ€” only seeded families will be included
 }
 
 // ============================================================

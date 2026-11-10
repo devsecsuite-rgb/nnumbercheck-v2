@@ -1,0 +1,47 @@
+name: Blood in the Water SEO Scanner
+
+on:
+  schedule:
+    # Run every day at 6:00 AM UTC
+    - cron: '0 6 * * *'
+  workflow_dispatch:  # Allow manual triggering from GitHub UI
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: |
+          pip install requests google-api-python-client google-auth gspread oauth2client
+
+      - name: Start OpenSERP (Docker)
+        run: |
+          docker run -d --name openserp -p 127.0.0.1:7000:7000 \
+            karust/openserp:latest serve -a 0.0.0.0 -p 7000
+          echo "Waiting for OpenSERP to be ready..."
+          sleep 15
+
+      - name: Verify OpenSERP is running
+        run: |
+          curl -s "http://127.0.0.1:7000/google/search?text=test" | head -c 200
+
+      - name: Run Blood in the Water script
+        env:
+          CRAWLY_API_KEY: ${{ secrets.CRAWLY_API_KEY }}
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+          SHEET_ID: ${{ secrets.SHEET_ID }}
+        run: python main.py
+
+      - name: Stop OpenSERP
+        if: always()
+        run: docker stop openserp || true
