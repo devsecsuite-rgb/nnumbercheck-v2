@@ -10,13 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write # Needed to commit the JSON output back to the repo
-    
-    # THIS IS THE FIX: It starts OpenSERP automatically on GitHub's servers
-    services:
-      openserp:
-        image: karust/openserp:latest
-        ports:
-          - 7000:7000
 
     steps:
       - uses: actions/checkout@v4
@@ -28,16 +21,39 @@ jobs:
           
       - name: Install dependencies
         run: pip install requests google-api-python-client google-auth-httplib2 google-auth-oauthlib
-        
-      - name: Wait for OpenSERP to start
-        run: sleep 10 # Give the Docker container 10 seconds to boot up
+
+      # 1. Pull the OpenSERP image
+      - name: Pull OpenSERP Docker image
+        run: docker pull karust/openserp:latest
+
+      # 2. Start OpenSERP with the correct 'serve' command
+      - name: Start OpenSERP container
+        run: |
+          docker run -d --name openserp -p 7000:7000 karust/openserp:latest serve -a 0.0.0.0 -p 7000
           
+      # 3. Wait for OpenSERP to be ready
+      - name: Wait for OpenSERP to be ready
+        run: |
+          echo "Waiting for OpenSERP to start..."
+          for i in $(seq 1 30); do
+            if curl -s http://localhost:7000/health > /dev/null; then
+              echo "OpenSERP is ready!"
+              break
+            fi
+            echo "Attempt $i: not ready yet, waiting 2 seconds..."
+            sleep 2
+          done
+          # Final check to fail the job if it never started
+          curl -s http://localhost:7000/health > /dev/null || { echo "OpenSERP failed to start"; docker logs openserp; exit 1; }
+          
+      # 4. Run your Python scan script
       - name: Run Scan
         env:
           GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
           CRAWLY_API_KEY: ${{ secrets.CRAWLY_API_KEY }}
         run: python scripts/blood_in_water.py
         
+      # 5. Commit the results back to the repository
       - name: Commit results
         run: |
           git config --global user.name 'GitHub Action'
