@@ -1,47 +1,47 @@
-name: Blood in the Water SEO Scanner
+name: Blood in the Water SEO Scan
 
 on:
   schedule:
-    # Run every day at 6:00 AM UTC
-    - cron: '0 6 * * *'
-  workflow_dispatch:  # Allow manual triggering from GitHub UI
+    - cron: '0 0 * * 1' # Runs every Monday at midnight
+  workflow_dispatch: # Allows you to run it manually
 
 jobs:
   scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    permissions:
+      contents: write # Needed to commit the JSON output back to the repo
+    
+    # THIS IS THE FIX: It starts OpenSERP automatically on GitHub's servers
+    services:
+      openserp:
+        image: karust/openserp:latest
+        ports:
+          - 7000:7000
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
+      - uses: actions/checkout@v4
+      
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
-
-      - name: Install Python dependencies
-        run: |
-          pip install requests google-api-python-client google-auth gspread oauth2client
-
-      - name: Start OpenSERP (Docker)
-        run: |
-          docker run -d --name openserp -p 127.0.0.1:7000:7000 \
-            karust/openserp:latest serve -a 0.0.0.0 -p 7000
-          echo "Waiting for OpenSERP to be ready..."
-          sleep 15
-
-      - name: Verify OpenSERP is running
-        run: |
-          curl -s "http://127.0.0.1:7000/google/search?text=test" | head -c 200
-
-      - name: Run Blood in the Water script
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        run: pip install requests google-api-python-client google-auth-httplib2 google-auth-oauthlib
+        
+      - name: Wait for OpenSERP to start
+        run: sleep 10 # Give the Docker container 10 seconds to boot up
+          
+      - name: Run Scan
         env:
-          CRAWLY_API_KEY: ${{ secrets.CRAWLY_API_KEY }}
           GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
-          SHEET_ID: ${{ secrets.SHEET_ID }}
-        run: python main.py
-
-      - name: Stop OpenSERP
-        if: always()
-        run: docker stop openserp || true
+          CRAWLY_API_KEY: ${{ secrets.CRAWLY_API_KEY }}
+        run: python scripts/blood_in_water.py
+        
+      - name: Commit results
+        run: |
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git add data/seo_opportunities.json
+          git commit -m "Automated: Update SEO opportunities" || exit 0
+          git push
